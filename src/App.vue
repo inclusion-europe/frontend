@@ -1,26 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="website">
+    <Header />
+    <Homepage />
+    <EUSupport />
+    <Footer />
+    <ScrollUp />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from "./components/Header";
+import Homepage from "./components/Homepage";
+import EUSupport from "./components/EUSupport";
+import Footer from "./components/Footer";
+import ScrollUp from "./elements/ScrollUp.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Header,
+    Homepage,
+    EUSupport,
+    Footer,
+    ScrollUp,
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style src="@/assets/style/index.scss" lang="scss"></style>

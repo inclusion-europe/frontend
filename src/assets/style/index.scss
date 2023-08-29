@@ -1,0 +1,82 @@
+@import './variables.scss';
+
+.section-title {
+    color: $black;
+    font-size: 38px;
+    font-style: normal;
+    font-family: GilroyBold;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: lowercase;
+    margin-bottom: 20px;
+
+    &--blue {
+        color: $ie-blue;
+    }
+
+    &--pink {
+        color: $ie-pink;
+    }
+}
+
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="tel"],
+input[type="text"] {
+    all: unset;
+    border-radius: 4px;
+    border: 1px solid;
+    padding: 8px 24px;
+    background: white;
+    border-color: $black;
+
+    &:focus {
+        border-color: $ie-blue;
+    }
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: $ie-blue;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 3px solid #00AAB5;
+    transform: translateY(-0.075em);
+
+    display: grid;
+    place-content: center;
+
+    cursor: pointer;
+    
+    & + label {
+        cursor: pointer;
+    }
+
+    &::before {
+        content: "";
+        width: 17px;
+        height: 17px;
+        box-shadow: inset 1em 1em white;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    
+    &:checked{
+        background: $ie-blue;
+        &::before {
+            clip-path: path("M16.6,14.4l-5.9-6l5.9-5.8c0.6-0.6,0.6-1.5,0-2.1c-0.6-0.6-1.5-0.6-2.1,0L8.6,6.3L2.8,0.4 c-0.6-0.6-1.5-0.6-2.1,0s-0.6,1.5,0,2.1l5.8,5.9l-6,5.9c-0.6,0.6-0.6,1.5,0,2.1c0.3,0.3,0.7,0.4,1.1,0.4s0.8-0.1,1.1-0.4l6-5.9 l5.9,6c0.3,0.3,0.7,0.4,1.1,0.4c0.4,0,0.8-0.1,1.1-0.4C17.2,16,17.2,15.1,16.6,14.4z");
+        }
+    }
+}
+
+a {
+    transition: .2s ease-out;
+
+    &:hover, &:focus {
+        color: $ie-pink !important;
+    }
+}

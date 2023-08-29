@@ -1,0 +1,124 @@
+<template>
+  <a
+    v-if="type === 'link'"
+    class="ie-button"
+    :class="{
+      'ie-button-boxed': boxed,
+      'ie-button-blue': blue,
+      'ie-button-pink': pink,
+      'ie-button-white': white,
+    }"
+  >
+    <slot />
+  </a>
+
+  <button
+    v-else
+    class="ie-button"
+    :class="{
+      'ie-button-boxed': boxed,
+      'ie-button-blue': blue,
+      'ie-button-pink': pink,
+      'ie-button-white': white,
+    }"
+    @click="$emit('click')"
+    :type="type"
+  >
+    <slot />
+  </button>
+</template>
+<script>
+export default {
+  name: "Button",
+  props: {
+    boxed: {
+      type: Boolean,
+      default: false,
+    },
+    blue: {
+      type: Boolean,
+      default: false,
+    },
+    pink: {
+      type: Boolean,
+      default: false,
+    },
+    white: {
+      type: Boolean,
+      default: false,
+    },
+    type: {
+      type: String,
+      default: null,
+    },
+  },
+};
+</script>
+<style lang="scss" scoped>
+@import "@/assets/style/variables.scss";
+.ie-button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-decoration: none;
+
+  color: $black;
+  font-size: 18px;
+  font-style: normal;
+  font-family: GilroyBold;
+  font-weight: 700;
+
+  &-blue {
+    color: $ie-blue;
+  }
+  &-pink {
+    color: $ie-pink;
+  }
+
+  &-boxed {
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 2px;
+    border-style: solid;
+    background: $black;
+    border-color: $black;
+    transition: 0.2s ease-out;
+
+    &:hover,
+    &:focus:not(:disabled) {
+      background: $black--transp;
+    }
+
+    &.ie-button-blue {
+      background: $ie-blue;
+      border-color: $ie-blue;
+
+      &:hover,
+      &:focus:not(:disabled) {
+        background: $ie-blue--transp;
+      }
+    }
+
+    &.ie-button-pink {
+      background: $ie-pink;
+      border-color: $ie-pink;
+
+      &:hover,
+      &:focus:not(:disabled) {
+        background: $ie-pink--transp;
+      }
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: $grey;
+    border-color: $grey;
+  }
+}
+</style>
