@@ -1,9 +1,9 @@
 <template>
   <footer class="footer">
-    <Socials />
+    <Socials v-if="!onAdminPage" />
     <div class="footer-content">
-      <Newsletter dark-bg />
-      <div class="footer-contact">
+      <Newsletter dark-bg v-if="!onAdminPage" />
+      <div class="footer-contact" v-if="!onAdminPage">
         <img src="@/assets/logo.svg" class="footer-contact-logo" />
         <h4>Inclusion Europe</h4>
         <h4>Avenue des Arts 3, 1210 Brussels, Belgium</h4>
@@ -18,8 +18,9 @@
         <a href="#">Privacy Policy</a>
         <a href="#">Contact</a>
         <a href="#">Sitemap</a>
+        <a v-if="adminUrl" :href="adminUrl">Admin</a>
       </div>
-      <h4 class="footer-copyright">
+      <h4 class="footer-copyright" v-if="!onAdminPage">
         © {{ currentYear }} Inclusion Europe, made with ❤️ by
         <a href="//kyng.be">Kyng Studios</a>
       </h4>
@@ -37,9 +38,30 @@ export default {
     Newsletter,
   },
   computed: {
+    redirect() {
+      return `${encodeURI(window.location.origin)}/admin`;
+    },
+    clientId() {
+      return process.env?.VUE_APP_IM_CLIENT_ID || false;
+    },
+    authServer() {
+      return process.env?.VUE_APP_IM_AUTH_SERVER || false;
+    },
+    adminUrl() {
+      if (!this.authServer || !this.clientId) return false;
+      return `${this.authServer}?client_id=${this.clientId}&redirect_uri=${this.redirect}&scope=openid&state=1234zyx`;
+    },
     currentYear() {
       return new Date().getFullYear();
     },
+    onAdminPage() {
+      return this.$route.name === "admin";
+    },
+  },
+  mounted() {
+    console.log({
+      env: process.env,
+    });
   },
 };
 </script>

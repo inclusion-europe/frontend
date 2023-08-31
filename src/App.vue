@@ -1,8 +1,8 @@
 <template>
   <div class="website">
     <Header />
-    <Homepage />
-    <EUSupport />
+    <router-view />
+    <EUSupport v-if="!onAdminPage" />
     <Footer />
     <ScrollUp />
   </div>
@@ -10,7 +10,6 @@
 
 <script>
 import Header from "./components/Header";
-import Homepage from "./components/Homepage";
 import EUSupport from "./components/EUSupport";
 import Footer from "./components/Footer";
 import ScrollUp from "./elements/ScrollUp.vue";
@@ -19,10 +18,14 @@ export default {
   name: "App",
   components: {
     Header,
-    Homepage,
     EUSupport,
     Footer,
     ScrollUp,
+  },
+  computed: {
+    onAdminPage() {
+      return this.$route.name === "admin";
+    },
   },
 };
 </script>
