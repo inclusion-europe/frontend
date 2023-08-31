@@ -49,7 +49,7 @@ export default {
     },
     adminUrl() {
       if (!this.authServer || !this.clientId) return false;
-      return `${this.authServer}?client_id=${this.clientId}&redirect_uri=${this.redirect}&scope=openid&state=1234zyx`;
+      return `${this.authServer}?response_type=code&client_id=${this.clientId}&redirect_uri=${this.redirect}&scope=openid&state=1234zyx`;
     },
     currentYear() {
       return new Date().getFullYear();
