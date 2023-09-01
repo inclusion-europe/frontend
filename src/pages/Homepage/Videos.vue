@@ -47,7 +47,7 @@ export default {
     display: grid;
     grid-template: auto / 1fr 1fr;
     gap: 40px 135px;
-    align-items: end;
+    align-items: start;
   }
 }
 </style>

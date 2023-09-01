@@ -43,9 +43,9 @@ export default {
   margin: auto;
   padding: 55px 0;
   margin-bottom: 95px;
+  align-items: start;
 
   &-static {
-    padding: 10px 0;
     display: flex;
     flex-direction: column;
     gap: 100px;

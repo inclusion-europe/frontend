@@ -1,19 +1,23 @@
 <template>
   <footer class="footer">
-    <Socials v-if="!onAdminPage" />
     <div class="footer-content">
-      <Newsletter dark-bg v-if="!onAdminPage" />
+      <Newsletter dark-bg in-footer v-if="!onAdminPage" />
       <div class="footer-contact" v-if="!onAdminPage">
-        <img src="@/assets/logo.svg" class="footer-contact-logo" />
         <h4>Inclusion Europe</h4>
         <h4>Avenue des Arts 3, 1210 Brussels, Belgium</h4>
         <h4>+32 25 02 28 15</h4>
         <h4>
-          <a href="mailto:secretariat@inclusion-europe.org">
-            secretariat@inclusion-europe.org
+          <a href="mailto:secretariat@inclusion.eu">
+            secretariat@inclusion.eu
           </a>
         </h4>
+        <img
+          src="@/assets/european-union.png"
+          class="footer-contact-eu-logo"
+          alt="Co-funded by the European Union"
+        />
       </div>
+      <Socials v-if="!onAdminPage" />
       <div class="footer-navigation">
         <a href="#">Privacy Policy</a>
         <a href="#">Contact</a>
@@ -70,7 +74,7 @@ export default {
 
 .footer {
   width: 100%;
-  background: $black;
+  background: $dark-grey;
   padding: 40px 0;
 
   &-content {
@@ -78,14 +82,15 @@ export default {
     margin: auto;
     margin-top: 40px;
     display: grid;
-    grid-template: auto / 1fr 1fr;
+    grid-template: auto / repeat(3, auto);
+    align-items: start;
     gap: 80px 135px;
   }
 
   h4 {
     color: white;
     font-family: GilroyRegular;
-    font-size: 18px;
+    font-size: 15px;
     font-style: normal;
     font-weight: 400;
   }
@@ -93,7 +98,7 @@ export default {
   a {
     color: white;
     font-family: GilroyRegular;
-    font-size: 18px;
+    font-size: 15px;
     font-style: normal;
     font-weight: 400;
   }
@@ -104,17 +109,18 @@ export default {
   }
 
   &-copyright {
+    grid-column: 2 / -1;
     text-align: right;
   }
 
   &-contact {
     display: flex;
-    align-items: flex-end;
     flex-direction: column;
+    line-height: 23px;
 
-    &-logo {
-      width: 180px;
-      margin-bottom: 20px;
+    &-eu-logo {
+      width: 250px;
+      margin-top: 20px;
     }
   }
 }

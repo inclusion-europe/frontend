@@ -27,8 +27,11 @@ export default {
   height: 65px;
   width: 100vw;
   padding: 0;
-  align-items: center;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
   max-width: $max-width;
   margin: auto;
   margin-bottom: 55px;

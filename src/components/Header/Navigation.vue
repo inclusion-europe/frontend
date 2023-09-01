@@ -1,10 +1,10 @@
 <template>
   <nav class="navbar">
-    <a class="navbar-element">home</a>
-    <a class="navbar-element">discover</a>
-    <a class="navbar-element">self-advocacy</a>
-    <a class="navbar-element">about us</a>
-    <a class="navbar-element">engage!</a>
+    <a class="navbar-element">Home</a>
+    <a class="navbar-element">Discover</a>
+    <a class="navbar-element">Self-advocacy</a>
+    <a class="navbar-element">About Us</a>
+    <a class="navbar-element">Engage!</a>
   </nav>
 </template>
 <script>

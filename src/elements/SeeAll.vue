@@ -54,7 +54,6 @@ export default {
     font-size: 12px;
     font-weight: 600;
     line-height: 12px;
-    text-transform: lowercase;
   }
 
   svg {

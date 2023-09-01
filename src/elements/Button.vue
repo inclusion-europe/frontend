@@ -7,6 +7,7 @@
       'ie-button-blue': blue,
       'ie-button-pink': pink,
       'ie-button-white': white,
+      'ie-button-small': small,
     }"
   >
     <slot />
@@ -20,6 +21,7 @@
       'ie-button-blue': blue,
       'ie-button-pink': pink,
       'ie-button-white': white,
+      'ie-button-small': small,
     }"
     @click="$emit('click')"
     :type="type"
@@ -44,6 +46,10 @@ export default {
       default: false,
     },
     white: {
+      type: Boolean,
+      default: false,
+    },
+    small: {
       type: Boolean,
       default: false,
     },
@@ -79,6 +85,10 @@ export default {
     color: $ie-pink;
   }
 
+  &-small {
+    font-size: 12px;
+  }
+
   &-boxed {
     color: #fff;
     padding: 6px 8px;
@@ -92,6 +102,10 @@ export default {
     &:hover,
     &:focus:not(:disabled) {
       background: $black--transp;
+    }
+
+    &.ie-button-blue {
+      padding: 5px 7px;
     }
 
     &.ie-button-blue {
