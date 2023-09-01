@@ -1,8 +1,6 @@
 <template>
   <div class="newsletter" :class="{ 'newsletter-white': darkBg }">
-    <h3 class="newsletter-title">
-      Want to know about our next meetup? Subscribe to our newsletter!
-    </h3>
+    <h3 class="newsletter-title">Subscribe to our newsletter!</h3>
     <form class="newsletter-form">
       <div class="newsletter-form-input_row">
         <input type="email" placeholder="email" name="email" />

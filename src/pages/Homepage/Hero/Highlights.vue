@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     testArticles() {
-      return utils.articlesArray(2);
+      return utils.articlesArray(3);
     },
   },
 };
@@ -27,7 +27,7 @@ export default {
 .hero-highlights {
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 50px;
   justify-content: center;
   align-items: flex-start;
   height: 100%;
