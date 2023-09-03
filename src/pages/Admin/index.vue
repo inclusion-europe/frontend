@@ -29,7 +29,7 @@
 export default {
   name: "Admin",
   mounted() {
-    const code = this.$route.query.code;
+    // const code = this.$route.query.code;
     // this.$axios
     //   .post(
     //     "/login",
