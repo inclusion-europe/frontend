@@ -22,11 +22,13 @@ input[type="email"],
 input[type="number"],
 input[type="password"],
 input[type="tel"],
-input[type="text"] {
+input[type="text"],
+textarea,
+select {
     all: unset;
     border-radius: 4px;
     border: 1px solid;
-    padding: 8px 24px;
+    padding: 8px 15px;
     background: white;
     border-color: $black;
 
@@ -104,5 +106,15 @@ a {
 
     &:hover, &:focus {
         color: $ie-pink !important;
+    }
+}
+
+.v-md-editor {
+    box-shadow: none !important;
+    border: 1px solid $black;
+    overflow: hidden;
+
+    &:focus-within {
+        border-color: $ie-blue;
     }
 }

@@ -23,7 +23,6 @@
       'ie-button-white': white,
       'ie-button-small': small,
     }"
-    @click="$emit('click')"
     :type="type"
   >
     <slot />
@@ -55,7 +54,7 @@ export default {
     },
     type: {
       type: String,
-      default: null,
+      default: "button",
     },
   },
 };

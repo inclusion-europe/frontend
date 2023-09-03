@@ -9,10 +9,12 @@
     "start": "vue-cli-service serve"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^2.3.17",
     "axios": "^1.4.0",
     "cookiejs": "^2.1.2",
     "core-js": "^3.6.5",
     "node-sass": "^8.0.0",
+    "prismjs": "^1.29.0",
     "sass-loader": "^10.4.1",
     "vue": "^3.0.0",
     "vue-router": "^4.2.4"
