@@ -29,24 +29,24 @@
 export default {
   name: "Admin",
   mounted() {
-    // const code = this.$route.query.code;
-    // this.$axios
-    //   .post(
-    //     "/login",
-    //     {},
-    //     {
-    //       params: {
-    //         callback: `${encodeURI(window.location.origin)}/admin`,
-    //         code,
-    //       },
-    //     }
-    //   )
-    //   .then((res, err) => {
-    //     console.log({
-    //       err,
-    //       res,
-    //     });
-    //   });
+    const code = this.$route.query.code;
+    this.$axios
+      .post(
+        "/login",
+        {},
+        {
+          params: {
+            callback: `${encodeURI(window.location.origin)}/admin`,
+            code,
+          },
+        }
+      )
+      .then((res, err) => {
+        console.log({
+          err,
+          res,
+        });
+      });
   },
 };
 </script>
