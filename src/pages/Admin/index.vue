@@ -74,7 +74,7 @@ export default {
       !code ||
       !im_auth_state ||
       !im_auth_state_cookie ||
-      !im_auth_state !== im_auth_state_cookie
+      im_auth_state !== im_auth_state_cookie
     ) {
       console.error("Invalid authentication");
       this.$router.push("/");
