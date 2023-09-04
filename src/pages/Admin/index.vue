@@ -65,7 +65,7 @@ export default {
     has_other_content: false,
   }),
   mounted() {
-    if (this.$cookies.get("im_token")) return;
+    if (this.$cookies.get("im_auth_token")) return;
 
     const code = this.$route.query.code;
     const im_auth_state = this.$route.query.state;
@@ -99,8 +99,11 @@ export default {
           return;
         }
 
-        console.log({ res });
-        // this.$cookies.set('im_auth_token', )
+        let exp = new Date(new Date() + 2 * 60 * 60 * 1000);
+
+        this.$cookies.set("im_auth_token", res.data.access_token, exp);
+
+        this.$router.push("/admin");
       })
       .catch((err) => {
         console.error({ err });
