@@ -1,7 +1,9 @@
 <template>
   <header class="header">
     <div class="header-content">
-      <img src="@/assets/logo.svg" class="header-logo" />
+      <router-link to="/">
+        <img src="@/assets/logo.svg" class="header-logo" />
+      </router-link>
       <E2RButton />
     </div>
     <Navigation />
