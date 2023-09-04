@@ -52,6 +52,7 @@ export default {
       return process.env?.VUE_APP_IM_AUTH_SERVER || false;
     },
     hasAdmin() {
+      if (this.$cookies.get("im_auth_token")) return true;
       if (!this.authServer || !this.clientId) return false;
       return true;
     },
@@ -64,14 +65,18 @@ export default {
   },
   methods: {
     goToAdmin() {
-      const scopes = ["openid", "profile", "email"];
+      if (this.$cookies.get("im_auth_token")) {
+        this.$router.push("/admin");
+      } else {
+        const scopes = ["openid", "profile", "email"];
 
-      const scope = scopes.join(" ");
+        const scope = scopes.join(" ");
 
-      let state = Math.round(Math.random() * 10e20).toString(16);
-      let loginUrl = `${this.authServer}?response_type=code&client_id=${this.clientId}&redirect_uri=${this.redirect}&scope=${scope}&state=${state}`;
-      this.$cookies.set("im_auth_state", state);
-      window.location.href = loginUrl;
+        let state = Math.round(Math.random() * 10e20).toString(16);
+        let loginUrl = `${this.authServer}?response_type=code&client_id=${this.clientId}&redirect_uri=${this.redirect}&scope=${scope}&state=${state}`;
+        this.$cookies.set("im_auth_state", state);
+        window.location.href = loginUrl;
+      }
     },
   },
 };
