@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <a class="navbar-element">Home</a>
+    <a class="navbar-element" tag="router-link" to="/">Home</a>
     <a class="navbar-element">Discover</a>
     <a class="navbar-element">Self-advocacy</a>
     <a class="navbar-element">About Us</a>
