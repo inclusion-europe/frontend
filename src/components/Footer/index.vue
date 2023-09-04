@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     goToAdmin() {
-      const scopes = ["openid", "profile", "email"];
+      const scopes = ["openid", "profile", "email", "user_info"];
 
       const scope = scopes.join(" ");
 
