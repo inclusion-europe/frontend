@@ -102,8 +102,9 @@ export default {
         let expires = new Date(new Date() + 2 * 60 * 60 * 1000);
 
         this.$cookies.set("im_auth_token", res.data.access_token, { expires });
+        console.log(this.$cookies.get("im_auth_token"));
 
-        this.$router.push("/admin");
+        // this.$router.push("/admin");
       })
       .catch((err) => {
         console.error({ err });
