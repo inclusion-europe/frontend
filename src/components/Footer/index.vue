@@ -22,7 +22,7 @@
         <a href="#">Privacy Policy</a>
         <a href="#">Contact</a>
         <a href="#">Sitemap</a>
-        <a v-if="adminUrl" :href="adminUrl">Admin</a>
+        <a v-if="hasAdmin" @click="goToAdmin" href="#">Admin</a>
       </div>
       <h4 class="footer-copyright" v-if="!onAdminPage">
         © {{ currentYear }} Inclusion Europe, made with ❤️ by
@@ -51,9 +51,9 @@ export default {
     authServer() {
       return process.env?.VUE_APP_IM_AUTH_SERVER || false;
     },
-    adminUrl() {
+    hasAdmin() {
       if (!this.authServer || !this.clientId) return false;
-      return `${this.authServer}?response_type=code&client_id=${this.clientId}&redirect_uri=${this.redirect}&scope=openid&state=1234zyx`;
+      return true;
     },
     currentYear() {
       return new Date().getFullYear();
@@ -62,10 +62,17 @@ export default {
       return this.$route.name === "admin";
     },
   },
-  mounted() {
-    console.log({
-      env: process.env,
-    });
+  methods: {
+    goToAdmin() {
+      const scopes = ["openid", "profile", "email"];
+
+      const scope = scopes.join(" ");
+
+      let state = Math.round(Math.random() * 10e20).toString(16);
+      let loginUrl = `${this.authServer}?response_type=code&client_id=${this.clientId}&redirect_uri=${this.redirect}&scope=${scope}&state=${state}`;
+      this.$cookies.set("im_auth_state", state);
+      window.location.href = loginUrl;
+    },
   },
 };
 </script>

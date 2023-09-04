@@ -65,7 +65,22 @@ export default {
     has_other_content: false,
   }),
   mounted() {
+    if (this.$cookies.get("im_token")) return;
+
     const code = this.$route.query.code;
+    const im_auth_state = this.$route.query.state;
+    const im_auth_state_cookie = this.$cookies.get("im_auth_state");
+    if (
+      !code ||
+      !im_auth_state ||
+      !im_auth_state_cookie ||
+      !im_auth_state !== im_auth_state_cookie
+    ) {
+      console.error("Invalid authentication");
+      this.$router.push("/");
+      return;
+    }
+
     this.$axios
       .post(
         "/login",
@@ -77,11 +92,18 @@ export default {
           },
         }
       )
-      .then((res, err) => {
-        console.log({
-          err,
-          res,
-        });
+      .then((res) => {
+        if (!res.data || !res.data.access_token) {
+          console.error("Invalid token response");
+          this.$router.push("/");
+          return;
+        }
+
+        console.log({ res });
+        // this.$cookies.set('im_auth_token', )
+      })
+      .catch((err) => {
+        console.error({ err });
       });
   },
   methods: {
