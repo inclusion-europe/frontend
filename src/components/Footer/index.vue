@@ -65,7 +65,10 @@ export default {
   },
   methods: {
     goToAdmin() {
-      if (this.$cookies.get("im_auth_token")) {
+      if (
+        this.$cookies.get("im_auth_token") ||
+        (process.env.VUE_APP_NOAUTH && process.env.VUE_APP_NOAUTH === "true")
+      ) {
         this.$router.push("/admin");
       } else {
         const scopes = ["openid", "profile", "email"];

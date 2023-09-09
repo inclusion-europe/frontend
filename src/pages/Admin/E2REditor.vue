@@ -5,15 +5,21 @@
         type="file"
         accept="image/png, image/jpeg"
         :name="`entry_${i}_pic`"
+        @change="(event) => addPic(event, i)"
       />
-      <input type="text" :name="`entry_${i}_text`" v-model="entries[i].text" />
+      <input
+        type="text"
+        :name="`entry_${i}_text`"
+        v-model="entries[i].text"
+        @change="update"
+      />
       <div>
         <Button v-if="entries.length > 1" @click="removeEntry(i)">
           Remove
         </Button>
       </div>
     </template>
-    <Button class="e2r-add-row" @click="addEntry">Add entry</Button>
+    <Button boxed class="e2r-add-row" @click="addEntry">Add entry</Button>
   </div>
 </template>
 <script>
@@ -24,13 +30,22 @@ export default {
     Button,
   },
   data: () => ({
-    entries: [
-      {
-        pic: null,
-        text: null,
-      },
-    ],
+    entries: [],
   }),
+  props: {
+    content: {
+      type: Array,
+      required: true,
+    },
+  },
+  mounted() {
+    this.entries = this.content;
+  },
+  watch: {
+    entries(val) {
+      this.$emit("update", val);
+    },
+  },
   methods: {
     addEntry() {
       this.entries.push({
@@ -40,6 +55,13 @@ export default {
     },
     removeEntry(index) {
       this.entries.splice(index, 1);
+    },
+    update() {
+      this.$emit("update", this.entries);
+    },
+    addPic(event, i) {
+      this.entries[i].pic = event.target.files;
+      this.update();
     },
   },
 };
