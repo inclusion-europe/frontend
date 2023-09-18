@@ -5,16 +5,43 @@
       <label for="title">Title</label>
       <input type="text" name="title" v-model="title" />
 
+      <label>URL</label>
+      <span class="url_preview">{{ rootUrl }}{{ generatedUrl }}</span>
+
       <label for="excerpt">Excerpt</label>
       <textarea name="excerpt" rows="3" v-model="excerpt" />
 
       <label for="picture">Preview picture</label>
-      <input
-        type="file"
-        accept="image/png, image/jpeg"
-        name="picture"
-        @change="updatePicture"
-      />
+      <!-- <div
+        class="picture_upload"
+        :class="{ 'picture_upload--active': isDragging }"
+        @dragover="dragover"
+        @dragleave="dragleave"
+        @drop="drop"
+      >
+        <input
+          type="file"
+          multiple
+          name="file"
+          id="fileInput"
+          class="hidden-input"
+          @change="updatePicture"
+          ref="picture"
+          accept=".pdf,.jpg,.jpeg,.png"
+        />
+
+        <label for="fileInput" class="file-label">
+          <img v-if="picture" :src="picture" class="picture_preview" />
+          <img
+            v-else
+            src="@/assets/picture_placeholder.svg"
+            class="picture_preview"
+          />
+          <div v-if="isDragging">Release to drop files here.</div>
+          <div v-else>Drop files here or <u>click here</u> to upload.</div>
+        </label>
+      </div> -->
+      <FileUpload :picture="picture" @upload-picture="updatePicture" />
 
       <label for="default-content-type">Default view</label>
       <select name="default-content-type" v-model="content_type">
@@ -59,12 +86,15 @@
 <script>
 import E2REditor from "./E2REditor.vue";
 import Button from "@/elements/Button.vue";
+import FileUpload from "@/elements/FileUpload.vue";
+import utils from "@/scripts/utils";
 
 export default {
   name: "Admin",
   components: {
     E2REditor,
     Button,
+    FileUpload,
   },
   data: () => ({
     content: "",
@@ -76,7 +106,16 @@ export default {
 
     has_other_content: false,
     pageReady: false,
+    isDragging: false,
   }),
+  computed: {
+    rootUrl() {
+      return window.location.origin;
+    },
+    generatedUrl() {
+      return "/" + encodeURIComponent(this.title);
+    },
+  },
   watch: {
     content_type(val) {
       if (val === "e2r") {
@@ -168,12 +207,9 @@ export default {
         ];
       }
     },
-    updatePicture(event) {
-      let formData = new FormData();
-      formData.append("attachment", event.target.files[0]);
-
-      this.$axios.post("upload", formData).then((res) => {
-        console.log({ res });
+    updatePicture(file) {
+      utils.uploadFile(file).then((res) => {
+        this.picture = res.file.filepath;
       });
     },
     updateE2R(entries) {
@@ -184,22 +220,29 @@ export default {
 
       let e2r = this.e2rContent;
 
-      if (Array.isArray(e2r)) {
-        e2r.forEach((item, i) => {
-          if (item.pic && !!item.pic.length) {
-            e2r[i].pic = item.pic[0];
-          }
-        });
-      }
+      console.log({ e2r });
+
+      // if (Array.isArray(e2r)) {
+      //   e2r.forEach((item, i) => {
+      //     if (item.pic && !!item.pic.length) {
+      //       e2r[i].pic = item.pic[0];
+      //     }
+      //   });
+      // }
 
       let body = {
         content: this.content,
-        content_type: this.content_type,
+        default_type: this.content_type,
         title: this.title,
         excerpt: this.excerpt,
-        picture: this.picture && !!this.picture.length ? this.picture[0] : null,
-        e2rContent: e2r,
+        picture: this.picture,
+        content_e2r: e2r,
+        url: this.generatedUrl,
       };
+
+      this.$axios.post("/article", body).then((res) => {
+        console.log({ res });
+      });
 
       console.log({ body });
     },
@@ -213,6 +256,11 @@ export default {
   margin: auto;
   padding-bottom: 30px;
 }
+
+.url_preview {
+  padding: 8px 15px;
+}
+
 .new_article-form {
   display: grid;
   grid-template-columns: max-content auto;
@@ -222,7 +270,7 @@ export default {
     margin-top: 9px;
     text-align: right;
 
-    &::after {
+    &:not(.file-label)::after {
       content: ":";
     }
   }

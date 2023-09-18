@@ -42,6 +42,10 @@ select {
     }
 }
 
+input.hidden-input {
+    display: none;
+}
+
 input[type="checkbox"] {
     appearance: none;
     background-color: #fff;
