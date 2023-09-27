@@ -65,7 +65,7 @@ export default {
   },
   data: () => ({
     entries: [],
-    currently_editing: 0,
+    currently_editing: -1,
   }),
   props: {
     content: {

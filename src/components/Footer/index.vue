@@ -71,7 +71,7 @@ export default {
       ) {
         this.$router.push("/admin");
       } else {
-        const scopes = ["openid", "profile", "email", "user_info"];
+        const scopes = ["openid", "profile", "email"];
 
         const scope = scopes.join(" ");
 
