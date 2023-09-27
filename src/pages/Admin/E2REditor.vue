@@ -13,14 +13,19 @@
           :name="`entry_${i}_pic`"
           @change="(event) => addPic(event, i)"
         /> -->
-        <!-- <v-md-editor v-model="entries[i].text" height="300px"></v-md-editor> -->
-        <textarea
+        <v-md-editor
+          :value="entries[i].text"
+          height="300px"
+          :key="`entry_${i}_editor`"
+          @change="(val) => updateText(val, i)"
+        ></v-md-editor>
+        <!-- <textarea
           :id="`e2r_entry_${i}_text`"
           :name="`entry_${i}_text`"
           v-model="entries[i].text"
           @change="update"
           rows="6"
-        />
+        /> -->
       </template>
       <template v-else>
         <img :src="entry.pic" v-if="entry.pic" class="preview-pic" />
@@ -89,6 +94,10 @@ export default {
     },
     update() {
       this.$emit("update", this.entries);
+    },
+    updateText(val, i) {
+      this.entries[i].text = val;
+      this.update();
     },
     addPic(file, i) {
       utils.uploadFile(file).then((res) => {

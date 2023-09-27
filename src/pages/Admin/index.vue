@@ -220,16 +220,6 @@ export default {
 
       let e2r = this.e2rContent;
 
-      console.log({ e2r });
-
-      // if (Array.isArray(e2r)) {
-      //   e2r.forEach((item, i) => {
-      //     if (item.pic && !!item.pic.length) {
-      //       e2r[i].pic = item.pic[0];
-      //     }
-      //   });
-      // }
-
       let body = {
         content: this.content,
         default_type: this.content_type,
@@ -240,11 +230,14 @@ export default {
         url: this.generatedUrl,
       };
 
-      this.$axios.post("/article", body).then((res) => {
-        console.log({ res });
-      });
-
-      console.log({ body });
+      this.$axios
+        .post("/article", body)
+        .then((res) => {
+          console.log({ res });
+        })
+        .catch((err) => {
+          console.error({ err });
+        });
     },
   },
 };
