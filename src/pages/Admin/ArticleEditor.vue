@@ -1,10 +1,21 @@
 <template>
   <div class="new-article" v-if="pageReady">
+    <Button @click="goBack">Go Back</Button>
     <h1 class="section-title">
-      <Button @click="goBack">Go Back</Button>
       {{ isEditing > -1 ? "Editing article" : "New article" }}
     </h1>
     <form class="new_article-form" @submit="submitForm">
+      <label for="article_type">Article type</label>
+      <select name="article_type" v-model="article_type">
+        <option :value="null" />
+        <option value="news">News</option>
+        <option value="blogpost">Blogpost</option>
+        <option value="e2r_article">E2R Article</option>
+        <option value="event">Event</option>
+        <option value="report">Report</option>
+        <option value="podcast">Podcast</option>
+        <option value="static_page">Static page</option>
+      </select>
       <label for="title">Title</label>
       <input type="text" name="title" v-model="title" />
 
@@ -12,7 +23,7 @@
       <span class="url_preview">{{ rootUrl }}{{ generatedUrl }}</span> -->
 
       <label for="author">Author</label>
-      <select name="author" v-model="author">
+      <select name="author" v-model="author" class="short">
         <option :value="null">Leave blank</option>
         <option
           v-for="user in users"
@@ -23,39 +34,34 @@
         </option>
       </select>
 
+      <label for="published">Published</label>
+      <input type="checkbox" v-model="published" class="short" />
+
+      <label>Tags</label>
+      <div class="tags">
+        <vue3-tags-input
+          v-model="tag"
+          :tags="tags"
+          placeholder=""
+          @on-tags-changed="handleChangeTag"
+          :add-tag-on-keys="[13, 188]"
+        />
+        <div class="tags-autocomplete" v-if="showAutocomplete">
+          <Button
+            v-for="(t, i) in filteredAutoTags"
+            :key="`autotag_${i}`"
+            class="autotag"
+            @click="selectAutoTag(t)"
+          >
+            {{ t }}
+          </Button>
+        </div>
+      </div>
+
       <label for="excerpt">Excerpt</label>
       <textarea name="excerpt" rows="3" v-model="excerpt" />
 
       <label for="picture">Preview picture</label>
-      <!-- <div
-        class="picture_upload"
-        :class="{ 'picture_upload--active': isDragging }"
-        @dragover="dragover"
-        @dragleave="dragleave"
-        @drop="drop"
-      >
-        <input
-          type="file"
-          multiple
-          name="file"
-          id="fileInput"
-          class="hidden-input"
-          @change="updatePicture"
-          ref="picture"
-          accept=".pdf,.jpg,.jpeg,.png"
-        />
-
-        <label for="fileInput" class="file-label">
-          <img v-if="picture" :src="picture" class="picture_preview" />
-          <img
-            v-else
-            src="@/assets/picture_placeholder.svg"
-            class="picture_preview"
-          />
-          <div v-if="isDragging">Release to drop files here.</div>
-          <div v-else>Drop files here or <u>click here</u> to upload.</div>
-        </label>
-      </div> -->
       <FileUpload :picture="picture" @upload-picture="updatePicture" />
 
       <label for="picture_alt">Picture alt text</label>
@@ -69,12 +75,22 @@
 
       <template v-if="content_type === 'plain'">
         <label for="content">Content</label>
-        <v-md-editor v-model="content" height="400px"></v-md-editor>
+        <v-md-editor
+          v-model="content"
+          height="400px"
+          left-toolbar="undo redo | bold italic | h ul ol table link | image"
+          :disabled-menus="[]"
+          @upload-image="uploadPicToText"
+        ></v-md-editor>
       </template>
 
       <template v-if="content_type === 'e2r'">
         <label for="title">E2R Content</label>
-        <E2REditor @update="updateE2R($event)" :content="e2rContent" />
+        <E2REditor
+          @update="updateE2R($event)"
+          :content="e2rContent"
+          :edit-on-init="startEditingE2R"
+        />
       </template>
 
       <template v-if="has_other_content">
@@ -85,7 +101,11 @@
 
         <template v-if="content_type === 'plain'">
           <label for="title">E2R Content</label>
-          <E2REditor @update="updateE2R($event)" :content="e2rContent" />
+          <E2REditor
+            @update="updateE2R($event)"
+            :content="e2rContent"
+            :edit-on-init="startEditingE2R"
+          />
         </template>
       </template>
 
@@ -107,42 +127,66 @@ import Button from "@/elements/Button.vue";
 import FileUpload from "@/elements/FileUpload.vue";
 import utils from "@/scripts/utils";
 
+import Vue3TagsInput from "vue3-tags-input";
+
 export default {
   name: "ArticleEditor",
   components: {
     E2REditor,
     Button,
     FileUpload,
+    Vue3TagsInput,
   },
   data: () => ({
+    article_type: null,
     content: "",
     content_type: "plain",
     title: "",
     author: null,
+    tags: [],
     excerpt: "",
     picture: null,
     picture_alt: "",
     e2rContent: [],
 
     users: [],
+    autoTags: [],
     has_other_content: false,
     pageReady: false,
     isDragging: false,
+    tag: "",
+    published: false,
 
     isEditing: -1,
+    startEditingE2R: false,
   }),
   computed: {
     rootUrl() {
       return window.location.origin;
     },
     generatedUrl() {
-      return "/" + encodeURIComponent(this.title);
+      return "/" + encodeURIComponent(this.title.toLowerCase());
+    },
+    filteredAutoTags() {
+      return this.autoTags.filter((i) => {
+        return (
+          i.toLowerCase().indexOf(this.tag) !== -1 && !this.tags.includes(i)
+        );
+      });
+    },
+    showAutocomplete() {
+      return this.tag.length && this.filteredAutoTags.length;
     },
   },
   watch: {
     content_type(val) {
       if (val === "e2r") {
         this.initE2R();
+      }
+    },
+    article_type(val) {
+      if (val === "e2r_article") {
+        this.content_type = "e2r";
       }
     },
     has_other_content(val) {
@@ -167,12 +211,12 @@ export default {
   },
   mounted() {
     this.loadUsers();
-    console.log({ route: this.$route });
+    this.loadTags();
     if (this.$route.query.article_id) {
       this.$axios
         .get(`/article/${this.$route.query.article_id}`)
         .then((res) => {
-          if (res.data.result.length) {
+          if (res.data.length) {
             let {
               idx,
               title,
@@ -183,23 +227,38 @@ export default {
               excerpt,
               default_type,
               url,
-            } = res.data.result[0];
+              tags,
+              article_type,
+              published,
+            } = res.data[0];
 
-            let parsedPicture = JSON.parse(picture);
-            let parsedE2R = JSON.parse(content_e2r);
+            let parsedPicture = picture
+              ? JSON.parse(picture)
+              : { picture: null, alt: null };
+
+            let parsedE2R = JSON.parse(content_e2r) || [];
+            console.log(content_e2r, parsedE2R);
+            if (tags) {
+              tags = tags.split(",").filter((i) => !utils.isEmptyStr(i));
+            } else {
+              tags = [];
+            }
 
             this.isEditing = idx;
             this.title = title;
             this.author = author;
-            this.picture = parsedPicture.picture;
-            this.picture_alt = parsedPicture.alt;
-            this.e2rContent = parsedE2R;
-            this.content = content;
+            this.picture = parsedPicture?.picture;
+            this.picture_alt = parsedPicture?.alt;
+            this.e2rContent = parsedE2R || [];
+            this.content = content || "";
             this.excerpt = excerpt;
             this.content_type = default_type;
             this.url = url;
+            this.tags = tags;
+            this.article_type = article_type;
+            this.published = !!published;
             this.has_other_content =
-              default_type === "plain" ? !!parsedE2R.length : !!content;
+              default_type === "plain" ? !!parsedE2R?.length : !!content;
           }
         });
     }
@@ -214,7 +273,20 @@ export default {
     },
     loadUsers() {
       this.$axios.get("users").then((res) => {
-        this.users = res.data.result;
+        this.users = res.data;
+      });
+    },
+    loadTags() {
+      this.$axios.get("tags").then((res) => {
+        this.autoTags = utils.uniquesInArray(
+          res.data
+            .map((i) => {
+              console.log(i.tags);
+              return i.tags;
+            })
+            .join(",")
+            .split(",")
+        );
       });
     },
     initE2R() {
@@ -225,9 +297,24 @@ export default {
             text: null,
           },
         ];
+        this.startEditingE2R = true;
       }
     },
+    uploadPicToText(event, insertImage, file) {
+      console.log({
+        event,
+        insertImage,
+        file,
+      });
+      utils.uploadFile(file[0]).then((res) => {
+        insertImage({
+          url: res.file.filepath,
+          desc: "alt-text",
+        });
+      });
+    },
     updatePicture(file) {
+      console.log({ file });
       utils.uploadFile(file).then((res) => {
         this.picture = res.file.filepath;
       });
@@ -235,26 +322,37 @@ export default {
     updateE2R(entries) {
       this.e2rContent = entries;
     },
+    handleChangeTag(tags) {
+      this.tags = tags;
+    },
+    selectAutoTag(tag) {
+      this.tags.push(tag);
+      this.tag = "";
+    },
     submitForm(event) {
       event.preventDefault();
 
-      let e2r = this.e2rContent?.length ? this.e2rContent : null;
+      let content_e2r = this.e2rContent?.length ? this.e2rContent : null;
+      let tags = this.tags?.length ? this.tags.join(",") : null;
 
       let body = {
-        content: this.content,
         default_type: this.content_type,
         title: this.title,
-        author: this.author,
-        excerpt: this.excerpt,
-        picture: this.picture,
-        picture_alt: this.picture_alt,
-        content_e2r: e2r,
         url: this.generatedUrl,
+        author: this.author,
+        article_type: this.article_type,
+        tags,
+        content_e2r,
+        content: this.content,
+        excerpt: this.excerpt,
+        picture_alt: this.picture_alt,
+        picture: this.picture,
+        published: this.published,
       };
 
-      if (this.isEditing > -1) {
-        body.modified_at = new Date().toISOString();
+      console.log({ body });
 
+      if (this.isEditing > -1) {
         this.$axios
           .patch(`/article/${this.isEditing}`, body)
           .then(() => {
@@ -278,6 +376,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "@/assets/style/variables.scss";
+
 .url_preview {
   padding: 8px 15px;
 }
@@ -292,8 +392,15 @@ export default {
 
 .new_article-form {
   display: grid;
-  grid-template-columns: max-content auto;
+  grid-template-columns: max-content auto max-content auto;
   gap: 10px;
+
+  & > *:nth-child(2n) {
+    align-self: center;
+    &:not(.short) {
+      grid-column: 2 / -1;
+    }
+  }
 
   label {
     margin-top: 9px;
@@ -314,6 +421,37 @@ export default {
   .submit_button {
     justify-self: center;
     margin-top: 1rem;
+  }
+
+  .tags {
+    position: relative;
+
+    &-autocomplete {
+      position: absolute;
+      top: calc(100% + 2px);
+      border-radius: 4px;
+      border: 1px solid #000;
+      background: white;
+      width: calc(100% - 8px);
+      margin: 0 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+
+      .autotag {
+        font-weight: 400;
+        font-family: "Gilroy";
+        font-size: 16px;
+        padding: 5px;
+        width: 100%;
+        text-align: left;
+
+        &:hover {
+          background-color: $ie-blue--whiteout;
+        }
+      }
+    }
   }
 }
 </style>

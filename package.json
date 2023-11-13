@@ -9,6 +9,7 @@
     "start": "vue-cli-service serve"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.18",
     "@kangc/v-md-editor": "^2.3.17",
     "axios": "^1.4.0",
     "cookiejs": "^2.1.2",
@@ -17,7 +18,8 @@
     "prismjs": "^1.29.0",
     "sass-loader": "^10.4.1",
     "vue": "^3.0.0",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "vue3-tags-input": "^1.0.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.17",

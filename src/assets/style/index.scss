@@ -42,6 +42,36 @@ select {
     }
 }
 
+.v3ti {
+    border-radius: 4px !important;
+    border: 1px solid !important;
+    padding: 4px 15px !important;
+    background: white !important;
+    border-color: $black !important;
+    line-height: normal !important;
+
+    &--focus {
+        border: 1px solid !important;
+        border-color: $ie-blue !important;
+        box-shadow: none !important;
+    }
+
+    &-content {
+        gap: 5px;
+    }
+
+    &-new-tag {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: 'Gilroy';
+        font-size: 16px;
+    }
+
+    &-tag {
+        margin: 0 !important;
+    }
+}
+
 input.hidden-input {
     display: none;
 }

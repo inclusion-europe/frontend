@@ -1,8 +1,14 @@
-* {
+html, body, #app {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+#app {
     font-family: GilroyRegular, sans-serif;
     font-weight: 400;
     color: #1E1E1E;
+}
+
+* {
+    box-sizing: border-box;
 }

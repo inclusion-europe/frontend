@@ -72,13 +72,24 @@ export default {
       type: Array,
       required: true,
     },
+    editOnInit: {
+      type: Boolean,
+      default: false,
+    },
   },
   mounted() {
     this.entries = this.content;
+
+    if (this.editOnInit) {
+      this.currently_editing = 0;
+    }
   },
   watch: {
     entries(val) {
       this.$emit("update", val);
+    },
+    editOnInit(val) {
+      if (val) this.currently_editing = 0;
     },
   },
   methods: {
