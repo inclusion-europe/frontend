@@ -4,21 +4,18 @@
       <router-link to="/">
         <img src="@/assets/logo.svg" class="header-logo" />
       </router-link>
-      <E2RButton />
+      <Navigation />
     </div>
-    <Navigation />
   </header>
 </template>
 
 <script>
 import Navigation from "./Navigation.vue";
-import E2RButton from "@/elements/E2RButton.vue";
 
 export default {
   name: "Header",
   components: {
     Navigation,
-    E2RButton,
   },
 };
 </script>
@@ -40,7 +37,8 @@ export default {
 
   &-content {
     width: 100%;
-    padding: 8px 0;
+    padding: 0;
+    padding-top: 16px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -48,7 +46,9 @@ export default {
   }
 
   &-logo {
-    height: 39px;
+    height: 55px;
+    position: relative;
+    top: 5px;
   }
 }
 </style>

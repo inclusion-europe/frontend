@@ -1,18 +1,32 @@
 <template>
   <nav class="navbar">
     <router-link class="navbar-element" to="/">Home</router-link>
-    <a class="navbar-element">Discover</a>
-    <a class="navbar-element">Self-advocacy</a>
-    <a class="navbar-element">About Us</a>
-    <a class="navbar-element">Engage!</a>
+    <nav-dropdown
+      v-for="item in menu"
+      :key="`menu_item_${item.id}`"
+      :pages="item.pages"
+    >
+      {{ item.name }}
+    </nav-dropdown>
   </nav>
 </template>
 <script>
+import NavDropdown from "./NavDropdown.vue";
+
 export default {
   name: "Navigation",
+  components: { NavDropdown },
+  data: () => ({
+    menu: [],
+  }),
+  mounted() {
+    this.$axios.get("menu/full").then((res) => {
+      this.menu = res.data;
+    });
+  },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/style/variables.scss";
 
 .navbar {
@@ -27,6 +41,11 @@ export default {
     font-weight: 600;
     line-height: normal;
     cursor: pointer;
+    position: relative;
+    overflow: visible;
+    padding-bottom: 6px;
+    white-space: nowrap;
+    text-decoration: none;
 
     &:hover,
     &:focus {

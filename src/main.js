@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import App from '@/App.vue'
+import router from '@/router'
+import store from '@/store'
 import axios from '@/scripts/axios'
 import cookie from 'cookiejs';
 
@@ -16,8 +17,9 @@ VueMarkdownEditor.use(vuepressTheme, {
 });
 VueMarkdownEditor.lang.use('en-US', enUS);
 
-const app = createApp(App)
+const app = createApp(App).use(store)
 
 app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$cookies = cookie;
+app.config.globalProperties.$store = store
 app.use(router).use(VueMarkdownEditor).mount('#app')

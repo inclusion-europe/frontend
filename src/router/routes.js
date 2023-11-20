@@ -1,7 +1,9 @@
 import Admin from '@/pages/Admin'
 import ArticleEditor from '@/pages/Admin/ArticleEditor'
 import Articles from '@/pages/Admin/Articles.vue'
+import Article from '@/pages/Article.vue'
 import Homepage from '@/pages/Homepage'
+import store from '@/store'
 
 export default [
   {
@@ -27,4 +29,16 @@ export default [
       },
     ]
   },
+  {
+    path: '/:article',
+    name: 'article',
+    beforeEnter: (to, from, next) => {
+      if (!store.state.articles.length) {
+        store.dispatch('loadArticles').then(next)
+      } else {
+        next()
+      }
+    },
+    component: Article,
+  }
 ]

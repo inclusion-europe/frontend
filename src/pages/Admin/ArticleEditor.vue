@@ -16,6 +16,29 @@
         <option value="podcast">Podcast</option>
         <option value="static_page">Static page</option>
       </select>
+
+      <template v-if="article_type === 'static_page'">
+        <label for="menu_parent">Parent menu item</label>
+        <select name="menu_parent" v-model="menu_parent" class="short">
+          <option :value="null"></option>
+          <option
+            v-for="item in menu_items"
+            :key="`menu_item_${item.id}`"
+            :value="item.id"
+          >
+            {{ item.name }}
+          </option>
+        </select>
+
+        <label for="menu_position">Position in dropdown</label>
+        <input
+          type="number"
+          :disabled="!menu_parent"
+          class="short"
+          v-model="menu_position"
+        />
+      </template>
+
       <label for="title">Title</label>
       <input type="text" name="title" v-model="title" />
 
@@ -141,6 +164,8 @@ export default {
     article_type: null,
     content: "",
     content_type: "plain",
+    menu_parent: null,
+    menu_position: null,
     title: "",
     author: null,
     tags: [],
@@ -151,6 +176,7 @@ export default {
 
     users: [],
     autoTags: [],
+    menu_items: [],
     has_other_content: false,
     pageReady: false,
     isDragging: false,
@@ -212,6 +238,7 @@ export default {
   mounted() {
     this.loadUsers();
     this.loadTags();
+    this.loadMenuItems();
     if (this.$route.query.article_id) {
       this.$axios
         .get(`/article/${this.$route.query.article_id}`)
@@ -220,6 +247,8 @@ export default {
             let {
               idx,
               title,
+              menu_parent,
+              menu_position,
               author,
               picture,
               content_e2r,
@@ -244,6 +273,8 @@ export default {
               tags = [];
             }
 
+            this.menu_parent = menu_parent;
+            this.menu_position = menu_position;
             this.isEditing = idx;
             this.title = title;
             this.author = author;
@@ -274,6 +305,11 @@ export default {
     loadUsers() {
       this.$axios.get("users").then((res) => {
         this.users = res.data;
+      });
+    },
+    loadMenuItems() {
+      this.$axios.get("menu/items").then((res) => {
+        this.menu_items = res.data;
       });
     },
     loadTags() {
@@ -334,6 +370,7 @@ export default {
 
       let content_e2r = this.e2rContent?.length ? this.e2rContent : null;
       let tags = this.tags?.length ? this.tags.join(",") : null;
+      let menu_parent = this.menu_parent ? +this.menu_parent : null;
 
       let body = {
         default_type: this.content_type,
@@ -343,14 +380,13 @@ export default {
         article_type: this.article_type,
         tags,
         content_e2r,
+        menu_parent,
         content: this.content,
         excerpt: this.excerpt,
         picture_alt: this.picture_alt,
         picture: this.picture,
         published: this.published,
       };
-
-      console.log({ body });
 
       if (this.isEditing > -1) {
         this.$axios
