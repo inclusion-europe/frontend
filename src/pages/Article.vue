@@ -1,11 +1,29 @@
 <template>
   <div class="article_page">
     <div v-if="loading">⏳</div>
-    <h1 v-else>{{ article.title }}</h1>
+    <article v-else>
+      <header :class="{ 'header--column': !article.excerpt }">
+        <div class="header_texts">
+          <h1>
+            {{ article.title }}
+          </h1>
+          <h2 v-if="article.excerpt">{{ article.excerpt }}</h2>
+        </div>
+        <img
+          v-if="article.picture?.picture"
+          :src="article.picture.picture"
+          :alt="article.picture.picture || `Picture for ${article.title}`"
+        />
+      </header>
+      <section>
+        <vue-markdown :source="article.content" />
+      </section>
+    </article>
   </div>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import VueMarkdown from "vue-markdown-render";
 
 export default {
   name: "Article",
@@ -15,6 +33,9 @@ export default {
     },
     loading: true,
   }),
+  components: {
+    VueMarkdown,
+  },
   computed: {
     ...mapGetters(["getArticles"]),
   },
@@ -30,6 +51,7 @@ export default {
       );
     });
     if (article) {
+      article.picture = JSON.parse(article.picture);
       this.article = article;
       this.loading = false;
     } else {
@@ -49,5 +71,85 @@ export default {
   max-width: $max-width;
   margin: auto;
   padding-bottom: 30px;
+
+  article {
+    header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 28px;
+      margin-bottom: 38px;
+
+      .header_texts {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 31px;
+        justify-content: space-between;
+
+        h1 {
+          color: #1e1e1e;
+          font-size: 40px;
+          font-family: GilroyBold;
+          margin: 0;
+        }
+
+        h2 {
+          color: #1e1e1e;
+          font-size: 20px;
+          font-family: GilroyRegular;
+          margin: 0;
+        }
+      }
+
+      img {
+        width: 42%;
+        border-radius: 9px;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+
+      &.header--column {
+        flex-direction: column;
+
+        img {
+          width: 100%;
+          border-radius: 9px;
+          aspect-ratio: 16 / 4;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}
+</style>
+<style lang="scss">
+.article_page {
+  article {
+    section {
+      h3 {
+        color: #1e1e1e;
+        font-size: 20px;
+        font-family: GilroyRegular;
+        margin: 0;
+        margin-bottom: 12px;
+      }
+
+      h4 {
+        color: #ed0f69;
+        font-family: GilroySemiBold;
+        font-size: 32px;
+        margin: 0;
+        margin-bottom: 12px;
+      }
+
+      p,
+      li {
+        color: #1e1e1e;
+        font-family: GilroyRegular;
+        font-size: 20px;
+      }
+    }
+  }
 }
 </style>
