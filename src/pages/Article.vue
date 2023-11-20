@@ -129,8 +129,8 @@ export default {
     section {
       h3 {
         color: #1e1e1e;
-        font-size: 20px;
-        font-family: GilroyRegular;
+        font-size: 32px;
+        font-family: GilroyBold;
         margin: 0;
         margin-bottom: 12px;
       }
