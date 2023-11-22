@@ -191,7 +191,16 @@ export default {
       return window.location.origin;
     },
     generatedUrl() {
-      return "/" + encodeURIComponent(this.title.toLowerCase());
+      return (
+        "/" +
+        encodeURIComponent(
+          this.title
+            .trim()
+            .replace(/\s+/g, "-")
+            .replaceAll(",", "")
+            .toLowerCase()
+        )
+      );
     },
     filteredAutoTags() {
       return this.autoTags.filter((i) => {

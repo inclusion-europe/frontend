@@ -126,6 +126,7 @@ export default {
     loadArticles() {
       let route = "articles";
       if (this.isInArchive) route += "/archive";
+      else route += "/all";
       this.$axios.get(route).then((res) => {
         let articles = res.data;
         articles.forEach((a) => {
