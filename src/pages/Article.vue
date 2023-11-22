@@ -42,6 +42,7 @@ export default {
   mounted() {
     while (!this.getArticles.length) {
       this.loading = true;
+      console.log("wait");
     }
     let articles = this.getArticles;
     let article = articles.find((art) => {
@@ -51,7 +52,6 @@ export default {
       );
     });
     if (article) {
-      article.picture = JSON.parse(article.picture);
       this.article = article;
       this.loading = false;
     } else {

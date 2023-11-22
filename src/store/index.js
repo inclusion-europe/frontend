@@ -18,7 +18,12 @@ export default createStore({
   actions: {
     loadArticles(context) {
       return axios.get('/articles').then(res => {
-        context.commit('SET_ARTICLES', res.data)
+        let articles = res.data.map(article => {
+          let temp = article
+          temp.picture = JSON.parse(article.picture)
+          return temp
+        })
+        context.commit('SET_ARTICLES', articles)
         return true
       })
     },
