@@ -339,7 +339,7 @@ export default {
         this.e2rContent = [
           {
             pic: null,
-            text: null,
+            text: "",
           },
         ];
         this.startEditingE2R = true;

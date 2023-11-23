@@ -7,17 +7,16 @@
           @upload-picture="(f) => addPic(f, i)"
           :input-name="`entry_${i}_pic`"
         />
-        <!-- <input
-          type="file"
-          accept="image/png, image/jpeg"
-          :name="`entry_${i}_pic`"
-          @change="(event) => addPic(event, i)"
-        /> -->
-        <v-md-editor
+        <!-- <v-md-editor
           :value="entries[i].text"
           height="300px"
           :key="`entry_${i}_editor`"
           @change="(val) => updateText(val, i)"
+        ></v-md-editor> -->
+        <v-md-editor
+          v-model="entries[i].text"
+          height="300px"
+          :key="`entry_${i}_editor`"
         ></v-md-editor>
         <!-- <textarea
           :id="`e2r_entry_${i}_text`"
@@ -86,6 +85,8 @@ export default {
   },
   watch: {
     entries(val) {
+      console.log(1);
+      console.log({ val });
       this.$emit("update", val);
     },
     editOnInit(val) {
@@ -96,7 +97,7 @@ export default {
     addEntry() {
       this.entries.push({
         pic: null,
-        text: null,
+        text: "",
       });
       this.currently_editing = this.entries.length - 1;
     },
@@ -107,6 +108,8 @@ export default {
       this.$emit("update", this.entries);
     },
     updateText(val, i) {
+      console.log(2);
+      console.log({ val, i });
       this.entries[i].text = val;
       this.update();
     },
