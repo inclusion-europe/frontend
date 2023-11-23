@@ -15,8 +15,14 @@
           :alt="article.picture.picture || `Picture for ${article.title}`"
         />
       </header>
-      <section>
+      <section class="article-content">
         <vue-markdown :source="article.content" />
+      </section>
+      <section class="article-tags" v-if="article.tags">
+        <h3>
+          Tags:
+          <a v-for="tag in article.tags" :key="`tag_${tag}`">{{ tag }}</a>
+        </h3>
       </section>
     </article>
   </div>
@@ -42,7 +48,6 @@ export default {
   mounted() {
     while (!this.getArticles.length) {
       this.loading = true;
-      console.log("wait");
     }
     let articles = this.getArticles;
     let article = articles.find((art) => {
@@ -52,6 +57,7 @@ export default {
       );
     });
     if (article) {
+      article.content = unescape(article.content);
       this.article = article;
       this.loading = false;
     } else {
@@ -126,7 +132,7 @@ export default {
 <style lang="scss">
 .article_page {
   article {
-    section {
+    .article-content {
       h3 {
         color: #1e1e1e;
         font-size: 32px;
@@ -149,6 +155,9 @@ export default {
         font-family: GilroyRegular;
         font-size: 20px;
       }
+    }
+
+    .article-tags {
     }
   }
 }

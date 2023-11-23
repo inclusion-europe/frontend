@@ -290,7 +290,7 @@ export default {
             this.picture = parsedPicture?.picture;
             this.picture_alt = parsedPicture?.alt;
             this.e2rContent = parsedE2R || [];
-            this.content = content || "";
+            this.content = unescape(content) || "";
             this.excerpt = excerpt;
             this.content_type = default_type;
             this.url = url;
