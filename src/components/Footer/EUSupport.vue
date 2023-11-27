@@ -31,7 +31,7 @@ export default {
   &-text {
     text-align: center;
     font-family: GilroySemiBold;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
   }
 }

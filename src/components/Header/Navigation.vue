@@ -36,7 +36,7 @@ export default {
   &-element {
     font-family: GilroySemiBold;
     color: $black;
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;

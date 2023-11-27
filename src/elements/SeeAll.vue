@@ -51,7 +51,7 @@ export default {
   span {
     color: $ie-pink;
     font-family: GilroySemiBold;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 12px;
   }
@@ -92,7 +92,7 @@ export default {
     }
 
     span {
-      font-size: 18px;
+      font-size: 20px;
     }
 
     svg {

@@ -31,7 +31,8 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 20px;
-  max-width: $max-width;
+  width: $max-width;
+  max-width: 80vw;
   margin: auto;
   margin-bottom: 55px;
 

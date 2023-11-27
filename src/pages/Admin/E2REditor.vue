@@ -30,7 +30,7 @@
         <img :src="entry.pic" v-if="entry.pic" class="preview-pic" />
         <div v-else />
         <div>
-          <span v-html="entry.text" />
+          <vue-markdown :source="entry.text" />
         </div>
       </template>
       <div>
@@ -55,12 +55,14 @@
 import Button from "@/elements/Button.vue";
 import FileUpload from "@/elements/FileUpload.vue";
 import utils from "@/scripts/utils";
+import VueMarkdown from "vue-markdown-render";
 
 export default {
   name: "E2REditor",
   components: {
     Button,
     FileUpload,
+    VueMarkdown,
   },
   data: () => ({
     entries: [],
@@ -129,11 +131,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "@/assets/style/variables.scss";
 .e2r-entry {
   display: grid;
   grid-template-columns: 175px 1fr max-content;
   align-items: stretch;
   gap: 10px;
+  width: $max-width;
+  max-width: 80vw;
 
   .preview-pic {
     height: 150px;

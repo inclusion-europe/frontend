@@ -72,7 +72,7 @@ export default {
   text-decoration: none;
 
   color: $black;
-  font-size: 18px;
+  font-size: 20px;
   font-style: normal;
   font-family: GilroyBold;
   font-weight: 700;
@@ -85,7 +85,7 @@ export default {
   }
 
   &-small {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   &-boxed {
@@ -124,6 +124,16 @@ export default {
       &:hover,
       &:focus:not(:disabled) {
         background: $ie-pink--transp;
+      }
+    }
+
+    &.ie-button-white {
+      color: $black;
+      background: white;
+
+      &:hover,
+      &:focus:not(:disabled) {
+        background: white;
       }
     }
   }

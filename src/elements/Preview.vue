@@ -1,8 +1,14 @@
 <template>
-  <a
-    :class="`preview ${big ? ' preview--big' : ''}${
-      !noPicture ? ' preview--has_picture' : ''
-    }${blue ? ' preview--blue' : pink ? ' preview--pink' : ''}`"
+  <router-link
+    class="preview"
+    :class="{
+      'preview--full': full,
+      'preview--big': big,
+      'preview--blue': blue,
+      'preview--pink': pink,
+      'preview--has_picture': !noPicture,
+    }"
+    :to="`/article${article.url}`"
   >
     <h3 class="preview-title" v-if="big">
       {{ article.title }}
@@ -29,7 +35,7 @@
         video ? "Watch now" : "Read more"
       }}</SeeAll>
     </div>
-  </a>
+  </router-link>
 </template>
 <script>
 import SeeAll from "./SeeAll.vue";
@@ -64,6 +70,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    full: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
@@ -76,22 +86,38 @@ export default {
   flex-direction: row;
   gap: 22px;
   align-items: center;
+  text-decoration: none !important;
+  color: unset;
+
+  * {
+    text-decoration: none !important;
+  }
 
   &-content {
     display: flex;
     flex-direction: column;
     gap: 3px;
+
+    * {
+      margin: 0;
+    }
+
+    &:hover {
+      .preview-excerpt {
+        color: $black !important;
+      }
+    }
   }
 
   &-title {
     font-family: GilroySemiBold;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
   }
 
   &-excerpt {
     font-family: GilroyRegular;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
   }
 
@@ -189,7 +215,11 @@ export default {
       font-style: normal;
       font-weight: 600;
       line-height: normal;
+      margin: 0;
     }
+  }
+
+  &--full {
   }
 }
 </style>

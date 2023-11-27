@@ -217,7 +217,7 @@ export default {
 
     .header {
       font-family: GilroyBold;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -237,7 +237,7 @@ export default {
     .article {
       &-title,
       &-author {
-        font-size: 18px;
+        font-size: 20px;
       }
 
       &-published {

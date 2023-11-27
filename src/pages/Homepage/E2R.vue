@@ -37,7 +37,8 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
 .easy_to_read-section {
-  max-width: $max-width;
+  width: $max-width;
+  max-width: 80vw;
   margin: auto;
   margin-bottom: 130px;
 
@@ -75,7 +76,7 @@ export default {
     span {
       color: $ie-blue;
       font-family: GilroySemiBold;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
       line-height: 12px;
     }

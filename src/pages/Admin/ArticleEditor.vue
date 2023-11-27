@@ -428,6 +428,8 @@ export default {
 }
 
 .new-article {
+  width: $max-width;
+  max-width: 80vw;
   .section-title {
     display: flex;
     align-items: center;
@@ -439,6 +441,8 @@ export default {
   display: grid;
   grid-template-columns: max-content auto max-content auto;
   gap: 10px;
+  width: $max-width;
+  max-width: 80vw;
 
   & > *:nth-child(2n) {
     align-self: center;
@@ -487,7 +491,7 @@ export default {
       .autotag {
         font-weight: 400;
         font-family: "Gilroy";
-        font-size: 16px;
+        font-size: 18px;
         padding: 5px;
         width: 100%;
         text-align: left;

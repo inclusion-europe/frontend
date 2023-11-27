@@ -39,7 +39,8 @@ export default {
   display: grid;
   grid-template: auto / 1fr 1fr;
   gap: 150px 135px;
-  max-width: $max-width;
+  width: $max-width;
+  max-width: 80vw;
   margin: auto;
   padding: 55px 0;
   margin-bottom: 95px;
@@ -59,7 +60,7 @@ export default {
 
       &-subtitle {
         font-family: GilroySemiBold;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
       }
     }

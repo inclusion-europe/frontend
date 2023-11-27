@@ -83,10 +83,11 @@ export default {
 
       h4 {
         font-family: GilroyRegular;
-        font-size: 18px;
+        font-size: 20px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+        margin: 0;
 
         b {
           font-family: GilroySemiBold;
@@ -98,7 +99,7 @@ export default {
 
   &--small {
     .newsletter-title {
-      font-size: 22px;
+      font-size: 24px;
     }
     h4 {
       font-size: 15px;

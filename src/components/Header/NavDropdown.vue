@@ -6,7 +6,7 @@
         v-for="page in pages"
         :key="page.idx"
         class="navbar-element"
-        :to="page.url"
+        :to="`/article${page.url}`"
       >
         {{ page.title }}
       </router-link>
@@ -37,6 +37,7 @@ export default {
     color: $ie-blue !important;
 
     .navbar-element-dropdown {
+      z-index: 99999;
       position: absolute;
       left: 0;
       top: 100%;

@@ -32,7 +32,7 @@ export default {
 
   &-label {
     font-family: GilroySemiBold;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     transition: all 0.2s ease-out;
   }

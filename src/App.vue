@@ -30,6 +30,7 @@ export default {
     },
   },
   mounted() {
+    document.title = process.env.VUE_APP_DEFAULT_TITLE;
     this.loadArticles().then(() => (this.loading = false));
   },
   methods: {

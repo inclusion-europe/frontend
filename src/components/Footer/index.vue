@@ -92,8 +92,13 @@ export default {
   background: $dark-grey;
   padding: 40px 0;
 
+  h4 {
+    margin: 0 !important;
+  }
+
   &-content {
-    max-width: $max-width;
+    width: $max-width;
+    max-width: 80vw;
     margin: auto;
     margin-top: 40px;
     display: grid;
