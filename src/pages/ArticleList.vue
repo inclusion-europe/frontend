@@ -26,29 +26,63 @@ export default {
       switch (this.$route.name) {
         case "tag":
           return 'Articles tagged "' + this.$route.params.tag + '"';
+        case "type":
+          return this.typeTitle;
+        default:
+          return "Articles";
+      }
+    },
+    typeTitle() {
+      switch (this.$route.params.type) {
+        case "news":
+          return "News";
+        case "blogpost":
+          return "Blogposts";
+        case "e2r":
+          return "Easy-to-Read articles";
+        case "event":
+          return "Events";
+        case "report":
+          return "Reports";
+        case "podcast":
+          return "Podcasts";
         default:
           return "Articles";
       }
     },
   },
   mounted() {
-    let title_prefix = "";
     switch (this.$route.name) {
       case "tag":
         this.loadArticlesByTag();
-        this.title_prefix = this.pageTitle + " | ";
+        break;
+      case "type":
+        this.loadArticlesByType();
+        break;
     }
-    document.title = title_prefix + process.env.VUE_APP_DEFAULT_TITLE;
+    document.title = this.pageTitle + " | " + process.env.VUE_APP_DEFAULT_TITLE;
   },
   methods: {
+    treatData(articles) {
+      return articles.map((article) => {
+        let toReturn = article;
+        toReturn.picture = JSON.parse(article.picture);
+        return toReturn;
+      });
+    },
     loadArticlesByTag() {
       let { tag } = this.$route.params;
+
       this.$axios.get("/articles/tag/" + tag).then((res) => {
-        this.articles = res.data.map((article) => {
-          let toReturn = article;
-          toReturn.picture = JSON.parse(article.picture);
-          return toReturn;
-        });
+        this.articles = this.treatData(res.data);
+      });
+    },
+    loadArticlesByType() {
+      let { type } = this.$route.params;
+      if (type === "e2r") type = "e2r_article";
+
+      this.$axios.get("/articles/type/" + type).then((res) => {
+        this.articles = this.treatData(res.data);
       });
     },
   },

@@ -45,6 +45,11 @@ export default [
     component: ArticleList,
   },
   {
+    path: '/type/:type',
+    name: 'type',
+    component: ArticleList,
+  },
+  {
     path: '/article/:article',
     name: 'article',
     beforeEnter: (to, from, next) => {

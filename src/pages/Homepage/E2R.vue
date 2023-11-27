@@ -11,7 +11,7 @@
           no-picture
           blue
         />
-        <SeeAll href="#" blue big>See all easy-to-read articles</SeeAll>
+        <SeeAll href="/type/e2r" blue big>See all easy-to-read articles</SeeAll>
       </div>
     </div>
   </section>
