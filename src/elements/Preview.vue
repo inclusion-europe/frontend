@@ -87,7 +87,7 @@ export default {
   },
   computed: {
     overtakeNoPicture() {
-      return this.noPicture && !this.article.picture?.picture;
+      return this.noPicture || !this.article.picture?.picture;
     },
   },
 };
