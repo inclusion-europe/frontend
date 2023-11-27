@@ -4,16 +4,20 @@
     :class="{
       'preview--full': full,
       'preview--big': big,
+      'preview--stack': stack,
       'preview--blue': blue,
       'preview--pink': pink,
-      'preview--has_picture': !noPicture,
+      'preview--has_picture': !overtakeNoPicture,
     }"
     :to="`/article${article.url}`"
   >
     <h3 class="preview-title" v-if="big || full">
       {{ article.title }}
     </h3>
-    <div class="preview-picture" v-if="!noPicture && article.picture?.picture">
+    <div
+      class="preview-picture"
+      v-if="!overtakeNoPicture && article.picture?.picture"
+    >
       <img
         class="preview-picture-photo"
         :src="article.picture.picture"
@@ -52,6 +56,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    stack: {
+      type: Boolean,
+      default: false,
+    },
     article: {
       type: Object,
       required: true,
@@ -75,6 +83,11 @@ export default {
     full: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    overtakeNoPicture() {
+      return this.noPicture && !this.article.picture?.picture;
     },
   },
 };
@@ -247,6 +260,18 @@ export default {
       grid-column: 1 / 3;
       grid-row: 1;
       align-self: start;
+    }
+  }
+
+  &--stack,
+  &--has_picture.preview--stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .preview-picture {
+      width: 100%;
+      aspect-ratio: 16 / 4;
     }
   }
 }

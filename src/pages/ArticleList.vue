@@ -6,8 +6,7 @@
         v-for="article in articles"
         :key="`article_${article.idx}`"
         :article="article"
-        full
-        :no-picture="!article.picture?.picture"
+        stack
       />
     </div>
   </div>
@@ -70,9 +69,11 @@ export default {
   }
 
   .articles_page-list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+    justify-items: start;
   }
 }
 </style>
