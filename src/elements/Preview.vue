@@ -272,6 +272,7 @@ export default {
     .preview-picture {
       width: 100%;
       aspect-ratio: 16 / 4;
+      height: auto;
     }
   }
 }
