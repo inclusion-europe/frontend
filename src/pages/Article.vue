@@ -277,6 +277,7 @@ export default {
 }
 </style>
 <style lang="scss">
+@import "@/assets/style/variables.scss";
 .article_page {
   article {
     .article-content {
@@ -301,6 +302,15 @@ export default {
         color: #1e1e1e;
         font-family: GilroyRegular;
         font-size: 22px;
+      }
+
+      img {
+        width: 100%;
+        border-radius: 9px;
+      }
+
+      a {
+        color: $ie-pink;
       }
     }
   }

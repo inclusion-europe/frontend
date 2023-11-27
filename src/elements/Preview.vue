@@ -10,13 +10,13 @@
     }"
     :to="`/article${article.url}`"
   >
-    <h3 class="preview-title" v-if="big">
+    <h3 class="preview-title" v-if="big || full">
       {{ article.title }}
     </h3>
-    <div class="preview-picture" v-if="!noPicture">
+    <div class="preview-picture" v-if="!noPicture && article.picture?.picture">
       <img
         class="preview-picture-photo"
-        :src="article.picture.src"
+        :src="article.picture.picture"
         :alt="article.picture.alt"
       />
       <img
@@ -27,11 +27,13 @@
       />
     </div>
     <div class="preview-content">
-      <h3 class="preview-title" v-if="!big">
+      <h3 class="preview-title" v-if="!big && !full">
         {{ article.title }}
       </h3>
-      <p class="preview-excerpt">{{ article.excerpt }}</p>
-      <SeeAll :href="article.url" :blue="blue" :big="big">{{
+      <p class="preview-excerpt" v-if="article.excerpt">
+        {{ article.excerpt }}
+      </p>
+      <SeeAll :href="`/article${article.url}`" :blue="blue" :big="big">{{
         video ? "Watch now" : "Read more"
       }}</SeeAll>
     </div>
@@ -124,6 +126,11 @@ export default {
   &--has_picture:not(.preview--big) {
     display: grid;
     grid-template-columns: auto auto;
+
+    &.preview--full {
+      grid-template-columns: 300px auto;
+      grid-template-rows: auto auto;
+    }
   }
 
   &-picture {
@@ -194,7 +201,8 @@ export default {
     }
   }
 
-  &--big {
+  &--big,
+  &--full {
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -220,6 +228,26 @@ export default {
   }
 
   &--full {
+    gap: 16px;
+
+    .preview-picture {
+      border-radius: 10px;
+      height: 200px;
+      width: 100%;
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .preview-content {
+      align-self: start;
+      gap: 16px;
+    }
+
+    .preview-title {
+      grid-column: 1 / 3;
+      grid-row: 1;
+      align-self: start;
+    }
   }
 }
 </style>

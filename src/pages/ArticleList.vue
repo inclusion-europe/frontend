@@ -1,14 +1,24 @@
 <template>
   <div class="articles_page">
-    <h1>{{ pageTitle }}</h1>
-    <div v-for="article in articles" :key="`article_${article.idx}`">
-      {{ article.title }}
+    <h1 class="page_title">{{ pageTitle }}</h1>
+    <div class="articles_page-list">
+      <Preview
+        v-for="article in articles"
+        :key="`article_${article.idx}`"
+        :article="article"
+        full
+        :no-picture="!article.picture?.picture"
+      />
     </div>
   </div>
 </template>
 <script>
+import Preview from "@/elements/Preview.vue";
 export default {
   name: "ArticleList",
+  components: {
+    Preview,
+  },
   data: () => ({
     articles: [],
   }),
@@ -35,7 +45,11 @@ export default {
     loadArticlesByTag() {
       let { tag } = this.$route.params;
       this.$axios.get("/articles/tag/" + tag).then((res) => {
-        this.articles = res.data;
+        this.articles = res.data.map((article) => {
+          let toReturn = article;
+          toReturn.picture = JSON.parse(article.picture);
+          return toReturn;
+        });
       });
     },
   },
@@ -48,5 +62,17 @@ export default {
   max-width: 80vw;
   margin: auto;
   padding-bottom: 30px;
+
+  .page_title {
+    color: #1e1e1e;
+    font-size: 40px;
+    font-family: GilroyBold;
+  }
+
+  .articles_page-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
 }
 </style>
