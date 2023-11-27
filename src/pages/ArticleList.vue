@@ -70,8 +70,8 @@ export default {
 
   .articles_page-list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 44px 32px;
     align-items: start;
     justify-items: start;
   }
