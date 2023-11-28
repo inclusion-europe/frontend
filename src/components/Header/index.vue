@@ -4,7 +4,7 @@
       <router-link to="/">
         <img src="@/assets/logo.svg" class="header-logo" />
       </router-link>
-      <Navigation />
+      <Navigation v-show="false" />
     </div>
   </header>
 </template>

@@ -7,9 +7,7 @@
         <h4>Avenue des Arts 3, 1210 Brussels, Belgium</h4>
         <h4>+32 25 02 28 15</h4>
         <h4>
-          <a href="mailto:secretariat@inclusion.eu">
-            secretariat@inclusion.eu
-          </a>
+          <a href="mailto:office@inclusion.eu"> office@inclusion.eu </a>
         </h4>
         <img
           src="@/assets/european-union.png"
@@ -19,9 +17,7 @@
       </div>
       <Socials v-if="!onAdminPage" />
       <div class="footer-navigation">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Contact</a>
-        <a href="#">Sitemap</a>
+        <!-- <a href="#">Sitemap</a> -->
         <a v-if="hasAdmin" @click="goToAdmin" href="#">Admin</a>
       </div>
       <h4 class="footer-copyright" v-if="!onAdminPage">

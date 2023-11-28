@@ -16,7 +16,7 @@
       </section>
       <Newsletter />
     </div>
-    <Currently />
+    <Currently v-if="false" />
   </div>
 </template>
 <script>

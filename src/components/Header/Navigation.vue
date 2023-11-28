@@ -2,6 +2,7 @@
   <nav class="navbar">
     <router-link class="navbar-element" to="/">Home</router-link>
     <nav-dropdown
+      v-show="false"
       v-for="item in menu"
       :key="`menu_item_${item.id}`"
       :pages="item.pages"

@@ -12,7 +12,9 @@
           name="email"
           :class="{ 'input-small': inFooter }"
         />
-        <Button type="submit" boxed blue :small="inFooter">subscribe</Button>
+        <Button type="submit" disabled boxed blue :small="inFooter"
+          >subscribe</Button
+        >
       </div>
       <label class="newsletter-form-input_row">
         <input

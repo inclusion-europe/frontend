@@ -34,10 +34,8 @@ export default {
     },
     typeTitle() {
       switch (this.$route.params.type) {
-        case "news":
-          return "News";
-        case "blogpost":
-          return "Blogposts";
+        case "articles":
+          return "Articles";
         case "e2r":
           return "Easy-to-Read articles";
         case "event":
@@ -80,6 +78,8 @@ export default {
     loadArticlesByType() {
       let { type } = this.$route.params;
       if (type === "e2r") type = "e2r_article";
+      if (type === "articles") type = "news||blogpost";
+      if (type === "publications") type = "report";
 
       this.$axios.get("/articles/type/" + type).then((res) => {
         this.articles = this.treatData(res.data);
