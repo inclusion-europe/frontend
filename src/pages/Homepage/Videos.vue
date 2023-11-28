@@ -5,7 +5,7 @@
       <Preview
         v-for="(video, i) in videos"
         :key="`videos_article_${i}`"
-        :article="video"
+        :post="video"
         video
       />
       <SeeAll href="#" big>See all videos</SeeAll>
@@ -13,7 +13,6 @@
   </section>
 </template>
 <script>
-import utils from "@/scripts/utils";
 import Preview from "@/elements/Preview.vue";
 import SeeAll from "@/elements/SeeAll.vue";
 
@@ -23,9 +22,10 @@ export default {
     Preview,
     SeeAll,
   },
-  computed: {
-    videos() {
-      return utils.articlesArray(4);
+  props: {
+    posts: {
+      type: Array,
+      default: () => [],
     },
   },
 };

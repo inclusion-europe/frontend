@@ -1,11 +1,11 @@
 <template>
-  <div class="new-article" v-if="pageReady">
+  <div class="new-post" v-if="pageReady">
     <Button @click="goBack">Go Back</Button>
     <h1 class="section-title">
-      {{ isEditing > -1 ? "Editing article" : "New article" }}
+      {{ isEditing > -1 ? "Editing post" : "New post" }}
     </h1>
-    <form class="new_article-form" @submit="submitForm">
-      <label for="article_type">Article type</label>
+    <form class="new_post-form" @submit="submitForm">
+      <label for="article_type">Post type</label>
       <select name="article_type" v-model="article_type" class="short">
         <option :value="null" />
         <option value="news">News</option>
@@ -161,7 +161,7 @@ import utils from "@/scripts/utils";
 import Vue3TagsInput from "vue3-tags-input";
 
 export default {
-  name: "ArticleEditor",
+  name: "PostEditor",
   components: {
     E2REditor,
     Button,
@@ -262,61 +262,59 @@ export default {
     this.loadUsers();
     this.loadTags();
     this.loadMenuItems();
-    if (this.$route.query.article_id) {
-      this.$axios
-        .get(`/article/${this.$route.query.article_id}`)
-        .then((res) => {
-          if (res.data.length) {
-            let {
-              idx,
-              title,
-              menu_parent,
-              menu_position,
-              author,
-              picture,
-              content_e2r,
-              content,
-              excerpt,
-              default_type,
-              url,
-              tags,
-              article_type,
-              published,
-              highlighted,
-            } = res.data[0];
+    if (this.$route.query.post_id) {
+      this.$axios.get(`/post/${this.$route.query.post_id}`).then((res) => {
+        if (res.data.length) {
+          let {
+            idx,
+            title,
+            menu_parent,
+            menu_position,
+            author,
+            picture,
+            content_e2r,
+            content,
+            excerpt,
+            default_type,
+            url,
+            tags,
+            article_type,
+            published,
+            highlighted,
+          } = res.data[0];
 
-            let parsedPicture = picture
-              ? JSON.parse(picture)
-              : { picture: null, alt: null };
+          let parsedPicture = picture
+            ? JSON.parse(picture)
+            : { picture: null, alt: null };
 
-            let parsedE2R = JSON.parse(content_e2r) || [];
-            console.log(content_e2r, parsedE2R);
-            if (tags) {
-              tags = tags.split(",").filter((i) => !utils.isEmptyStr(i));
-            } else {
-              tags = [];
-            }
-
-            this.menu_parent = menu_parent;
-            this.menu_position = menu_position;
-            this.isEditing = idx;
-            this.title = title;
-            this.author = author;
-            this.picture = parsedPicture?.picture;
-            this.picture_alt = parsedPicture?.alt;
-            this.e2rContent = parsedE2R || [];
-            this.content = unescape(content) || "";
-            this.excerpt = excerpt;
-            this.content_type = default_type;
-            this.url = url;
-            this.tags = tags;
-            this.article_type = article_type;
-            this.published = !!published;
-            this.highlighted = !!highlighted;
-            this.has_other_content =
-              default_type === "plain" ? !!parsedE2R?.length : !!content;
+          let parsedE2R = JSON.parse(content_e2r) || [];
+          console.log(content_e2r, parsedE2R);
+          if (tags) {
+            tags = tags.split(",").filter((i) => !utils.isEmptyStr(i));
+          } else {
+            tags = [];
           }
-        });
+
+          this.menu_parent = menu_parent;
+          this.menu_position = menu_position;
+          this.isEditing = idx;
+          this.title = title;
+          this.author = author;
+          this.picture = parsedPicture?.picture;
+          this.picture_alt = parsedPicture?.alt;
+          this.e2rContent = parsedE2R || [];
+          this.content = unescape(content) || "";
+          this.excerpt = excerpt;
+          this.content_type = default_type;
+          this.url = url;
+          this.tags = tags;
+          this.article_type = article_type;
+          this.published = !!published;
+          this.highlighted = !!highlighted;
+          this.has_other_content =
+            default_type === "plain" ? !!parsedE2R?.length : !!content;
+        }
+      });
     }
     this.pageReady = true;
   },
@@ -416,18 +414,18 @@ export default {
 
       if (this.isEditing > -1) {
         this.$axios
-          .patch(`/article/${this.isEditing}`, body)
+          .patch(`/post/${this.isEditing}`, body)
           .then(() => {
-            this.$router.push({ name: "admin-articles" });
+            this.$router.push({ name: "admin-posts" });
           })
           .catch((err) => {
             console.error({ err });
           });
       } else {
         this.$axios
-          .post("/article", body)
+          .post("/post", body)
           .then(() => {
-            this.$router.push({ name: "admin-articles" });
+            this.$router.push({ name: "admin-posts" });
           })
           .catch((err) => {
             console.error({ err });
@@ -444,7 +442,7 @@ export default {
   padding: 8px 15px;
 }
 
-.new-article {
+.new-post {
   width: $max-width;
   max-width: 80vw;
   .section-title {
@@ -454,7 +452,7 @@ export default {
   }
 }
 
-.new_article-form {
+.new_post-form {
   display: grid;
   grid-template-columns: max-content auto max-content auto;
   gap: 10px;

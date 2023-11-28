@@ -1,24 +1,24 @@
 <template>
   <section class="hero-highlights">
     <Preview
-      v-for="(article, i) in testArticles"
-      :key="`highlight_article_${i}`"
-      :article="article"
+      v-for="(post, i) in posts"
+      :key="`highlight_post_${i}`"
+      :post="post"
     />
   </section>
 </template>
 <script>
 import Preview from "@/elements/Preview.vue";
-import utils from "@/scripts/utils";
 
 export default {
   name: "Highlights",
   components: {
     Preview,
   },
-  computed: {
-    testArticles() {
-      return utils.articlesArray(3);
+  props: {
+    posts: {
+      type: Array,
+      default: () => [],
     },
   },
 };

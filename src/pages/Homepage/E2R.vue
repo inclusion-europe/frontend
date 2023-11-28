@@ -1,23 +1,24 @@
 <template>
   <section class="easy_to_read-section">
     <h2 class="section-title section-title--blue">Easy-to-read</h2>
-    <div class="easy_to_read-section-article_grid">
-      <Preview :article="articles[0]" big blue />
-      <div class="easy_to_read-section-article_grid-list">
+    <div class="easy_to_read-section-post_grid">
+      <Preview :post="posts[0]" big blue />
+      <div class="easy_to_read-section-post_grid-list">
         <Preview
-          v-for="(article, i) in articles.slice(1)"
-          :key="`e2r_article_${i}`"
-          :article="article"
+          v-for="(post, i) in posts.slice(1, 5)"
+          :key="`e2r_post_${i}`"
+          :post="post"
           no-picture
           blue
         />
-        <SeeAll href="/type/e2r" blue big>See all easy-to-read articles</SeeAll>
+        <SeeAll v-if="posts.length > 6" href="/type/e2r" blue big>
+          See all easy-to-read articles
+        </SeeAll>
       </div>
     </div>
   </section>
 </template>
 <script>
-import utils from "@/scripts/utils";
 import Preview from "@/elements/Preview.vue";
 import SeeAll from "@/elements/SeeAll.vue";
 
@@ -27,9 +28,10 @@ export default {
     Preview,
     SeeAll,
   },
-  computed: {
-    articles() {
-      return utils.articlesArray(5);
+  props: {
+    posts: {
+      type: Array,
+      default: () => [],
     },
   },
 };
@@ -48,7 +50,7 @@ export default {
     width: auto;
   }
 
-  &-article_grid {
+  &-post_grid {
     display: grid;
     grid-template: auto / 1fr 1fr;
     gap: 150px 135px;

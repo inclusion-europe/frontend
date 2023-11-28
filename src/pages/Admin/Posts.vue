@@ -1,56 +1,52 @@
 <template>
-  <div class="articles">
+  <div class="posts">
     <h1 class="section-title">
-      <span>{{ isInArchive ? "Archive" : "Articles" }}</span>
+      <span>{{ isInArchive ? "Archive" : "Posts" }}</span>
       <template v-if="!isInArchive">
-        <Button boxed pink @click="newArticle">Add an article</Button>
+        <Button boxed pink @click="newPost">Add a post</Button>
         <Button @click="showArchives" v-if="!isInArchive">Archives</Button>
       </template>
-      <Button boxed @click="hideArchives" v-else>Back to Articles</Button>
+      <Button boxed @click="hideArchives" v-else>Back to Posts</Button>
     </h1>
-    <div class="articles-table">
+    <div class="posts-table">
       <div class="header">Title</div>
       <div class="header">Author</div>
       <div class="header">Created</div>
       <div class="header">Last modified</div>
       <div class="header">Published?</div>
       <div class="header"></div>
-      <template v-for="article in articles" :key="`article_${article.idx}`">
-        <div class="article-title">{{ article.title }}</div>
-        <div class="article-author">
-          <template v-if="article.author">
-            {{ article.author.first_name }} {{ article.author.last_name }}
+      <template v-for="post in posts" :key="`post_${post.idx}`">
+        <div class="post-title">{{ post.title }}</div>
+        <div class="post-author">
+          <template v-if="post.author">
+            {{ post.author.first_name }} {{ post.author.last_name }}
           </template>
           <template v-else> - </template>
         </div>
-        <div class="article-date">
-          {{ new Date(article.created_at).toLocaleString() }}
+        <div class="post-date">
+          {{ new Date(post.created_at).toLocaleString() }}
         </div>
-        <div class="article-date">
+        <div class="post-date">
           {{
-            article.modified_at !== article.created_at
-              ? new Date(article.modified_at).toLocaleString()
+            post.modified_at !== post.created_at
+              ? new Date(post.modified_at).toLocaleString()
               : "-"
           }}
         </div>
-        <div class="article-published">
-          {{ article.published ? "✅" : "❌" }}
+        <div class="post-published">
+          {{ post.published ? "✅" : "❌" }}
         </div>
-        <div class="article-actions">
+        <div class="post-actions">
           <template v-if="!isInArchive">
-            <Button small boxed blue @click="editArticle(article.idx)">
-              Edit
-            </Button>
-            <Button small boxed pink @click="archiveArticle(article.idx)">
+            <Button small boxed blue @click="editPost(post.idx)"> Edit </Button>
+            <Button small boxed pink @click="archivePost(post.idx)">
               Archive
             </Button>
           </template>
-          <Button small boxed blue @click="restoreArticle(article.idx)" v-else>
+          <Button small boxed blue @click="restorePost(post.idx)" v-else>
             Restore
           </Button>
-          <Button small boxed @click="deleteArticle(article.idx)">
-            Delete
-          </Button>
+          <Button small boxed @click="deletePost(post.idx)"> Delete </Button>
         </div>
       </template>
     </div>
@@ -60,7 +56,7 @@
       @close="closeDeleteModal"
     >
       <div class="confirm_modal">
-        Are you sure you want to delete this article?
+        Are you sure you want to delete this post?
         <div class="confirm_modal-actions">
           <Button small boxed pink @click="confirmDelete"> Yes </Button>
           <Button small boxed @click="closeDeleteModal"> Cancel </Button>
@@ -70,7 +66,7 @@
 
     <Modal title="Modal" :active="isArchiving > -1" @close="closeArchiveModal">
       <div class="confirm_modal">
-        Are you sure you want to archive this article?
+        Are you sure you want to archive this post?
         <div class="confirm_modal-actions">
           <Button small boxed pink @click="confirmArchive"> Yes </Button>
           <Button small boxed @click="closeArchiveModal"> Cancel </Button>
@@ -80,7 +76,7 @@
 
     <Modal title="Modal" :active="isRestoring > -1" @close="closeRestoreModal">
       <div class="confirm_modal">
-        Are you sure you want to restore this article?
+        Are you sure you want to restore this post?
         <div class="confirm_modal-actions">
           <Button small boxed blue @click="confirmRestore"> Yes </Button>
           <Button small boxed @click="closeRestoreModal"> Cancel </Button>
@@ -94,13 +90,13 @@ import Button from "@/elements/Button.vue";
 import Modal from "@/components/Modal.vue";
 
 export default {
-  name: "Articles",
+  name: "Posts",
   components: {
     Button,
     Modal,
   },
   data: () => ({
-    articles: [],
+    posts: [],
     users: [],
     isDeleting: -1,
     isArchiving: -1,
@@ -109,12 +105,12 @@ export default {
   }),
   mounted() {
     this.loadUsers().then(() => {
-      this.loadArticles();
+      this.loadPosts();
     });
   },
   watch: {
     isInArchive() {
-      this.loadArticles();
+      this.loadPosts();
     },
   },
   methods: {
@@ -123,16 +119,16 @@ export default {
         this.users = res.data;
       });
     },
-    loadArticles() {
-      let route = "articles";
+    loadPosts() {
+      let route = "posts";
       if (this.isInArchive) route += "/archive";
       else route += "/all";
       this.$axios.get(route).then((res) => {
-        let articles = res.data;
-        articles.forEach((a) => {
+        let posts = res.data;
+        posts.forEach((a) => {
           a.author = this.findAuthor(a.author);
         });
-        this.articles = articles;
+        this.posts = posts;
       });
     },
     showArchives() {
@@ -144,53 +140,53 @@ export default {
     findAuthor(email) {
       return this.users.find((u) => u.email === email);
     },
-    editArticle(article_id) {
+    editPost(post_id) {
       this.$router.push({
-        name: "admin-article_edit",
+        name: "admin-post_edit",
         query: {
-          article_id,
+          post_id,
         },
       });
     },
-    deleteArticle(article_id) {
-      this.isDeleting = article_id;
+    deletePost(post_id) {
+      this.isDeleting = post_id;
     },
     confirmDelete() {
-      this.$axios.delete(`article/${this.isDeleting}`).then(() => {
+      this.$axios.delete(`post/${this.isDeleting}`).then(() => {
         this.closeDeleteModal();
-        this.loadArticles();
+        this.loadPosts();
       });
     },
     closeDeleteModal() {
       this.isDeleting = -1;
     },
-    archiveArticle(article_id) {
-      this.isArchiving = article_id;
+    archivePost(post_id) {
+      this.isArchiving = post_id;
     },
     confirmArchive() {
       this.$axios.patch(`archive/${this.isArchiving}`).then(() => {
         this.closeArchiveModal();
-        this.loadArticles();
+        this.loadPosts();
       });
     },
     closeArchiveModal() {
       this.isArchiving = -1;
     },
-    restoreArticle(article_id) {
-      this.isRestoring = article_id;
+    restorePost(post_id) {
+      this.isRestoring = post_id;
     },
     confirmRestore() {
       this.$axios.patch(`restore/${this.isRestoring}`).then(() => {
         this.closeRestoreModal();
-        this.loadArticles();
+        this.loadPosts();
       });
     },
     closeRestoreModal() {
       this.isRestoring = -1;
     },
-    newArticle() {
+    newPost() {
       this.$router.push({
-        name: "admin-article_edit",
+        name: "admin-post_edit",
       });
     },
   },
@@ -198,7 +194,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
-.articles {
+.posts {
   .section-title {
     display: flex;
     align-items: center;
@@ -234,7 +230,7 @@ export default {
       justify-content: start;
     }
 
-    .article {
+    .post {
       &-title,
       &-author {
         font-size: 20px;

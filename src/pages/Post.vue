@@ -1,8 +1,8 @@
 <template>
-  <div class="article_page" :class="{ indicators_page: isIndicatorsPage }">
+  <div class="post_page" :class="{ indicators_page: isIndicatorsPage }">
     <div v-if="loading">⏳</div>
     <template v-else>
-      <div class="article_page-header">
+      <div class="post_page-header">
         <Button
           v-if="hasOtherContent"
           blue
@@ -17,40 +17,40 @@
         </Button>
       </div>
       <article>
-        <header :class="{ 'header--column': !article.excerpt || isStaticPage }">
+        <header :class="{ 'header--column': !post.excerpt || isStaticPage }">
           <div class="header_texts">
             <h1>
-              {{ article.title }}
+              {{ post.title }}
             </h1>
             <img
-              v-if="article.picture?.picture && isStaticPage"
-              :src="article.picture.picture"
-              :alt="article.picture.alt || `Picture for ${article.title}`"
+              v-if="post.picture?.picture && isStaticPage"
+              :src="post.picture.picture"
+              :alt="post.picture.alt || `Picture for ${post.title}`"
             />
-            <h2 v-if="article.excerpt">{{ article.excerpt }}</h2>
+            <h2 v-if="post.excerpt">{{ post.excerpt }}</h2>
           </div>
           <img
-            v-if="article.picture?.picture && !isStaticPage"
-            :src="article.picture.picture"
-            :alt="article.picture.picture || `Picture for ${article.title}`"
+            v-if="post.picture?.picture && !isStaticPage"
+            :src="post.picture.picture"
+            :alt="post.picture.picture || `Picture for ${post.title}`"
           />
         </header>
-        <section class="article-content">
-          <e-2-r-content :content="article.content_e2r" v-if="showE2R" />
-          <vue-markdown :source="article.content" v-else />
+        <section class="post-content">
+          <e-2-r-content :content="post.content_e2r" v-if="showE2R" />
+          <vue-markdown :source="post.content" v-else />
         </section>
         <section v-if="isIndicatorsPage" class="indicators-table">
           <h4>Country ranking</h4>
           <inclusion-indicators-countries />
         </section>
-        <section class="article-tags" v-if="article.tags">
+        <section class="post-tags" v-if="post.tags">
           <h3>
             Tags:
-            <template v-for="(tag, i) in article.tags" :key="`tag_${tag}`">
+            <template v-for="(tag, i) in post.tags" :key="`tag_${tag}`">
               <router-link :to="`/tag/${encodeURI(tag)}`" class="tag">
                 {{ tag }}
               </router-link>
-              <span v-if="i < article.tags.length - 1">, </span>
+              <span v-if="i < post.tags.length - 1">, </span>
             </template>
           </h3>
         </section>
@@ -66,9 +66,9 @@ import E2RContent from "@/elements/E2RContent.vue";
 import Button from "@/elements/Button.vue";
 
 export default {
-  name: "Article",
+  name: "Post",
   data: () => ({
-    article: {
+    post: {
       title: "Test",
     },
     showE2R: false,
@@ -81,19 +81,19 @@ export default {
     Button,
   },
   computed: {
-    ...mapGetters(["getArticles"]),
+    ...mapGetters(["getPosts"]),
     isIndicatorsPage() {
-      return this.$route.path === "/article/inclusion-indicators";
+      return this.$route.path === "/v/inclusion-indicators";
     },
     isStaticPage() {
-      return this.article.article_type === "static_page";
+      return this.post.article_type === "static_page";
     },
     hasOtherContent() {
-      switch (this.article.default_type) {
+      switch (this.post.default_type) {
         case "e2r":
-          return !!this.article.content;
+          return !!this.post.content;
         default:
-          return !!this.article.content_e2r;
+          return !!this.post.content_e2r;
       }
     },
   },
@@ -112,40 +112,37 @@ export default {
     },
   },
   mounted() {
-    while (!this.getArticles.length) {
+    while (!this.getPosts.length) {
       this.loading = true;
     }
-    let articles = this.getArticles;
-    let article = articles.find((art) => {
+    let posts = this.getPosts;
+    let post = posts.find((art) => {
       return (
         art.url.toLowerCase() ===
-        "/" + encodeURIComponent(this.$route.params.article).toLowerCase()
+        "/" + encodeURIComponent(this.$route.params.post).toLowerCase()
       );
     });
-    if (article) {
-      article.content = unescape(article.content);
-      article.content_e2r =
-        typeof article.content_e2r === "string"
-          ? JSON.parse(article.content_e2r)
-          : article.content_e2r;
-      article.tags =
-        typeof article.tags === "string"
-          ? article.tags.split(",")
-          : article.tags;
-      this.article = article;
-      document.title =
-        article.title + " | " + process.env.VUE_APP_DEFAULT_TITLE;
-      let shouldShowE2R = this.$route.query.e2r && article.content_e2r;
-      if (article.default_type === "e2r" || shouldShowE2R) this.showE2R = true;
+    if (post) {
+      post.content = unescape(post.content);
+      post.content_e2r =
+        typeof post.content_e2r === "string"
+          ? JSON.parse(post.content_e2r)
+          : post.content_e2r;
+      post.tags =
+        typeof post.tags === "string" ? post.tags.split(",") : post.tags;
+      this.post = post;
+      document.title = post.title + " | " + process.env.VUE_APP_DEFAULT_TITLE;
+      let shouldShowE2R = this.$route.query.e2r && post.content_e2r;
+      if (post.default_type === "e2r" || shouldShowE2R) this.showE2R = true;
       this.loading = false;
     } else {
       console.log(
-        "/" + encodeURIComponent(this.$route.params.article).toLowerCase()
+        "/" + encodeURIComponent(this.$route.params.post).toLowerCase()
       );
     }
   },
   methods: {
-    ...mapActions(["loadArticles"]),
+    ...mapActions(["loadPosts"]),
     toggleContentType() {
       this.showE2R = !this.showE2R;
     },
@@ -154,7 +151,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
-.article_page {
+.post_page {
   width: $max-width;
   max-width: 80vw;
   margin: auto;
@@ -230,7 +227,7 @@ export default {
       }
     }
 
-    .article-tags {
+    .post-tags {
       .tag {
         color: $black;
       }
@@ -294,9 +291,9 @@ export default {
 </style>
 <style lang="scss">
 @import "@/assets/style/variables.scss";
-.article_page {
+.post_page {
   article {
-    .article-content {
+    .post-content {
       h3 {
         color: #1e1e1e;
         font-size: 32px;

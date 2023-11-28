@@ -3,27 +3,27 @@ import axios from '@/scripts/axios'
 
 export default createStore({
   state: {
-    articles: [],
+    posts: [],
   },
   getters: {
-    getArticles(state) {
-      return state.articles
+    getPosts(state) {
+      return state.posts
     },
   },
   mutations: {
-    SET_ARTICLES(state, articles) {
-      state.articles = articles
+    SET_ARTICLES(state, posts) {
+      state.posts = posts
     },
   },
   actions: {
-    loadArticles(context) {
-      return axios.get('/articles').then(res => {
-        let articles = res.data.map(article => {
-          let temp = article
-          temp.picture = JSON.parse(article.picture)
+    loadPosts(context) {
+      return axios.get('/posts').then(res => {
+        let posts = res.data.map(post => {
+          let temp = post
+          temp.picture = JSON.parse(post.picture)
           return temp
         })
-        context.commit('SET_ARTICLES', articles)
+        context.commit('SET_ARTICLES', posts)
         return true
       })
     },

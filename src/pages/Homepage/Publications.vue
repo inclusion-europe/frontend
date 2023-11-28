@@ -3,14 +3,14 @@
     <h2 class="section-title section-title--pink">Publications</h2>
     <div class="publications-section-publication_grid">
       <div class="publications-section-publication_grid-list">
-        <Preview :article="publications[0]" big no-picture />
-        <Preview :article="publications[1]" big no-picture />
+        <Preview :post="publications[0]" big no-picture />
+        <Preview :post="publications[1]" big no-picture />
       </div>
       <div class="publications-section-publication_grid-list">
         <Preview
-          v-for="(publication, i) in publications.slice(2)"
+          v-for="(publication, i) in posts.slice(2)"
           :key="`publications_publication_${i}`"
-          :article="publication"
+          :post="publication"
           no-picture
         />
         <SeeAll href="#" big>See all publications</SeeAll>
@@ -19,7 +19,6 @@
   </section>
 </template>
 <script>
-import utils from "@/scripts/utils";
 import Preview from "@/elements/Preview.vue";
 import SeeAll from "@/elements/SeeAll.vue";
 
@@ -29,9 +28,10 @@ export default {
     Preview,
     SeeAll,
   },
-  computed: {
-    publications() {
-      return utils.articlesArray(5);
+  props: {
+    posts: {
+      type: Array,
+      default: () => [],
     },
   },
 };

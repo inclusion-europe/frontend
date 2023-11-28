@@ -31,10 +31,10 @@ export default {
   },
   mounted() {
     document.title = process.env.VUE_APP_DEFAULT_TITLE;
-    this.loadArticles().then(() => (this.loading = false));
+    this.loadPosts().then(() => (this.loading = false));
   },
   methods: {
-    ...mapActions(["loadArticles"]),
+    ...mapActions(["loadPosts"]),
   },
 };
 </script>

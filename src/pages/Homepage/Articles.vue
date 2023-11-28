@@ -2,22 +2,23 @@
   <section class="articles-section">
     <h2 class="section-title section-title--blue">Recent articles</h2>
     <div class="articles-section-article_grid">
-      <Preview :article="articles[0]" big blue />
+      <Preview :post="posts[0]" big blue />
       <div class="articles-section-article_grid-list">
         <Preview
-          v-for="(article, i) in articles.slice(1)"
+          v-for="(article, i) in posts.slice(1, 5)"
           :key="`articles_article_${i}`"
-          :article="article"
+          :post="article"
           no-picture
           blue
         />
-        <SeeAll href="#" blue big>See all articles</SeeAll>
+        <SeeAll href="#" blue big v-if="posts.length > 5"
+          >See all articles</SeeAll
+        >
       </div>
     </div>
   </section>
 </template>
 <script>
-import utils from "@/scripts/utils";
 import Preview from "@/elements/Preview.vue";
 import SeeAll from "@/elements/SeeAll.vue";
 
@@ -27,9 +28,10 @@ export default {
     Preview,
     SeeAll,
   },
-  computed: {
-    articles() {
-      return utils.articlesArray(5);
+  props: {
+    posts: {
+      type: Array,
+      default: () => [],
     },
   },
 };

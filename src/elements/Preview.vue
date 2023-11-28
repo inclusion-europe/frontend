@@ -9,19 +9,19 @@
       'preview--pink': pink,
       'preview--has_picture': !overtakeNoPicture,
     }"
-    :to="`/article${article.url}`"
+    :to="`/v${post.url}`"
   >
     <h3 class="preview-title" v-if="big || full">
-      {{ article.title }}
+      {{ post.title }}
     </h3>
     <div
       class="preview-picture"
-      v-if="!overtakeNoPicture && article.picture?.picture"
+      v-if="!overtakeNoPicture && post.picture?.picture"
     >
       <img
         class="preview-picture-photo"
-        :src="article.picture.picture"
-        :alt="article.picture.alt || `Picture for ${article.title}`"
+        :src="post.picture.picture"
+        :alt="post.picture.alt || `Picture for ${post.title}`"
       />
       <img
         class="preview-picture-video"
@@ -32,12 +32,12 @@
     </div>
     <div class="preview-content">
       <h3 class="preview-title" v-if="!big && !full">
-        {{ article.title }}
+        {{ post.title }}
       </h3>
-      <p class="preview-excerpt" v-if="article.excerpt">
-        {{ article.excerpt }}
+      <p class="preview-excerpt" v-if="post.excerpt">
+        {{ post.excerpt }}
       </p>
-      <SeeAll :href="`/article${article.url}`" :blue="blue" :big="big">{{
+      <SeeAll :href="`/v${post.url}`" :blue="blue" :big="big">{{
         video ? "Watch now" : "Read more"
       }}</SeeAll>
     </div>
@@ -60,7 +60,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    article: {
+    post: {
       type: Object,
       required: true,
     },
@@ -87,7 +87,7 @@ export default {
   },
   computed: {
     overtakeNoPicture() {
-      return this.noPicture || !this.article.picture?.picture;
+      return this.noPicture || !this.post.picture?.picture;
     },
   },
 };

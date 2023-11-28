@@ -1,6 +1,6 @@
 <template>
   <div class="hero">
-    <Highlights />
+    <Highlights :posts="highlights" />
     <div class="hero-static">
       <section class="hero-static-tagline">
         <img
@@ -26,6 +26,12 @@ import Highlights from "./Highlights.vue";
 
 export default {
   name: "Hero",
+  props: {
+    highlights: {
+      type: Array,
+      default: () => [],
+    },
+  },
   components: {
     Newsletter,
     Currently,

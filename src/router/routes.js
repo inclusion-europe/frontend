@@ -1,10 +1,10 @@
 import Admin from '@/pages/Admin'
-import ArticleEditor from '@/pages/Admin/ArticleEditor'
-import Articles from '@/pages/Admin/Articles.vue'
-import Article from '@/pages/Article.vue'
+import PostEditor from '@/pages/Admin/PostEditor'
+import Posts from '@/pages/Admin/Posts.vue'
+import Post from '@/pages/Post.vue'
 import Countries from '@/pages/InclusionIndicators/Countries.vue'
 import Homepage from '@/pages/Homepage'
-import ArticleList from '@/pages/ArticleList.vue'
+import PostsList from '@/pages/PostsList.vue'
 import store from '@/store'
 
 export default [
@@ -25,12 +25,12 @@ export default [
       {
         path: 'articles',
         name: 'admin-articles',
-        component: Articles,
+        component: Posts,
       },
       {
         path: 'editor',
         name: 'admin-article_edit',
-        component: ArticleEditor,
+        component: PostEditor,
       },
     ]
   },
@@ -42,23 +42,23 @@ export default [
   {
     path: '/tag/:tag',
     name: 'tag',
-    component: ArticleList,
+    component: PostsList,
   },
   {
     path: '/type/:type',
     name: 'type',
-    component: ArticleList,
+    component: PostsList,
   },
   {
-    path: '/article/:article',
-    name: 'article',
+    path: '/v/:post',
+    name: 'post',
     beforeEnter: (to, from, next) => {
       if (!store.state.articles.length) {
-        store.dispatch('loadArticles').then(next)
+        store.dispatch('loadPosts').then(next)
       } else {
         next()
       }
     },
-    component: Article,
+    component: Post,
   }
 ]

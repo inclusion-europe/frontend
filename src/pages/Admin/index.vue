@@ -77,7 +77,7 @@ export default {
   padding: 8px 15px;
 }
 
-.new_article-form {
+.new_post-form {
   display: grid;
   grid-template-columns: max-content auto;
   gap: 10px;

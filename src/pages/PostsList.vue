@@ -1,11 +1,11 @@
 <template>
-  <div class="articles_page">
+  <div class="posts_page">
     <h1 class="page_title">{{ pageTitle }}</h1>
-    <div class="articles_page-list">
+    <div class="posts_page-list">
       <Preview
-        v-for="article in articles"
-        :key="`article_${article.idx}`"
-        :article="article"
+        v-for="post in posts"
+        :key="`post_${post.idx}`"
+        :post="post"
         stack
       />
     </div>
@@ -14,22 +14,22 @@
 <script>
 import Preview from "@/elements/Preview.vue";
 export default {
-  name: "ArticleList",
+  name: "PostsList",
   components: {
     Preview,
   },
   data: () => ({
-    articles: [],
+    posts: [],
   }),
   computed: {
     pageTitle() {
       switch (this.$route.name) {
         case "tag":
-          return 'Articles tagged "' + this.$route.params.tag + '"';
+          return 'Posts tagged "' + this.$route.params.tag + '"';
         case "type":
           return this.typeTitle;
         default:
-          return "Articles";
+          return "Posts";
       }
     },
     typeTitle() {
@@ -45,44 +45,44 @@ export default {
         case "podcast":
           return "Podcasts";
         default:
-          return "Articles";
+          return "Posts";
       }
     },
   },
   mounted() {
     switch (this.$route.name) {
       case "tag":
-        this.loadArticlesByTag();
+        this.loadPostsByTag();
         break;
       case "type":
-        this.loadArticlesByType();
+        this.loadPostsByType();
         break;
     }
     document.title = this.pageTitle + " | " + process.env.VUE_APP_DEFAULT_TITLE;
   },
   methods: {
-    treatData(articles) {
-      return articles.map((article) => {
-        let toReturn = article;
-        toReturn.picture = JSON.parse(article.picture);
+    treatData(posts) {
+      return posts.map((post) => {
+        let toReturn = post;
+        toReturn.picture = JSON.parse(post.picture);
         return toReturn;
       });
     },
-    loadArticlesByTag() {
+    loadPostsByTag() {
       let { tag } = this.$route.params;
 
-      this.$axios.get("/articles/tag/" + tag).then((res) => {
-        this.articles = this.treatData(res.data);
+      this.$axios.get("/posts/tag/" + tag).then((res) => {
+        this.posts = this.treatData(res.data);
       });
     },
-    loadArticlesByType() {
+    loadPostsByType() {
       let { type } = this.$route.params;
       if (type === "e2r") type = "e2r_article";
       if (type === "articles") type = "news||blogpost";
       if (type === "publications") type = "report";
 
-      this.$axios.get("/articles/type/" + type).then((res) => {
-        this.articles = this.treatData(res.data);
+      this.$axios.get("/posts/type/" + type).then((res) => {
+        this.posts = this.treatData(res.data);
       });
     },
   },
@@ -90,7 +90,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
-.articles_page {
+.posts_page {
   width: $max-width;
   max-width: 80vw;
   margin: auto;
@@ -102,7 +102,7 @@ export default {
     font-family: GilroyBold;
   }
 
-  .articles_page-list {
+  .posts_page-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 44px 32px;
