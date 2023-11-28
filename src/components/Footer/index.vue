@@ -1,7 +1,13 @@
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <Newsletter dark-bg in-footer v-if="!onAdminPage" />
+      <Newsletter dark-bg in-footer v-if="false && !onAdminPage" />
+      <div class="newsletter-temp-block" v-else>
+        <h3>Stay in touch with us</h3>
+        <Button type="link" :href="newsletterLink" boxed white target="_blank"
+          >Subscribe to our newsletters!</Button
+        >
+      </div>
       <div class="footer-contact" v-if="!onAdminPage">
         <h4>Inclusion Europe</h4>
         <h4>Avenue des Arts 3, 1210 Brussels, Belgium</h4>
@@ -30,14 +36,19 @@
 <script>
 import Socials from "./Socials.vue";
 import Newsletter from "../Newsletter.vue";
+import Button from "@/elements/Button.vue";
 
 export default {
   name: "Footer",
   components: {
     Socials,
     Newsletter,
+    Button,
   },
   computed: {
+    newsletterLink() {
+      return process.env.VUE_APP_NWSLTR_FORM_ACTION;
+    },
     redirect() {
       return `${encodeURI(window.location.origin)}/admin`;
     },
@@ -138,6 +149,16 @@ export default {
       width: 250px;
       margin-top: 20px;
     }
+  }
+
+  .newsletter-temp-block {
+    h3 {
+      font-family: GilroySemiBold;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+    }
+    width: 305px;
   }
 }
 </style>

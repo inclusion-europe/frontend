@@ -42,7 +42,7 @@ export default {
       );
     },
     highlights() {
-      return this.posts.filter((post) => post.highlighted);
+      return this.posts.filter((post) => post.highlighted).slice(0, 3);
     },
     publications() {
       return this.posts.filter((post) =>

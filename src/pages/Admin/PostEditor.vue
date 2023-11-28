@@ -104,6 +104,20 @@
         <option value="e2r">Easy-to-Read</option>
       </select>
 
+      <label for="picture">Upload a PDF</label>
+      <input type="file" accept=".pdf" class="short" @change="uploadDocument" />
+      <label for="uploaded_files">Copy an url</label>
+      <select name="uploaded_files" v-model="copied_id" class="short">
+        <option :value="null" />
+        <option
+          v-for="(file, i) in last_uploads"
+          :key="`last_file_${i}`"
+          :value="i"
+        >
+          {{ file.originalFilename }}
+        </option>
+      </select>
+
       <template v-if="content_type === 'plain'">
         <label for="content">Content</label>
         <v-md-editor
@@ -181,6 +195,7 @@ export default {
     picture: null,
     picture_alt: "",
     e2rContent: [],
+    copied_id: null,
 
     users: [],
     autoTags: [],
@@ -191,6 +206,7 @@ export default {
     tag: "",
     published: false,
     highlighted: false,
+    last_uploads: [],
 
     isEditing: -1,
     startEditingE2R: false,
@@ -226,6 +242,11 @@ export default {
     content_type(val) {
       if (val === "e2r") {
         this.initE2R();
+      }
+    },
+    copied_id(val) {
+      if (val !== null) {
+        this.copyFileUrl(val);
       }
     },
     article_type(val) {
@@ -370,6 +391,18 @@ export default {
           url: res.file.filepath,
           desc: "alt-text",
         });
+      });
+    },
+    uploadDocument(event) {
+      utils.uploadFile(event.target.files[0]).then((res) => {
+        this.last_uploads.push(res.file);
+      });
+    },
+    copyFileUrl(index) {
+      console.log({
+        list: this.last_uploads,
+        index,
+        file: this.last_uploads[index],
       });
     },
     updatePicture(file) {

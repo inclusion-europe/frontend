@@ -67,6 +67,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
+a.ie-button {
+  unset: all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px !important;
+  font-style: normal !important;
+  font-family: GilroyBold !important;
+  font-weight: 700 !important;
+}
+
 .ie-button {
   background: none;
   color: inherit;
@@ -107,6 +119,7 @@ export default {
     &:hover,
     &:focus:not(:disabled) {
       background: $black--transp;
+      color: white !important;
     }
 
     &.ie-button-blue {
@@ -149,7 +162,9 @@ export default {
 
       &:hover,
       &:focus:not(:disabled) {
+        border-color: $ie-pink;
         background: white;
+        color: $black !important;
       }
     }
   }

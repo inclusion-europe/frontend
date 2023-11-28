@@ -11,7 +11,7 @@
           no-picture
           blue
         />
-        <SeeAll href="#" blue big v-if="posts.length > 5"
+        <SeeAll href="/type/articles" blue big v-if="posts.length > 5"
           >See all articles</SeeAll
         >
       </div>

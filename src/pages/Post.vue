@@ -37,7 +37,11 @@
         </header>
         <section class="post-content">
           <e-2-r-content :content="post.content_e2r" v-if="showE2R" />
-          <vue-markdown :source="post.content" v-else />
+          <vue-markdown
+            :source="post.content"
+            :options="{ html: true }"
+            v-else
+          />
         </section>
         <section v-if="isIndicatorsPage" class="indicators-table">
           <h4>Country ranking</h4>
@@ -324,6 +328,36 @@ export default {
 
       a {
         color: $ie-pink;
+      }
+
+      .inclusion_indicators-links {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+
+        a {
+          color: #fff;
+          padding: 6px 8px;
+          border-radius: 4px;
+          border: 2px;
+          border-style: solid;
+          background: $ie-blue;
+          border-color: $ie-blue;
+          transition: 0.2s ease-out;
+          text-decoration: none;
+          font-size: 20px;
+          font-style: normal;
+          font-family: GilroyBold;
+          font-weight: 700;
+
+          &:hover,
+          &:focus:not(:disabled) {
+            background: $ie-blue--transp;
+            color: white !important;
+          }
+        }
       }
     }
   }

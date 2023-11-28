@@ -7,7 +7,7 @@
         v-for="page in pages"
         :key="page.idx"
         class="navbar-element"
-        :to="`/article${page.url}`"
+        :to="`/v${page.url}`"
       >
         {{ page.title }}
       </router-link>

@@ -15,6 +15,9 @@ const beforeEach = (to, from, next) => {
 const router = createRouter({
   history: createWebHistory('/'),
   routes,
+  scrollBehavior() {
+      return { x: 0, y: 0 }
+  },
 })
 
 router.beforeEach(beforeEach)

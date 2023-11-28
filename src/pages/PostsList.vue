@@ -78,7 +78,7 @@ export default {
     loadPostsByType() {
       let { type } = this.$route.params;
       if (type === "e2r") type = "e2r_article";
-      if (type === "articles") type = "news||blogpost";
+      if (type === "articles") type = "news,blogpost";
       if (type === "publications") type = "report";
 
       this.$axios.get("/posts/type/" + type).then((res) => {

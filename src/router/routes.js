@@ -16,20 +16,20 @@ export default [
   {
     path: '/admin',
     name: 'admin',
-    redirect: '/admin/articles',
+    redirect: '/admin/posts',
     component: Admin,
     meta: {
       title: 'Admin panel',
     },
     children: [
       {
-        path: 'articles',
-        name: 'admin-articles',
+        path: 'posts',
+        name: 'admin-posts',
         component: Posts,
       },
       {
         path: 'editor',
-        name: 'admin-article_edit',
+        name: 'admin-post_edit',
         component: PostEditor,
       },
     ]
@@ -53,7 +53,7 @@ export default [
     path: '/v/:post',
     name: 'post',
     beforeEnter: (to, from, next) => {
-      if (!store.state.articles.length) {
+      if (!store.state.posts.length) {
         store.dispatch('loadPosts').then(next)
       } else {
         next()

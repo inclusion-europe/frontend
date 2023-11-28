@@ -4,7 +4,12 @@
     :class="{ 'newsletter--white': darkBg, 'newsletter--small': inFooter }"
   >
     <h3 class="newsletter-title">Subscribe to our newsletter!</h3>
-    <form class="newsletter-form">
+    <form
+      class="newsletter-form"
+      method="POST"
+      :action="formAction"
+      data-type="subscription"
+    >
       <div class="newsletter-form-input_row">
         <input
           type="email"
@@ -12,9 +17,7 @@
           name="email"
           :class="{ 'input-small': inFooter }"
         />
-        <Button type="submit" disabled boxed blue :small="inFooter"
-          >subscribe</Button
-        >
+        <Button type="submit" boxed blue :small="inFooter">subscribe</Button>
       </div>
       <label class="newsletter-form-input_row">
         <input
@@ -22,17 +25,26 @@
           name="include_nwsl"
           checked
           :class="{ 'checkbox-small': inFooter }"
+          value="2"
         />
-        <h4>Subscribe to the <b>Include</b> newsletter</h4>
+        <h4>Subscribe to <b>Include News</b></h4>
       </label>
       <label class="newsletter-form-input_row">
         <input
           type="checkbox"
           name="europe_for_us"
           :class="{ 'checkbox-small': inFooter }"
+          value="4"
         />
         <h4>Subscribe to the <b>Europe for us</b> newsletter</h4>
       </label>
+      <input
+        type="text"
+        name="email_address_check"
+        value=""
+        class="input--hidden"
+      />
+      <input type="hidden" name="locale" value="en" />
     </form>
   </div>
 </template>
@@ -51,6 +63,11 @@ export default {
     inFooter: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    formAction() {
+      return process.env.VUE_APP_NWSLTR_FORM_ACTION;
     },
   },
 };

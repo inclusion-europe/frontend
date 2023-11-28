@@ -3,7 +3,7 @@
     <template v-for="(entry, i) in content" :key="`e2r_entry_${i}`">
       <img :src="entry.pic" />
       <div>
-        <vue-markdown :source="entry.text" />
+        <vue-markdown :source="entry.text" :options="{ html: true }" />
       </div>
     </template>
   </div>

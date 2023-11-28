@@ -14,13 +14,20 @@
           and their families in Europe.
         </h3>
       </section>
-      <Newsletter />
+      <Newsletter v-if="false" />
+      <div class="newsletter-temp-block" v-else>
+        <h3>Stay in touch with us</h3>
+        <Button type="link" :href="newsletterLink" boxed blue target="_blank"
+          >Subscribe to our newsletters!</Button
+        >
+      </div>
     </div>
     <Currently v-if="false" />
   </div>
 </template>
 <script>
 import Newsletter from "@/components/Newsletter.vue";
+import Button from "@/elements/Button.vue";
 import Currently from "./Currently.vue";
 import Highlights from "./Highlights.vue";
 
@@ -34,8 +41,14 @@ export default {
   },
   components: {
     Newsletter,
+    Button,
     Currently,
     Highlights,
+  },
+  computed: {
+    newsletterLink() {
+      return process.env.VUE_APP_NWSLTR_FORM_ACTION;
+    },
   },
 };
 </script>
@@ -69,6 +82,15 @@ export default {
         font-size: 20px;
         font-weight: 600;
       }
+    }
+
+    .newsletter-temp-block {
+      h3 {
+        font-family: GilroySemiBold;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      width: 305px;
     }
   }
 }
