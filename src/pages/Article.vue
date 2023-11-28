@@ -7,9 +7,12 @@
           v-if="hasOtherContent"
           blue
           boxed
-          class="e2r-button"
+          class="other_content-button"
+          :class="{ 'e2r-button': !showE2R }"
+          :e2r="!showE2R"
           @click="toggleContentType"
         >
+          <img v-if="!showE2R" src="@/assets/e2r.png" />
           {{ showE2R ? "Plain English" : "Easy-to-Read" }} version
         </Button>
       </div>
@@ -22,7 +25,7 @@
             <img
               v-if="article.picture?.picture && isStaticPage"
               :src="article.picture.picture"
-              :alt="article.picture.picture || `Picture for ${article.title}`"
+              :alt="article.picture.alt || `Picture for ${article.title}`"
             />
             <h2 v-if="article.excerpt">{{ article.excerpt }}</h2>
           </div>
@@ -159,9 +162,22 @@ export default {
 
   &-header {
     margin-bottom: 12px;
-    .e2r-button {
+    .other_content-button {
+      img {
+        height: 45px;
+        border-radius: 3px;
+      }
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
       padding-left: 38px;
       padding-right: 38px;
+
+      &.e2r-button {
+        padding-left: 12px;
+      }
     }
   }
 

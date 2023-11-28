@@ -42,7 +42,7 @@ export default {
     dataset() {
       let arr = dataset;
       arr.forEach((country) => {
-        country.average = this.averageFn(country);
+        country.average = Math.round(this.averageFn(country) * 10) / 10;
       });
       return dataset;
     },
@@ -57,9 +57,6 @@ export default {
         {
           field: "average",
           sortable: true,
-          display: (row) => {
-            return Math.round(row.average * 10) / 10;
-          },
           label: "Average inclusion score",
         },
         ...this.shownColumns,

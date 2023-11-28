@@ -8,6 +8,7 @@
       'ie-button-pink': pink,
       'ie-button-white': white,
       'ie-button-small': small,
+      'ie-button-e2r': e2r,
     }"
   >
     <slot />
@@ -22,6 +23,7 @@
       'ie-button-pink': pink,
       'ie-button-white': white,
       'ie-button-small': small,
+      'ie-button-e2r': e2r,
     }"
     :type="type"
   >
@@ -55,6 +57,10 @@ export default {
     type: {
       type: String,
       default: "button",
+    },
+    e2r: {
+      type: Boolean,
+      default: false,
     },
   },
 };
@@ -114,6 +120,16 @@ export default {
       &:hover,
       &:focus:not(:disabled) {
         background: $ie-blue--transp;
+      }
+    }
+
+    &.ie-button-e2r {
+      background: #0b129c;
+      border-color: #0b129c;
+
+      &:hover,
+      &:focus:not(:disabled) {
+        background: #0b129ccc;
       }
     }
 

@@ -1,11 +1,13 @@
 <template>
   <div>
-    <Hero v-show="false" />
-    <E2R v-show="false" />
-    <Videos v-show="false" v-if="false" />
-    <Articles v-show="false" />
-    <Publications v-show="false" />
-    <h1 class="maint">
+    <template v-if="!notLive">
+      <Hero />
+      <E2R />
+      <Videos v-if="false" />
+      <Articles />
+      <Publications />
+    </template>
+    <h1 class="maint" v-else>
       The website is currently under maintenance, check back soon!
     </h1>
   </div>
@@ -24,6 +26,11 @@ export default {
     Videos,
     Articles,
     Publications,
+  },
+  computed: {
+    notLive() {
+      return process.env.VUE_APP_NOTLIVE.toLowerCase() === "true";
+    },
   },
 };
 </script>

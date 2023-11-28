@@ -6,7 +6,7 @@
     </h1>
     <form class="new_article-form" @submit="submitForm">
       <label for="article_type">Article type</label>
-      <select name="article_type" v-model="article_type">
+      <select name="article_type" v-model="article_type" class="short">
         <option :value="null" />
         <option value="news">News</option>
         <option value="blogpost">Blogpost</option>
@@ -15,6 +15,18 @@
         <option value="report">Report</option>
         <option value="podcast">Podcast</option>
         <option value="static_page">Static page</option>
+      </select>
+
+      <label for="author">Author</label>
+      <select name="author" v-model="author" class="short">
+        <option :value="null">Leave blank</option>
+        <option
+          v-for="user in users"
+          :key="`user_${user.id}`"
+          :value="user.email"
+        >
+          {{ user.first_name }} {{ user.last_name }}
+        </option>
       </select>
 
       <template v-if="article_type === 'static_page'">
@@ -45,20 +57,16 @@
       <!-- <label>URL</label>
       <span class="url_preview">{{ rootUrl }}{{ generatedUrl }}</span> -->
 
-      <label for="author">Author</label>
-      <select name="author" v-model="author" class="short">
-        <option :value="null">Leave blank</option>
-        <option
-          v-for="user in users"
-          :key="`user_${user.id}`"
-          :value="user.email"
-        >
-          {{ user.first_name }} {{ user.last_name }}
-        </option>
-      </select>
-
       <label for="published">Published</label>
       <input type="checkbox" v-model="published" class="short" />
+
+      <label for="highlighted">Highlighted</label>
+      <input
+        type="checkbox"
+        v-model="highlighted"
+        class="short"
+        :disabled="!published"
+      />
 
       <label>Tags</label>
       <div class="tags">
@@ -182,6 +190,7 @@ export default {
     isDragging: false,
     tag: "",
     published: false,
+    highlighted: false,
 
     isEditing: -1,
     startEditingE2R: false,
@@ -243,6 +252,11 @@ export default {
         }
       }
     },
+    published(val) {
+      if (!val) {
+        this.highlighted = false;
+      }
+    },
   },
   mounted() {
     this.loadUsers();
@@ -268,6 +282,7 @@ export default {
               tags,
               article_type,
               published,
+              highlighted,
             } = res.data[0];
 
             let parsedPicture = picture
@@ -297,6 +312,7 @@ export default {
             this.tags = tags;
             this.article_type = article_type;
             this.published = !!published;
+            this.highlighted = !!highlighted;
             this.has_other_content =
               default_type === "plain" ? !!parsedE2R?.length : !!content;
           }
@@ -395,6 +411,7 @@ export default {
         picture_alt: this.picture_alt,
         picture: this.picture,
         published: this.published,
+        highlighted: this.highlighted,
       };
 
       if (this.isEditing > -1) {

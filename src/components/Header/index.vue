@@ -1,10 +1,10 @@
 <template>
   <header class="header">
     <div class="header-content">
-      <router-link to="/">
+      <router-link to="/" tabindex="0">
         <img src="@/assets/logo.svg" class="header-logo" />
       </router-link>
-      <Navigation v-show="false" />
+      <Navigation v-show="!notLive" />
     </div>
   </header>
 </template>
@@ -16,6 +16,11 @@ export default {
   name: "Header",
   components: {
     Navigation,
+  },
+  computed: {
+    notLive() {
+      return process.env.VUE_APP_NOTLIVE.toLowerCase() === "true";
+    },
   },
 };
 </script>

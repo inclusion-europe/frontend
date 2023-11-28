@@ -21,7 +21,7 @@
       <img
         class="preview-picture-photo"
         :src="article.picture.picture"
-        :alt="article.picture.alt"
+        :alt="article.picture.alt || `Picture for ${article.title}`"
       />
       <img
         class="preview-picture-video"

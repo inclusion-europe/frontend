@@ -1,8 +1,9 @@
 <template>
-  <div class="navbar-element" :tabindex="-1">
+  <div class="navbar-element" tabindex="0">
     <slot />
     <div class="navbar-element-dropdown">
       <router-link
+        tabindex="0"
         v-for="page in pages"
         :key="page.idx"
         class="navbar-element"
@@ -33,7 +34,8 @@ export default {
   }
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:focus-within {
     color: $ie-blue !important;
 
     .navbar-element-dropdown {
