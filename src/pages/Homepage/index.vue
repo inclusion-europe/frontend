@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="loading">⏳</div>
+    <div v-if="loading && !notLive">⏳</div>
     <template v-else-if="!notLive">
       <Hero :highlights="highlights" />
       <E2R :posts="e2r_articles" />
@@ -56,13 +56,15 @@ export default {
     },
   },
   mounted() {
-    this.$axios.get("/posts/all").then((res) => {
-      this.posts = res.data.map((post) => ({
-        ...post,
-        picture: JSON.parse(post.picture),
-      }));
-      this.loading = false;
-    });
+    if (!this.notLive) {
+      this.$axios.get("/posts/all").then((res) => {
+        this.posts = res.data.map((post) => ({
+          ...post,
+          picture: JSON.parse(post.picture),
+        }));
+        this.loading = false;
+      });
+    }
   },
 };
 </script>
