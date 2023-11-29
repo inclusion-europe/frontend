@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-if="loading && !notLive">⏳</div>
+    <div v-if="loading && !notLive" class="loading">
+      <img src="/loading.gif" />
+    </div>
     <template v-else-if="!notLive">
       <Hero :highlights="highlights" />
       <E2R :posts="e2r_articles" />
@@ -78,5 +80,16 @@ export default {
   font-size: 40px;
   font-family: GilroyBold;
   min-height: calc(100vh - 400px);
+}
+
+.loading {
+  display: flex;
+  min-height: calc(100vh - 400px);
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 60%;
+  }
 }
 </style>

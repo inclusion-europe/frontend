@@ -1,5 +1,8 @@
 <template>
   <div class="website">
+    <div class="under_const">
+      <h3>The website is still under development, more updates coming soon!</h3>
+    </div>
     <Header />
     <div class="loading" v-if="loading">Loading</div>
     <router-view v-else :key="$route.fullPath" />
@@ -40,3 +43,22 @@ export default {
 </script>
 
 <style src="@/assets/style/index.scss" lang="scss"></style>
+<style lang="scss" scoped>
+@import "@/assets/style/variables.scss";
+
+.under_const {
+  background: $ie-blue;
+  min-height: 35px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+
+  h3 {
+    margin: 0;
+    color: white;
+    font-size: 16px;
+  }
+}
+</style>

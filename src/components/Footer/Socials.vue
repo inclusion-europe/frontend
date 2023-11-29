@@ -32,6 +32,14 @@
     >
       Facebook
     </a>
+    <a
+      class="social_button"
+      target="_blank"
+      href="https://www.whatsapp.com/channel/0029VaDx78BChq6OjHRBRt0Q"
+      type="link"
+    >
+      WhatsApp
+    </a>
   </div>
 </template>
 <script>
