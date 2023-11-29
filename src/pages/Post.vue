@@ -87,7 +87,7 @@ export default {
   computed: {
     ...mapGetters(["getPosts"]),
     isIndicatorsPage() {
-      return this.$route.path === "/v/inclusion-indicators";
+      return this.$route.path === "/v/indicators";
     },
     isStaticPage() {
       return this.post.article_type === "static_page";
