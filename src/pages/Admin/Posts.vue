@@ -233,7 +233,8 @@ export default {
         justify-content: start;
       }
 
-      &:hover {
+      &:hover,
+      &:focus-within {
         & > div {
           background: lighten($ie-blue, 60%);
         }
