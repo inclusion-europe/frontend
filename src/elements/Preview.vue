@@ -9,7 +9,7 @@
       'preview--pink': pink,
       'preview--has_picture': !overtakeNoPicture,
     }"
-    :to="`/v${post.url}`"
+    :to="`${post.url}`"
   >
     <h3 class="preview-title" v-if="big || full">
       {{ post.title }}
@@ -37,7 +37,7 @@
       <p class="preview-excerpt" v-if="post.excerpt">
         {{ post.excerpt }}
       </p>
-      <SeeAll :href="`/v${post.url}`" :blue="blue" :big="big">{{
+      <SeeAll :href="`${post.url}`" :blue="blue" :big="big">{{
         video ? "Watch now" : "Read more"
       }}</SeeAll>
     </div>

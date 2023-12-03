@@ -7,7 +7,8 @@
         v-for="page in pages"
         :key="page.idx"
         class="navbar-element"
-        :to="`/v${page.url}`"
+        :to="`${page.url}`"
+        @click="(e) => e.target.blur()"
       >
         {{ page.title }}
       </router-link>

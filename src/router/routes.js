@@ -50,9 +50,22 @@ export default [
     component: PostsList,
   },
   {
-    path: '/v/:post',
+    path: '/:post',
     name: 'post',
     beforeEnter: (to, from, next) => {
+      if (!store.state.posts.length) {
+        store.dispatch('loadPosts').then(next)
+      } else {
+        next()
+      }
+    },
+    component: Post,
+  },
+  {
+    path: '/v/:post',
+    name: 'post_old',
+    beforeEnter: (to, from, next) => {
+      console.log('yo')
       if (!store.state.posts.length) {
         store.dispatch('loadPosts').then(next)
       } else {

@@ -21,6 +21,27 @@ export default {
   }),
   mounted() {
     this.$axios.get("menu/full").then((res) => {
+      let menu = res.data;
+      menu.forEach((item) => {
+        switch (item.id) {
+          case 2:
+            item.pages.push({
+              idx: 99,
+              menu_position: 99,
+              title: "Articles",
+              url: "/type/articles",
+            });
+            break;
+          case 5:
+            item.pages.push({
+              idx: 99,
+              menu_position: 99,
+              title: "Easy-To-Read Articles",
+              url: "/type/e2r",
+            });
+            break;
+        }
+      });
       this.menu = res.data;
     });
   },

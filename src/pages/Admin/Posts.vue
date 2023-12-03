@@ -15,7 +15,7 @@
       <div class="header">Last modified</div>
       <div class="header">Published?</div>
       <div class="header"></div>
-      <template v-for="post in posts" :key="`post_${post.idx}`">
+      <div class="row-wrapper" v-for="post in posts" :key="`post_${post.idx}`">
         <div class="post-title">{{ post.title }}</div>
         <div class="post-author">
           <template v-if="post.author">
@@ -48,7 +48,7 @@
           </Button>
           <Button small boxed @click="deletePost(post.idx)"> Delete </Button>
         </div>
-      </template>
+      </div>
     </div>
     <Modal
       title="Confirm Delete"
@@ -222,12 +222,22 @@ export default {
       color: white;
     }
 
-    & > div {
-      padding: 4px 12px;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: start;
+    .row-wrapper {
+      display: contents;
+
+      & > div {
+        padding: 4px 12px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+      }
+
+      &:hover {
+        & > div {
+          background: lighten($ie-blue, 60%);
+        }
+      }
     }
 
     .post {

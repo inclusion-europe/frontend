@@ -68,7 +68,7 @@
         :disabled="!published"
       />
 
-      <label>Tags</label>
+      <label for="tags">Tags</label>
       <div class="tags">
         <vue3-tags-input
           v-model="tag"
@@ -99,10 +99,13 @@
       <input type="text" name="picture_alt" v-model="picture_alt" />
 
       <label for="default-content-type">Default view</label>
-      <select name="default-content-type" v-model="content_type">
+      <select name="default-content-type" v-model="content_type" class="short">
         <option value="plain">Plain text</option>
         <option value="e2r">Easy-to-Read</option>
       </select>
+
+      <label for="url">Post url</label>
+      <input type="text" name="url" v-model="url" class="short" />
 
       <label for="picture">Upload a PDF</label>
       <input type="file" accept=".pdf" class="short" @change="uploadDocument" />
@@ -196,6 +199,7 @@ export default {
     picture_alt: "",
     e2rContent: [],
     copied_id: null,
+    url: "",
 
     users: [],
     autoTags: [],
@@ -327,7 +331,7 @@ export default {
           this.content = unescape(content) || "";
           this.excerpt = excerpt;
           this.content_type = default_type;
-          this.url = url;
+          this.url = url.startsWith("/") ? url.substring(1) : url;
           this.tags = tags;
           this.article_type = article_type;
           this.published = !!published;
@@ -431,7 +435,11 @@ export default {
       let body = {
         default_type: this.content_type,
         title: this.title,
-        url: this.generatedUrl,
+        url: utils.isEmptyStr(this.url)
+          ? this.generatedUrl
+          : this.url.startsWith("/")
+          ? this.url
+          : `/${this.url}`,
         author: this.author,
         article_type: this.article_type,
         tags,
@@ -487,7 +495,7 @@ export default {
 
 .new_post-form {
   display: grid;
-  grid-template-columns: max-content auto max-content auto;
+  grid-template-columns: max-content 1fr max-content 1fr;
   gap: 10px;
   width: $max-width;
   max-width: 80vw;
@@ -509,7 +517,7 @@ export default {
   }
 
   .full_row {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1 !important;
     display: flex;
     align-items: center;
     justify-content: center;
