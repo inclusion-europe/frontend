@@ -54,6 +54,9 @@
       <label for="title">Title</label>
       <input type="text" name="title" v-model="title" />
 
+      <label for="url">Post url</label>
+      <input type="text" name="url" v-model="url" />
+
       <!-- <label>URL</label>
       <span class="url_preview">{{ rootUrl }}{{ generatedUrl }}</span> -->
 
@@ -98,14 +101,13 @@
       <label for="picture_alt">Picture alt text</label>
       <input type="text" name="picture_alt" v-model="picture_alt" />
 
+      <h3 class="full_row">Post content</h3>
+
       <label for="default-content-type">Default view</label>
-      <select name="default-content-type" v-model="content_type" class="short">
+      <select name="default-content-type" v-model="content_type">
         <option value="plain">Plain text</option>
         <option value="e2r">Easy-to-Read</option>
       </select>
-
-      <label for="url">Post url</label>
-      <input type="text" name="url" v-model="url" class="short" />
 
       <label for="picture">Upload a PDF</label>
       <input type="file" accept=".pdf" class="short" @change="uploadDocument" />
@@ -500,7 +502,7 @@ export default {
   width: $max-width;
   max-width: 80vw;
 
-  & > *:nth-child(2n) {
+  & > *:not(label) {
     align-self: center;
     &:not(.short) {
       grid-column: 2 / -1;
