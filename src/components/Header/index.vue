@@ -2,7 +2,11 @@
   <header class="header">
     <div class="header-content">
       <router-link to="/" tabindex="0">
-        <img src="@/assets/logo.svg" class="header-logo" />
+        <img
+          src="@/assets/logo.svg"
+          class="header-logo"
+          alt="Inclusion Europe logo"
+        />
       </router-link>
       <Navigation v-show="!notLive" />
     </div>

@@ -21,7 +21,7 @@ export default {
   }),
   mounted() {
     this.$axios.get("menu/full").then((res) => {
-      let menu = res.data;
+      let menu = res.data.sort((a, b) => a.position - b.position);
       menu.forEach((item) => {
         switch (item.id) {
           case 2:
