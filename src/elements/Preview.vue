@@ -100,9 +100,9 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 22px;
-  align-items: center;
   text-decoration: none !important;
   color: unset;
+  align-items: start;
 
   * {
     text-decoration: none !important;
