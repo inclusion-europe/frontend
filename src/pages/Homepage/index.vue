@@ -47,7 +47,13 @@ export default {
         );
     },
     highlights() {
-      return this.posts.filter((post) => post.highlighted).slice(0, 3);
+      return this.posts
+        .filter((post) => post.highlighted)
+        .sort(
+          (a, b) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        )
+        .slice(0, 3);
     },
     publications() {
       return this.posts

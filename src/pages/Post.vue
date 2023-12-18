@@ -183,6 +183,74 @@ export default {
   }
 
   article {
+    & /deep/ .post-content {
+      h3 {
+        color: #1e1e1e;
+        font-size: 32px;
+        font-family: GilroyBold;
+        margin: 0;
+        margin-bottom: 12px;
+      }
+
+      h4 {
+        color: #ed0f69;
+        font-family: GilroySemiBold;
+        font-size: 32px;
+        margin: 0;
+        margin-bottom: 12px;
+      }
+
+      p,
+      li {
+        color: #1e1e1e;
+        font-family: GilroyRegular;
+        font-size: 22px;
+      }
+
+      strong {
+        font-family: GilroySemiBold;
+      }
+
+      img {
+        width: 100%;
+        border-radius: 9px;
+      }
+
+      a {
+        color: $ie-pink;
+      }
+
+      .inclusion_indicators-links {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+
+        a {
+          color: #fff;
+          padding: 6px 8px;
+          border-radius: 4px;
+          border: 2px;
+          border-style: solid;
+          background: $ie-blue;
+          border-color: $ie-blue;
+          transition: 0.2s ease-out;
+          text-decoration: none;
+          font-size: 20px;
+          font-style: normal;
+          font-family: GilroyBold;
+          font-weight: 700;
+
+          &:hover,
+          &:focus:not(:disabled) {
+            background: $ie-blue--transp;
+            color: white !important;
+          }
+        }
+      }
+    }
+
     header {
       display: flex;
       flex-direction: row;
@@ -286,76 +354,6 @@ export default {
             font-size: 32px;
             margin: auto;
             margin-bottom: 12px;
-          }
-        }
-      }
-    }
-  }
-}
-</style>
-<style lang="scss">
-@import "@/assets/style/variables.scss";
-.post_page {
-  article {
-    .post-content {
-      h3 {
-        color: #1e1e1e;
-        font-size: 32px;
-        font-family: GilroyBold;
-        margin: 0;
-        margin-bottom: 12px;
-      }
-
-      h4 {
-        color: #ed0f69;
-        font-family: GilroySemiBold;
-        font-size: 32px;
-        margin: 0;
-        margin-bottom: 12px;
-      }
-
-      p,
-      li {
-        color: #1e1e1e;
-        font-family: GilroyRegular;
-        font-size: 22px;
-      }
-
-      img {
-        width: 100%;
-        border-radius: 9px;
-      }
-
-      a {
-        color: $ie-pink;
-      }
-
-      .inclusion_indicators-links {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 48px;
-
-        a {
-          color: #fff;
-          padding: 6px 8px;
-          border-radius: 4px;
-          border: 2px;
-          border-style: solid;
-          background: $ie-blue;
-          border-color: $ie-blue;
-          transition: 0.2s ease-out;
-          text-decoration: none;
-          font-size: 20px;
-          font-style: normal;
-          font-family: GilroyBold;
-          font-weight: 700;
-
-          &:hover,
-          &:focus:not(:disabled) {
-            background: $ie-blue--transp;
-            color: white !important;
           }
         }
       }
