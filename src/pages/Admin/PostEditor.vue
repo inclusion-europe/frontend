@@ -118,8 +118,19 @@
         multiple
       />
       <label for="uploaded_files">Copy an url</label>
-      <select name="uploaded_files" v-model="copied_id" class="short">
-        <option :value="null" />
+      <select
+        name="uploaded_files"
+        v-model="copied_id"
+        class="short"
+        :disabled="!last_uploads.length"
+      >
+        <option :value="null">
+          {{
+            last_uploads.length
+              ? `Select to copy (${last_uploads.length} files uploaded)`
+              : "⬅️ Upload a file to activate"
+          }}
+        </option>
         <option
           v-for="(file, i) in last_uploads"
           :key="`last_file_${i}`"
