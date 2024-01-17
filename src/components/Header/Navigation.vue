@@ -47,14 +47,14 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
 
 .navbar {
   display: flex;
   gap: 28px;
 
-  &-element {
+  & /deep/ .navbar-element {
     font-family: GilroySemiBold;
     color: $black;
     font-size: 20px;

@@ -65,6 +65,7 @@ export default {
   &:focus {
     span {
       color: $ie-pink !important;
+      text-decoration: none !important;
     }
 
     svg {

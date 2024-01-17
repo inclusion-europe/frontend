@@ -110,7 +110,13 @@
       </select>
 
       <label for="picture">Upload a PDF</label>
-      <input type="file" accept=".pdf" class="short" @change="uploadDocument" />
+      <input
+        type="file"
+        accept=".pdf"
+        class="short"
+        @change="uploadDocument"
+        multiple
+      />
       <label for="uploaded_files">Copy an url</label>
       <select name="uploaded_files" v-model="copied_id" class="short">
         <option :value="null" />
@@ -315,7 +321,6 @@ export default {
             : { picture: null, alt: null };
 
           let parsedE2R = JSON.parse(content_e2r) || [];
-          console.log(content_e2r, parsedE2R);
           if (tags) {
             tags = tags.split(",").filter((i) => !utils.isEmptyStr(i));
           } else {
@@ -367,7 +372,6 @@ export default {
         this.autoTags = utils.uniquesInArray(
           res.data
             .map((i) => {
-              console.log(i.tags);
               return i.tags;
             })
             .join(",")
@@ -387,11 +391,6 @@ export default {
       }
     },
     uploadPicToText(event, insertImage, file) {
-      console.log({
-        event,
-        insertImage,
-        file,
-      });
       utils.uploadFile(file[0]).then((res) => {
         insertImage({
           url: res.file.filepath,
@@ -400,19 +399,20 @@ export default {
       });
     },
     uploadDocument(event) {
-      utils.uploadFile(event.target.files[0]).then((res) => {
-        this.last_uploads.push(res.file);
+      if (event.target.files.length === 0) return;
+
+      let promises = [];
+      for (let i = 0; i < event.target.files.length; i++) {
+        promises.push(utils.uploadFile(event.target.files[i]));
+      }
+      Promise.all(promises).then((res) => {
+        this.last_uploads.push(...res.map((r) => r.file));
       });
     },
     copyFileUrl(index) {
-      console.log({
-        list: this.last_uploads,
-        index,
-        file: this.last_uploads[index],
-      });
+      window.navigator.clipboard.writeText(this.last_uploads[index].filepath);
     },
     updatePicture(file) {
-      console.log({ file });
       utils.uploadFile(file).then((res) => {
         this.picture = res.file.filepath;
       });

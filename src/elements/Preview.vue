@@ -124,6 +124,19 @@ export default {
     }
   }
 
+  &:hover,
+  &:focus {
+    & /deep/ .see_all {
+      span {
+        color: $ie-pink;
+      }
+
+      svg {
+        fill: $ie-pink;
+      }
+    }
+  }
+
   &-title {
     font-family: GilroySemiBold;
     font-size: 18px;
@@ -273,24 +286,6 @@ export default {
       width: 100%;
       aspect-ratio: 16 / 9;
       height: auto;
-    }
-  }
-}
-</style>
-<style lang="scss">
-@import "@/assets/style/variables.scss";
-
-.preview {
-  &:hover,
-  &:focus {
-    .see_all {
-      span {
-        color: $ie-pink;
-      }
-
-      svg {
-        fill: $ie-pink;
-      }
     }
   }
 }

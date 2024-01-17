@@ -87,8 +87,6 @@ export default {
   },
   watch: {
     entries(val) {
-      console.log(1);
-      console.log({ val });
       this.$emit("update", val);
     },
     editOnInit(val) {
@@ -110,8 +108,6 @@ export default {
       this.$emit("update", this.entries);
     },
     updateText(val, i) {
-      console.log(2);
-      console.log({ val, i });
       this.entries[i].text = val;
       this.update();
     },

@@ -3,7 +3,6 @@ import routes from './routes'
 
 
 const beforeEach = (to, from, next) => {
-  console.log({to})
   let title_prefix = ''
   if (to.meta.title) {
     title_prefix = to.meta.title + ' | '
