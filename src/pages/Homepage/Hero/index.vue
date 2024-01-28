@@ -58,8 +58,8 @@ export default {
   display: grid;
   grid-template: auto / 1fr 1fr;
   gap: 150px 135px;
-  width: $max-width;
-  max-width: 80vw;
+  width: $width;
+  max-width: $max-width;
   margin: auto;
   padding: 55px 0;
   margin-bottom: 95px;

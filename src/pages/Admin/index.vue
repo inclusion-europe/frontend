@@ -67,8 +67,8 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
 .admin {
-  width: $max-width;
-  max-width: 80vw;
+  width: $width;
+  max-width: $max-width;
   margin: auto;
   padding-bottom: 30px;
 }

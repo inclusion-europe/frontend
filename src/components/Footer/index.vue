@@ -104,8 +104,8 @@ export default {
   }
 
   &-content {
-    width: $max-width;
-    max-width: 80vw;
+    width: $width;
+    max-width: $max-width;
     margin: auto;
     margin-top: 40px;
     display: grid;

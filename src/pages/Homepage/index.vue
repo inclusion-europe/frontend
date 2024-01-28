@@ -88,7 +88,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
 .maint {
-  max-width: $max-width;
+  max-width: $width;
   margin: auto;
 
   color: #1e1e1e;

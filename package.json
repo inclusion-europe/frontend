@@ -2,6 +2,9 @@
   "name": "inclusion",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=16 <17"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -12,6 +15,7 @@
     "@heroicons/vue": "^2.0.18",
     "@kangc/v-md-editor": "^2.3.17",
     "axios": "^1.4.0",
+    "chart.js": "^2.9.4",
     "cookiejs": "^2.1.2",
     "core-js": "^3.6.5",
     "node-sass": "^8.0.0",

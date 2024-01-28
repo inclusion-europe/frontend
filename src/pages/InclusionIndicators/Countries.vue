@@ -25,7 +25,8 @@
   </div>
 </template>
 <script>
-import dataset from "@/assets/datasets/inclusion-indicators-2024.json";
+import country_data from "@/assets/datasets/inclusion-indicators-2023.json";
+import countrycodes from "@/assets/datasets/countries.json";
 import VueTable from "vue3-table-lite";
 import Button from "@/elements/Button.vue";
 
@@ -40,24 +41,33 @@ export default {
   }),
   computed: {
     dataset() {
-      let arr = dataset;
+      let arr = country_data.data;
       arr.forEach((country) => {
         country.average = Math.round(this.averageFn(country) * 10) / 10;
       });
-      return dataset;
+      return arr;
+    },
+    labels() {
+      return country_data.labels;
     },
     columns() {
       return [
         {
           field: "country",
           sortable: true,
-          label: "Country",
+          label: this.labels["country"],
           isKey: true,
+          display: (row) => {
+            let code = this.countryCode(row);
+            return code
+              ? `<a href="/indicators/${code.toLowerCase()}">${row.country}</a>`
+              : row.country;
+          },
         },
         {
           field: "average",
           sortable: true,
-          label: "Average inclusion score",
+          label: this.labels["average"],
         },
         ...this.shownColumns,
       ];
@@ -68,64 +78,71 @@ export default {
           field: "vote_decide",
           sortable: true,
           display: (row) => {
-            return row.vote_decide ? Math.round(row.vote_decide * 10) / 10 : "";
+            return row.vote_decide
+              ? Math.round(row.vote_decide.score * 10) / 10
+              : "";
           },
-          label: "Right to decide and right to vote",
+          label: this.labels["vote_decide"],
         },
         {
           field: "live_independently_community",
           sortable: true,
           display: (row) => {
             return row.live_independently_community
-              ? Math.round(row.live_independently_community * 10) / 10
+              ? Math.round(row.live_independently_community.score * 10) / 10
               : "";
           },
-          label:
-            "Right to live independently and to be included in the community",
+          label: this.labels["live_independently_community"],
         },
         {
           field: "housing_support",
           sortable: true,
           display: (row) => {
             return row.housing_support
-              ? Math.round(row.housing_support * 10) / 10
+              ? Math.round(row.housing_support.score * 10) / 10
               : "";
           },
-          label: "Housing and support",
+          label: this.labels["housing_support"],
         },
         {
           field: "education",
           sortable: true,
           display: (row) => {
-            return row.education ? Math.round(row.education * 10) / 10 : "";
+            return row.education
+              ? Math.round(row.education.score * 10) / 10
+              : "";
           },
-          label: "Education",
+          label: this.labels["education"],
         },
         {
           field: "employment",
           sortable: true,
           display: (row) => {
-            return row.employment ? Math.round(row.employment * 10) / 10 : "";
+            return row.employment
+              ? Math.round(row.employment.score * 10) / 10
+              : "";
           },
-          label: "Employment",
+          label: this.labels["employment"],
         },
         {
           field: "healthcare",
           sortable: true,
           display: (row) => {
-            return row.healthcare ? Math.round(row.healthcare * 10) / 10 : "";
+            return row.healthcare
+              ? Math.round(row.healthcare.score * 10) / 10
+              : "";
           },
-          label: "Healthcare",
+          label: this.labels["healthcare"],
         },
         {
           field: "representation",
           sortable: true,
           display: (row) => {
             return row.representation
-              ? Math.round(row.representation * 10) / 10
+              ? Math.round(row.representation.score * 10) / 10
               : "";
           },
-          label: "Representation",
+          label: this.labels["representation"],
         },
       ];
     },
@@ -151,14 +168,14 @@ export default {
       } = row;
 
       let arr = [
-        vote_decide,
-        live_independently_community,
-        housing_support,
-        education,
-        employment,
-        healthcare,
-        representation,
-      ].filter((a) => ![null, undefined].includes(a));
+        vote_decide?.score,
+        live_independently_community?.score,
+        housing_support?.score,
+        education?.score,
+        employment?.score,
+        healthcare?.score,
+        representation?.score,
+      ].filter((a) => ![null, undefined, false].includes(a));
 
       return arr.reduce((a, b) => a + b, 0) / arr.length;
     },
@@ -169,6 +186,16 @@ export default {
     },
     initTable() {
       return this.extraColumns.map((x, i) => i);
+    },
+    countryCode(row) {
+      let countryCode =
+        Object.keys(countrycodes)[
+          Object.values(countrycodes).findIndex((el) => el === row.country)
+        ];
+      if (!countryCode) {
+        console.log(row);
+      }
+      return countryCode || null;
     },
   },
 };
@@ -182,8 +209,8 @@ export default {
   padding-bottom: 30px;
 
   .data-selector {
-    width: $max-width;
-    max-width: 80vw;
+    width: $width;
+    max-width: $max-width;
     margin: auto;
     display: flex;
     gap: 10px;

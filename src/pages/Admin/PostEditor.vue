@@ -497,8 +497,8 @@ export default {
 }
 
 .new-post {
-  width: $max-width;
-  max-width: 80vw;
+  width: $width;
+  max-width: $max-width;
   .section-title {
     display: flex;
     align-items: center;
@@ -510,8 +510,8 @@ export default {
   display: grid;
   grid-template-columns: max-content 1fr max-content 1fr;
   gap: 10px;
-  width: $max-width;
-  max-width: 80vw;
+  width: $width;
+  max-width: $max-width;
 
   & > *:not(label) {
     align-self: center;
