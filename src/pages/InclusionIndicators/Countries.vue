@@ -218,24 +218,22 @@ export default {
     justify-content: center;
     margin-bottom: 10px;
   }
-}
-</style>
-<style lang="scss">
-@import "@/assets/style/variables.scss";
-.vtl {
-  width: 100%;
 
-  &-table {
-    width: fit-content !important;
-    margin: auto;
+  & /deep/ .vtl {
+    width: 100%;
 
-    th {
-      background: $dark-grey !important;
-    }
+    &-table {
+      width: fit-content !important;
+      margin: auto;
 
-    .countries-row {
-      &:nth-child(2n) {
-        background: #ececec;
+      th {
+        background: $dark-grey !important;
+      }
+
+      .countries-row {
+        &:nth-child(2n) {
+          background: #ececec;
+        }
       }
     }
   }

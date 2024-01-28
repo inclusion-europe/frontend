@@ -4,7 +4,9 @@
       <h3>The website is still under development, more updates coming soon!</h3>
     </div>
     <Header />
-    <div class="loading" v-if="loading">Loading</div>
+    <div v-if="loading" class="loading">
+      <img src="/loading.gif" />
+    </div>
     <router-view v-else :key="$route.fullPath" />
     <Footer />
     <ScrollUp />
@@ -20,7 +22,7 @@ import { mapActions } from "vuex";
 export default {
   name: "App",
   data: () => ({
-    loading: false,
+    loading: true,
   }),
   components: {
     Header,
@@ -45,6 +47,17 @@ export default {
 <style src="@/assets/style/index.scss" lang="scss"></style>
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
+
+.loading {
+  display: flex;
+  min-height: calc(100vh - 400px);
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 60%;
+  }
+}
 
 .under_const {
   background: $ie-blue;

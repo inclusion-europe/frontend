@@ -1,6 +1,8 @@
 <template>
   <div class="post_page" :class="{ indicators_page: isIndicatorsPage }">
-    <div v-if="loading">⏳</div>
+    <div v-if="loading" class="loading">
+      <img src="/loading.gif" />
+    </div>
     <template v-else>
       <div class="post_page-header">
         <Button
@@ -153,3 +155,15 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.loading {
+  display: flex;
+  min-height: calc(100vh - 400px);
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 60%;
+  }
+}
+</style>
