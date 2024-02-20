@@ -89,17 +89,17 @@ a.ie-button {
   outline: inherit;
   text-decoration: none;
 
-  color: $black;
+  color: var(--black);
   font-size: 20px;
   font-style: normal;
   font-family: GilroyBold;
   font-weight: 700;
 
   &-blue {
-    color: $ie-blue;
+    color: var(--ie-blue);
   }
   &-pink {
-    color: $ie-pink;
+    color: var(--ie-pink);
   }
 
   &-small {
@@ -112,13 +112,13 @@ a.ie-button {
     border-radius: 4px;
     border: 2px;
     border-style: solid;
-    background: $black;
-    border-color: $black;
+    background: var(--black);
+    border-color: var(--black);
     transition: 0.2s ease-out;
 
     &:hover,
     &:focus:not(:disabled) {
-      background: $black--transp;
+      background: var(--black--transp);
       color: white !important;
     }
 
@@ -127,12 +127,12 @@ a.ie-button {
     }
 
     &.ie-button-blue {
-      background: $ie-blue;
-      border-color: $ie-blue;
+      background: var(--ie-blue);
+      border-color: var(--ie-blue);
 
       &:hover,
       &:focus:not(:disabled) {
-        background: $ie-blue--transp;
+        background: var(--ie-blue--transp);
       }
     }
 
@@ -147,32 +147,32 @@ a.ie-button {
     }
 
     &.ie-button-pink {
-      background: $ie-pink;
-      border-color: $ie-pink;
+      background: var(--ie-pink);
+      border-color: var(--ie-pink);
 
       &:hover,
       &:focus:not(:disabled) {
-        background: $ie-pink--transp;
+        background: var(--ie-pink--transp);
       }
     }
 
     &.ie-button-white {
-      color: $black;
+      color: var(--black);
       background: white;
 
       &:hover,
       &:focus:not(:disabled) {
-        border-color: $ie-pink;
+        border-color: var(--ie-pink);
         background: white;
-        color: $black !important;
+        color: var(--black) !important;
       }
     }
   }
 
   &:disabled {
     cursor: not-allowed;
-    background: $grey;
-    border-color: $grey;
+    background: var(--grey);
+    border-color: var(--grey);
   }
 }
 </style>

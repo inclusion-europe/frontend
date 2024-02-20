@@ -60,7 +60,7 @@ export default {
 }
 
 .under_const {
-  background: $ie-blue;
+  background: var(--ie-blue);
   min-height: 35px;
   width: 100%;
   display: flex;
@@ -75,9 +75,9 @@ export default {
   }
 }
 .website {
-  & /deep/ .post_page {
-    width: $width;
-    max-width: $max-width;
+  &:deep(.post_page) {
+    width: var(--width);
+    max-width: var(--max-width);
     margin: auto;
     padding-bottom: 30px;
 
@@ -103,7 +103,7 @@ export default {
     }
 
     article {
-      & /deep/ .post-content {
+      &:deep(.post-content) {
         h3 {
           color: #1e1e1e;
           font-size: 32px;
@@ -137,7 +137,7 @@ export default {
         }
 
         a {
-          color: $ie-pink;
+          color: var(--ie-pink);
         }
 
         .inclusion_indicators-links {
@@ -153,8 +153,8 @@ export default {
             border-radius: 4px;
             border: 2px;
             border-style: solid;
-            background: $ie-blue;
-            border-color: $ie-blue;
+            background: var(--ie-blue);
+            border-color: var(--ie-blue);
             transition: 0.2s ease-out;
             text-decoration: none;
             font-size: 20px;
@@ -164,7 +164,7 @@ export default {
 
             &:hover,
             &:focus:not(:disabled) {
-              background: $ie-blue--transp;
+              background: var(--ie-blue--transp);
               color: white !important;
             }
           }
@@ -221,7 +221,7 @@ export default {
 
       .post-tags {
         .tag {
-          color: $black;
+          color: var(--black);
         }
       }
     }
@@ -241,13 +241,13 @@ export default {
 
       article {
         header {
-          width: $width;
-          max-width: $max-width;
+          width: var(--width);
+          max-width: var(--max-width);
           margin: auto;
         }
         section {
-          width: $width;
-          max-width: $max-width;
+          width: var(--width);
+          max-width: var(--max-width);
           margin: auto;
 
           &.indicators-table {
@@ -256,8 +256,8 @@ export default {
             width: fit-content;
 
             & > *:not(.countries-ranking) {
-              width: $width;
-              max-width: $max-width;
+              width: var(--width);
+              max-width: var(--max-width);
               margin-left: 0;
             }
 
@@ -267,8 +267,8 @@ export default {
             }
 
             h4 {
-              width: $width;
-              max-width: $max-width;
+              width: var(--width);
+              max-width: var(--max-width);
               color: #ed0f69;
               font-family: GilroySemiBold;
               font-size: 32px;

@@ -209,8 +209,8 @@ export default {
   padding-bottom: 30px;
 
   .data-selector {
-    width: $width;
-    max-width: $max-width;
+    width: var(--width);
+    max-width: var(--max-width);
     margin: auto;
     display: flex;
     gap: 10px;
@@ -219,7 +219,7 @@ export default {
     margin-bottom: 10px;
   }
 
-  & /deep/ .vtl {
+  &:deep(.vtl) {
     width: 100%;
 
     &-table {
@@ -227,7 +227,7 @@ export default {
       margin: auto;
 
       th {
-        background: $dark-grey !important;
+        background: var(--dark-grey) !important;
       }
 
       .countries-row {

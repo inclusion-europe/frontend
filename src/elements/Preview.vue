@@ -102,7 +102,7 @@ export default {
   gap: 22px;
   text-decoration: none !important;
   color: unset;
-  align-items: start;
+  align-items: flex-start;
 
   * {
     text-decoration: none !important;
@@ -119,20 +119,20 @@ export default {
 
     &:hover {
       .preview-excerpt {
-        color: $black !important;
+        color: var(--black) !important;
       }
     }
   }
 
   &:hover,
   &:focus {
-    & /deep/ .see_all {
+    &:deep(.see_all) {
       span {
-        color: $ie-pink;
+        color: var(--ie-pink);
       }
 
       svg {
-        fill: $ie-pink;
+        fill: var(--ie-pink);
       }
     }
   }
@@ -187,12 +187,12 @@ export default {
   &:focus-within {
     .preview-title,
     a {
-      color: $ie-pink !important;
+      color: var(--ie-pink) !important;
       transition: 0.2s ease-out;
 
       * {
-        color: $ie-pink !important;
-        fill: $ie-pink;
+        color: var(--ie-pink) !important;
+        fill: var(--ie-pink);
       }
     }
   }
@@ -202,11 +202,11 @@ export default {
     &:focus-within {
       .preview-title,
       a {
-        color: $ie-blue !important;
+        color: var(--ie-blue) !important;
 
         * {
-          color: $ie-blue !important;
-          fill: $ie-blue;
+          color: var(--ie-blue) !important;
+          fill: var(--ie-blue);
         }
       }
     }
@@ -217,11 +217,11 @@ export default {
     &:focus-within {
       .preview-title,
       a {
-        color: $ie-pink !important;
+        color: var(--ie-pink) !important;
 
         * {
-          color: $ie-pink !important;
-          fill: $ie-pink;
+          color: var(--ie-pink) !important;
+          fill: var(--ie-pink);
         }
       }
     }
@@ -265,14 +265,14 @@ export default {
     }
 
     .preview-content {
-      align-self: start;
+      align-self: flex-start;
       gap: 16px;
     }
 
     .preview-title {
       grid-column: 1 / 3;
       grid-row: 1;
-      align-self: start;
+      align-self: flex-start;
     }
   }
 

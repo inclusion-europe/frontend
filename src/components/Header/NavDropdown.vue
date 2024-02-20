@@ -37,7 +37,7 @@ export default {
   &:hover,
   &:focus,
   &:focus-within {
-    color: $ie-blue !important;
+    color: var(--ie-blue) !important;
 
     .navbar-element-dropdown {
       z-index: 99999;
@@ -57,7 +57,7 @@ export default {
       .navbar-element {
         &:hover,
         &:focus {
-          color: $ie-blue !important;
+          color: var(--ie-blue) !important;
         }
       }
     }

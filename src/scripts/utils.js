@@ -37,4 +37,16 @@ utils.isEmptyStr = (str) => {
     return !str.replace(/\s/g, '').length
 }
 
+utils.indicatorScoreColour = (score) => {
+  if (isNaN(score)) {
+    return '#1E1E1E'
+  }
+
+  if (score < 3) return '#c00000';
+  if (score < 5) return '#ff9900';
+  if (score < 7) return '#dfdf03';
+  if (score < 9) return '#92d050';
+  return '#00b050'
+}
+
 export default utils;

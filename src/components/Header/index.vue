@@ -40,8 +40,8 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 20px;
-  width: $width;
-  max-width: $max-width;
+  width: var(--width);
+  max-width: var(--max-width);
   margin: auto;
   margin-bottom: 55px;
 

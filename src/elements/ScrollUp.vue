@@ -52,7 +52,7 @@ export default {
   justify-content: center;
   padding: 10px;
   border-radius: 4px;
-  background: $ie-blue;
+  background: var(--ie-blue);
   position: fixed;
   right: 20px;
   bottom: -20px;
@@ -72,7 +72,7 @@ export default {
 
   &:hover,
   &:focus {
-    background: $ie-pink;
+    background: var(--ie-pink);
   }
 }
 </style>

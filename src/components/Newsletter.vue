@@ -135,7 +135,7 @@ export default {
 
     input[type="email"] {
       color: white;
-      background: $dark-grey;
+      background: var(--dark-grey);
 
       &:not(:focus) {
         border-color: white;
@@ -144,14 +144,14 @@ export default {
 
     input[type="checkbox"] {
       color: white;
-      background: $dark-grey;
+      background: var(--dark-grey);
 
       &::before {
-        box-shadow: inset 1em 1em $dark-grey;
+        box-shadow: inset 1em 1em var(--dark-grey);
       }
 
       &:checked {
-        background: $ie-blue;
+        background: var(--ie-blue);
         &::before {
           box-shadow: inset 1em 1em white;
         }

@@ -49,7 +49,7 @@ export default {
   }
 
   span {
-    color: $ie-pink;
+    color: var(--ie-pink);
     font-family: GilroySemiBold;
     font-size: 14px;
     font-weight: 600;
@@ -58,28 +58,28 @@ export default {
 
   svg {
     height: 8px;
-    fill: $ie-pink;
+    fill: var(--ie-pink);
   }
 
   &:hover,
   &:focus {
     span {
-      color: $ie-pink !important;
+      color: var(--ie-pink) !important;
       text-decoration: none !important;
     }
 
     svg {
-      fill: $ie-pink !important;
+      fill: var(--ie-pink) !important;
     }
   }
 
   &--blue {
     span {
-      color: $ie-blue !important;
+      color: var(--ie-blue) !important;
     }
 
     svg {
-      fill: $ie-blue !important;
+      fill: var(--ie-blue) !important;
     }
   }
 

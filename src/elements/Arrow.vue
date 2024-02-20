@@ -28,13 +28,13 @@ export default {
 @import "@/assets/style/variables.scss";
 .arrow {
   &-blue {
-    fill: $ie-blue;
+    fill: var(--ie-blue);
   }
   &-pink {
-    fill: $ie-pink;
+    fill: var(--ie-pink);
   }
   &-blue {
-    fill: $black;
+    fill: var(--black);
   }
 }
 </style>

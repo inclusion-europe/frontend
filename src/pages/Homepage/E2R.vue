@@ -39,8 +39,8 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
 .easy_to_read-section {
-  width: $width;
-  max-width: $max-width;
+  width: var(--width);
+  max-width: var(--max-width);
   margin: auto;
   margin-bottom: 130px;
 
@@ -76,7 +76,7 @@ export default {
     }
 
     span {
-      color: $ie-blue;
+      color: var(--ie-blue);
       font-family: GilroySemiBold;
       font-size: 20px;
       font-weight: 600;
@@ -85,7 +85,7 @@ export default {
 
     svg {
       height: 10px;
-      fill: $ie-blue;
+      fill: var(--ie-blue);
     }
 
     &:hover,
@@ -93,8 +93,8 @@ export default {
       text-decoration: underline;
 
       * {
-        color: $ie-pink;
-        fill: $ie-pink;
+        color: var(--ie-pink);
+        fill: var(--ie-pink);
       }
     }
   }

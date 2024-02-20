@@ -38,7 +38,7 @@ export default {
   }
 
   &:hover .e2r-button-label {
-    color: $ie-pink;
+    color: var(--ie-pink);
     text-decoration: underline;
   }
 }

@@ -62,7 +62,7 @@ export default {
 
     &:hover,
     &:focus {
-      color: $ie-pink;
+      color: var(--ie-pink);
     }
   }
 }

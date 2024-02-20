@@ -96,7 +96,7 @@ export default {
 
 .footer {
   width: 100%;
-  background: $dark-grey;
+  background: var(--dark-grey);
   padding: 40px 0;
 
   h4 {
@@ -104,8 +104,8 @@ export default {
   }
 
   &-content {
-    width: $width;
-    max-width: $max-width;
+    width: var(--width);
+    max-width: var(--max-width);
     margin: auto;
     margin-top: 40px;
     display: grid;

@@ -91,8 +91,8 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
 .posts_page {
-  width: $width;
-  max-width: $max-width;
+  width: var(--width);
+  max-width: var(--max-width);
   margin: auto;
   padding-bottom: 30px;
 

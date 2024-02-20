@@ -2,12 +2,17 @@
   <div class="post_page">
     <article class="country-page">
       <header>
-        <img :src="countryFlag" />
         <h1>{{ fullCountryName }}</h1>
-        <div>
-          <h2>{{ countryAverage }}</h2>
+        <div class="country-avg">
+          <h2
+            class="country-avg--score" 
+            :style="{ color: indicatorScoreColour(countryAverage) }"
+          >
+            {{ countryAverage }}
+          </h2>
           <h5>out of 10</h5>
         </div>
+        <img :src="countryFlag" />
       </header>
       <section
         v-for="(entry, i) in Object.keys(countryDataPurified)"
@@ -22,19 +27,25 @@
             {{ countryDataPurified[entry].copy }}
           </p>
         </div>
-        <h3 class="category-score">
+        <h3 
+          class="category-score" 
+          :style="{ color: indicatorScoreColour(countryDataPurified[entry].score) }"
+        >
           {{ Math.round(countryDataPurified[entry].score * 10) / 10 }}
         </h3>
       </section>
       <section v-if="quotesLength > 1">
         <p class="quote">
           {{ countryData.quotes[0].quote }}
-          <sup v-if="countryData.quotes[0].source" class="quote-source_note">
+          <sup 
+            v-if="countryData.quotes[0].source" 
+            class="quote-source_note"
+          >
             {{ countryData.quotes[0].sourceNote }}
           </sup>
         </p>
       </section>
-      <country-chart :chartData="chartData" />
+      <country-chart :chart-data="chartData" />
       <section v-if="quotesLength">
         <p class="quote">
           {{ countryData.quotes[quotesLength > 1 ? 1 : 0].quote }}
@@ -53,6 +64,7 @@
 import dataset from "@/assets/datasets/inclusion-indicators-2023.json";
 import countrycodes from "@/assets/datasets/countries.json";
 import CountryChart from "./CountryChart.vue";
+import utils from "@/scripts/utils"
 
 export default {
   name: "CountryPage",
@@ -181,6 +193,11 @@ export default {
       this.$router.push("/indicators");
     }
   },
+  methods: {
+    indicatorScoreColour(score) {
+      return utils.indicatorScoreColour(score)
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -190,12 +207,38 @@ export default {
   gap: 38px;
 
   header {
-    gap: auto;
-    align-items: space-between;
+    align-items: center !important;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    & > * {
+      margin: 0;
+    }
 
     img {
       height: 150px;
       width: auto !important;
+    }
+
+    .country-avg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      & > * {
+        margin: 0;
+      }
+
+      &--score {
+        font-size: 3rem;
+        font-family: GilroyBold;
+        text-shadow: 0 0 8px rgba(0,0,0,.85);
+        -webkit-text-stroke: 2px rgba(0,0,0,.35);
+      }
     }
   }
 
@@ -217,6 +260,9 @@ export default {
     &-score {
       margin: 0;
       font-size: 2rem;
+      font-family: GilroyBold;
+      text-shadow: 0 0 4px rgba(25,25,25,.55);
+      -webkit-text-stroke: 2px rgba(0,0,0,.35);
     }
   }
 

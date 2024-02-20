@@ -67,11 +67,11 @@ export default {
   padding: 10px;
   border-radius: 4px;
   border: 1px solid;
-  border-color: $black;
+  border-color: var(--black);
   width: auto;
 
   &--active {
-    border-color: $ie-blue;
+    border-color: var(--ie-blue);
   }
 
   label {

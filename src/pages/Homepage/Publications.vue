@@ -39,8 +39,8 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/variables.scss";
 .publications-section {
-  width: $width;
-  max-width: $max-width;
+  width: var(--width);
+  max-width: var(--max-width);
   margin: auto;
   margin-bottom: 130px;
 

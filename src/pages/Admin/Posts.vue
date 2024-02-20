@@ -204,10 +204,10 @@ export default {
   &-table {
     display: grid;
     grid-template-columns: repeat(6, auto);
-    background: $black;
+    background: var(--black);
     gap: 1px;
     border-radius: 4px;
-    border: 1px solid $black;
+    border: 1px solid var(--black);
     overflow: hidden;
     width: fit-content;
 
@@ -218,7 +218,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $ie-blue;
+      background: var(--ie-blue);
       color: white;
     }
 
@@ -230,13 +230,13 @@ export default {
         background: white;
         display: flex;
         align-items: center;
-        justify-content: start;
+        justify-content: flex-start;
       }
 
       &:hover,
       &:focus-within {
         & > div {
-          background: lighten($ie-blue, 60%);
+          background: var(--ie-blue--light);
         }
       }
     }

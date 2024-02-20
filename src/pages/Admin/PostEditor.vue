@@ -497,8 +497,8 @@ export default {
 }
 
 .new-post {
-  width: $width;
-  max-width: $max-width;
+  width: var(--width);
+  max-width: var(--max-width);
   .section-title {
     display: flex;
     align-items: center;
@@ -510,8 +510,8 @@ export default {
   display: grid;
   grid-template-columns: max-content 1fr max-content 1fr;
   gap: 10px;
-  width: $width;
-  max-width: $max-width;
+  width: var(--width);
+  max-width: var(--max-width);
 
   & > *:not(label) {
     align-self: center;
@@ -566,7 +566,7 @@ export default {
         text-align: left;
 
         &:hover {
-          background-color: $ie-blue--whiteout;
+          background-color: var(--ie-blue--whiteout);
         }
       }
     }

@@ -133,8 +133,8 @@ export default {
   grid-template-columns: 175px 1fr max-content;
   align-items: stretch;
   gap: 10px;
-  width: $width;
-  max-width: $max-width;
+  width: var(--width);
+  max-width: var(--max-width);
 
   .preview-pic {
     height: 150px;

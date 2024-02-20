@@ -54,9 +54,9 @@ export default {
   display: flex;
   gap: 28px;
 
-  & /deep/ .navbar-element {
+  &:deep(.navbar-element) {
     font-family: GilroySemiBold;
-    color: $black;
+    color: var(--black);
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -70,7 +70,7 @@ export default {
 
     &:hover,
     &:focus {
-      color: $ie-blue !important;
+      color: var(--ie-blue) !important;
     }
   }
 }
