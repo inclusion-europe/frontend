@@ -1,24 +1,23 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import routes from './routes'
-
+import { createRouter, createWebHistory } from 'vue-router';
+import routes from './routes';
 
 const beforeEach = (to, from, next) => {
-  let title_prefix = ''
-  if (to.meta.title) {
-    title_prefix = to.meta.title + ' | '
-  }
-  document.title = title_prefix + process.env.VUE_APP_DEFAULT_TITLE;
-  next()
-}
+    let titlePrefix = '';
+    if (to.meta.title) {
+        titlePrefix = `${to.meta.title} | `;
+    }
+    document.title = titlePrefix + process.env.VUE_APP_DEFAULT_TITLE;
+    next();
+};
 
 const router = createRouter({
-  history: createWebHistory('/'),
-  routes,
-  scrollBehavior() {
-      return { top: 0 }
-  },
-})
+    history: createWebHistory('/'),
+    routes,
+    scrollBehavior() {
+        return { top: 0 };
+    },
+});
 
-router.beforeEach(beforeEach)
+router.beforeEach(beforeEach);
 
-export default router
+export default router;

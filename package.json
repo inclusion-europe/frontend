@@ -9,8 +9,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "vue-cli-service serve",
-    "dev": "cross-env node_env=development vue-cli-service serve --open --host localhost"
+    "start": "vue-cli-service serve"
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
@@ -27,33 +26,25 @@
     "vue-router": "^4.2.4",
     "vue3-table-lite": "^1.3.9",
     "vue3-tags-input": "^1.0.12",
+    "vue3-toastify": "^0.2.1",
     "vuetable-2": "^2.0.0-beta.4",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.17",
-    "@vue/cli-plugin-eslint": "~4.5.17",
-    "@vue/cli-plugin-vuex": "^4.5.19",
-    "@vue/cli-service": "~4.5.17",
+    "@vue/cli-plugin-babel": "^5",
+    "@vue/cli-plugin-eslint": "^5",
+    "@vue/cli-plugin-vuex": "^5",
+    "@vue/cli-service": "^5",
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.3",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-vue": "^9.21.1"
   },
   "browserslist": [
     "> 1%",
