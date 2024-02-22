@@ -1,216 +1,244 @@
 <template>
-  <div class="countries-ranking">
-    <div class="data-selector">
-      <Button
-        v-for="(field, i) in extraColumns"
-        rounded
-        boxed
-        :white="!visibleColumns.includes(i)"
-        :key="`selector-button-${i}`"
-        @click="selectColumn(i)"
-      >
-        {{ field.label }}
-      </Button>
+    <div class="countries-ranking">
+        <div class="data-selector">
+            <IeButton
+                v-for="(field, i) in extraColumns"
+                rounded
+                boxed
+                :white="!visibleColumns.includes(i)"
+                :key="`selector-button-${i}`"
+                @click="selectColumn(i)"
+            >
+                {{ field.label }}
+            </IeButton>
+        </div>
+        <vue-table
+            :row-classes="['countries-row']"
+            :columns="columns"
+            :rows="dataset"
+            :total="dataset.length"
+            :page-size="50"
+            :is-static-mode="true"
+            :is-hide-paging="true"
+        >
+        </vue-table>
     </div>
-    <vue-table
-      :row-classes="['countries-row']"
-      :columns="columns"
-      :rows="dataset"
-      :total="dataset.length"
-      :page-size="50"
-      :is-static-mode="true"
-      :is-hide-paging="true"
-    >
-    </vue-table>
-  </div>
 </template>
 <script>
-import dataset from "@/assets/datasets/inclusion-indicators-2024.json";
-import VueTable from "vue3-table-lite";
-import Button from "@/elements/Button.vue";
+import VueTable from 'vue3-table-lite';
+import countryData from '@/assets/datasets/inclusion-indicators-2023.json';
+import countrycodes from '@/assets/datasets/countries.json';
+import IeButton from '@/elements/Button.vue';
 
 export default {
-  name: "InclusionIndicators.Countries",
-  components: {
-    VueTable,
-    Button,
-  },
-  data: () => ({
-    visibleColumns: [],
-  }),
-  computed: {
-    dataset() {
-      let arr = dataset;
-      arr.forEach((country) => {
-        country.average = Math.round(this.averageFn(country) * 10) / 10;
-      });
-      return dataset;
+    name: 'InclusionIndicators.Countries',
+    components: {
+        VueTable,
+        IeButton,
     },
-    columns() {
-      return [
-        {
-          field: "country",
-          sortable: true,
-          label: "Country",
-          isKey: true,
+    data: () => ({
+        visibleColumns: [],
+    }),
+    computed: {
+        dataset() {
+            const arr = countryData.data;
+            arr.forEach((country) => {
+                Object.assign(country, {
+                    average: Math.round(this.averageFn(country) * 10) / 10,
+                });
+            });
+            return arr;
         },
-        {
-          field: "average",
-          sortable: true,
-          label: "Average inclusion score",
+        labels() {
+            return countryData.labels;
         },
-        ...this.shownColumns,
-      ];
+        columns() {
+            return [
+                {
+                    field: 'country',
+                    sortable: true,
+                    label: this.labels.country,
+                    isKey: true,
+                    display: (row) => {
+                        const code = this.countryCode(row);
+                        return code ? this.countryUrl(row) : row.country;
+                    },
+                },
+                {
+                    field: 'average',
+                    sortable: true,
+                    label: this.labels.average,
+                },
+                ...this.shownColumns,
+            ];
+        },
+        extraColumns() {
+            return [
+                {
+                    field: 'voteDecide',
+                    sortable: true,
+                    display: (row) =>
+                        row.scores.voteDecide
+                            ? this.scoreRoundFn(row.scores.voteDecide.score)
+                            : '',
+                    label: this.labels.voteDecide,
+                },
+                {
+                    field: 'liveIndep',
+                    sortable: true,
+                    display: (row) =>
+                        row.scores.liveIndep
+                            ? this.scoreRoundFn(row.scores.liveIndep.score)
+                            : '',
+                    label: this.labels.liveIndep,
+                },
+                {
+                    field: 'housingSupport',
+                    sortable: true,
+                    display: (row) =>
+                        row.scores.housingSupport
+                            ? this.scoreRoundFn(row.scores.housingSupport.score)
+                            : '',
+                    label: this.labels.housingSupport,
+                },
+                {
+                    field: 'education',
+                    sortable: true,
+                    display: (row) =>
+                        row.scores.education
+                            ? this.scoreRoundFn(row.scores.education.score)
+                            : '',
+                    label: this.labels.education,
+                },
+                {
+                    field: 'employment',
+                    sortable: true,
+                    display: (row) =>
+                        row.scores.employment
+                            ? this.scoreRoundFn(row.scores.employment.score)
+                            : '',
+                    label: this.labels.employment,
+                },
+                {
+                    field: 'healthcare',
+                    sortable: true,
+                    display: (row) =>
+                        row.scores.healthcare
+                            ? this.scoreRoundFn(row.scores.healthcare.score)
+                            : '',
+                    label: this.labels.healthcare,
+                },
+                {
+                    field: 'representation',
+                    sortable: true,
+                    display: (row) =>
+                        row.scores.representation
+                            ? this.scoreRoundFn(row.scores.representation.score)
+                            : '',
+                    label: this.labels.representation,
+                },
+            ];
+        },
+        shownColumns() {
+            return this.extraColumns.filter((x, i) =>
+                this.visibleColumns.includes(i),
+            );
+        },
     },
-    extraColumns() {
-      return [
-        {
-          field: "vote_decide",
-          sortable: true,
-          display: (row) => {
-            return row.vote_decide ? Math.round(row.vote_decide * 10) / 10 : "";
-          },
-          label: "Right to decide and right to vote",
-        },
-        {
-          field: "live_independently_community",
-          sortable: true,
-          display: (row) => {
-            return row.live_independently_community
-              ? Math.round(row.live_independently_community * 10) / 10
-              : "";
-          },
-          label:
-            "Right to live independently and to be included in the community",
-        },
-        {
-          field: "housing_support",
-          sortable: true,
-          display: (row) => {
-            return row.housing_support
-              ? Math.round(row.housing_support * 10) / 10
-              : "";
-          },
-          label: "Housing and support",
-        },
-        {
-          field: "education",
-          sortable: true,
-          display: (row) => {
-            return row.education ? Math.round(row.education * 10) / 10 : "";
-          },
-          label: "Education",
-        },
-        {
-          field: "employment",
-          sortable: true,
-          display: (row) => {
-            return row.employment ? Math.round(row.employment * 10) / 10 : "";
-          },
-          label: "Employment",
-        },
-        {
-          field: "healthcare",
-          sortable: true,
-          display: (row) => {
-            return row.healthcare ? Math.round(row.healthcare * 10) / 10 : "";
-          },
-          label: "Healthcare",
-        },
-        {
-          field: "representation",
-          sortable: true,
-          display: (row) => {
-            return row.representation
-              ? Math.round(row.representation * 10) / 10
-              : "";
-          },
-          label: "Representation",
-        },
-      ];
+    mounted() {
+        this.visibleColumns = this.initTable();
     },
-    shownColumns() {
-      return this.extraColumns.filter((x, i) =>
-        this.visibleColumns.includes(i)
-      );
-    },
-  },
-  mounted() {
-    this.visibleColumns = this.initTable();
-  },
-  methods: {
-    averageFn(row) {
-      let {
-        vote_decide,
-        live_independently_community,
-        housing_support,
-        education,
-        employment,
-        healthcare,
-        representation,
-      } = row;
+    methods: {
+        averageFn(row) {
+            const {
+                voteDecide,
+                liveIndep,
+                housingSupport,
+                education,
+                employment,
+                healthcare,
+                representation,
+            } = row.scores;
 
-      let arr = [
-        vote_decide,
-        live_independently_community,
-        housing_support,
-        education,
-        employment,
-        healthcare,
-        representation,
-      ].filter((a) => ![null, undefined].includes(a));
+            const arr = [
+                voteDecide?.score,
+                liveIndep?.score,
+                housingSupport?.score,
+                education?.score,
+                employment?.score,
+                healthcare?.score,
+                representation?.score,
+            ].filter((a) => ![null, undefined, false].includes(a));
 
-      return arr.reduce((a, b) => a + b, 0) / arr.length;
+            return arr.reduce((a, b) => a + b, 0) / arr.length;
+        },
+        selectColumn(i) {
+            const inArray = this.visibleColumns.indexOf(i);
+            if (inArray > -1) this.visibleColumns.splice(inArray, 1);
+            else this.visibleColumns.push(i);
+        },
+        initTable() {
+            return this.extraColumns.map((x, i) => i);
+        },
+        countryCode(row) {
+            const countryCode =
+                Object.keys(countrycodes)[
+                    Object.values(countrycodes).findIndex(
+                        (el) => el === row.country,
+                    )
+                ];
+            if (!countryCode) {
+                this.$router.push('/indicators');
+            }
+            return countryCode || null;
+        },
+        countryUrl(row) {
+            return `<a href="/indicators/${this.countryCode(
+                row,
+            ).toLowerCase()}">${row.country}</a>`;
+        },
+        scoreRoundFn(score) {
+            return Math.round(score * 10) / 10;
+        },
     },
-    selectColumn(i) {
-      let inArray = this.visibleColumns.indexOf(i);
-      if (inArray > -1) this.visibleColumns.splice(inArray, 1);
-      else this.visibleColumns.push(i);
-    },
-    initTable() {
-      return this.extraColumns.map((x, i) => i);
-    },
-  },
 };
 </script>
 <style lang="scss" scoped>
-@import "@/assets/style/variables.scss";
+@import '@/assets/style/variables.scss';
 .countries-ranking {
-  max-width: 90vw;
-  width: fit-content;
-  margin: auto;
-  padding-bottom: 30px;
-
-  .data-selector {
-    width: $max-width;
-    max-width: 80vw;
+    max-width: 90vw;
+    width: fit-content;
     margin: auto;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
-}
-</style>
-<style lang="scss">
-@import "@/assets/style/variables.scss";
-.vtl {
-  width: 100%;
+    padding-bottom: 30px;
 
-  &-table {
-    width: fit-content !important;
-    margin: auto;
-
-    th {
-      background: $dark-grey !important;
+    .data-selector {
+        width: var(--width);
+        max-width: var(--max-width);
+        margin: auto;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 10px;
     }
 
-    .countries-row {
-      &:nth-child(2n) {
-        background: #ececec;
-      }
+    &:deep(.vtl) {
+        width: 100%;
+
+        &-table {
+            width: fit-content !important;
+            margin: auto;
+
+            th {
+                background: var(--dark-grey) !important;
+            }
+
+            .countries-row {
+                &:nth-child(2n) {
+                    background: #ececec;
+                }
+            }
+        }
     }
-  }
 }
 </style>

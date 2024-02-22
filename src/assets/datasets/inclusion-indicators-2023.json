@@ -1,0 +1,1714 @@
+{
+	"european_averages": {
+		"voteDecide": 4.8,
+		"liveIndep": 4.4,
+		"housingSupport": 4.0,
+		"education": 6.0,
+		"employment": 2.3,
+		"healthcare": 6.5,
+		"representation": 6.9,
+		"inclusion_score": 5.0
+	},
+	"labels": {
+		"country": "Country",
+		"average": "Average inclusion score",
+		"voteDecide": "Right to decide and right to vote",
+		"liveIndep": "Right to live independently and to be included in the community",
+		"housingSupport": "Housing and support",
+		"education": "Education",
+		"employment": "Employment",
+		"healthcare": "Healthcare",
+		"representation": "Representation"
+	},
+	"data":  [
+		{
+			"in_eu": 0,
+			"country": "Albania",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed, but people with intellectual disabilities are allowed \nto vote and stand for elections.",
+					"score": 5.285714285714286
+				},
+				"liveIndep": {
+					"copy": "There are no institutions with more than 30 people living there, but many people live in smaller institutions.",
+					"score": 5.777777777777779
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family. Almost no one lives in their own place.",
+					"score": 2.6
+				},
+				"education": {
+					"copy": "The law says that all children are entitled to education in mainstream schools. Despite \nthis, there are many children with intellectual disabilities who receive no education.",
+					"score": 4.333333333333333
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market. They do not risk to lose their disability benefits when they earn their own salary.",
+					"score": 3.25
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare. Only a few of \nthem have a dentist.",
+					"score": 4.9375
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are not represented within the national disability \norganisation. Help the Life Association does not receive government funding for their \nadvocacy work.",
+					"score": 1
+				}
+			},
+			"quotes": [
+				{
+					"quote": "There is a limited number of care services for people with intellectual disabilities. For those above 21 years of age there are no services."
+				},
+				{
+					"quote": "People with intellectual disabilities are not part of any council as they do not have the right to represent themself, they are represented by their parents. [...] In Albania, there are many issues concerning inclusion of people with disability, legal capacity, self-representation, lack of services, etc."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 4516,
+				"mainstream_education_note": -1,
+				"special_education": 200,
+				"special_education_note": -1,
+				"no_education": 6626,
+				"no_education_note": -1,
+				"larger_institutions": 0,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 612,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 0,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Austria",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, but people with intellectual disabilities have the right to vote and elections are accessible.",
+					"score": 8.571428571428571
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in smaller institutions, but some still live in larger institutions. There is currently no plan to close them.",
+					"score": 3.857142857142857
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family and there is little support. Almost no one lives in their own place.",
+					"score": 2.6
+				},
+				"education": {
+					"copy": "More than half of the children with intellectual disabilities go to mainstream schools, but still many go to special schools.",
+					"score": 6.666666666666667
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 1
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare. Only a few of them have access to women's health.",
+					"score": 4
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are well represented within the national disability organisation. Lebenshilfe Österreich receives government funding for their advocacy work.",
+					"score": 10
+				}
+			},
+			"quotes": [
+				{
+					"quote": "It was also mentioned by the Austrian DPOs during the current UN CRPD state review that Austria is still lacking a deinstitutionalisation plan."
+				},
+				{
+					"quote": "The transition processes from living in large housing associations to small residential units in the centre of the community must be designed very carefully for people with disabilities. Users and relatives, authorities, social planning departments, municipalities and counsellors must be actively involved in all phases. Public funding must enable self-determined living in the community.",
+					"source": "Lebenshilfe Österreich, 2016, <a href=\"https://www.lebenshilfe.at/wp-content/uploads/lebenshilfe_dialogpapier_selbstbestimmt-wohnen_kurzfassung.pdf\" target=\"_blank\">Selbstbestimmtes Wohnen in der Gemeinde</a>"
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 14725,
+				"mainstream_education_note": -1,
+				"special_education": 12394,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 4000,
+				"larger_institutions_note": 0,
+				"smaller_institutions": 20000,
+				"smaller_institutions_note": 0,
+				"psychiatric_hospitals": 0,
+				"psychiatric_hospitals_note": -1,
+				"notes": [
+					"These are rough estimations"
+				]
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Belgium",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed. This can restrict the right to vote and the right to stand for elections.",
+					"score": 2.7142857142857144
+				},
+				"liveIndep": {
+					"copy": "Many adults with intellectual disabilities are living in larger institutions and there is no plan to close these institutions.",
+					"score": 3.5714285714285716
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family. Some live in their own place.",
+					"score": 5
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools.",
+					"score": 3.6666666666666665
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 1
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have limited access to general healthcare.",
+					"score": 4
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented within the national disability organisation. Inclusion ASBL does not receive government funding for their advocacy work.",
+					"score": 8
+				}
+			},
+			"quotes": [
+				{
+					"quote": "Most of the budget allowed to the policy of disability is for institutions. It's still very complicated to organise a communitybased solution. If people with disabilities would make their own choices they would need, for instance, an individual budget. In Brussels and Wallonia, there are very few people receiving an individual budget."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 200,
+				"mainstream_education_note": -1,
+				"special_education": 21000,
+				"special_education_note": -1,
+				"no_education": "No data available",
+				"no_education_note": -1,
+				"larger_institutions": "No data available",
+				"larger_institutions_note": -1,
+				"smaller_institutions": "No data available",
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": "No data available",
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": "Inclusion ASBL kindly filled out the survey.\nThe response only reflects the situation in Brussels and Wallonia."
+		},
+		{
+			"in_eu": 1,
+			"country": "Bulgaria",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed and people with intellectual disabilities can be denied the right to vote or stand for elections because of this.",
+					"score": 1.5714285714285714
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in larger institutions, some of them live in smaller institutions.",
+					"score": 3.4285714285714284
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family, few live on their own, and there is little support.",
+					"score": 1.8
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to mainstream schools, some go to special schools.",
+					"score": 6.666666666666667
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market. They do not risk to lose their disability benefits when they earn their own salary.",
+					"score": 3.25
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare.",
+					"score": 7.75
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented within the national disability organisation. BAPID receives government funding for their advocacy work.",
+					"score": 9
+				}
+			},
+			"quotes": [
+				{
+					"quote": "[People with intellectual disabilities] live in institutions that separate them from society. In Bulgaria there are 28 institutions, 2,349 persons with intellectual disabilities live there.",
+					"source": "Bulgarian Association for People with Intellectual Disabilities (BAPID), <a href=\"https://bapid.com/bapid/?page_id=102&lang=en\" target=\"_blank\">Human Rights - Fighting for the Rights of People with Intellectual Disabilities</a>"
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 25000,
+				"mainstream_education_note": -1,
+				"special_education": "No data available",
+				"special_education_note": -1,
+				"no_education": "No data available",
+				"no_education_note": -1,
+				"larger_institutions": 1748,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 1249,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": "No data available",
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Croatia",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed and this can limit the right to stand for elections. People with intellectual disabilities are allowed to vote.",
+					"score": 3.2857142857142856
+				},
+				"liveIndep": {
+					"copy": "Some adults with intellectual disabilities live in larger institutions, few of them live in smaller institutions or psychiatric hospitals.",
+					"score": 3.6666666666666665
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family, there is little support. Only a few of them live on their own.",
+					"score": 2.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to mainstream schools, some of them go to special schools.",
+					"score": 6.666666666666667
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market, and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 1
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare. There is no easy-to-read information on healthcare available.",
+					"score": 4.75
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability organisation. Association for Promotion of Inclusion does not receive government funding for their advocacy work.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "Persons with disabilities living in institutions receive in general health care of lower level and quality, including lower quality orthopaedic and other aids."
+				},
+				{
+					"quote": "One of the barriers to inclusive education of children with intellectual disabilities and other developmental disabilities is the insufficient number of teaching assistants, which is mainly due to poor working conditions, including job insecurity (work contracts limited to the duration of the school year) and low wages, as well as the lack of standards of the profession, and further education and training.\n\nAccording to the law, only primary education (elementary schools) is mandatory, hence all children with intellectual difficulties must be enrolled in elementary schools. In effect, these children are at risk of dropping out from secondary education."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 22000,
+				"mainstream_education_note": -1,
+				"special_education": 2800,
+				"special_education_note": 0,
+				"no_education": 0,
+				"no_education_note": 0,
+				"larger_institutions": 4000,
+				"larger_institutions_note": 1,
+				"smaller_institutions": 1900,
+				"smaller_institutions_note": 1,
+				"psychiatric_hospitals": 100,
+				"psychiatric_hospitals_note": 1,
+				"notes": [
+					"These numbers reflect all children with developmental difficulties.",
+					"These numbers are an estimation as more precise data is not available."
+				]
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Czechia",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed. This limits the right for people with intellectual disabilities to stand for elections.",
+					"score": 3.2857142857142856
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in larger institutions, some of them live in smaller institutions or psychiatric hospitals.",
+					"score": 2.8095238095238093
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family and they receive little support. Few live in their own place.",
+					"score": 1.8
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to mainstream schools, some children go to special schools.",
+					"score": 8.333333333333334
+				},
+				"employment": {
+					"copy": "Few people with intellectual disabilities have a job on the open labour market, and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 1.75
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare, but there is no easy-to-read information on healthcare available.",
+					"score": 7.75
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability organisation. Rytmus does not receive government funding for their advocacy activities.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "15,000 people with intellectual disabilities live in residential social services, two thirds of them in substandard conditions.",
+					"source": "SPMP, 2021, \"<a href=\"http://jdicz.eu/wp-content/uploads/Zprava_Zit_jako_ostatni_2.v..pdf\" target=\"_blank\">Žít jako ostatní</a>\""
+				},
+				{
+					"quote": "95% of parents want their offspring with intellectual disabilities to be able to live independently with the support of community-based services.\n\nThere is no such service available where we live. The only service is in large-scale institutions. When I saw a documentary about what life looks like in those, I decided I would rather support my child myself until my death.",
+					"source": "SPMP, 2023, \"<a href=\"http://jdicz.eu/wp-content/uploads/Zprava_AzVyletiZhnizda_V1c_2023.pdf\" target=\"_blank\">Až vyletí z hnízda…</a>\""
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 10800,
+				"mainstream_education_note": -1,
+				"special_education": 9000,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 12000,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 4000,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 500,
+				"psychiatric_hospitals_note": 0,
+				"notes": [
+					"This is a rough estimation"
+				]
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Denmark",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed and people with intellectual disabilities can be denied the right to vote or to stand for elections.",
+					"score": 1
+				},
+				"liveIndep": {
+					"copy": "Some adults with intellectual disabilities live in larger institutions, some live in smaller institutions. The number of larger institutions has increased.",
+					"score": 3.6666666666666665
+				},
+				"housingSupport": {
+					"copy": "Few adults with intellectual disabilities live with their family, some live in their own place.",
+					"score": 7.8
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, few of them go to mainstream schools.",
+					"score": 5.333333333333333
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market.",
+					"score": 2.25
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare.",
+					"score": 7.75
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are well represented within the national disability organisation. Lev receives government funding for their advocacy work.",
+					"score": 9
+				}
+			},
+			"quotes": [
+				{
+					"quote": "Over the last decade or two the number of large institutions in Denmark has increased."
+				},
+				{
+					"quote": "Some [people with intellectual disabilities] (about 2.000) still do not have the right to vote for the parliament and national referendums. But they can vote for their municipal's council, county council and the European Parliament."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 300,
+				"mainstream_education_note": 0,
+				"special_education": 5000,
+				"special_education_note": 0,
+				"no_education": 0,
+				"no_education_note": 0,
+				"larger_institutions": 7000,
+				"larger_institutions_note": 0,
+				"smaller_institutions": 7000,
+				"smaller_institutions_note": 0,
+				"psychiatric_hospitals": 0,
+				"psychiatric_hospitals_note": -1,
+				"notes": [
+					"These are rough estimations"
+				]
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 0,
+			"country": "England",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity cannot be removed, people with intellectual disabilities have the right to vote and to stand for elections. However, there are obstacles in place.",
+					"score": 8.571428571428571
+				},
+				"liveIndep": {
+					"copy": "Some adults with intellectual disabilities live in larger institutions, some live in smaller institutions. Few live in psychiatric hospitals.",
+					"score": 6.277777777777778
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family, few live in their own place.",
+					"score": 3.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to mainstream schools, some go to special schools. Few of them have no education at all.",
+					"score": 6.666666666666667
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 1
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare, there is easy-to-read information on healthcare available.",
+					"score": 7.75
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are well represented in the national cross-disability organisation. Learning Disability England receives government funding for their advocacy work.",
+					"score": 10
+				}
+			},
+			"quotes": [
+				{
+					"quote": "According to Mencap, as many as 9 out of 10 people with learning disabilities have been a victim of hate crime and/or harassment in the UK."
+				},
+				{
+					"quote": "Things are improving [regarding the right to vote] thanks to the work of campaigners like My Vote My Voice but there are still barriers such as a lack of accessible information on how to vote and the different political parties as well as the introduction of photo ID this year. […] It is possible within the law [for people with intellectual disabilities to stand for elections] but the process is not accessible and as a result there's only been two people with a learning disability ever stand for election in this country."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 200000,
+				"mainstream_education_note": -1,
+				"special_education": 15000,
+				"special_education_note": -1,
+				"no_education": 1000,
+				"no_education_note": -1,
+				"larger_institutions": 23420,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 23420,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 1990,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Estonia",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, and people with intellectual disabilities can be denied the right to vote or to stand for elections.",
+					"score": 3.4285714285714284
+				},
+				"liveIndep": {
+					"copy": "Almost all adults with intellectual disabilities live in smaller institutions.",
+					"score": 7.476190476190476
+				},
+				"housingSupport": {
+					"copy": "Many adults with intellectual disabilities live with their family. Almost no one lives in their own place.",
+					"score": 3.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, few of them go to mainstream schools and few of them have no education.",
+					"score": 5
+				},
+				"employment": {
+					"copy": "Few people with an intellectual disability have a job on the open labour market and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 2.5
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare.",
+					"score": 6.25
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented within the national disability organisation. EVPIT receives government funding for their advocacy work.",
+					"score": 10
+				}
+			},
+			"quotes": [
+				{
+					"quote": "Support workers did a lot to improve the rights of people with intellectual disabilities, making sure there are never again large institutions deciding how our lives should be. Our lives should depend on ourselves. Our opinion must be heard. We need support for independent living.",
+					"source": "Estonian self-advocate at Hear Our Voices Conference 2023"
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 500,
+				"mainstream_education_note": -1,
+				"special_education": 2000,
+				"special_education_note": -1,
+				"no_education": 200,
+				"no_education_note": -1,
+				"larger_institutions": 0,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 6000,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 0,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": "Estonia scores relatively high on right to live independently and to be included in the community because they cap the official capacity of residential services at 30 people. However, in reality some of these 30-person units may be grouped together in a larger institution."
+		},
+		{
+			"in_eu": 1,
+			"country": "Finland",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, but people with intellectual disabilities are allowed to vote and stand for elections.",
+					"score": 7.142857142857143
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in smaller group homes.",
+					"score": 6.952380952380952
+				},
+				"housingSupport": {
+					"copy": "Some adults with intellectual disabilities live with their family, some live in their own place.",
+					"score": 7.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to mainstream schools, some of them still go to special schools.",
+					"score": 8.333333333333334
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market. They do not risk to lose their disability benefits when they earn their own salary.",
+					"score": 3.25
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare.",
+					"score": 7.9375
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented within the national disability organisation. Inclusion Finland receives government funding for their advocacy work.",
+					"score": 9
+				}
+			},
+			"quotes": [
+				{
+					"quote": "We were quite critical in rating Finland. We think that we should do much better, even though many things are good here."
+				},
+				{
+					"quote": "Most children with intellectual disabilities are in the mainstream education, but we don't have any official statistics on them. […] In the mainstream education the problem is that they don't get the support they need. They study in smaller groups. So, you can't really say that the school system is inclusive."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 6000,
+				"mainstream_education_note": -1,
+				"special_education": 3400,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 405,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 12000,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 0,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": "Most adults with intellectual disabilities in Finland live in smaller group homes (around 10 people living there)."
+		},
+		{
+			"in_eu": 1,
+			"country": "France",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed, but people with intellectual disabilities are allowed to vote and stand for elections.",
+					"score": 6
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in smaller institutions, some live in larger institutions, few live in psychiatric hospitals. There is no plan to close larger institutions.",
+					"score": 2.4285714285714284
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family, and they receive little support. Few live in their own place.",
+					"score": 2.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, some go to mainstream schools. Few have no education.",
+					"score": 5
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare, there is no easy-to-read information on healthcare available.",
+					"score": 5.6875
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability organisation. Nous Aussi and Unapei do not receive funding for their advocacy work.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "95% of parents fear for their daughter's or son's future when they are no longer there. […] 74% of parents feel they are not free to choose how to live their lives. […] 41% of parents work part-time",
+					"source": "UNAPEI, 2023, \"<a href=\"https://www.unapei.org/actions/la-voix-des-parents-decouvrez-lenquete/\" target=\"_blank\">La voix des parents : découvrez l'enquête</a>\""
+				},
+				{
+					"quote": "More than 8 out of 10 French people consider partial schooling of a child to be unacceptable, yet this is the daily reality for families: for the start of the 2023 school year, 28% of children with disabilities will have less than 6 hours of class per week, and 23% none at all. […] Unfortunately, too many children with disabilities will still be denied the start of the new school year.\"",
+					"source": "UNAPEI, 2023, \"<a href=\"https://www.unapei.org/wp-content/uploads/2023/09/Unapei_Communiquedepresse_jaipasecole_septembre-23.pdf\" target=\"_blank\">#Jaipasécole : Trop d'enfants en situation de handicap n'ont pas tout ou partie accès à la scolarisation</a>\""
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 4500,
+				"mainstream_education_note": -1,
+				"special_education": 8600,
+				"special_education_note": -1,
+				"no_education": 1400,
+				"no_education_note": -1,
+				"larger_institutions": 311700,
+				"larger_institutions_note": -1,
+				"smaller_institutions": "No data available",
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": "No data available",
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": "Data on France has been collected by Inclusion Europe by desk research. The indicator on employment has been left out as there was no data available, because of this the country aveRage inclusion score might not be accurate."
+		},
+		{
+			"in_eu": 1,
+			"country": "Germany",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed, but people with intellectual disabilities are allowed to vote and stand for elections.",
+					"score": 7.428571428571429
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in smaller institutions, also many of them live in larger institutions. Some live in psychiatric hospitals.",
+					"score": 4.190476190476191
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their families, and they receive little support. Some of them live in their own place.",
+					"score": 5
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, some go to mainstream schools. Few have no education.",
+					"score": 5
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market. They do not risk to lose their disability benefits when they earn their own salary.",
+					"score": 3.25
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare, there is no easy-to-read information on healthcare available.",
+					"score": 5.5
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability organisation. Bundesvereinigung Lebenshilfe does not receive government funding for their advocacy work.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "58% of women with intellectual disabilities living in special forms of housing reported physical violence, 68% have experienced psychological violence and 21% have experienced sexualised violence. A follow-up study is currently underway that also includes men and boys with disabilities."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 250000,
+				"mainstream_education_note": -1,
+				"special_education": 350000,
+				"special_education_note": -1,
+				"no_education": 400,
+				"no_education_note": -1,
+				"larger_institutions": 190000,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 230000,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 10000,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Greece",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed and this can restrict the right to stand for elections, but people with intellectual disabilities are allowed to vote.",
+					"score": 3.5714285714285716
+				},
+				"liveIndep": {
+					"copy": "Many adults with intellectual disabilities live in larger institutions, some live in psychiatric hospitals, and few live in smaller institutions. There is a plan to close institutions.",
+					"score": 3.1428571428571432
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family and they receive little support. Few live in their own place.",
+					"score": 1.8
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, some go to mainstream schools. Few have no education.",
+					"score": 5
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market. They do not risk to lose their disability benefits when they earn their own salary.",
+					"score": 3.25
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare, some have a dentist.",
+					"score": 5.125
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability organisation. Petagma Association does not receive government funding for their advocacy work.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "According to the new legislation people with disabilities have the right to vote, their accessibility is guaranteed, and support is provided.\n\nHowever, in practice, this is not always happening."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 10000,
+				"mainstream_education_note": -1,
+				"special_education": 20000,
+				"special_education_note": -1,
+				"no_education": 1000,
+				"no_education_note": -1,
+				"larger_institutions": 2438,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 389,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 1000,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Hungary",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed. People with intellectual disabilities have to do an exam to be able to vote. Right to stand for elections is limited because of legal capacity status.",
+					"score": 2.2857142857142856
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in larger institutions, also many live in psychiatric hospitals. Some of them live in smaller institutions.",
+					"score": 2.142857142857143
+				},
+				"housingSupport": {
+					"copy": "Some adults with intellectual disabilities live with their family and there is little support. Very few live in their own place.",
+					"score": 4.2
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, few go to mainstream schools and few have no education.",
+					"score": 3.6666666666666665
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare.",
+					"score": 7.75
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are well represented in the national cross-disability organisation. Hungarian Association for People with Intellectual Disabilities receives government funding for their advocacy work.",
+					"score": 10
+				}
+			},
+			"quotes": [
+				{
+					"quote": "You get access to free health care if you are under guardianship, or get benefits from the government but in practice the transportation can make it difficult, and the waitlist is very, very long. There is a general crisis in health here."
+				},
+				{
+					"quote": "In Hungary, people with intellectual disabilities can attend school in an integrated or segregated way. After primary school, most go to a specialised vocational school to learn a trade, or to learn life skills. Many remain unemployed as adults. Small number may work in sheltered employment. Only a minority may work in an integrated way in the open labour market. Many people with an intellectual disability are under exclusionary or restrictive guardianship and cannot work even if they are able to.",
+					"source": "Hungarian Association for People with Intellectual Disabilities, \"<a href=\"https://efoesz.hu/magunkrol/\" target=\"_blank\">MAGUNKRÓL - Oktatás, munkavállalás, szociális ellátások</a>\""
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": "No data available",
+				"mainstream_education_note": -1,
+				"special_education": 33250,
+				"special_education_note": -1,
+				"no_education": "No data available",
+				"no_education_note": -1,
+				"larger_institutions": 8000,
+				"larger_institutions_note": 0,
+				"smaller_institutions": 5000,
+				"smaller_institutions_note": 0,
+				"psychiatric_hospitals": 7600,
+				"psychiatric_hospitals_note": -1,
+				"notes": [
+					"These are estimations"
+				]
+			},
+			"additional_notes": "The indicator on employment has been left out as there was no data available, because of this the country aveRage inclusion score might not be accurate."
+		},
+		{
+			"in_eu": 1,
+			"country": "Ireland",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, but it does not limit the right to vote or to stand for elections. There is no easy-to-read information on elections available.",
+					"score": 5.857142857142857
+				},
+				"liveIndep": {
+					"copy": "Some adults with intellectual disabilities live in smaller institutions and some of them live in larger institutions.",
+					"score": 4.0476190476190474
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family and they receive little support. Few people live in their own place.",
+					"score": 3.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, some go to mainstream schools and few have no education.",
+					"score": 5
+				},
+				"employment": {
+					"copy": "Few people with intellectual disabilities have a job on the open labour market and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 2.5
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare, only few have a physiotherapist.",
+					"score": 6.625
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability organisation. Inclusion Ireland receives government funding for their advocacy work.",
+					"score": 9
+				}
+			},
+			"quotes": [
+				{
+					"quote": "There are not enough people working. They should be able to work more and not losing their benefits and social welfare. They should be able to earn more money."
+				},
+				{
+					"quote": "Some progress has been made, as outlined in Ireland's first report to CRPD Committee. Several measures are in place to enable people with disabilities to exercise their voting rights, they can: vote at an alternative polling station if their local station is inaccessible; use postal voting; go to special voting facilities that are provided in hospitals and nursing homes for residents who cannot go the polling station due to a physical disability or illness; and receive assistance with voting at a polling station from a companion or from the presiding officer."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 7000,
+				"mainstream_education_note": 0,
+				"special_education": 9000,
+				"special_education_note": -1,
+				"no_education": 880,
+				"no_education_note": -1,
+				"larger_institutions": 2279,
+				"larger_institutions_note": 1,
+				"smaller_institutions": 6800,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 0,
+				"psychiatric_hospitals_note": -1,
+				"notes": [
+					"Most of them are in so-called \"special classes\" in mainstream schools.",
+					"Inclusion Ireland noted that in Ireland an institution is considered large above 10 people living there."
+				]
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Italy",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed, but this does not limit the right to vote or to stand for elections.",
+					"score": 5.285714285714286
+				},
+				"liveIndep": {
+					"copy": "Some adults with intellectual disabilities live in larger or smaller institutions.",
+					"score": 3.5714285714285716
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family and receive little support, only few live in their own place.",
+					"score": 2.6
+				},
+				"education": {
+					"copy": "All children with intellectual disability go to mainstream schools.",
+					"score": 10
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market, and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 1.75
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare, but it might be more difficult to access women's health services.",
+					"score": 5.3125
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability organisation. Anffas Nazionale receives government funding for their advocacy work.",
+					"score": 9
+				}
+			},
+			"quotes": [
+				{
+					"quote": "In Italy, \"special\" schools and classes no longer exist, all pupils with intellectual disabilities attend school together with everyone else."
+				},
+				{
+					"quote": "The exercise of the right to vote in Italy is guaranteed to all people with disabilities, even if they are incapacitated, interdicted, or with support administration, but not all people with disabilities are granted the right to receive adequate support inside the voting booth, as well as accessible information. The possibility of having a companion in the voting booth, is reserved only for those with a physical or visual disability but not also for voters with intellectual disabilities."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 300000,
+				"mainstream_education_note": 0,
+				"special_education": 0,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": "No data available",
+				"larger_institutions_note": -1,
+				"smaller_institutions": "No data available",
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": "No data available",
+				"psychiatric_hospitals_note": -1,
+				"notes": [
+					"This number reflects all children with disabilities in mainstream education"
+				]
+			},
+			"additional_notes": "Anffas Nazionale provided more information on Italy's Inclusion indicators scores. You can find these in the annex."
+		},
+		{
+			"in_eu": 1,
+			"country": "Lithuania",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed and this limits people with intellectual disabilities in their right to vote or stand for elections.",
+					"score": 2.2857142857142856
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in larger institutions, some live in smaller institutions. There is a plan to close institutions.",
+					"score": 4.666666666666667
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family, only few live in their own place.",
+					"score": 3.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, some go to mainstream schools and few have no education.",
+					"score": 5
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market, and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 1.75
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare, some have a dentist.",
+					"score": 5.875
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are well represented in the national cross-disability organisation. Viltis receives government funding for their advocacy work.",
+					"score": 10
+				}
+			},
+			"quotes": [
+				{
+					"quote": "The law on legal capacity is under revision now. A new institution for supported decision-making is being created."
+				},
+				{
+					"quote": "Starting from 2024 all schools are obliged to accept pupils with disability by the address of residence regardless of their disability."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": "No data available",
+				"mainstream_education_note": -1,
+				"special_education": 4000,
+				"special_education_note": 0,
+				"no_education": 600,
+				"no_education_note": 0,
+				"larger_institutions": 5830,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 250,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 0,
+				"psychiatric_hospitals_note": -1,
+				"notes": [
+					"These numbers are estimations"
+				]
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Malta",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, but people with intellectual disabilities are allowed to vote. It does limit the right to stand for elections.",
+					"score": 4.571428571428571
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in smaller institutions.",
+					"score": 6.4444444444444455
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family and there is little support. Almost no one lives in their own place.",
+					"score": 2.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to mainstream schools. Some of them still go to special schools.",
+					"score": 9
+				},
+				"employment": {
+					"copy": "Some people with an intellectual disability have a job on the open labour market.",
+					"score": 4
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare.",
+					"score": 8.75
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented within the national disability organisation. Malta Federation of Organisations Persons with Disabilities does not receive government funding for their advocacy work.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "Unfortunately, we still have situations where children with intellectual disabilities are being referred to special schools."
+				},
+				{
+					"quote": "People with intellectual disabilities are able to vote in elections. Unfortunately, though not all can do so on their own. Personal Assistance is not even accepted to support the person while filling up the ballot paper. We have a situation where persons with disabilities who need support with the ballot paper have to accept the support of the persons chosen by the political parties who monitor the election within the election premises. This means they are not allowed to vote in secrecy."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 4228,
+				"mainstream_education_note": -1,
+				"special_education": 307,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 95,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 163,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 0,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": "Reported numbers are provided by the government of Malta as requested by our member organisation Malta Federation of Organisations Persons with Disabilities."
+		},
+		{
+			"in_eu": 1,
+			"country": "The Netherlands",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed, but people with intellectual disabilities are able to vote and stand for elections.",
+					"score": 5.285714285714286
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in larger institutions, some live in psychiatric hospitals and some live in smaller institutions.",
+					"score": 1.761904761904762
+				},
+				"housingSupport": {
+					"copy": "Some adults with intellectual disabilities live with their family, few live in their own place.",
+					"score": 5.2
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, some receive no education and few go to mainstream schools.",
+					"score": 3.6666666666666665
+				},
+				"employment": {
+					"copy": "Few people with intellectual disabilities have a job on the open labour market, and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 1.75
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare.",
+					"score": 5.5
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability organisation. Inclusion Netherlands does not receive government funding for their advocacy work.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "Young people with intellectual disability work unpaid without a contract and are dependent on the care system."
+				},
+				{
+					"quote": "It should be noted that people under guardianship have their legal capacity fully removed with this one exception: they have the legal right to vote. People with intellectual disabilities are not allowed to have support while voting. It is forbidden for fear of undue influence of the vote."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 750,
+				"mainstream_education_note": 0,
+				"special_education": 107034,
+				"special_education_note": -1,
+				"no_education": 7389,
+				"no_education_note": 1,
+				"larger_institutions": 100225,
+				"larger_institutions_note": 2,
+				"smaller_institutions": 4000,
+				"smaller_institutions_note": 2,
+				"psychiatric_hospitals": 17000,
+				"psychiatric_hospitals_note": 2,
+				"notes": [
+					"This is an estimation",
+					"This includes all children who receive no education of which the vast majority have intellectual disabilities.",
+					"Numbers of people in institutions below the age of 65"
+				]
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 0,
+			"country": "Norway",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, but people with intellectual disabilities can vote and stand for elections. Voting is accessible.",
+					"score": 8.571428571428571
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in smaller institutions. None live in larger institutions or psychiatric hospitals.",
+					"score": 9.428571428571429
+				},
+				"housingSupport": {
+					"copy": "Some adults with intellectual disabilities live with their family, they receive little support. Some live in their own place.",
+					"score": 6.6
+				},
+				"education": {
+					"copy": "Some children with intellectual disabilities go to mainstream school, some go to special schools.",
+					"score": 6.67
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market, and they risk to lose their disability benefits when they earn their own salary.",
+					"score": 1.75
+				},
+				"healthcare": {
+					"copy": "All people with intellectual disabilities have access to general healthcare. Easy-to-read information on healthcare is available.",
+					"score": 10
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability organisation. Norsk Forbund for Utviklingshemmede receives government funding for their advocacy work.",
+					"score": 8.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "Support in community is in line with the law and has been for the past 30 years."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 2500,
+				"mainstream_education_note": 0,
+				"special_education": 2500,
+				"special_education_note": 0,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 0,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 10000,
+				"smaller_institutions_note": 0,
+				"psychiatric_hospitals": 0,
+				"psychiatric_hospitals_note": -1,
+				"notes": [
+					"These are estimations"
+				]
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Portugal",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, this can restrict the right to vote and the right to stand for elections.",
+					"score": 3.4285714285714284
+				},
+				"liveIndep": {
+					"copy": "Some adults with intellectual disabilities live in smaller institutions, few live in larger institutions or psychiatric hospitals.",
+					"score": 5.523809523809524
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family and they receive little support. Few live in their own place.",
+					"score": 1.8
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to mainstream schools, few go to special schools.",
+					"score": 9.333333333333334
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market. They do not risk losing their disability benefits when they earn their own salary.",
+					"score": 3.25
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare, there is no easy-to-read information on healthcare available.",
+					"score": 6.0625
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are not represented in the national cross-disability organisation. Fenacerci does not receive government funding for their advocacy work.",
+					"score": 1
+				}
+			},
+			"quotes": [
+				{
+					"quote": "People with intellectual disabilities have access to healthcare, but it does not mean that they actually get it."
+				},
+				{
+					"quote": "Although statistics are important, they may sometimes be misleading. We need to bring additional information to the table. It is true that close to all children and youth at school age are registered at mainstreaming school. That does not mean that inclusive education is happening. Full implementation of Decree-Law 54/2018 is only possible if we have a higher student's reduction in the classrooms, a reduction of teaching and non-teaching hours, and a specific training for teachers provided by trainers with firsthand knowledge of inclusive teaching methodologies and tools (and not a theoretical overload transmitted on weekends)."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 78000,
+				"mainstream_education_note": 0,
+				"special_education": 2800,
+				"special_education_note": 0,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": "No data available",
+				"larger_institutions_note": 1,
+				"smaller_institutions": "No data available",
+				"smaller_institutions_note": 1,
+				"psychiatric_hospitals": "No data available",
+				"psychiatric_hospitals_note": 1,
+				"notes": [
+					"There are estimations for all children with disabilities",
+					"Latest data available (2021) states that 7025 people with disabilities were living in institutions but unclear what the divide is between the different options."
+				]
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Romania",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed. People with intellectual disabilities are allowed to vote, but there are many obstacles in place.",
+					"score": 4.2
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in larger institutions, some live in psychiatric hospitals.",
+					"score": 2.666666666666667
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family and they receive little support. Few live in their own place.",
+					"score": 4.2
+				},
+				"education": {
+					"copy": "Most children go to special schools, some go to mainstream schools.",
+					"score": 5
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have a general practitioner, but only few have \naccess to other types of healthcare.",
+					"score": 3.8125
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national disability organisation. Ceva de Spus does not receive government funding for their advocacy work.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "There are many cases of abuse, violence, forced abortion or interdiction of abortion, especially in institutions. I know this from people who got out of the institutions, and they confessed to me. Unfortunately, most of them are not recorded."
+				},
+				{
+					"quote": "Politicians have to respect <a href=\"https://www.inclusion-europe.eu/what-is-the-un-crpd-watch-our-new-easy-to-understand-video-to-find-out/\" target=\"_blank\">the CRPD</a> because it is written clearly that every person has the right to live in the community and to have access to services. Romanian politicians don't respect the CRPD, and they want to keep people segregated in institutions. Every year around 1,500 people die in institutions.",
+					"source": "Self-Advocate Elisabeta Moldovan for Inclusion Europe, 2022, \"<a href=\"https://www.inclusion-europe.eu/now-i-support-others-to-get-out-of-institutions/\" target=\"_blank\">Opening Speech at Europe in Action to End Segregation conference</a>\""
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": "No data available",
+				"mainstream_education_note": -1,
+				"special_education": "No data available",
+				"special_education_note": -1,
+				"no_education": "No data available",
+				"no_education_note": -1,
+				"larger_institutions": 12000,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 500,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": "No data available",
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": "The indicator on employment has been left out as there was no data available, because of this the country aveRage inclusion score might not be accurate.\n\nIt is also unclear if people with intellectual disabilities who have had their legal capacity fully removed are able to stand for elections."
+		},
+		{
+			"in_eu": 0,
+			"country": "Scotland",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed, but people with intellectual disabilities are able to vote and stand for elections.",
+					"score": 6
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in smaller institutions.",
+					"score": 5.714285714285714
+				},
+				"housingSupport": {
+					"copy": "Some adults with intellectual disabilities live with their family and they receive little \nsupport. Some live in their own place.",
+					"score": 7.8
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to mainstream schools, but still many go to \nspecial schools.",
+					"score": 7
+				},
+				"employment": {
+					"copy": "Very few people with an intellectual disability have a job on the open labour market and \nthey risk to lose their disability benefits when earning their own salary.",
+					"score": 1.75
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare and easy-to-read \ninformation is available.",
+					"score": 8.5
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are well represented within disability organisations.\nEnable Scotland receives government funding for their advocacy work.",
+					"score": 10
+				}
+			},
+			"quotes": [
+				{
+					"quote": "People cannot work more than 16 hours before there is an impact on their benefits."
+				},
+				{
+					"quote": "There is access to health services, but […] there remain significant health inequalities with people with learning disabilities living on average 20 years less than the rest of the population and twice as likely to die of a preventable illness."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 11789,
+				"mainstream_education_note": -1,
+				"special_education": 4587,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 300,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 12000,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 75,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": "The indicator on representation is changed to better fit the national context of Scotland as it is part of the United Kingdom."
+		},
+		{
+			"in_eu": 1,
+			"country": "Slovakia",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, and this limits the right to stand for elections. \nPeople with intellectual disabilities are able to vote, but there is no easy-to-read \ninformation available.",
+					"score": 4.714285714285714
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in larger institutions, few live in smaller \ninstitutions.",
+					"score": 2.4285714285714284
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family, and they receive little \nsupport. Few live in their own place.",
+					"score": 2.6
+				},
+				"education": {
+					"copy": "Most children go to special schools, few go to mainstream schools and few receive no \neducation.",
+					"score": 5.33
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market. They \ndo not risk to lose their disability benefits when they earn their own salary.",
+					"score": 3.25
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare, some have \na physiotherapist.",
+					"score": 5.6875
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability \norganisation. Inclusion Slovakia receives government funding for their advocacy work.",
+					"score": 9
+				}
+			},
+			"quotes": [
+				{
+					"quote": "By the law there should be no children without education. However, we know there are some that do not attend any school and are educated just for few hours a week at home or at specialised institutions."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": "No data available",
+				"mainstream_education_note": -1,
+				"special_education": "No data available",
+				"special_education_note": -1,
+				"no_education": "No data available",
+				"no_education_note": -1,
+				"larger_institutions": "No data available",
+				"larger_institutions_note": -1,
+				"smaller_institutions": "No data available",
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": "No data available",
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": "There was very little information on the indicator of 'right to live independently and to be included in the community'. We had to make an estimation of how the division would be between larger and smaller institutions."
+		},
+		{
+			"in_eu": 1,
+			"country": "Slovenia",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, this limits the right to vote and stand for \nelections.",
+					"score": 2.142857142857143
+				},
+				"liveIndep": {
+					"copy": "Some adults with intellectual disabilities live in smaller institutions, some live in larger \ninstitutions.",
+					"score": 3.3809523809523805
+				},
+				"housingSupport": {
+					"copy": "Some adults with intellectual disabilities live with their family, they receive little support. \nFew live in their own place.",
+					"score": 3.4
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, few go to mainstream \nschools.",
+					"score": 5.33
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market. They \ndo not risk to lose their disability benefits when they earn their own salary.",
+					"score": 3.25
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have access to general healthcare.",
+					"score": 7.75
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability \norganisation. Zveza Sozitje does not receive government funding for their advocacy \nwork.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "Maximising independence and autonomy for people with intellectual disabilities is crucial for them to have a good quality of life.",
+					"source": "Zveza Sozitje, 2023, \"<a href=\"https://www.zveza-sozitje.si/odraslo-obdobje.html\" target=\"_blank\">Odraslo obdobje</a>\""
+				},
+				{
+					"quote": "Attitudes towards people with intellectual disabilities in Slovenia are changing. They are no longer hidden from public view and are more frequently featured in the media. The process of deinstitutionalisation is one of the main steps towards active citizenship of people with intellectual disabilities.",
+					"source": "Erasmus+ project Time@net, \"Raziskava na nadnacionalni ravni na področju vključevanja mladih z motnjami v duševnem razvoju v izobraževanje in delo\""
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 5,
+				"mainstream_education_note": -1,
+				"special_education": 1355,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 733,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 715,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 5,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Spain",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, but people with intellectual disabilities have \nthe right to vote and to stand for elections.",
+					"score": 8.571428571428571
+				},
+				"liveIndep": {
+					"copy": "Some adults with intellectual disabilities live in larger institutions, few live in smaller \ninstitutions and psychiatric hospitals.",
+					"score": 3.7142857142857144
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their family, few live in their own place.",
+					"score": 3.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to mainstream schools, few go to special \nschools.",
+					"score": 8.333333333333334
+				},
+				"employment": {
+					"copy": "Few people with intellectual disabilities have a job on the open labour market.",
+					"score": 2
+				},
+				"healthcare": {
+					"copy": "Most people with intellectual disabilities have a general practitioner, only few have a \ndentist or access to women's health. There is no easy-to-read information on healthcare \navailable.",
+					"score": 3.625
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability \norganisation. Plena inclusión receives government funding for their advocacy work.",
+					"score": 8.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "A Spanish deinstitutionalisation strategy has recently been published, and the government is carrying out pilot projects on innovation in deinstitutionalisation. Plena inclusión has a project called 'My home: a life in community'."
+				},
+				{
+					"quote": "Plena inclusión and the Central Electoral Board have promoted cognitive accessibility in polling stations. The Spanish Centre for Cognitive Accessibility has transferred polling station manuals to Easy to Read."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 186000,
+				"mainstream_education_note": -1,
+				"special_education": 37000,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 31482,
+				"larger_institutions_note": -1,
+				"smaller_institutions": "No data available",
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": "No data available",
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 1,
+			"country": "Sweden",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be partially removed, but people with intellectual disabilities can \nvote and stand for elections. There is easy-to-read information on elections available.",
+					"score": 8.571428571428571
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in smaller institutions.",
+					"score": 8.4
+				},
+				"housingSupport": {
+					"copy": "Some adults with intellectual disabilities live with their family, some live in their own \nplace.",
+					"score": 7.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, few go to mainstream \nschools.",
+					"score": 5.333333333333333
+				},
+				"employment": {
+					"copy": "Few people with intellectual disabilities have a job on the open labour market, and they \nrisk to lose their disability benefits when they earn their own salary.",
+					"score": 1.75
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare and easy-to-read \ninformation on healthcare is available.",
+					"score": 10
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability \norganisation. FUB receives government funding for their advocacy work.",
+					"score": 9
+				}
+			},
+			"quotes": [
+				{
+					"quote": "In theory and by law, people with intellectual disabilities have the same right to healthcare as anyone else in Sweden. Yet statistics show that people with intellectual disabilities are often underdiagnosed and do not receive adequate care."
+				},
+				{
+					"quote": "Persons who are under legal guardianship have had the right to vote - with no limitations - since 1989. However, voter participation is still low compared to general population. But it has been proven that targeted interventions (study circles, easy to read information from the major political parties) can significantly increase voter participation among people with intellectual disabilities."
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 1700,
+				"mainstream_education_note": -1,
+				"special_education": 15300,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 0,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 30000,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 50,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 0,
+			"country": "Switzerland",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed and this can limit the right to vote. There is easy-to\u0002read information on elections available.",
+					"score": 4.857142857142857
+				},
+				"liveIndep": {
+					"copy": "Most adults with intellectual disabilities live in larger institutions, some live in smaller \ninstitutions, few live in psychiatric hospitals. There is no plan to close institutions.",
+					"score": 2.8095238095238093
+				},
+				"housingSupport": {
+					"copy": "Some adults with intellectual disabilities live with their family, and they receive little \nsupport. Few live in their own place.",
+					"score": 4.2
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, some go to mainstream \nschools.",
+					"score": 5.33
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market.",
+					"score": 1.75
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to general healthcare. There is no easy\u0002to-read information on healthcare available.",
+					"score": 7.75
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability \norganisation. Insieme Switzerland receives government funding for their advocacy work.",
+					"score": 9
+				}
+			},
+			"quotes": [
+				{
+					"quote": "It really depends on the person. Some people don't have the right to vote (approximately 14,000 out of 60,000 adults with an intellectual disability in Switzerland) and others don't receive their voting documents (because families or institutions don't think they can vote)."
+				},
+				{
+					"quote": "In order to be able to work in the primary labour market, people with cognitive impairments are dependent on jobs with activities that are adapted to their professional skills. Many jobs with simple tasks have disappeared from the Swiss economy in recent decades. However, they still exist in some sectors such as agriculture, catering, housekeeping and administration.",
+					"source": "Insieme Switzerland, 2023, \"<a href=\"https://insieme.ch/thema/arbeitsleben/arbeitswelt/\" target=\"_blank\">Arbeitswelt – Arbeiten im Ersten Arbeitsmarkt</a>\""
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 3000,
+				"mainstream_education_note": -1,
+				"special_education": 12000,
+				"special_education_note": -1,
+				"no_education": 0,
+				"no_education_note": -1,
+				"larger_institutions": 13000,
+				"larger_institutions_note": -1,
+				"smaller_institutions": 12000,
+				"smaller_institutions_note": -1,
+				"psychiatric_hospitals": 300,
+				"psychiatric_hospitals_note": -1,
+				"notes": []
+			},
+			"additional_notes": null
+		},
+		{
+			"in_eu": 0,
+			"country": "Ukraine",
+			"scores": {
+				"voteDecide": {
+					"copy": "Legal capacity can be fully removed, and this can limit the right to vote and the right to \nstand for elections. There is no easy-to-read information on elections available.",
+					"score": 1
+				},
+				"liveIndep": {
+					"copy": "Some adults with intellectual disabilities live in larger institutions, few live in smaller \ninstitutions and psychiatric hospitals.",
+					"score": 3.2857142857142856
+				},
+				"housingSupport": {
+					"copy": "Most adults with intellectual disabilities live with their families, and they receive little \nsupport. Few live in their own place.",
+					"score": 2.6
+				},
+				"education": {
+					"copy": "Most children with intellectual disabilities go to special schools, some children go to \nmainstream schools and some receive no education.",
+					"score": 3.6666666666666665
+				},
+				"employment": {
+					"copy": "Very few people with intellectual disabilities have a job on the open labour market. They \ndo not risk to lose their disability benefits when they earn their own salary.",
+					"score": 3.25
+				},
+				"healthcare": {
+					"copy": "People with intellectual disabilities have access to a general practitioner, but only some \nhave a dentist or physiotherapist.",
+					"score": 4.9375
+				},
+				"representation": {
+					"copy": "People with intellectual disabilities are represented in the national cross-disability \norganisation. VGO Coalition does not receive government funding for their advocacy \nwork.",
+					"score": 4.5
+				}
+			},
+			"quotes": [
+				{
+					"quote": "Ukraine has no money for recovery, it will rely on international funds. International donors will share responsibility for how the money is spent. We don't want to see any new people go into institutions. They should be able to live with their families, or to have homes of their own. Do not use recovery money for institutions, but for support to independent living.",
+					"source": "Raisa Kravchenko (Djerela, VGO Coalition) for Inclusion Europe, 2022, \"<a href=\"https://www.inclusion-europe.eu/ukraine-recovery-money-deinstitutionalisation/\" target=\"_blank\"Speech at Europe in Action to End Segregation conference\""
+				}
+			],
+			"reported_numbers": {
+				"mainstream_education": 2000,
+				"mainstream_education_note": 0,
+				"special_education": 10000,
+				"special_education_note": -1,
+				"no_education": 1000,
+				"no_education_note": -1,
+				"larger_institutions": 20000,
+				"larger_institutions_note": 1,
+				"smaller_institutions": 100,
+				"smaller_institutions_note": 1,
+				"psychiatric_hospitals": 1000,
+				"psychiatric_hospitals_note": 1,
+				"notes": [
+					"This includes all children with disabilities in mainstream education",
+					"These numbers are estimations and include people with psychosocial disabilities"
+				]
+			},
+			"additional_notes": null
+		}
+	]
+}
