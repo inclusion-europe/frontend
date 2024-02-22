@@ -1,5 +1,8 @@
 <template>
     <div class="post_page">
+        <ie-button @click="$router.push('/indicators')" blue boxed small>
+            Back to the Inclusion Indicators page
+        </ie-button>
         <article class="country-page">
             <header>
                 <h1>{{ fullCountryName }}</h1>
@@ -14,7 +17,7 @@
                 </div>
             </header>
             <section
-                v-for="(entry, i) in Object.keys(countryDataPurified)"
+                v-for="(entry, i) in Object.keys(countryScores)"
                 :key="`entry_${i}`"
                 class="category"
             >
@@ -23,23 +26,21 @@
                         {{ labels[entry] }}
                     </h4>
                     <p>
-                        {{ countryDataPurified[entry].copy }}
+                        {{ countryScores[entry].copy }}
                     </p>
                 </div>
                 <h3
                     class="category-score"
                     :style="{
-                        color: indicatorScoreColour(
-                            countryDataPurified[entry].score,
-                        ),
+                        color: indicatorScoreColour(countryScores[entry].score),
                     }"
                 >
-                    {{ Math.round(countryDataPurified[entry].score * 10) / 10 }}
+                    {{ Math.round(countryScores[entry].score * 10) / 10 }}
                 </h3>
             </section>
             <section v-if="quotesLength > 1">
                 <p class="quote">
-                    {{ countryData.quotes[0].quote }}
+                    <span v-html="countryData.quotes[0].quote" />
                     <sup
                         v-if="countryData.quotes[0].source"
                         class="quote-source_note"
@@ -51,7 +52,11 @@
             <country-chart :chart-data="chartData" />
             <section v-if="quotesLength">
                 <p class="quote">
-                    {{ countryData.quotes[quotesLength > 1 ? 1 : 0].quote }}
+                    <span
+                        v-html="
+                            countryData.quotes[quotesLength > 1 ? 1 : 0].quote
+                        "
+                    />
                     <sup
                         v-if="
                             countryData.quotes[quotesLength > 1 ? 1 : 0].source
@@ -65,110 +70,51 @@
                     </sup>
                 </p>
             </section>
-            <table>
-                <tr>
-                    <th colspan="2">
-                        Reported numbers of people with intellectual
-                        disabilities in
-                    </th>
-                </tr>
-                <tr>
-                    <td>Mainstream education</td>
-                    <td>
-                        {{ countryData.reported_numbers.mainstream_education
-                        }}{{
-                            '*'.repeat(
-                                countryData.reported_numbers
-                                    .mainstream_education_note + 1,
-                            )
-                        }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Special education</td>
-                    <td>
-                        {{ countryData.reported_numbers.special_education
-                        }}{{
-                            '*'.repeat(
-                                countryData.reported_numbers
-                                    .special_education_note + 1,
-                            )
-                        }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>No education</td>
-                    <td>
-                        {{ countryData.reported_numbers.no_education
-                        }}{{
-                            '*'.repeat(
-                                countryData.reported_numbers.no_education_note +
-                                    1,
-                            )
-                        }}
-                    </td>
-                </tr>
-                <tr>
-                    <td />
-                    <td />
-                </tr>
-                <tr>
-                    <td>Larger institutions</td>
-                    <td>
-                        {{ countryData.reported_numbers.larger_institutions
-                        }}{{
-                            '*'.repeat(
-                                countryData.reported_numbers
-                                    .larger_institutions_note + 1,
-                            )
-                        }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Smaller institutions</td>
-                    <td>
-                        {{ countryData.reported_numbers.smaller_institutions
-                        }}{{
-                            '*'.repeat(
-                                countryData.reported_numbers
-                                    .smaller_institutions_note + 1,
-                            )
-                        }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Psychiatric hospitals</td>
-                    <td>
-                        {{ countryData.reported_numbers.psychiatric_hospitals
-                        }}{{
-                            '*'.repeat(
-                                countryData.reported_numbers
-                                    .psychiatric_hospitals_note + 1,
-                            )
-                        }}
-                    </td>
-                </tr>
-            </table>
-            <p
-                v-for="(note, i) in countryData.reported_numbers
-                    .reported_number_notes"
-                :key="'asterisk-note-' + i"
-            >
-                {{ '*'.repeat(i + 1) }}{{ note }}
-            </p>
+            <country-table :table-data="countryData.reported_numbers" />
+            <div class="additional_notes" v-if="countryData.additional_notes">
+                <h4>Additional notes:</h4>
+                <p>{{ countryData.additional_notes }}</p>
+            </div>
         </article>
+        <div class="quote_sources" v-if="quoteSources.length">
+            <p v-for="(src, i) in quoteSources" :key="'quotesource_' + i">
+                <sup>{{ i + 1 }}</sup>
+                <span v-html="src" />
+            </p>
+        </div>
     </div>
 </template>
 <script>
 import dataset from '@/assets/datasets/inclusion-indicators-2023.json';
 import countrycodes from '@/assets/datasets/countries.json';
 import CountryChart from './CountryChart.vue';
+import CountryTable from './CountryTable.vue';
+import IeButton from '@/elements/Button.vue';
 import utils from '@/scripts/utils';
 
 export default {
     name: 'CountryPage',
-    components: { CountryChart },
+    components: {
+        CountryChart,
+        CountryTable,
+        IeButton,
+    },
     computed: {
+        quoteSources() {
+            const srcs = [];
+            for (let i = 0; i < this.countryData.quotes.length; i++) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        this.countryData.quotes[i],
+                        'source',
+                    )
+                ) {
+                    srcs.push(this.countryData.quotes[i].source);
+                }
+            }
+
+            return srcs;
+        },
         fullCountryName() {
             return countrycodes[this.$route.params.country.toUpperCase()];
         },
@@ -194,18 +140,15 @@ export default {
         },
         chartData() {
             const labels = [
-                ...Object.keys(this.countryDataPurified).map(
-                    (k) => this.labels[k],
-                ),
+                ...Object.keys(this.countryScores).map((k) => this.labels[k]),
                 'Average inclusion score',
             ];
             const country = {
                 label: this.fullCountryName,
                 data: [
-                    ...Object.keys(this.countryDataPurified).map(
+                    ...Object.keys(this.countryScores).map(
                         (k) =>
-                            Math.round(this.countryDataPurified[k].score * 10) /
-                            10,
+                            Math.round(this.countryScores[k].score * 10) / 10,
                     ),
                     this.countryAverage,
                 ],
@@ -216,7 +159,7 @@ export default {
             const euroAvg = {
                 label: 'European average',
                 data: [
-                    ...Object.keys(this.countryDataPurified).map(
+                    ...Object.keys(this.countryScores).map(
                         (k) =>
                             Math.round(dataset.european_averages[k] * 10) / 10,
                     ),
@@ -269,21 +212,15 @@ export default {
 
             return { ...config, data };
         },
-        countryDataPurified() {
-            const data = { ...this.countryData };
-            delete data.country;
-            delete data.in_eu;
-            delete data.quotes;
-            delete data.notes;
-            delete data.reported_numbers;
-            return data;
+        countryScores() {
+            return this.countryData.scores;
         },
         quotesLength() {
             if (!Array.isArray(this.countryData.quotes)) return 0;
             return this.countryData.quotes.length;
         },
         countryAverage() {
-            const data = { ...this.countryDataPurified };
+            const data = { ...this.countryScores };
             let total = 0;
             Object.values(data).forEach((el) => {
                 total += el.score;
@@ -379,6 +316,26 @@ export default {
         &-source_note {
             font-size: small;
         }
+    }
+
+    .additional_notes {
+        h4 {
+            font-size: 1.2rem;
+            font-family: GilroyBold;
+        }
+
+        & > * {
+            margin: 0;
+        }
+    }
+}
+
+.quote_sources {
+    border-top: 1px solid black;
+    margin-top: 1rem;
+
+    sup {
+        margin-right: 0.5rem;
     }
 }
 </style>

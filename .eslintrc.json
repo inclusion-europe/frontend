@@ -21,6 +21,8 @@
         "no-tabs": "off",
         "no-plusplus": "off",
         "implicit-arrow-linebreak": "off",
-        "operator-linebreak": "off"
+        "operator-linebreak": "off",
+        "no-confusing-arrow": "off",
+        "function-paren-newline": "off"
     }
 }

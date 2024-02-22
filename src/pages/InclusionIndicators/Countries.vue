@@ -61,11 +61,7 @@ export default {
                     isKey: true,
                     display: (row) => {
                         const code = this.countryCode(row);
-                        return code
-                            ? `<a href="/indicators/${code.toLowerCase()}">${
-                                row.country
-                            }</a>`
-                            : row.country;
+                        return code ? this.countryUrl(row) : row.country;
                     },
                 },
                 {
@@ -81,65 +77,72 @@ export default {
                 {
                     field: 'voteDecide',
                     sortable: true,
-                    display: (row) => (row.voteDecide
-                        ? Math.round(row.voteDecide.score * 10) / 10
-                        : ''),
+                    display: (row) =>
+                        row.scores.voteDecide
+                            ? this.scoreRoundFn(row.scores.voteDecide.score)
+                            : '',
                     label: this.labels.voteDecide,
                 },
                 {
-                    field: 'liveIndependentlyCommunity',
+                    field: 'liveIndep',
                     sortable: true,
-                    display: (row) => (row.liveIndependentlyCommunity
-                        ? Math.round(
-                            row.liveIndependentlyCommunity.score * 10,
-                        ) / 10
-                        : ''),
-                    label: this.labels.liveIndependentlyCommunity,
+                    display: (row) =>
+                        row.scores.liveIndep
+                            ? this.scoreRoundFn(row.scores.liveIndep.score)
+                            : '',
+                    label: this.labels.liveIndep,
                 },
                 {
                     field: 'housingSupport',
                     sortable: true,
-                    display: (row) => (row.housingSupport
-                        ? Math.round(row.housingSupport.score * 10) / 10
-                        : ''),
+                    display: (row) =>
+                        row.scores.housingSupport
+                            ? this.scoreRoundFn(row.scores.housingSupport.score)
+                            : '',
                     label: this.labels.housingSupport,
                 },
                 {
                     field: 'education',
                     sortable: true,
-                    display: (row) => (row.education
-                        ? Math.round(row.education.score * 10) / 10
-                        : ''),
+                    display: (row) =>
+                        row.scores.education
+                            ? this.scoreRoundFn(row.scores.education.score)
+                            : '',
                     label: this.labels.education,
                 },
                 {
                     field: 'employment',
                     sortable: true,
-                    display: (row) => (row.employment
-                        ? Math.round(row.employment.score * 10) / 10
-                        : ''),
+                    display: (row) =>
+                        row.scores.employment
+                            ? this.scoreRoundFn(row.scores.employment.score)
+                            : '',
                     label: this.labels.employment,
                 },
                 {
                     field: 'healthcare',
                     sortable: true,
-                    display: (row) => (row.healthcare
-                        ? Math.round(row.healthcare.score * 10) / 10
-                        : ''),
+                    display: (row) =>
+                        row.scores.healthcare
+                            ? this.scoreRoundFn(row.scores.healthcare.score)
+                            : '',
                     label: this.labels.healthcare,
                 },
                 {
                     field: 'representation',
                     sortable: true,
-                    display: (row) => (row.representation
-                        ? Math.round(row.representation.score * 10) / 10
-                        : ''),
+                    display: (row) =>
+                        row.scores.representation
+                            ? this.scoreRoundFn(row.scores.representation.score)
+                            : '',
                     label: this.labels.representation,
                 },
             ];
         },
         shownColumns() {
-            return this.extraColumns.filter((x, i) => this.visibleColumns.includes(i));
+            return this.extraColumns.filter((x, i) =>
+                this.visibleColumns.includes(i),
+            );
         },
     },
     mounted() {
@@ -149,17 +152,17 @@ export default {
         averageFn(row) {
             const {
                 voteDecide,
-                liveIndependentlyCommunity,
+                liveIndep,
                 housingSupport,
                 education,
                 employment,
                 healthcare,
                 representation,
-            } = row;
+            } = row.scores;
 
             const arr = [
                 voteDecide?.score,
-                liveIndependentlyCommunity?.score,
+                liveIndep?.score,
                 housingSupport?.score,
                 education?.score,
                 employment?.score,
@@ -178,15 +181,24 @@ export default {
             return this.extraColumns.map((x, i) => i);
         },
         countryCode(row) {
-            const countryCode = Object.keys(countrycodes)[
-                Object.values(countrycodes).findIndex(
-                    (el) => el === row.country,
-                )
-            ];
+            const countryCode =
+                Object.keys(countrycodes)[
+                    Object.values(countrycodes).findIndex(
+                        (el) => el === row.country,
+                    )
+                ];
             if (!countryCode) {
                 this.$router.push('/indicators');
             }
             return countryCode || null;
+        },
+        countryUrl(row) {
+            return `<a href="/indicators/${this.countryCode(
+                row,
+            ).toLowerCase()}">${row.country}</a>`;
+        },
+        scoreRoundFn(score) {
+            return Math.round(score * 10) / 10;
         },
     },
 };

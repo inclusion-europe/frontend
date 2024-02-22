@@ -141,6 +141,7 @@ label {
 
 a {
     transition: .2s ease-out;
+    color: var(--ie-pink);
 
     &:hover, &:focus {
         color: var(--ie-pink) !important;
