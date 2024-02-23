@@ -12,7 +12,7 @@
                     blue
                 />
                 <SeeAll href="/type/articles" blue v-if="posts.length > 5" big>
-                    > See all articles
+                    See all articles
                 </SeeAll>
             </div>
         </div>
