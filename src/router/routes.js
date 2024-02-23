@@ -4,6 +4,7 @@ import Posts from '@/pages/Admin/Posts.vue';
 import PostPage from '@/pages/Post.vue';
 import Countries from '@/pages/InclusionIndicators/Countries.vue';
 import CountryPage from '@/pages/InclusionIndicators/CountryPage.vue';
+import HistoryPage from '@/pages/History/index.vue';
 import Homepage from '@/pages/Homepage';
 import PostsList from '@/pages/PostsList.vue';
 import store from '@/store';
@@ -44,6 +45,11 @@ export default [
         path: '/indicators/:country',
         name: 'indicators.country',
         component: CountryPage,
+    },
+    {
+        path: '/history',
+        name: 'history',
+        component: HistoryPage,
     },
     {
         path: '/tag/:tag',
