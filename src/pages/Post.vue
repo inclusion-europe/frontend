@@ -10,7 +10,7 @@
                     blue
                     boxed
                     class="other_content-button"
-                    :class="{ 'e2r-button': !showE2R }"
+                    :class="{ 'e2r-button': !shfowE2R }"
                     :e2r="!showE2R"
                     @click="toggleContentType"
                 >
@@ -60,18 +60,20 @@
                 <section v-if="post.tags" class="post-tags">
                     <h3>
                         Tags:
-                        <template
-                            v-for="(tag, i) in post.tags"
+                        <router-link
+                            v-for="tag in post.tags"
                             :key="`tag_${tag}`"
+                            :to="`/tag/${encodeURI(tag)}`"
+                            class="tag"
                         >
-                            <router-link
-                                :to="`/tag/${encodeURI(tag)}`"
-                                class="tag"
-                            >
-                                {{ tag }}
-                            </router-link>
-                            <span v-if="i < post.tags.length - 1">, </span>
-                        </template>
+                            {{ tag }}
+                        </router-link>
+                        <span
+                            v-for="(_, i) in Array(post.tags.length - 1)"
+                            :key="`tagsep_${i}`"
+                        >
+                            ,
+                        </span>
                     </h3>
                 </section>
             </article>
@@ -109,12 +111,11 @@ export default {
             return this.post.article_type === 'static_page';
         },
         hasOtherContent() {
-            switch (this.post.default_type) {
-            case 'e2r':
+            if (this.post.default_type === 'e2r') {
                 return !!this.post.content;
-            default:
-                return !!this.post.content_e2r;
             }
+
+            return !!this.post.content_e2r;
         },
     },
     watch: {
@@ -138,21 +139,26 @@ export default {
         }
         const posts = this.getPosts;
         const post = posts.find(
-            (art) => art.url.toLowerCase()
-                === `/${encodeURIComponent(this.$route.params.post).toLowerCase()}`,
+            (art) =>
+                art.url.toLowerCase() ===
+                `/${encodeURIComponent(this.$route.params.post).toLowerCase()}`,
         );
         if (post) {
             post.content = unescape(post.content);
-            post.content_e2r = typeof post.content_e2r === 'string'
-                ? JSON.parse(post.content_e2r)
-                : post.content_e2r;
-            post.tags = typeof post.tags === 'string'
-                ? post.tags.split(',')
-                : post.tags;
+            post.content_e2r =
+                typeof post.content_e2r === 'string'
+                    ? JSON.parse(post.content_e2r)
+                    : post.content_e2r;
+            post.tags =
+                typeof post.tags === 'string'
+                    ? post.tags.split(',')
+                    : post.tags;
             this.post = post;
             document.title = `${post.title} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
             const shouldShowE2R = this.$route.query.e2r && post.content_e2r;
-            if (post.default_type === 'e2r' || shouldShowE2R) this.showE2R = true;
+            if (post.default_type === 'e2r' || shouldShowE2R) {
+                this.showE2R = true;
+            }
             this.loading = false;
         } else {
             this.$router.push('/');
