@@ -1,10 +1,12 @@
 <template>
     <div class="history_page post_page">
-        <history-navigation
-            :items="historyItems"
-            @showItem="showItem"
-            :selected="shownItem"
-        />
+        <div>
+            <history-navigation
+                :items="historyItems"
+                @showItem="showItem"
+                :selected="shownItem"
+            />
+        </div>
         <div>
             <history-item
                 v-for="(item, i) in historyItems"

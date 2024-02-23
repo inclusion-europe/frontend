@@ -30,6 +30,8 @@ export default {
     list-style: none;
     display: flex;
     flex-direction: column;
+    position: sticky;
+    top: 1rem;
 
     li {
         cursor: pointer;
