@@ -40,6 +40,14 @@
         >
             WhatsApp
         </a>
+        <a
+            class="social_button"
+            target="_blank"
+            href="https://www.instagram.com/inclusioneurope/?hl=en"
+            type="link"
+        >
+            Instagram
+        </a>
     </div>
 </template>
 <script>

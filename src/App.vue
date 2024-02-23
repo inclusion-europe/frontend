@@ -80,6 +80,14 @@ export default {
     }
 }
 .website {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    &:deep(.header + *) {
+        flex-grow: 1;
+    }
+
     &:deep(.post_page) {
         width: var(--width);
         max-width: var(--max-width);

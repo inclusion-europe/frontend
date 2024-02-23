@@ -43,16 +43,18 @@ export default {
             return this.posts
                 .filter((post) => ['e2r_article'].includes(post.article_type))
                 .sort(
-                    (a, b) => new Date(b.created_at).getTime()
-                        - new Date(a.created_at).getTime(),
+                    (a, b) =>
+                        new Date(b.created_at).getTime() -
+                        new Date(a.created_at).getTime(),
                 );
         },
         highlights() {
             return this.posts
                 .filter((post) => post.highlighted)
                 .sort(
-                    (a, b) => new Date(b.created_at).getTime()
-                        - new Date(a.created_at).getTime(),
+                    (a, b) =>
+                        new Date(b.created_at).getTime() -
+                        new Date(a.created_at).getTime(),
                 )
                 .slice(0, 3);
         },
@@ -60,16 +62,20 @@ export default {
             return this.posts
                 .filter((post) => ['report'].includes(post.article_type))
                 .sort(
-                    (a, b) => new Date(b.created_at).getTime()
-                        - new Date(a.created_at).getTime(),
+                    (a, b) =>
+                        new Date(b.created_at).getTime() -
+                        new Date(a.created_at).getTime(),
                 );
         },
         articles() {
             return this.posts
-                .filter((post) => ['news', 'blogpost'].includes(post.article_type))
+                .filter((post) =>
+                    ['news', 'blogpost'].includes(post.article_type),
+                )
                 .sort(
-                    (a, b) => new Date(b.created_at).getTime()
-                        - new Date(a.created_at).getTime(),
+                    (a, b) =>
+                        new Date(b.created_at).getTime() -
+                        new Date(a.created_at).getTime(),
                 );
         },
     },
