@@ -142,15 +142,16 @@ label {
 a {
     transition: .2s ease-out;
     color: var(--ie-pink);
+    font-family: GilroySemiBold;
 
     &:hover, &:focus {
-        color: var(--ie-pink) !important;
+        color: var(--ie-blue) !important;
     }
 }
 
 .v-md-editor {
     box-shadow: none !important;
-    border: 1px solid $black;
+    border: 1px solid var(--black);
     overflow: hidden;
 
     &:focus-within {

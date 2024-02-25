@@ -15,7 +15,7 @@
         "vue"
     ],
     "rules": {
-        "indent": ["warn", 4],
+        "indent": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "no-tabs": "off",

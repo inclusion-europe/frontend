@@ -32,13 +32,14 @@ export default {
     flex-direction: column;
     position: sticky;
     top: 1rem;
+    gap: 0.25rem;
 
     li {
         cursor: pointer;
         transition: all 0.2s ease;
 
         &.selected {
-            font-family: GilroyBold;
+            font-family: GilroySemiBold;
             color: var(--ie-pink);
         }
 

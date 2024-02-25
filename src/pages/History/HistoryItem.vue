@@ -24,3 +24,30 @@ export default {
     },
 };
 </script>
+<style lang="scss" scoped>
+.history_item {
+    &:deep(blockquote) {
+        font-size: 1.2rem;
+        max-width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: GilroyRegularItalic;
+
+        p,
+        ul {
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        p {
+            white-space: pre-wrap;
+        }
+
+        & + p {
+            text-align: center;
+            font-family: GilroyMedium;
+            font-size: 1.1rem;
+        }
+    }
+}
+</style>
