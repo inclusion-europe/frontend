@@ -1,18 +1,26 @@
 <template>
-    <ul class="history_navigation">
-        <li
+    <div class="history_navigation">
+        <ie-button
             v-for="(item, i) in items"
             :key="'history_nav-' + i"
             @click="$emit('showItem', i)"
-            :class="{ selected: selected === i }"
+            boxed
+            small
+            :white="selected !== i"
+            :pink="selected === i"
         >
             {{ item.title }}
-        </li>
-    </ul>
+        </ie-button>
+    </div>
 </template>
 <script>
+import IeButton from '@/elements/Button.vue';
+
 export default {
     name: 'HistoryNavigation',
+    components: {
+        IeButton,
+    },
     props: {
         items: {
             type: Array,

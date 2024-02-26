@@ -183,4 +183,16 @@ export default {
         width: 60%;
     }
 }
+
+article {
+    &:deep(img) {
+        display: block;
+        max-width: 60%;
+        width: auto;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 9px;
+    }
+}
 </style>

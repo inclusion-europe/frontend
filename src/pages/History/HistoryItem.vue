@@ -1,6 +1,6 @@
 <template>
     <div class="history_item">
-        <h1>{{ title }}</h1>
+        <h1 class="item_title">{{ title }}</h1>
         <vue-markdown :source="content" :options="{ html: true }" />
     </div>
 </template>
@@ -26,6 +26,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .history_item {
+    .item_title {
+        margin-top: 0;
+    }
+
     &:deep(blockquote) {
         font-size: 1.2rem;
         max-width: 60%;

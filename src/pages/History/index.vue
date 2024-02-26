@@ -1,21 +1,30 @@
 <template>
     <div class="history_page post_page">
-        <div>
-            <history-navigation
-                :items="historyItems"
-                @showItem="showItem"
-                :selected="shownItem"
-            />
-        </div>
-        <div>
-            <history-item
-                v-for="(item, i) in historyItems"
-                :key="'history_item-' + i"
-                :title="item.title"
-                :content="item.content"
-                v-show="shownItem === i"
-            />
-        </div>
+        <article>
+            <header>
+                <div class="header_texts">
+                    <h1>History</h1>
+                </div>
+            </header>
+            <div class="history_container">
+                <div>
+                    <history-navigation
+                        :items="historyItems"
+                        @showItem="showItem"
+                        :selected="shownItem"
+                    />
+                </div>
+                <div>
+                    <history-item
+                        v-for="(item, i) in historyItems"
+                        :key="'history_item-' + i"
+                        :title="item.title"
+                        :content="item.content"
+                        v-show="shownItem === i"
+                    />
+                </div>
+            </div>
+        </article>
     </div>
 </template>
 <script>
@@ -45,7 +54,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.history_page {
+.history_container {
     display: grid;
     grid-template-columns: 20% auto;
     gap: 2rem;
