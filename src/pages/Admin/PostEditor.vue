@@ -255,8 +255,9 @@ export default {
         },
         filteredAutoTags() {
             return this.autoTags.filter(
-                (i) => i.toLowerCase().indexOf(this.tag) !== -1
-                    && !this.tags.includes(i),
+                (i) =>
+                    i.toLowerCase().indexOf(this.tag) !== -1 &&
+                    !this.tags.includes(i),
             );
         },
         showAutocomplete() {
@@ -287,13 +288,13 @@ export default {
 
             if (!val) {
                 switch (this.content_type) {
-                case 'plain':
-                    this.e2rContent = [];
-                    break;
-                case 'e2r':
-                    this.content = '';
-                    break;
-                default:
+                    case 'plain':
+                        this.e2rContent = [];
+                        break;
+                    case 'e2r':
+                        this.content = '';
+                        break;
+                    default:
                 }
             }
         },
@@ -307,64 +308,63 @@ export default {
         this.loadUsers();
         this.loadTags();
         this.loadMenuItems();
-        if (this.$route.query.post_id) {
-            this.$axios
-                .get(`/post/${this.$route.query.post_id}`)
-                .then((res) => {
-                    if (res.data.length) {
-                        /* eslint-disable camelcase */
-                        const {
-                            idx,
-                            title,
-                            menu_parent,
-                            menu_position,
-                            author,
-                            picture,
-                            content_e2r,
-                            content,
-                            excerpt,
-                            default_type,
-                            url,
-                            tags,
-                            article_type,
-                            published,
-                            highlighted,
-                        } = res.data[0];
+        if (this.$route.query.postId) {
+            this.$axios.get(`/post/${this.$route.query.postId}`).then((res) => {
+                if (res.data.length) {
+                    /* eslint-disable camelcase */
+                    const {
+                        idx,
+                        title,
+                        menu_parent,
+                        menu_position,
+                        author,
+                        picture,
+                        content_e2r,
+                        content,
+                        excerpt,
+                        default_type,
+                        url,
+                        tags,
+                        article_type,
+                        published,
+                        highlighted,
+                    } = res.data[0];
 
-                        const parsedPicture = picture
-                            ? JSON.parse(picture)
-                            : { picture: null, alt: null };
+                    const parsedPicture = picture
+                        ? JSON.parse(picture)
+                        : { picture: null, alt: null };
 
-                        const parsedE2R = JSON.parse(content_e2r) || [];
-                        if (tags) {
-                            this.tags = tags
-                                .split(',')
-                                .filter((i) => !utils.isEmptyStr(i));
-                        } else {
-                            this.tags = [];
-                        }
+                    const parsedE2R = JSON.parse(content_e2r) || [];
+                    if (tags) {
+                        this.tags = tags
+                            .split(',')
+                            .filter((i) => !utils.isEmptyStr(i));
+                    } else {
+                        this.tags = [];
+                    }
 
-                        this.menu_parent = menu_parent;
-                        this.menu_position = menu_position;
-                        this.isEditing = idx;
-                        this.title = title;
-                        this.author = author;
-                        this.picture = parsedPicture?.picture;
-                        this.picture_alt = parsedPicture?.alt;
-                        this.e2rContent = parsedE2R || [];
-                        this.content = unescape(content) || '';
-                        this.excerpt = excerpt;
-                        this.content_type = default_type;
-                        this.url = url.startsWith('/') ? url.substring(1) : url;
-                        this.article_type = article_type;
-                        this.published = !!published;
-                        this.highlighted = !!highlighted;
-                        this.has_other_content = default_type === 'plain'
+                    this.menu_parent = menu_parent;
+                    this.menu_position = menu_position;
+                    this.isEditing = idx;
+                    this.title = title;
+                    this.author = author;
+                    this.picture = parsedPicture?.picture;
+                    this.picture_alt = parsedPicture?.alt;
+                    this.e2rContent = parsedE2R || [];
+                    this.content = unescape(content) || '';
+                    this.excerpt = excerpt;
+                    this.content_type = default_type;
+                    this.url = url.startsWith('/') ? url.substring(1) : url;
+                    this.article_type = article_type;
+                    this.published = !!published;
+                    this.highlighted = !!highlighted;
+                    this.has_other_content =
+                        default_type === 'plain'
                             ? !!parsedE2R?.length
                             : !!content;
-                    }
-                    /* eslint-enable camelcase */
-                });
+                }
+                /* eslint-enable camelcase */
+            });
         }
         this.pageReady = true;
     },

@@ -15,7 +15,7 @@
         "vue"
     ],
     "rules": {
-        "indent": ["error", 4],
+        "indent": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "no-tabs": "off",
@@ -23,6 +23,7 @@
         "implicit-arrow-linebreak": "off",
         "operator-linebreak": "off",
         "no-confusing-arrow": "off",
-        "function-paren-newline": "off"
+        "function-paren-newline": "off",
+        "vue/no-v-for-template-key": "off"
     }
 }
