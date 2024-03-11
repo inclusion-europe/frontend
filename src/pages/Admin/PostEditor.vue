@@ -448,7 +448,7 @@ export default {
         submitForm(event) {
             event.preventDefault();
 
-            const content_e2r = this.e2rContent?.length ? this.e2rContent : null;
+            const contentE2r = this.e2rContent?.length ? this.e2rContent : null;
             const tags = this.tags?.length ? this.tags.join(',') : null;
             const menuParent = this.menu_parent ? +this.menu_parent : null;
             let url = utils.isEmptyStr(this.url) ? this.generatedUrl : this.url;
@@ -464,8 +464,8 @@ export default {
                 author: this.author,
                 article_type: this.article_type,
                 tags,
-                content_e2r,
-                menuParent,
+                content_e2r: contentE2r,
+                menu_parent: menuParent,
                 content: this.content,
                 excerpt: this.excerpt,
                 picture_alt: this.picture_alt,
