@@ -60,20 +60,23 @@
                 <section v-if="post.tags" class="post-tags">
                     <h3>
                         Tags:
-                        <router-link
-                            v-for="tag in post.tags"
+                        <template
+                            v-for="(tag, i) in post.tags"
                             :key="`tag_${tag}`"
-                            :to="`/tag/${encodeURI(tag)}`"
-                            class="tag"
                         >
-                            {{ tag }}
-                        </router-link>
-                        <span
-                            v-for="(_, i) in Array(post.tags.length - 1)"
-                            :key="`tagsep_${i}`"
-                        >
-                            ,
-                        </span>
+                            <router-link
+                                class="tag"
+                                :to="`/tag/${encodeURI(tag)}`"
+                            >
+                                {{ tag }}
+                            </router-link>
+                            <span
+                                v-if="i < post.tags.length - 1"
+                                :key="`tagsep_${i}`"
+                            >
+                                ,
+                            </span>
+                        </template>
                     </h3>
                 </section>
             </article>
