@@ -60,7 +60,7 @@ export default {
     gap: 2rem;
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 1024px) {
     .history_container {
         display: grid;
         grid-template-columns: 20% auto;

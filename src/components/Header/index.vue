@@ -62,7 +62,7 @@ export default {
     }
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 1024px) {
     .header {
         margin-bottom: 55px;
     }

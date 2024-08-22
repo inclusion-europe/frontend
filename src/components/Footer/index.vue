@@ -170,7 +170,7 @@ export default {
     }
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 1024px) {
     .footer {
         padding: 40px 0;
 

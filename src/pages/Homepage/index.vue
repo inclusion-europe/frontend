@@ -113,7 +113,7 @@ export default {
     img {
         width: 100%;
 
-        @media screen and (min-width: 1080px) {
+        @media screen and (min-width: 1024px) {
             width: 60%;
         }
     }

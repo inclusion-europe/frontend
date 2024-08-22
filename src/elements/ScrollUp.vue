@@ -77,7 +77,7 @@ export default {
     }
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 1024px) {
     .scroll_up-buttn {
         bottom: -20px;
     }

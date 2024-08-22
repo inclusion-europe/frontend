@@ -100,7 +100,7 @@ export default {
     }
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 1024px) {
     .hero {
         display: grid;
         grid-template: auto / 1fr 1fr;

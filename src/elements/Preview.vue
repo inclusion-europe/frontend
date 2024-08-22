@@ -216,7 +216,7 @@ export default {
         font-weight: 400;
     }
 
-    @media screen and (min-width: 1080px) {
+    @media screen and (min-width: 1024px) {
         flex-direction: row;
         gap: 22px;
 

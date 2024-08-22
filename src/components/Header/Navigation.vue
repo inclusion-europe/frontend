@@ -64,7 +64,7 @@ export default {
     display: none;
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 1024px) {
     .navbar {
         display: flex;
         gap: 28px;

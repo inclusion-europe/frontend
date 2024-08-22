@@ -196,7 +196,7 @@ article {
         margin-right: auto;
         border-radius: 9px;
 
-        @media screen and (min-width: 1080px) {
+        @media screen and (min-width: 1024px) {
             max-width: 60%;
         }
     }
