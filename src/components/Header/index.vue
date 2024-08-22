@@ -43,7 +43,7 @@ export default {
     width: var(--width);
     max-width: var(--max-width);
     margin: auto;
-    margin-bottom: 55px;
+    margin-bottom: 30px;
 
     &-content {
         width: 100%;
@@ -59,6 +59,12 @@ export default {
         height: 55px;
         position: relative;
         top: 5px;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .header {
+        margin-bottom: 55px;
     }
 }
 </style>

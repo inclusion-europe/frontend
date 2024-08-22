@@ -68,7 +68,6 @@ export default {
     width: var(--width);
     max-width: var(--max-width);
     margin: auto;
-    padding: 25px 0;
     margin-bottom: 50px;
 
     &-static {

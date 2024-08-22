@@ -68,12 +68,18 @@ export default {
 
     &--shown {
         opacity: 1;
-        bottom: 20px;
+        bottom: 40px;
     }
 
     &:hover,
     &:focus {
         background: var(--ie-pink);
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .scroll_up-buttn {
+        bottom: -20px;
     }
 }
 </style>
