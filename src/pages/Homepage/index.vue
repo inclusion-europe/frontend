@@ -4,10 +4,10 @@
             <img src="/loading.gif" />
         </div>
         <template v-else-if="!notLive">
-            <Hero :highlights="highlights" />
-            <E2R :posts="e2r_articles" />
+            <Hero v-if="highlights.length" :highlights="highlights" />
+            <E2R v-if="e2r_articles.length" :posts="e2r_articles" />
             <Videos v-if="false" />
-            <Articles :posts="articles" />
+            <Articles v-if="articles.length" :posts="articles" />
             <Publications v-if="publications.length" :posts="publications" />
         </template>
         <h1 v-else class="maint">
