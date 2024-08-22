@@ -3,10 +3,18 @@
         <h2 class="section-title section-title--pink">Publications</h2>
         <div class="publications-section-publication_grid">
             <div class="publications-section-publication_grid-list">
-                <Preview :post="publications[0]" big no-picture />
-                <Preview :post="publications[1]" big no-picture />
+                <Preview :post="posts[0]" big no-picture />
+                <Preview
+                    v-if="posts.length > 1"
+                    :post="posts[1]"
+                    big
+                    no-picture
+                />
             </div>
-            <div class="publications-section-publication_grid-list">
+            <div
+                v-if="posts.length > 2"
+                class="publications-section-publication_grid-list"
+            >
                 <Preview
                     v-for="(publication, i) in posts.slice(2)"
                     :key="`publications_publication_${i}`"
