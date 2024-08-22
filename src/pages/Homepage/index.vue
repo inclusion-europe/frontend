@@ -111,7 +111,11 @@ export default {
     justify-content: center;
 
     img {
-        width: 60%;
+        width: 100%;
+
+        @media screen and (min-width: 1080px) {
+            width: 60%;
+        }
     }
 }
 </style>

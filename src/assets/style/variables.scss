@@ -23,5 +23,10 @@ html {
     --grey: #939393;
     --dark-grey: #3b3b3b;
     --width: 1128px;
-    --max-width: 95vw;
+    --max-width: 90vw;
+
+    @media screen and (min-width: 1080px) {
+        --width: 1128px;
+        --max-width: 95vw;
+    }
 }

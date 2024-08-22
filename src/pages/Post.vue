@@ -190,12 +190,15 @@ export default {
 article {
     &:deep(img) {
         display: block;
-        max-width: 60%;
         width: auto;
         height: auto;
         margin-left: auto;
         margin-right: auto;
         border-radius: 9px;
+
+        @media screen and (min-width: 1080px) {
+            max-width: 60%;
+        }
     }
 }
 </style>
