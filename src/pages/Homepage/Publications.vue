@@ -45,7 +45,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .publications-section {
     &-publication_grid {
         &-list {

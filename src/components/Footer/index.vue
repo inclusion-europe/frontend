@@ -101,7 +101,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .footer {
     width: 100%;
     background: var(--dark-grey);

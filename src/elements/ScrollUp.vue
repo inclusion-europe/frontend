@@ -46,7 +46,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .scroll_up-buttn {
     display: flex;
     align-items: center;

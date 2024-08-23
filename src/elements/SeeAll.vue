@@ -34,8 +34,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
-
 .see_all {
     display: flex;
     align-items: flex-end;
@@ -83,23 +81,25 @@ export default {
         }
     }
 
-    &--big {
-        gap: 5px;
+    @media screen and (min-width: 1024px) {
+        &--big {
+            gap: 5px;
 
-        &:hover {
-            span {
-                text-decoration: underline;
+            &:hover {
+                span {
+                    text-decoration: underline;
+                }
             }
-        }
 
-        span {
-            font-size: 20px;
-        }
+            span {
+                font-size: 20px;
+            }
 
-        svg {
-            position: relative;
-            top: 2px;
-            height: 12px;
+            svg {
+                position: relative;
+                top: 2px;
+                height: 12px;
+            }
         }
     }
 }

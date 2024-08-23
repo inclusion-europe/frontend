@@ -27,40 +27,40 @@ export default {
     computed: {
         pageTitle() {
             switch (this.$route.name) {
-            case 'tag':
-                return `Posts tagged "${this.$route.params.tag}"`;
-            case 'type':
-                return this.typeTitle;
-            default:
-                return 'Posts';
+                case 'tag':
+                    return `Posts tagged "${this.$route.params.tag}"`;
+                case 'type':
+                    return this.typeTitle;
+                default:
+                    return 'Posts';
             }
         },
         typeTitle() {
             switch (this.$route.params.type) {
-            case 'articles':
-                return 'Articles';
-            case 'e2r':
-                return 'Easy-to-Read articles';
-            case 'event':
-                return 'Events';
-            case 'report':
-                return 'Reports';
-            case 'podcast':
-                return 'Podcasts';
-            default:
-                return 'Posts';
+                case 'articles':
+                    return 'Articles';
+                case 'e2r':
+                    return 'Easy-to-Read articles';
+                case 'event':
+                    return 'Events';
+                case 'report':
+                    return 'Reports';
+                case 'podcast':
+                    return 'Podcasts';
+                default:
+                    return 'Posts';
             }
         },
     },
     mounted() {
         switch (this.$route.name) {
-        case 'tag':
-            this.loadPostsByTag();
-            break;
-        case 'type':
-        default:
-            this.loadPostsByType();
-            break;
+            case 'tag':
+                this.loadPostsByTag();
+                break;
+            case 'type':
+            default:
+                this.loadPostsByType();
+                break;
         }
         document.title = `${this.pageTitle} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
     },
@@ -93,7 +93,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .posts_page {
     width: var(--width);
     max-width: var(--max-width);

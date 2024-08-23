@@ -204,7 +204,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .countries-ranking {
     max-width: 90vw;
     width: fit-content;

@@ -51,8 +51,6 @@ export default {
 
 <style src="@/assets/style/index.scss" lang="scss"></style>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
-
 .loading {
     display: flex;
     min-height: calc(100vh - 400px);

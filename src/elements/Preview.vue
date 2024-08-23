@@ -93,8 +93,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
-
 .preview {
     cursor: pointer;
     display: flex;
@@ -178,7 +176,7 @@ export default {
     &-content {
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 10px;
 
         * {
             margin: 0;
@@ -208,6 +206,7 @@ export default {
         font-family: GilroySemiBold;
         font-size: 18px;
         font-weight: 600;
+        margin: 0;
     }
 
     &-excerpt {
@@ -228,6 +227,10 @@ export default {
                 grid-template-columns: 300px auto;
                 grid-template-rows: auto auto;
             }
+        }
+
+        &-content {
+            gap: 5px;
         }
 
         &-picture {

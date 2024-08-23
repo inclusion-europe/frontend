@@ -59,11 +59,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
-
 .hero {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 50px;
     width: var(--width);
     max-width: var(--max-width);
@@ -73,11 +71,11 @@ export default {
     &-static {
         display: flex;
         flex-direction: column;
-        gap: 20px;
 
         &-tagline {
             &-title {
-                width: 305px;
+                width: 80%;
+                max-width: 500px;
                 position: relative;
                 left: -5px;
             }
@@ -111,6 +109,10 @@ export default {
 
         &-static {
             gap: 100px;
+
+            &-title {
+                width: 305px;
+            }
         }
     }
 }

@@ -37,7 +37,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .easy_to_read-section {
     &-see_all {
         display: flex;

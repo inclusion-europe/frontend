@@ -31,7 +31,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .videos-section {
     &-video_grid {
         gap: 40px 135px;
