@@ -19,7 +19,9 @@
             :to="`${page.url}`"
             @click="(e) => e.target.blur()"
         >
-            {{ page.title }}
+            <div class="mobile-navitem">
+                {{ page.title }}
+            </div>
         </router-link>
     </div>
 </template>

@@ -210,11 +210,16 @@ $interlines: 8px;
         line-height: normal;
         cursor: pointer;
         overflow: visible;
-        padding-bottom: 6px;
         white-space: wrap;
         width: auto;
         text-decoration: none;
         width: fit-content;
+
+        &:nth-child(2n) {
+            .mobile-navitem {
+                background: var(--light-grey);
+            }
+        }
 
         &:hover,
         &:focus {
@@ -226,6 +231,8 @@ $interlines: 8px;
             align-items: center;
             justify-content: space-between;
             width: var(--max-width);
+            padding: 5px 10px;
+            border-radius: 5px;
 
             .chevron {
                 height: 1rem;
