@@ -165,7 +165,6 @@ export default {
             window.addEventListener('resize', this.onResize);
         });
     },
-
     beforeUnmount() {
         window.removeEventListener('resize', this.onResize);
     },

@@ -117,7 +117,7 @@ export default {
         margin-top: 15px;
         display: flex;
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
         gap: 40px;
     }
 

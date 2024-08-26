@@ -77,6 +77,7 @@ export default {
         font-size: 16px;
     }
 }
+
 .website {
     min-height: 100vh;
     max-width: 100vw;
@@ -86,5 +87,8 @@ export default {
     &:deep(.header + *) {
         flex-grow: 1;
     }
+}
+
+@media screen and (min-width: 1024px) {
 }
 </style>

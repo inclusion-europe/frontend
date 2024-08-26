@@ -16,4 +16,6 @@ html {
         --width: 1128px;
         --max-width: 95vw;
     }
+
+    --left-limit: calc((100vw - var(--max-width)) / 2);
 }
