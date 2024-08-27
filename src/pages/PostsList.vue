@@ -106,11 +106,20 @@ export default {
     }
 
     .posts_page-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 44px 32px;
-        align-items: start;
-        justify-items: start;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .posts_page {
+        .posts_page-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 44px 32px;
+            align-items: start;
+            justify-items: start;
+        }
     }
 }
 </style>

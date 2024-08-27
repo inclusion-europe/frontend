@@ -201,6 +201,7 @@ $interlines: 8px;
             }
         }
     }
+
     &:deep(.navbar-element) {
         font-family: GilroySemiBold;
         color: var(--black);
@@ -217,7 +218,7 @@ $interlines: 8px;
 
         &:nth-child(2n) {
             .mobile-navitem {
-                background: var(--light-grey);
+                background: var(--ie-pink--whiteout);
             }
         }
 
