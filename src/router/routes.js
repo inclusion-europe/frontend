@@ -52,12 +52,12 @@ export default [
         component: HistoryPage,
     },
     {
-        path: '/tag/:tag',
+        path: '/tag/:tag/:pageNr?',
         name: 'tag',
         component: PostsList,
     },
     {
-        path: '/type/:type',
+        path: '/type/:type/:pageNr?',
         name: 'type',
         component: PostsList,
     },

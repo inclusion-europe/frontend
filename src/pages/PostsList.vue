@@ -5,24 +5,32 @@
         </h1>
         <div class="posts_page-list">
             <Preview
-                v-for="post in posts"
+                v-for="post in currentPagePosts"
                 :key="`post_${post.idx}`"
                 :post="post"
                 stack
             />
         </div>
+        <div class="posts_page-pagination" v-if="posts.length > pageLength">
+            <PostsPagination :length="Math.ceil(posts.length / pageLength)" />
+            <!-- <div class="posts_page-pagination-jump_to">Go to page:</div> -->
+        </div>
     </div>
 </template>
 <script>
 import Preview from '@/elements/Preview.vue';
+import PostsPagination from '@/components/PostsPagination.vue';
 
 export default {
     name: 'PostsList',
     components: {
         Preview,
+        PostsPagination,
     },
     data: () => ({
         posts: [],
+        currentPage: 1,
+        pageLength: 9,
     }),
     computed: {
         pageTitle() {
@@ -51,6 +59,12 @@ export default {
                     return 'Posts';
             }
         },
+        currentPagePosts() {
+            return this.posts.slice(
+                (this.currentPage - 1) * this.pageLength,
+                this.currentPage * this.pageLength,
+            );
+        },
     },
     mounted() {
         switch (this.$route.name) {
@@ -61,6 +75,9 @@ export default {
             default:
                 this.loadPostsByType();
                 break;
+        }
+        if (this.$route.params.pageNr) {
+            this.currentPage = this.$route.params.pageNr;
         }
         document.title = `${this.pageTitle} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
     },
@@ -109,6 +126,15 @@ export default {
         display: flex;
         flex-direction: column;
         gap: 30px;
+    }
+
+    .posts_page-pagination {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.4rem;
     }
 }
 @media screen and (min-width: 1024px) {
