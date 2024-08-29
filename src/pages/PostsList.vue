@@ -2,9 +2,6 @@
     <div class="posts_page">
         <h1 class="page_title">
             {{ pageTitle }}
-            <template v-if="pagesAmount > 1">
-                - Page {{ currentPage }}
-            </template>
         </h1>
         <div class="posts_page-list">
             <Preview
@@ -40,14 +37,22 @@ export default {
     }),
     computed: {
         pageTitle() {
-            switch (this.$route.name) {
-                case 'tag':
-                    return `Posts tagged "${this.$route.params.tag}"`;
-                case 'type':
-                    return this.typeTitle;
-                default:
-                    return 'Posts';
+            let pageTitle = (() => {
+                switch (this.$route.name) {
+                    case 'tag':
+                        return `Posts tagged "${this.$route.params.tag}"`;
+                    case 'type':
+                        return this.typeTitle;
+                    default:
+                        return 'Posts';
+                }
+            })();
+
+            if (this.pagesAmount > 1) {
+                pageTitle += ` - Page ${this.currentPage}`;
             }
+
+            return pageTitle;
         },
         typeTitle() {
             switch (this.$route.params.type) {
@@ -88,8 +93,11 @@ export default {
         if (this.$route.params.pageNr) {
             this.currentPage = +this.$route.params.pageNr;
         }
-
-        document.title = `${this.pageTitle} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
+    },
+    watch: {
+        pageTitle(val) {
+            document.title = `${val} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
+        },
     },
     methods: {
         treatData(posts) {
