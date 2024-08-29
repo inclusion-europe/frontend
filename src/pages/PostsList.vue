@@ -16,7 +16,19 @@
                 :length="pagesAmount"
                 :current-page="currentPage"
             />
-            <!-- <div class="posts_page-pagination-jump_to">Go to page:</div> -->
+        </div>
+        <div class="posts_page-pagination">
+            <span> Go to page:</span>
+            <select @input="(e) => goToPage(+e.target.value)">
+                <option disabled :value="null" selected />
+                <option
+                    v-for="(e, i) in new Array(pagesAmount)"
+                    :value="i + 1"
+                    :key="`jump_to_${i + 1}`"
+                >
+                    {{ i + 1 }}
+                </option>
+            </select>
         </div>
     </div>
 </template>
@@ -128,6 +140,15 @@ export default {
                         params: { ...this.$route.params, pageNr: 1 },
                     });
                 }
+            });
+        },
+        goToPage(pageNr) {
+            console.log(pageNr);
+            this.$router.replace({
+                params: {
+                    ...this.$route.params,
+                    pageNr,
+                },
             });
         },
     },
