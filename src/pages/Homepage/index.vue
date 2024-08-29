@@ -93,7 +93,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .maint {
     max-width: var(--width);
     margin: auto;
@@ -111,7 +110,11 @@ export default {
     justify-content: center;
 
     img {
-        width: 60%;
+        width: 100%;
+
+        @media screen and (min-width: 1024px) {
+            width: 60%;
+        }
     }
 }
 </style>

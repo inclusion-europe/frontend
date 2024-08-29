@@ -20,6 +20,7 @@
             :page-size="50"
             :is-static-mode="true"
             :is-hide-paging="true"
+            :is-fixed-first-column="isMobile"
         >
         </vue-table>
     </div>
@@ -38,6 +39,7 @@ export default {
     },
     data: () => ({
         visibleColumns: [],
+        windowWidth: window.innerWidth,
     }),
     computed: {
         dataset() {
@@ -48,6 +50,9 @@ export default {
                 });
             });
             return arr;
+        },
+        isMobile() {
+            return this.windowWidth < 1024;
         },
         labels() {
             return countryData.labels;
@@ -146,9 +151,27 @@ export default {
         },
     },
     mounted() {
-        this.visibleColumns = this.initTable();
+        this.$watch(
+            'isMobile',
+            function (val) {
+                if (!val) {
+                    this.visibleColumns = this.initTable();
+                }
+            },
+            { immediate: true },
+        );
+
+        this.$nextTick(() => {
+            window.addEventListener('resize', this.onResize);
+        });
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.onResize);
     },
     methods: {
+        onResize() {
+            this.windowWidth = window.innerWidth;
+        },
         averageFn(row) {
             const {
                 voteDecide,
@@ -204,7 +227,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .countries-ranking {
     max-width: 90vw;
     width: fit-content;

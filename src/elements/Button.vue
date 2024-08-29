@@ -66,7 +66,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 a.ie-button {
     display: flex;
     align-items: center;

@@ -81,9 +81,9 @@ export default {
     methods: {
         goToAdmin() {
             if (
-                this.$cookies.get('im_auth_token')
-                || (process.env.VUE_APP_NOAUTH
-                    && process.env.VUE_APP_NOAUTH === 'true')
+                this.$cookies.get('im_auth_token') ||
+                (process.env.VUE_APP_NOAUTH &&
+                    process.env.VUE_APP_NOAUTH === 'true')
             ) {
                 this.$router.push('/admin');
             } else {
@@ -101,12 +101,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
-
 .footer {
     width: 100%;
     background: var(--dark-grey);
-    padding: 40px 0;
+    padding: 15px 0;
 
     h4 {
         margin: 0 !important;
@@ -116,11 +114,11 @@ export default {
         width: var(--width);
         max-width: var(--max-width);
         margin: auto;
-        margin-top: 40px;
-        display: grid;
-        grid-template: auto / repeat(3, auto);
-        align-items: start;
-        gap: 80px 135px;
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 40px;
     }
 
     h4 {
@@ -168,6 +166,51 @@ export default {
             color: white;
         }
         width: 305px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .footer {
+        padding: 40px 0;
+
+        &-content {
+            margin-top: 40px;
+            display: grid;
+            grid-template: auto / repeat(3, auto);
+            align-items: start;
+            gap: 80px 135px;
+        }
+
+        &-navigation {
+            display: flex;
+            gap: 25px;
+        }
+
+        &-copyright {
+            grid-column: 2 / -1;
+            text-align: right;
+        }
+
+        &-contact {
+            display: flex;
+            flex-direction: column;
+            line-height: 23px;
+
+            &-eu-logo {
+                width: 250px;
+                margin-top: 20px;
+            }
+        }
+
+        .newsletter-temp-block {
+            h3 {
+                font-family: GilroySemiBold;
+                font-size: 20px;
+                font-weight: 600;
+                color: white;
+            }
+            width: 305px;
+        }
     }
 }
 </style>

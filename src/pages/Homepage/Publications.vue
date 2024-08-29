@@ -45,28 +45,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .publications-section {
-    width: var(--width);
-    max-width: var(--max-width);
-    margin: auto;
-    margin-bottom: 130px;
-
-    .section-title {
-        text-align: center;
-        margin: 37px auto;
-        width: auto;
-    }
-
     &-publication_grid {
-        display: grid;
-        grid-template: auto / 1fr 1fr;
-        gap: 150px 135px;
-        align-items: start;
-
         &-list {
-            display: flex;
-            flex-direction: column;
             gap: 70px;
 
             &:not(:first-child) {

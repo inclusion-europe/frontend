@@ -55,8 +55,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .history_container {
-    display: grid;
-    grid-template-columns: 20% auto;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
+}
+
+@media screen and (min-width: 1024px) {
+    .history_container {
+        display: grid;
+        grid-template-columns: 20% auto;
+    }
 }
 </style>

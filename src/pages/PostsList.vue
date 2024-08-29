@@ -5,62 +5,79 @@
         </h1>
         <div class="posts_page-list">
             <Preview
-                v-for="post in posts"
+                v-for="post in currentPagePosts"
                 :key="`post_${post.idx}`"
                 :post="post"
                 stack
             />
         </div>
+        <div class="posts_page-pagination" v-if="posts.length > pageLength">
+            <PostsPagination :length="Math.ceil(posts.length / pageLength)" />
+            <!-- <div class="posts_page-pagination-jump_to">Go to page:</div> -->
+        </div>
     </div>
 </template>
 <script>
 import Preview from '@/elements/Preview.vue';
+import PostsPagination from '@/components/PostsPagination.vue';
 
 export default {
     name: 'PostsList',
     components: {
         Preview,
+        PostsPagination,
     },
     data: () => ({
         posts: [],
+        currentPage: 1,
+        pageLength: 9,
     }),
     computed: {
         pageTitle() {
             switch (this.$route.name) {
-            case 'tag':
-                return `Posts tagged "${this.$route.params.tag}"`;
-            case 'type':
-                return this.typeTitle;
-            default:
-                return 'Posts';
+                case 'tag':
+                    return `Posts tagged "${this.$route.params.tag}"`;
+                case 'type':
+                    return this.typeTitle;
+                default:
+                    return 'Posts';
             }
         },
         typeTitle() {
             switch (this.$route.params.type) {
-            case 'articles':
-                return 'Articles';
-            case 'e2r':
-                return 'Easy-to-Read articles';
-            case 'event':
-                return 'Events';
-            case 'report':
-                return 'Reports';
-            case 'podcast':
-                return 'Podcasts';
-            default:
-                return 'Posts';
+                case 'articles':
+                    return 'Articles';
+                case 'e2r':
+                    return 'Easy-to-Read articles';
+                case 'event':
+                    return 'Events';
+                case 'report':
+                    return 'Reports';
+                case 'podcast':
+                    return 'Podcasts';
+                default:
+                    return 'Posts';
             }
+        },
+        currentPagePosts() {
+            return this.posts.slice(
+                (this.currentPage - 1) * this.pageLength,
+                this.currentPage * this.pageLength,
+            );
         },
     },
     mounted() {
         switch (this.$route.name) {
-        case 'tag':
-            this.loadPostsByTag();
-            break;
-        case 'type':
-        default:
-            this.loadPostsByType();
-            break;
+            case 'tag':
+                this.loadPostsByTag();
+                break;
+            case 'type':
+            default:
+                this.loadPostsByType();
+                break;
+        }
+        if (this.$route.params.pageNr) {
+            this.currentPage = this.$route.params.pageNr;
         }
         document.title = `${this.pageTitle} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
     },
@@ -93,7 +110,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .posts_page {
     width: var(--width);
     max-width: var(--max-width);
@@ -107,11 +123,29 @@ export default {
     }
 
     .posts_page-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 44px 32px;
-        align-items: start;
-        justify-items: start;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .posts_page-pagination {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.4rem;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .posts_page {
+        .posts_page-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 44px 32px;
+            align-items: start;
+            justify-items: start;
+        }
     }
 }
 </style>

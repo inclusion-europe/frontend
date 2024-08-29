@@ -26,7 +26,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .arrow {
     &-blue {
         fill: var(--ie-blue);

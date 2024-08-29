@@ -19,7 +19,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .e2r-button {
     display: flex;
     align-items: center;

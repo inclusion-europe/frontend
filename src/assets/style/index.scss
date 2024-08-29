@@ -1,4 +1,6 @@
 @import './variables.scss';
+@import './post_page.scss';
+@import './indicators_page.scss';
 
 .section-title {
     color: var(--black);
@@ -116,7 +118,7 @@ input[type="checkbox"] {
         width: 18px;
         height: 18px;
         border-radius: 3px;
-        border: 2px solid $ie-blue;
+        border: 2px solid var(--ie-blue);
 
         &::before {
             width: 14px;
@@ -156,5 +158,46 @@ a {
 
     &:focus-within {
         border-color: var(--ie-blue);
+    }
+}
+
+section[class$="-section"]  {
+    width: var(--width);
+    max-width: var(--max-width);
+    margin: auto;
+    margin-bottom: 50px;
+
+    .section-title {
+        text-align: center;
+        margin: 37px auto;
+        width: auto;
+    }
+
+    div[class$="_grid"] {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    div[class$="_grid-list"] {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 130px;
+
+        div[class$="_grid"] {
+            display: grid;
+            grid-template: auto / 1fr 1fr;
+            gap: 150px 135px;
+            align-items: start;
+        }
+
+        div[class$="_grid-list"] {
+            margin-left: 30px;
+            gap: 40px;
+        }
     }
 }

@@ -46,7 +46,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .scroll_up-buttn {
     display: flex;
     align-items: center;
@@ -68,12 +67,18 @@ export default {
 
     &--shown {
         opacity: 1;
-        bottom: 20px;
+        bottom: 40px;
     }
 
     &:hover,
     &:focus {
         background: var(--ie-pink);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .scroll_up-buttn {
+        bottom: -20px;
     }
 }
 </style>

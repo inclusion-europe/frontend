@@ -14,9 +14,9 @@ export default {
     }),
     mounted() {
         if (
-            this.$cookies.get('im_auth_token')
-            || (process.env.VUE_APP_NOAUTH
-                && process.env.VUE_APP_NOAUTH === 'true')
+            this.$cookies.get('im_auth_token') ||
+            (process.env.VUE_APP_NOAUTH &&
+                process.env.VUE_APP_NOAUTH === 'true')
         ) {
             this.pageReady = true;
             return;
@@ -26,10 +26,10 @@ export default {
         const imAuthState = this.$route.query.state;
         const imAuthStateCookie = this.$cookies.get('imAuthState');
         if (
-            !code
-            || !imAuthState
-            || !imAuthStateCookie
-            || imAuthState !== imAuthStateCookie
+            !code ||
+            !imAuthState ||
+            !imAuthStateCookie ||
+            imAuthState !== imAuthStateCookie
         ) {
             toast('Invalid authentication');
             this.$router.push('/');
@@ -75,7 +75,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .admin {
     width: var(--width);
     max-width: var(--max-width);

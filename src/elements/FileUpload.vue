@@ -62,7 +62,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .picture_upload {
     padding: 10px;
     border-radius: 4px;

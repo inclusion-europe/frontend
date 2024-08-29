@@ -59,26 +59,23 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
 .hero {
-    display: grid;
-    grid-template: auto / 1fr 1fr;
-    gap: 150px 135px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 50px;
     width: var(--width);
     max-width: var(--max-width);
     margin: auto;
-    padding: 55px 0;
-    margin-bottom: 95px;
-    align-items: start;
+    margin-bottom: 50px;
 
     &-static {
         display: flex;
         flex-direction: column;
-        gap: 100px;
 
         &-tagline {
             &-title {
-                width: 305px;
+                width: 80%;
+                max-width: 500px;
                 position: relative;
                 left: -5px;
             }
@@ -97,6 +94,25 @@ export default {
                 font-weight: 600;
             }
             width: 305px;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .hero {
+        display: grid;
+        grid-template: auto / 1fr 1fr;
+        gap: 150px 135px;
+        padding: 55px 0;
+        margin-bottom: 95px;
+        align-items: start;
+
+        &-static {
+            gap: 100px;
+
+            &-title {
+                width: 305px;
+            }
         }
     }
 }

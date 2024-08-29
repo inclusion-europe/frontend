@@ -4,7 +4,7 @@
             Home
         </router-link>
         <nav-dropdown
-            v-for="item in menu"
+            v-for="item in menuItems"
             :key="`menu_item_${item.id}`"
             :pages="item.pages"
         >
@@ -18,49 +18,15 @@ import NavDropdown from './NavDropdown.vue';
 export default {
     name: 'WebsiteNavigation',
     components: { NavDropdown },
-    data: () => ({
-        menu: [],
-    }),
-    mounted() {
-        this.$axios.get('menu/full').then((res) => {
-            const menu = res.data.sort((a, b) => a.position - b.position);
-            menu.forEach((item) => {
-                switch (item.id) {
-                    case 1:
-                        item.pages.push({
-                            idx: 99,
-                            menu_position: 99,
-                            title: 'History',
-                            url: '/history',
-                        });
-                        break;
-                    case 2:
-                        item.pages.push({
-                            idx: 99,
-                            menu_position: 99,
-                            title: 'Articles',
-                            url: '/type/articles',
-                        });
-                        break;
-                    case 5:
-                        item.pages.push({
-                            idx: 99,
-                            menu_position: 99,
-                            title: 'Easy-To-Read Articles',
-                            url: '/type/e2r',
-                        });
-                        break;
-                    default:
-                }
-            });
-            this.menu = res.data;
-        });
+    props: {
+        menuItems: {
+            type: Array,
+            required: true,
+        },
     },
 };
 </script>
 <style lang="scss" scoped>
-@import '@/assets/style/variables.scss';
-
 .navbar {
     display: flex;
     gap: 28px;
