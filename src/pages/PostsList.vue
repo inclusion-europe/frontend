@@ -17,7 +17,7 @@
                 :current-page="currentPage"
             />
         </div>
-        <div class="posts_page-pagination" v-if="pagesAmounts > 1">
+        <div class="posts_page-pagination" v-if="pagesAmount > 1">
             <span> Go to page:</span>
             <select @input="(e) => goToPage(+e.target.value)">
                 <option disabled :value="null" selected />
