@@ -12,8 +12,23 @@
             />
         </div>
         <div class="posts_page-pagination" v-if="posts.length > pageLength">
-            <PostsPagination :length="Math.ceil(posts.length / pageLength)" />
-            <!-- <div class="posts_page-pagination-jump_to">Go to page:</div> -->
+            <PostsPagination
+                :length="pagesAmount"
+                :current-page="currentPage"
+            />
+        </div>
+        <div class="posts_page-pagination" v-if="pagesAmount > 1">
+            <span> Go to page:</span>
+            <select @input="(e) => goToPage(+e.target.value)">
+                <option disabled :value="null" selected />
+                <option
+                    v-for="(e, i) in new Array(pagesAmount)"
+                    :value="i + 1"
+                    :key="`jump_to_${i + 1}`"
+                >
+                    {{ i + 1 }}
+                </option>
+            </select>
         </div>
     </div>
 </template>
@@ -34,14 +49,22 @@ export default {
     }),
     computed: {
         pageTitle() {
-            switch (this.$route.name) {
-                case 'tag':
-                    return `Posts tagged "${this.$route.params.tag}"`;
-                case 'type':
-                    return this.typeTitle;
-                default:
-                    return 'Posts';
+            let pageTitle = (() => {
+                switch (this.$route.name) {
+                    case 'tag':
+                        return `Posts tagged "${this.$route.params.tag}"`;
+                    case 'type':
+                        return this.typeTitle;
+                    default:
+                        return 'Posts';
+                }
+            })();
+
+            if (this.pagesAmount > 1) {
+                pageTitle += ` - Page ${this.currentPage}`;
             }
+
+            return pageTitle;
         },
         typeTitle() {
             switch (this.$route.params.type) {
@@ -65,6 +88,9 @@ export default {
                 this.currentPage * this.pageLength,
             );
         },
+        pagesAmount() {
+            return Math.ceil(this.posts.length / this.pageLength);
+        },
     },
     mounted() {
         switch (this.$route.name) {
@@ -77,9 +103,13 @@ export default {
                 break;
         }
         if (this.$route.params.pageNr) {
-            this.currentPage = this.$route.params.pageNr;
+            this.currentPage = +this.$route.params.pageNr;
         }
-        document.title = `${this.pageTitle} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
+    },
+    watch: {
+        pageTitle(val) {
+            document.title = `${val} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
+        },
     },
     methods: {
         treatData(posts) {
@@ -104,6 +134,21 @@ export default {
 
             this.$axios.get(`/posts/type/${type}`).then((res) => {
                 this.posts = this.treatData(res.data);
+
+                if (this.currentPage > this.pagesAmount || !this.currentPage) {
+                    this.$router.replace({
+                        params: { ...this.$route.params, pageNr: 1 },
+                    });
+                }
+            });
+        },
+        goToPage(pageNr) {
+            console.log(pageNr);
+            this.$router.replace({
+                params: {
+                    ...this.$route.params,
+                    pageNr,
+                },
             });
         },
     },
