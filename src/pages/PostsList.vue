@@ -12,7 +12,10 @@
             />
         </div>
         <div class="posts_page-pagination" v-if="posts.length > pageLength">
-            <PostsPagination :length="Math.ceil(posts.length / pageLength)" />
+            <PostsPagination
+                :length="pagesAmount"
+                :current-page="currentPage"
+            />
             <!-- <div class="posts_page-pagination-jump_to">Go to page:</div> -->
         </div>
     </div>
@@ -65,6 +68,9 @@ export default {
                 this.currentPage * this.pageLength,
             );
         },
+        pagesAmount() {
+            return Math.ceil(this.posts.length / this.pageLength);
+        },
     },
     mounted() {
         switch (this.$route.name) {
@@ -77,8 +83,15 @@ export default {
                 break;
         }
         if (this.$route.params.pageNr) {
-            this.currentPage = this.$route.params.pageNr;
+            this.currentPage = +this.$route.params.pageNr;
         }
+
+        if (this.currentPage > this.pagesAmount || !this.currentPage) {
+            this.$router.replace({
+                params: { ...this.$route.params, pageNr: 1 },
+            });
+        }
+
         document.title = `${this.pageTitle} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
     },
     methods: {
