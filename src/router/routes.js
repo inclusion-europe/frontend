@@ -52,12 +52,26 @@ export default [
         component: HistoryPage,
     },
     {
-        path: '/tag/:tag/:pageNr?',
+        path: '/tag/:tag',
+        redirect: (to) => ({
+            name: 'tag',
+            params: { ...to.params, pageNr: 1 },
+        }),
+    },
+    {
+        path: '/type/:type',
+        redirect: (to) => ({
+            name: 'type',
+            params: { ...to.params, pageNr: 1 },
+        }),
+    },
+    {
+        path: '/tag/:tag/:pageNr',
         name: 'tag',
         component: PostsList,
     },
     {
-        path: '/type/:type/:pageNr?',
+        path: '/type/:type/:pageNr',
         name: 'type',
         component: PostsList,
     },
