@@ -2,6 +2,9 @@
     <div class="posts_page">
         <h1 class="page_title">
             {{ pageTitle }}
+            <template v-if="pagesAmount > 1">
+                - Page {{ currentPage }}
+            </template>
         </h1>
         <div class="posts_page-list">
             <Preview
@@ -86,12 +89,6 @@ export default {
             this.currentPage = +this.$route.params.pageNr;
         }
 
-        if (this.currentPage > this.pagesAmount || !this.currentPage) {
-            this.$router.replace({
-                params: { ...this.$route.params, pageNr: 1 },
-            });
-        }
-
         document.title = `${this.pageTitle} | ${process.env.VUE_APP_DEFAULT_TITLE}`;
     },
     methods: {
@@ -117,6 +114,12 @@ export default {
 
             this.$axios.get(`/posts/type/${type}`).then((res) => {
                 this.posts = this.treatData(res.data);
+
+                if (this.currentPage > this.pagesAmount || !this.currentPage) {
+                    this.$router.replace({
+                        params: { ...this.$route.params, pageNr: 1 },
+                    });
+                }
             });
         },
     },
