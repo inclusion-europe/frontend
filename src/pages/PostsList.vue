@@ -91,6 +91,24 @@ export default {
         pagesAmount() {
             return Math.ceil(this.posts.length / this.pageLength);
         },
+        getterRoute() {
+            let { type } = this.$route.params;
+
+            if (type === 'e2r') return '/posts/e2r';
+
+            switch (type) {
+                case 'articles':
+                    type = 'news,blogpost';
+                    break;
+                case 'publications':
+                    type = 'report';
+                    break;
+                default:
+                    break;
+            }
+
+            return `/posts/type/${type}`;
+        },
     },
     mounted() {
         switch (this.$route.name) {
@@ -127,12 +145,7 @@ export default {
             });
         },
         loadPostsByType() {
-            let { type } = this.$route.params;
-            if (type === 'e2r') type = 'e2r_article';
-            if (type === 'articles') type = 'news,blogpost';
-            if (type === 'publications') type = 'report';
-
-            this.$axios.get(`/posts/type/${type}`).then((res) => {
+            this.$axios.get(this.getterRoute).then((res) => {
                 this.posts = this.treatData(res.data);
 
                 if (this.currentPage > this.pagesAmount || !this.currentPage) {

@@ -41,7 +41,12 @@ export default {
         },
         e2r_articles() {
             return this.posts
-                .filter((post) => ['e2r_article'].includes(post.article_type))
+                .filter(
+                    (post) =>
+                        ['e2r_article'].includes(post.article_type) ||
+                        post.tags?.includes('easy to read') ||
+                        post.tags?.includes('easy-to-read'),
+                )
                 .sort(
                     (a, b) =>
                         new Date(b.created_at).getTime() -
