@@ -16,12 +16,14 @@
                 class="publications-section-publication_grid-list"
             >
                 <Preview
-                    v-for="(publication, i) in posts.slice(2)"
+                    v-for="(publication, i) in posts.slice(2, 6)"
                     :key="`publications_publication_${i}`"
                     :post="publication"
                     no-picture
                 />
-                <SeeAll href="#" big> See all publications </SeeAll>
+                <SeeAll href="/type/publications" big v-if="posts.length > 6">
+                    See all publications
+                </SeeAll>
             </div>
         </div>
     </section>
