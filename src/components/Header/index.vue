@@ -48,12 +48,20 @@ export default {
             menu.forEach((item) => {
                 switch (item.id) {
                     case 1:
-                        item.pages.push({
-                            idx: 99,
-                            menu_position: 99,
-                            title: 'History',
-                            url: '/history',
-                        });
+                        item.pages.push(
+                            {
+                                idx: 98,
+                                menu_position: 98,
+                                title: 'History',
+                                url: '/history',
+                            },
+                            {
+                                idx: 99,
+                                menu_position: 99,
+                                title: 'Projects',
+                                url: '/projects',
+                            },
+                        );
                         break;
                     case 2:
                         item.pages.push({
