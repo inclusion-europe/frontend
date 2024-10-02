@@ -188,6 +188,10 @@ section[class$="-section"]  {
     @media screen and (min-width: 1024px) {
         margin-bottom: 130px;
 
+        &.section__low-spacing {
+            margin-bottom: 50px;
+        }
+
         div[class$="_grid"] {
             display: grid;
             grid-template: auto / 1fr 1fr;

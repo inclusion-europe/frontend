@@ -44,4 +44,11 @@ utils.indicatorScoreColour = (score) => {
     return '#00b050';
 };
 
+utils.treatPosts = (posts) =>
+    posts.map((post) => {
+        const toReturn = post;
+        toReturn.picture = JSON.parse(post.picture);
+        return toReturn;
+    });
+
 export default utils;

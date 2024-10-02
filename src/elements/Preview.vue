@@ -204,14 +204,14 @@ export default {
 
     &-title {
         font-family: GilroySemiBold;
-        font-size: 18px;
+        font-size: 18px !important;
         font-weight: 600;
-        margin: 0;
+        margin: 0 !important;
     }
 
     &-excerpt {
         font-family: GilroyRegular;
-        font-size: 14px;
+        font-size: 14px !important;
         font-weight: 400;
     }
 

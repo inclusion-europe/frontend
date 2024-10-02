@@ -33,6 +33,7 @@
     </div>
 </template>
 <script>
+import utils from '@/scripts/utils.js';
 import Preview from '@/elements/Preview.vue';
 import PostsPagination from '@/components/PostsPagination.vue';
 
@@ -130,23 +131,16 @@ export default {
         },
     },
     methods: {
-        treatData(posts) {
-            return posts.map((post) => {
-                const toReturn = post;
-                toReturn.picture = JSON.parse(post.picture);
-                return toReturn;
-            });
-        },
         loadPostsByTag() {
             const { tag } = this.$route.params;
 
             this.$axios.get(`/posts/tag/${tag}`).then((res) => {
-                this.posts = this.treatData(res.data);
+                this.posts = utils.treatPosts(res.data);
             });
         },
         loadPostsByType() {
             this.$axios.get(this.getterRoute).then((res) => {
-                this.posts = this.treatData(res.data);
+                this.posts = utils.treatPosts(res.data);
 
                 if (this.currentPage > this.pagesAmount || !this.currentPage) {
                     this.$router.replace({
@@ -156,7 +150,6 @@ export default {
             });
         },
         goToPage(pageNr) {
-            console.log(pageNr);
             this.$router.replace({
                 params: {
                     ...this.$route.params,

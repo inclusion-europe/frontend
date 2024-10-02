@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="post_page">
         <article>
             <header>
                 <div class="header_texts">
