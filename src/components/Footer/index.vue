@@ -24,7 +24,7 @@
                     </a>
                 </h4>
                 <img
-                    src="@/assets/european-union.png"
+                    src="@/assets/european-union-white.png"
                     class="footer-contact-eu-logo"
                     alt="Co-funded by the European Union"
                 />

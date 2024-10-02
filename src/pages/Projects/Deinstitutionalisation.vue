@@ -1,6 +1,6 @@
 <template>
     <div class="post-content">
-        <h2>Deinstitutionalisation</h2>
+        <h2 class="section-title">Deinstitutionalisation</h2>
         <p>
             Inclusion Europe reported on issues linked to institutionalisation
             of people with intellectual disabilities and raised awareness of
@@ -150,13 +150,22 @@ export default {
 <style lang="scss" scoped>
 .videos-grid {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 
     iframe {
-        max-width: 48%;
+        max-width: 100%;
+    }
+
+    @media screen and (min-width: 1024px) {
+        flex-direction: row;
+        justify-content: space-between;
+
+        iframe {
+            max-width: 48%;
+        }
     }
 }
 </style>
