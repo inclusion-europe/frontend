@@ -5,6 +5,8 @@ import PostPage from '@/pages/Post.vue';
 import Countries from '@/pages/InclusionIndicators/Countries.vue';
 import CountryPage from '@/pages/InclusionIndicators/CountryPage.vue';
 import HistoryPage from '@/pages/History/index.vue';
+import ProjectsPage from '@/pages/Projects/index.vue';
+import TogetherPlus from '@/pages/Projects/TogetherPlus.vue';
 import Homepage from '@/pages/Homepage';
 import PostsList from '@/pages/PostsList.vue';
 import store from '@/store';
@@ -50,6 +52,16 @@ export default [
         path: '/history',
         name: 'history',
         component: HistoryPage,
+    },
+    {
+        path: '/projects',
+        name: 'projects',
+        component: ProjectsPage,
+    },
+    {
+        path: '/projects/together-plus',
+        name: 'together-plus',
+        component: TogetherPlus,
     },
     {
         path: '/tag/:tag',

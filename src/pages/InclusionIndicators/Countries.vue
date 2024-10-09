@@ -153,6 +153,7 @@ export default {
     mounted() {
         this.$watch(
             'isMobile',
+            // eslint-disable-next-line func-names
             function (val) {
                 if (!val) {
                     this.visibleColumns = this.initTable();

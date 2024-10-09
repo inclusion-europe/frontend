@@ -24,6 +24,7 @@
         "operator-linebreak": "off",
         "no-confusing-arrow": "off",
         "function-paren-newline": "off",
-        "vue/no-v-for-template-key": "off"
+        "vue/no-v-for-template-key": "off",
+        "max-len": ["warn", { "code": 150 }]
     }
 }

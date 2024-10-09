@@ -104,7 +104,7 @@ a.ie-button {
     }
 
     &-boxed {
-        color: #fff;
+        color: #fff !important;
         padding: 6px 8px;
         border-radius: 4px;
         border: 2px;
