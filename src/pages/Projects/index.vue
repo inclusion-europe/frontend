@@ -10,7 +10,7 @@
                 <div class="projects_grid">
                     <IeButton
                         type="link"
-                        href="/projects/together-plus"
+                        href="/together-plus-project"
                         boxed
                         blue
                     >
