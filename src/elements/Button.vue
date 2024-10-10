@@ -154,7 +154,7 @@ a.ie-button {
         }
 
         &.ie-button-white {
-            color: var(--black);
+            color: var(--black) !important;
             background: white;
 
             &:hover,
