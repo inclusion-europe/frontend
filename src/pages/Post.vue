@@ -86,7 +86,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import VueMarkdown from 'vue-markdown-render';
-import InclusionIndicatorsCountries from './InclusionIndicators/Countries.vue';
+import InclusionIndicatorsCountries from './InclusionIndicators/CountriesGlobalTable.vue';
 import E2RContent from '@/elements/E2RContent.vue';
 import IeButton from '@/elements/Button.vue';
 

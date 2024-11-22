@@ -45,11 +45,46 @@
                     }}{{ '*'.repeat(tableData.smaller_institutions_note + 1) }}
                 </td>
             </tr>
+            <tr v-if="year > 2023">
+                <td>Small care homes</td>
+                <td>
+                    {{ tableData.small_care_homes
+                    }}{{ '*'.repeat(tableData.small_care_homes_note + 1) }}
+                </td>
+            </tr>
             <tr>
                 <td>Psychiatric hospitals</td>
                 <td>
                     {{ tableData.psychiatric_hospitals
                     }}{{ '*'.repeat(tableData.psychiatric_hospitals_note + 1) }}
+                </td>
+            </tr>
+            <tr v-if="year > 2023">
+                <td>Living with family</td>
+                <td>
+                    {{ tableData.living_with_family
+                    }}{{ '*'.repeat(tableData.living_with_family_note + 1) }}
+                </td>
+            </tr>
+            <tr v-if="year > 2023">
+                <td>Living in their own home</td>
+                <td>
+                    {{ tableData.living_in_own_place
+                    }}{{ '*'.repeat(tableData.living_in_own_place_note + 1) }}
+                </td>
+            </tr>
+            <tr v-if="year > 2023">
+                <td>In foster care</td>
+                <td>
+                    {{ tableData.in_foster_care
+                    }}{{ '*'.repeat(tableData.in_foster_care_note + 1) }}
+                </td>
+            </tr>
+            <tr v-if="year > 2023">
+                <td>Homeless</td>
+                <td>
+                    {{ tableData.homeless
+                    }}{{ '*'.repeat(tableData.homeless_note + 1) }}
                 </td>
             </tr>
         </table>
@@ -68,6 +103,13 @@ export default {
             type: Object,
             required: true,
         },
+        year: {
+            type: Number,
+            required: true,
+        },
+    },
+    mounted() {
+        console.log(this.tableData);
     },
 };
 </script>

@@ -2,7 +2,7 @@ import Admin from '@/pages/Admin';
 import PostEditor from '@/pages/Admin/PostEditor';
 import Posts from '@/pages/Admin/Posts.vue';
 import PostPage from '@/pages/Post.vue';
-import Countries from '@/pages/InclusionIndicators/Countries.vue';
+import Countries from '@/pages/InclusionIndicators/CountriesGlobalTable.vue';
 import CountryPage from '@/pages/InclusionIndicators/CountryPage.vue';
 import HistoryPage from '@/pages/History/index.vue';
 import ProjectsPage from '@/pages/Projects/index.vue';
@@ -44,6 +44,16 @@ export default [
     },
     {
         path: '/indicators/:country',
+        redirect: (to) => {
+            const years = process.env.VUE_APP_INDICATORS_YEARS.split(',');
+            return {
+                name: 'indicators.country',
+                params: { ...to.params, year: years[years.length - 1] },
+            };
+        },
+    },
+    {
+        path: '/indicators/:country/:year',
         name: 'indicators.country',
         component: CountryPage,
     },
