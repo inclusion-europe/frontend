@@ -3,13 +3,28 @@
         <ie-button @click="$router.push('/indicators')" blue boxed small>
             Back to the Inclusion Indicators page
         </ie-button>
+        <div class="year-selector" v-if="otherYears.length > 1">
+            <IeButton
+                v-for="(year, i) in otherYears"
+                rounded
+                boxed
+                :white="selectedYear != year"
+                :pink="selectedYear == year"
+                :key="`year-selector-button-${i}`"
+                @click="$router.push(year)"
+            >
+                {{ year }}
+            </IeButton>
+        </div>
         <article class="country-page">
             <header>
                 <h1>{{ fullCountryName }}</h1>
                 <div class="country-avg">
                     <h2
                         class="country-avg--score"
-                        :style="{ color: indicatorScoreColour(countryAverage) }"
+                        :style="{
+                            color: indicatorScoreColour(countryAverage),
+                        }"
                     >
                         {{ countryAverage }}
                     </h2>
@@ -70,7 +85,10 @@
                     </sup>
                 </p>
             </section>
-            <country-table :table-data="countryData.reported_numbers" />
+            <country-table
+                :table-data="countryData.reported_numbers"
+                :year="selectedYear"
+            />
             <div class="additional_notes" v-if="countryData.additional_notes">
                 <h4>Additional notes:</h4>
                 <p>{{ countryData.additional_notes }}</p>
@@ -85,7 +103,6 @@
     </div>
 </template>
 <script>
-import dataset from '@/assets/datasets/inclusion-indicators-2023.json';
 import countrycodes from '@/assets/datasets/countries.json';
 import CountryChart from './CountryChart.vue';
 import CountryTable from './CountryTable.vue';
@@ -100,6 +117,34 @@ export default {
         IeButton,
     },
     computed: {
+        availableYears() {
+            return process.env.VUE_APP_INDICATORS_YEARS.split(',');
+        },
+        dataset() {
+            const datasets = require.context(
+                '@/assets/datasets/',
+                false,
+                /\.json$/,
+            );
+            return datasets(`./inclusion-indicators-${this.selectedYear}.json`);
+        },
+        countryData() {
+            const data = {
+                ...this.dataset.data.find(
+                    (el) => el.country === this.fullCountryName,
+                ),
+            };
+            if (Array.isArray(data.quotes)) {
+                let sourceCounter = 0;
+                data.quotes.forEach((q) => {
+                    if (q.source) {
+                        sourceCounter++;
+                        Object.assign(q, { sourceNote: sourceCounter });
+                    }
+                });
+            }
+            return data;
+        },
         quoteSources() {
             const srcs = [];
             for (let i = 0; i < this.countryData.quotes.length; i++) {
@@ -115,28 +160,20 @@ export default {
 
             return srcs;
         },
+        otherYears() {
+            return utils.findOtherCountryIndicatorYears(
+                this.availableYears,
+                this.fullCountryName,
+            );
+        },
         fullCountryName() {
             return countrycodes[this.$route.params.country.toUpperCase()];
         },
-        countryData() {
-            const data = {
-                ...dataset.data.find(
-                    (el) => el.country === this.fullCountryName,
-                ),
-            };
-            if (Array.isArray(data.quotes)) {
-                let sourceCounter = 0;
-                data.quotes.forEach((q) => {
-                    if (q.source) {
-                        sourceCounter++;
-                        Object.assign(q, { sourceNote: sourceCounter });
-                    }
-                });
-            }
-            return data;
+        selectedYear() {
+            return this.$route.params.year;
         },
         labels() {
-            return dataset.labels;
+            return this.dataset.labels;
         },
         chartData() {
             const labels = [
@@ -161,9 +198,10 @@ export default {
                 data: [
                     ...Object.keys(this.countryScores).map(
                         (k) =>
-                            Math.round(dataset.european_averages[k] * 10) / 10,
+                            Math.round(this.dataset.european_averages[k] * 10) /
+                            10,
                     ),
-                    dataset.european_averages.inclusion_score,
+                    this.dataset.european_averages.inclusion_score,
                 ],
                 borderColor: '#01aab5ff',
                 backgroundColor: '#01aab58c',
@@ -337,5 +375,16 @@ export default {
     sup {
         margin-right: 0.5rem;
     }
+}
+
+.year-selector {
+    width: var(--width);
+    max-width: var(--max-width);
+    margin: auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 </style>

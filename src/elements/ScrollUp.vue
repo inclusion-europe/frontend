@@ -3,7 +3,7 @@
     <IeButton
         @click="scrollUp"
         class="scroll_up-buttn"
-        :class="{ 'scroll_up-buttn--shown': shown }"
+        :class="shown ? 'scroll_up-buttn--shown' : ''"
     >
         <svg
             height="20px"
@@ -67,7 +67,7 @@ export default {
 
     &--shown {
         opacity: 1;
-        bottom: 40px;
+        bottom: 40px !important;
     }
 
     &:hover,

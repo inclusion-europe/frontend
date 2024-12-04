@@ -51,4 +51,21 @@ utils.treatPosts = (posts) =>
         return toReturn;
     });
 
+utils.findOtherCountryIndicatorYears = (years, country) => {
+    const returnedYears = [];
+    const datasets = require.context('@/assets/datasets/', false, /\.json$/);
+    years.forEach((year) => {
+        const yearlySet = datasets(`./inclusion-indicators-${year}.json`);
+
+        const dataForThatYear = yearlySet.data.find(
+            (datapoint) => datapoint.country === country,
+        );
+        if (dataForThatYear) {
+            returnedYears.push(year);
+        }
+    });
+
+    return returnedYears;
+};
+
 export default utils;
