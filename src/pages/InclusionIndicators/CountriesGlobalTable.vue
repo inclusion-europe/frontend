@@ -44,6 +44,7 @@ import { ref, computed, onMounted, onBeforeMount, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import VueTable from 'vue3-table-lite';
+import utils from '@/scripts/utils';
 import countrycodes from '@/assets/datasets/countries.json';
 import IeButton from '@/elements/Button.vue';
 
@@ -136,7 +137,7 @@ const dataset = computed(() => {
     const arr = countryData.value.data;
     arr.forEach((country) => {
         Object.assign(country, {
-            average: Math.round(averageFn(country) * 10) / 10,
+            average: scoreRoundFn(averageFn(country)),
         });
     });
     return arr;
@@ -144,12 +145,31 @@ const dataset = computed(() => {
 
 const isMobile = computed(() => windowWidth.value < 1024);
 
+function getEvolution(row, field) {
+    const score = row.scores[field] ? row.scores[field].score : undefined;
+    if (score === undefined) return '';
+
+    const evo = utils.indicatorEvolution(
+        row.country,
+        +selectedYear.value,
+        score,
+        field,
+        availableYears,
+    );
+    if (evo === undefined) return '';
+    if (evo > 0) return '📈';
+    if (evo < 0) return '📉';
+    return '-';
+}
+
 const extraColumns = computed(() =>
     fields.map((field) => ({
         field,
         sortable: true,
         display: (row) =>
-            row.scores[field] ? scoreRoundFn(row.scores[field].score) : '',
+            `${
+                row.scores[field] ? scoreRoundFn(row.scores[field].score) : ''
+            } ${getEvolution(row, field)}`,
         label: countryData.value.labels[field],
     })),
 );

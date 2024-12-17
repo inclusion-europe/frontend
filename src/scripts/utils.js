@@ -68,4 +68,32 @@ utils.findOtherCountryIndicatorYears = (years, country) => {
     return returnedYears;
 };
 
+utils.indicatorEvolution = (country, year, score, indicator, years) => {
+    console.log({
+        country,
+        year,
+        score,
+        indicator,
+        years,
+    });
+
+    if (!years.includes((year - 1).toString())) return undefined;
+
+    const datasets = require.context('@/assets/datasets/', false, /\.json$/);
+    const previousYearSet = datasets(`./inclusion-indicators-${year - 1}.json`);
+
+    const previousYearData = previousYearSet.data.find(
+        (datapoint) => datapoint.country === country,
+    );
+
+    if (!previousYearData || !(indicator in previousYearData.scores)) {
+        return undefined;
+    }
+
+    return (
+        Math.round(score * 10) / 10 -
+        Math.round(previousYearData.scores[indicator].score * 10) / 10
+    );
+};
+
 export default utils;
