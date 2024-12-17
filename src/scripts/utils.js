@@ -69,14 +69,6 @@ utils.findOtherCountryIndicatorYears = (years, country) => {
 };
 
 utils.indicatorEvolution = (country, year, score, indicator, years) => {
-    console.log({
-        country,
-        year,
-        score,
-        indicator,
-        years,
-    });
-
     if (!years.includes((year - 1).toString())) return undefined;
 
     const datasets = require.context('@/assets/datasets/', false, /\.json$/);
