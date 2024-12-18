@@ -108,9 +108,6 @@ export default {
             required: true,
         },
     },
-    mounted() {
-        console.log(this.tableData);
-    },
 };
 </script>
 <style lang="scss" scoped>

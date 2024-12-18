@@ -88,22 +88,8 @@ watch(
     { immediate: true },
 );
 
-function scoreRoundFn(score) {
-    return Math.round(score * 10) / 10;
-}
-
 function onResize() {
     windowWidth.value = window.innerWidth;
-}
-
-function averageFn(row) {
-    const arr = fields
-        .map((field) => row.scores[field]?.score)
-        .filter((a) => ![null, undefined, false].includes(a));
-
-    return (
-        arr.reduce((a, b) => scoreRoundFn(a) + scoreRoundFn(b), 0) / arr.length
-    );
 }
 
 function selectColumn(i) {
@@ -137,7 +123,7 @@ const dataset = computed(() => {
     const arr = countryData.value.data;
     arr.forEach((country) => {
         Object.assign(country, {
-            average: scoreRoundFn(averageFn(country)),
+            average: utils.scoreRoundFn(utils.averageFn(country, fields)),
         });
     });
     return arr;
@@ -145,8 +131,10 @@ const dataset = computed(() => {
 
 const isMobile = computed(() => windowWidth.value < 1024);
 
-function getEvolution(row, field) {
-    const score = row.scores[field] ? row.scores[field].score : undefined;
+function getEvolution(row, field, isAverage = false) {
+    let score = row.scores[field] ? row.scores[field].score : undefined;
+
+    if (isAverage) score = row.average;
     if (score === undefined) return '';
 
     const evo = utils.indicatorEvolution(
@@ -155,11 +143,17 @@ function getEvolution(row, field) {
         score,
         field,
         availableYears,
+        isAverage,
+        fields,
     );
     if (evo === undefined) return '';
-    if (evo > 0) return '📈';
-    if (evo < 0) return '📉';
-    return '-';
+    if (evo > 0) {
+        return '<img class="table-evo-indicator" src="/assets/arrow-better.svg" alt="Better than last year" />';
+    }
+    if (evo < 0) {
+        return '<img class="table-evo-indicator" src="/assets/arrow-worse.svg" alt="Worse than last year" />';
+    }
+    return '<img class="table-evo-indicator" src="/assets/arrow-no-change.svg" alt="Same as last year" />';
 }
 
 const extraColumns = computed(() =>
@@ -168,7 +162,9 @@ const extraColumns = computed(() =>
         sortable: true,
         display: (row) =>
             `${
-                row.scores[field] ? scoreRoundFn(row.scores[field].score) : ''
+                row.scores[field]
+                    ? utils.scoreRoundFn(row.scores[field].score)
+                    : ''
             } ${getEvolution(row, field)}`,
         label: countryData.value.labels[field],
     })),
@@ -193,6 +189,8 @@ const columns = computed(() => [
         field: 'average',
         sortable: true,
         label: countryData.value.labels.average,
+        display: (row) =>
+            `${row.average} ${getEvolution(row, 'average', true)}`,
     },
     ...shownColumns.value,
 ]);
@@ -227,6 +225,12 @@ onBeforeMount(() => {
     margin: auto;
     padding-bottom: 30px;
 
+    &:deep(.table-evo-indicator) {
+        height: 15px;
+        width: 15px;
+        margin: 0;
+    }
+
     .data-selector {
         width: var(--width);
         max-width: var(--max-width);
@@ -253,6 +257,14 @@ onBeforeMount(() => {
                 &:nth-child(2n) {
                     background: #ececec;
                 }
+            }
+        }
+
+        &-tbody-td {
+            & > div {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
             }
         }
     }
