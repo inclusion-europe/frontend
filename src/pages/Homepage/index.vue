@@ -86,7 +86,7 @@ export default {
     },
     mounted() {
         if (!this.notLive) {
-            this.$axios.get('/posts/all').then((res) => {
+            this.$axios.get('/posts/published').then((res) => {
                 this.posts = res.data.map((post) => ({
                     ...post,
                     picture: JSON.parse(post.picture),

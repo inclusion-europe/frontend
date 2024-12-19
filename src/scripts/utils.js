@@ -68,4 +68,53 @@ utils.findOtherCountryIndicatorYears = (years, country) => {
     return returnedYears;
 };
 
+utils.scoreRoundFn = (score) => Math.round(score * 10) / 10;
+
+utils.averageFn = (row, fields) => {
+    const arr = fields
+        .map((field) => row.scores[field]?.score)
+        .filter((a) => ![null, undefined, false].includes(a));
+
+    return utils.scoreRoundFn(
+        arr.reduce((a, b) => utils.scoreRoundFn(a) + utils.scoreRoundFn(b), 0) /
+            arr.length,
+    );
+};
+
+utils.indicatorEvolution = (
+    country,
+    year,
+    score,
+    indicator,
+    years,
+    isAverageCell = false,
+    fields = null,
+) => {
+    if (!years.includes((year - 1).toString())) return undefined;
+
+    const datasets = require.context('@/assets/datasets/', false, /\.json$/);
+    const previousYearSet = datasets(`./inclusion-indicators-${year - 1}.json`);
+
+    const previousYearData = previousYearSet.data.find(
+        (datapoint) => datapoint.country === country,
+    );
+
+    if (!previousYearData) {
+        return undefined;
+    }
+
+    if (!isAverageCell) {
+        if (!(indicator in previousYearData.scores)) {
+            return undefined;
+        }
+
+        return (
+            utils.scoreRoundFn(score) -
+            utils.scoreRoundFn(previousYearData.scores[indicator].score)
+        );
+    }
+
+    return score - utils.averageFn(previousYearData, fields);
+};
+
 export default utils;
