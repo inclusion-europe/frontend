@@ -5,6 +5,7 @@ import PostPage from '@/pages/Post.vue';
 import Countries from '@/pages/InclusionIndicators/CountriesGlobalTable.vue';
 import CountryPage from '@/pages/InclusionIndicators/CountryPage.vue';
 import HistoryPage from '@/pages/History/index.vue';
+import StaffPage from '@/pages/BoardStaff/BoardStaff.vue';
 import ProjectsPage from '@/pages/Projects/index.vue';
 import Homepage from '@/pages/Homepage';
 import PostsList from '@/pages/PostsList.vue';
@@ -61,6 +62,11 @@ export default [
         path: '/history',
         name: 'history',
         component: HistoryPage,
+    },
+    {
+        path: '/staff',
+        name: 'staff',
+        component: StaffPage,
     },
     {
         path: '/projects',

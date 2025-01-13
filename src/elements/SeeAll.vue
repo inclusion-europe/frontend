@@ -57,6 +57,9 @@ export default {
     svg {
         height: 8px;
         fill: var(--ie-pink);
+        position: relative;
+        bottom: 1px;
+        left: 2px;
     }
 
     &:hover,
@@ -96,9 +99,10 @@ export default {
             }
 
             svg {
-                position: relative;
-                top: 2px;
                 height: 12px;
+                left: 3px;
+                top: 2px;
+                bottom: auto;
             }
         }
     }

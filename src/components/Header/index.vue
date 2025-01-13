@@ -50,6 +50,12 @@ export default {
                     case 1:
                         item.pages.push(
                             {
+                                idx: 97,
+                                menu_position: 97,
+                                title: 'Board and Staff',
+                                url: '/staff',
+                            },
+                            {
                                 idx: 98,
                                 menu_position: 98,
                                 title: 'History',

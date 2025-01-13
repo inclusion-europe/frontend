@@ -20,6 +20,24 @@
     }
 }
 
+.section-subtitle {
+    color: var(--black);
+    font-size: 25px;
+    font-style: normal;
+    font-family: GilroyBold;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 15px;
+
+    &--blue {
+        color: var(--ie-blue);
+    }
+
+    &--pink {
+        color: var(--ie-pink);
+    }
+}
+
 input[type="email"],
 input[type="number"],
 input[type="password"],

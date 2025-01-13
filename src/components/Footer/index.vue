@@ -92,7 +92,8 @@ export default {
                 const scope = scopes.join(' ');
 
                 const state = Math.round(Math.random() * 10e20).toString(16);
-                const loginUrl = `${this.authServer}?response_type=code&client_id=${this.clientId}&redirect_uri=${this.redirect}&scope=${scope}&state=${state}`;
+                let loginUrl = `${this.authServer}?response_type=code&client_id=${this.clientId}`;
+                loginUrl += `&redirect_uri=${this.redirect}&scope=${scope}&state=${state}`;
                 this.$cookies.set('imAuthState', state);
                 window.location.href = loginUrl;
             }
