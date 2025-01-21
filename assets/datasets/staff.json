@@ -1,0 +1,88 @@
+[
+    {
+        "name": "Jyrki Pinomaa",
+        "title": "President",
+        "email": "jyrki@inclusion.eu",
+        "copy": "<b>Jyrki Pinomaa</b> is the President of Inclusion Europe.\nJyrki has two sons with severe disabilities. Jyrki had been the president for Inclusion Finland, and worked for an association providing housing and services to people with intellectual disabilities.",
+        "image": "jyrki-pinomaa.jpg",
+        "inBoard": true,
+        "executive": true
+    },
+    {
+        "name": "László Bercse",
+        "title": "Vice-President",
+        "copy": "<b>László Bercse</b> is the Vice-President of Inclusion Europe, and chair of the European Platform of Self-Advocates.\nLászló is also the co-chair of EFOESZ, Hungary.",
+        "image": "laszlo-bercse.jpg",
+        "inBoard": true,
+        "executive": true
+    },
+    {
+        "name": "Mateja de Reya",
+        "title": "Vice-President",
+        "copy": "<b>Mateja de Reya</b> is the Vice-President of Inclusion Europe representing family members.\nMateja is also the director of Zveza Sozitje, Slovenia.",
+        "image": "mateja-de-reya.jpg",
+        "inBoard": true,
+        "executive": true
+    },
+    {
+        "name": "Guillaume Jacquinot",
+        "title": "Secretary-General",
+        "copy": "<b>Guillaume Jacquinot</b> is a brother to his hister with intellectual disabilities. Guillaume was nominated to the Board by Inclusion Ireland.",
+        "image": "guillaume-jacquinot.jpg",
+        "inBoard": true,
+        "executive": true
+    },
+    {
+        "name": "Jeanne Nicklas-Faust",
+        "title": "Treasurer",
+        "copy": "<b>Jeanne Nicklas-Faust</b> is a mother of her daughter with intellectual disabiliteis. Jeanne is also Secretary-General of Lebenshilfe, Germany.",
+        "image": "jeanne-nicklas-faust.jpg",
+        "inBoard": true,
+        "executive": true
+    },
+    {
+        "name": "Andreas Zehetner",
+        "title": "Board Member",
+        "copy": "<b>Andreas Zehetner</b>,self-advocate with Lebenshilfe Austria.",
+        "inBoard": true
+    },
+    {
+        "name": "Camille Latimier",
+        "title": "Board Member",
+        "copy": "<b>Camille Latimier</b>, director of Inclusion Czechia.",
+        "inBoard": true
+    },
+    {
+        "name": "Cristina Schiratti",
+        "title": "Board Member",
+        "copy": "<b>Cristina Schiratti</b>, a mother to her daughter with intellectual disabilities. Board member of Anffas, Italy.",
+        "inBoard": true
+    },
+    {
+        "name": "Dana Migaliova",
+        "title": "Board Member",
+        "copy": "<b>Dana Migaliova</b>, a mother to her son with intellectual disabilities. President of Viltis, Lithuania.",
+        "inBoard": true
+    },
+    {
+        "name": "Oswald Föllerer",
+        "title": "Board Member",
+        "copy": "<b>Oswald Föllerer</b>, self-advocate with Self-Advocacy Centre in Vienna, Austria.",
+        "inBoard": true
+    },
+    {
+        "name": "Milan Šveřepa",
+        "title": "Director",
+        "copy": "<b>Milan Šveřepa</b> is director of Inclusion Europe.\nBefore joining Inclusion Europe Milan worked on deinstitutionalisation in Czechia and in other countries in Central and Eastern Europe.",
+        "image": "milan-sverepa.jpg",
+        "email": "milan@inclusion.eu",
+        "linkedin": ""
+    },
+    {
+        "name": "Josipa Frisčić",
+        "title": "Communication Officer",
+        "copy": "<b>Josipa Frisčić</b> is the communication officer at Inclusion Europe.\nBefore joining Inclusion Europe, Josipa worked and volunteered at the Erasmus Student Network.",
+        "email": "jyrki@inclusion.eu",
+        "image": "josipa-friscic.jpg"
+    }
+]
