@@ -76,13 +76,62 @@
         "copy": "<b>Milan Šveřepa</b> is director of Inclusion Europe.\nBefore joining Inclusion Europe Milan worked on deinstitutionalisation in Czechia and in other countries in Central and Eastern Europe.",
         "image": "milan-sverepa.jpg",
         "email": "milan@inclusion.eu",
-        "linkedin": ""
+        "linkedin": "https://www.linkedin.com/in/milan-sverepa"
     },
     {
         "name": "Josipa Frisčić",
         "title": "Communication Officer",
         "copy": "<b>Josipa Frisčić</b> is the communication officer at Inclusion Europe.\nBefore joining Inclusion Europe, Josipa worked and volunteered at the Erasmus Student Network.",
-        "email": "jyrki@inclusion.eu",
+        "email": "josipa@inclusion.eu",
         "image": "josipa-friscic.jpg"
+    },
+    {
+        "name": "Soufiane El Amrani",
+        "title": "Self-Advocate and Accessibility Expert",
+        "copy": "<b>Soufiane El Amrani</b> is self-advocate, and accessibility expert of Inclusion Europe.\nSoufiane has been working with the European Platform of Self-Advocates for many years.\nSoufiane is at Council of Inclusion International since November 2020.",
+        "email": "soufiane@inclusion.eu",
+        "image": "soufiane-el-amrani.jpg"
+    },
+    {
+        "name": "Freddy Jussien",
+        "title": "Advocacy Lead",
+        "copy": "<b>Freddy Jussien</b> is advocacy lead of Inclusion Europe. Before starting at Inclusion Europe, Freddy used to work at European Association of Service Providers for Persons with Disabilities.",
+        "email": "freddy@inclusion.eu",
+        "image": "freddy-jussien.jpg"
+    },
+    {
+        "name": "Sandra Marques",
+        "title": "Self-Advocacy Expert",
+        "copy": "<b>Sandra Marques</b> is the self-advocacy expert of Inclusion Europe.\nSandra supports the European Platform of Self-Advocates.",
+        "email": "sandra@inclusion.eu",
+        "image": "sandra-marques.jpg"
+    },
+    {
+        "name": "Inge Volleberg",
+        "title": "Coordinator and Researcher",
+        "copy": "<b>Inge Volleberg</b> is coordinator and researcher.",
+        "email": "inge@inclusion.eu",
+        "image": "inge-volleberg.jpg"
+    },
+    {
+        "name": "Helena Lambsdorff",
+        "title": "Coordinator",
+        "copy": "<b>Helena Lambsdorff</b> is coordinator of the EEG.",
+        "email": "coordinator@deinstitutionalisation.com",
+        "image": "helena-lambsdorff.jpg"
+    },
+    {
+        "name": "Milena Johnová",
+        "title": "Support for Ukraine, Deinstitutionalisation, and Development of Supported Decision-Making",
+        "copy": "<b>Milena Johnová</b> works on support for Ukraine, deinstitutionalisation, and development of supported decision-making.",
+        "email": "milena@inclusion.eu",
+        "image": "milena-johnova.jpg"
+    },
+    {
+        "name": "Nina Vertot",
+        "title": "Finance Officer",
+        "copy": "<b>Nina Vertot</b> is finance officer of Inclusion Europe.",
+        "email": "nina@inclusion.eu",
+        "image": "nina-vertot.jpg"
     }
 ]

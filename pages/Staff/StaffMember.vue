@@ -8,7 +8,7 @@
   >
     <div class="staff_member__image" v-if="props.member.image">
       <img
-        :src="require(`~/assets/staff/${props.member.image}`)"
+        :src="`/assets/staff/${props.member.image}`"
         :alt="props.member.name"
       />
     </div>
@@ -32,17 +32,10 @@
   </div>
 </template>
 <script setup>
-import { computed } from 'vue';
-
 const props = defineProps({
   member: Object,
   big: Boolean,
 });
-
-// const generatedImg = computed(() => {
-//   const folder = require.context('@/assets/staff/', false, /\.jpg$/);
-//   return folder(`./${props.member.image}`);
-// });
 </script>
 <style lang="scss" scoped>
 .staff_member {
