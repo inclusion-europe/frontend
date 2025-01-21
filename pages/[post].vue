@@ -80,6 +80,19 @@ const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
+useHead({
+  title: `${post.value.title} | ${config.public.defaultTitle}`,
+});
+
+useSeoMeta({
+  description: () => post.value.excerpt,
+  image: () => post.value.picture?.picture,
+  title: () => `${post.value.title} | ${config.public.defaultTitle}`,
+  ogDescription: () => post.value.excerpt,
+  ogImage: () => post.value.picture?.picture,
+  ogTitle: () => `${post.value.title} | ${config.public.defaultTitle}`,
+});
+
 const post = ref({
   title: 'Test',
 });
@@ -141,18 +154,6 @@ onMounted(() => {
         : workPost.tags;
     post.value = workPost;
 
-    useHead({
-      title: `${post.value.title} | ${config.public.defaultTitle}`,
-    });
-
-    useSeoMeta({
-      description: () => post.value.excerpt,
-      image: () => post.value.picture?.picture,
-      title: () => `${post.value.title} | ${config.public.defaultTitle}`,
-      ogDescription: () => post.value.excerpt,
-      ogImage: () => post.value.picture?.picture,
-      ogTitle: () => `${post.value.title} | ${config.public.defaultTitle}`,
-    });
     const shouldShowE2R = route.query.e2r && post.value.content_e2r;
     if (post.value.default_type === 'e2r' || shouldShowE2R) {
       showE2R.value = true;
