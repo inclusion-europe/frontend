@@ -51,4 +51,11 @@
 </template>
 <script setup>
 import StaffMember from './StaffMember.vue';
+import staff from '@/assets/datasets/staff.json';
+
+const execBoard = staff.filter((member) => member.inBoard && member.executive);
+const nonExecBoard = staff.filter(
+  (member) => member.inBoard && !member.executive
+);
+const staffMembers = staff.filter((member) => !member.inBoard);
 </script>
