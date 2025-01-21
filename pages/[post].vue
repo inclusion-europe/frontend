@@ -70,7 +70,7 @@
 </template>
 <script setup>
 import VueMarkdown from 'vue-markdown-render';
-import InclusionIndicatorsCountries from './Indicators/countries.vue';
+import InclusionIndicatorsCountries from '~/elements/IndicatorsCountries.vue';
 import E2RContent from '~/elements/E2RContent.vue';
 import IeButton from '~/elements/Button.vue';
 import { useMainStore } from '~/store';
@@ -140,13 +140,15 @@ onMounted(() => {
         ? workPost.tags.split(',')
         : workPost.tags;
     post.value = workPost;
+
     useHead({
       title: `${post.value.title} | ${config.public.defaultTitle}`,
     });
+
     useSeoMeta({
       description: post.value.excerpt,
       image: post.value.picture?.picture,
-      title: post.value.title,
+      title: `${post.value.title} | ${config.public.defaultTitle}`,
     });
     const shouldShowE2R = route.query.e2r && post.value.content_e2r;
     if (post.value.default_type === 'e2r' || shouldShowE2R) {

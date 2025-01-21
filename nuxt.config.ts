@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', '@nuxt/ui'],
   vite: {
     css: {
       preprocessorOptions: {
@@ -11,6 +11,9 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+  colorMode: {
+    preference: 'light'
   },
   runtimeConfig: {
     public: {

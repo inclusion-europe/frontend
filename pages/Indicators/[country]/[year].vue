@@ -96,11 +96,11 @@
   </div>
 </template>
 <script setup>
-import countrycodes from '@/assets/datasets/countries.json';
-import CountryChart from './CountryChart.vue';
-import CountryTable from './CountryTable.vue';
-import IeButton from '@/elements/Button.vue';
-import utils from '@/scripts/utils';
+import countrycodes from '~/assets/datasets/countries.json';
+import CountryChart from '~/elements/CountryChart.vue';
+import CountryTable from '~/elements/CountryTable.vue';
+import IeButton from '~/elements/Button.vue';
+import utils from '~/scripts/utils';
 
 const config = useRuntimeConfig();
 const router = useRouter();

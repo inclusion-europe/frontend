@@ -25,29 +25,56 @@
         {{ field.label }}
       </IeButton>
     </div>
-    <vue-table
-      :row-classes="['countries-row']"
-      :columns="columns"
-      :rows="dataset"
-      :total="dataset.length"
-      :page-size="50"
-      :is-static-mode="true"
-      :is-hide-paging="true"
-      :is-fixed-first-column="isMobile"
+    <UCard
+      class="w-full"
+      :ui="{
+        body: {
+          padding: '',
+        },
+      }"
     >
-    </vue-table>
+      <UTable
+        :rows="dataset"
+        :columns="columns"
+        class="country-table"
+        :sort-button="{
+          variant: 'transparent',
+          align: 'left',
+        }"
+      >
+        <template #country-data="{ row }">
+          <span class="data-cell">
+            <a :href="countryUrl(row)">{{ row.country }}</a>
+          </span>
+        </template>
+        <template #average-data="{ row }">
+          <span class="data-cell">
+            {{ row.average }}
+            <EvolutionIndicator :evo="getEvolution(row, 'average', true)" />
+          </span>
+        </template>
+        <template
+          v-for="col in shownColumns"
+          v-slot:[`${col.key}-data`]="{ row, column }"
+        >
+          <span class="data-cell">
+            {{ getScore(row, column.key) }}
+            <EvolutionIndicator :evo="getEvolution(row, column.key)" />
+          </span>
+        </template>
+      </UTable>
+    </UCard>
   </div>
 </template>
 <script setup>
-import VueTable from 'vue3-table-lite';
 import { useWindowSize } from '@vueuse/core';
 
 import utils from '~/scripts/utils';
 import countrycodes from '~/assets/datasets/countries.json';
-import IeButton from '~/elements/Button.vue';
+import IeButton from './Button.vue';
+import EvolutionIndicator from './EvolutionIndicator.vue';
 
 const config = useRuntimeConfig();
-const router = useRouter();
 
 const availableYears = config.public.indicatorsYears.split(',');
 
@@ -136,16 +163,11 @@ function countryCode(row) {
     Object.keys(countrycodes)[
       Object.values(countrycodes).findIndex((el) => el === row.country)
     ];
-  if (!returnedCountryCode) {
-    navigateTo('/indicators');
-  }
   return returnedCountryCode || null;
 }
 
 function countryUrl(row) {
-  return `<a href="/indicators/${countryCode(row).toLowerCase()}/${
-    selectedYear.value
-  }">${row.country}</a>`;
+  return `/indicators/${countryCode(row).toLowerCase()}/${selectedYear.value}`;
 }
 
 const dataset = computed(() => {
@@ -154,11 +176,18 @@ const dataset = computed(() => {
     Object.assign(country, {
       average: utils.scoreRoundFn(utils.averageFn(country, fields)),
     });
+    Object.keys(country.scores).forEach((field) => {
+      country[field] = utils.scoreRoundFn(country.scores[field].score);
+    });
   });
   return arr;
 });
 
 const isMobile = computed(() => windowSize.width.value < 1024);
+
+const getScore = (row, field) => {
+  return row.scores[field] ? utils.scoreRoundFn(row.scores[field].score) : '';
+};
 
 const getEvolution = (row, field, isAverage = false) => {
   let score = row.scores[field] ? row.scores[field].score : undefined;
@@ -168,26 +197,16 @@ const getEvolution = (row, field, isAverage = false) => {
 
   let evo = indicatorEvolution(row.country, score, field, isAverage, fields);
 
-  if (evo === undefined) return '';
-  if (evo > 0) {
-    return '<img class="table-evo-indicator" src="/assets/arrow-better.svg" alt="Better than last year" />';
-  }
-  if (evo < 0) {
-    return '<img class="table-evo-indicator" src="/assets/arrow-worse.svg" alt="Worse than last year" />';
-  }
-  return '<img class="table-evo-indicator" src="/assets/arrow-no-change.svg" alt="Same as last year" />';
+  if (evo === undefined) return null;
+  return evo;
 };
 
 const extraColumns = computed(() =>
   fields.map((field) => ({
-    field,
+    key: field,
     sortable: true,
-    display: (row) => {
-      return `${
-        row.scores[field] ? utils.scoreRoundFn(row.scores[field].score) : ''
-      } ${getEvolution(row, field)}`;
-    },
     label: countryData.value.labels[field],
+    direction: 'desc',
   }))
 );
 
@@ -197,20 +216,15 @@ const shownColumns = computed(() => [
 
 const columns = computed(() => [
   {
-    field: 'country',
+    key: 'country',
     sortable: true,
     label: countryData.value.labels.country,
-    isKey: true,
-    display: (row) => {
-      const code = countryCode(row);
-      return code ? countryUrl(row) : row.country;
-    },
   },
   {
-    field: 'average',
+    key: 'average',
     sortable: true,
     label: countryData.value.labels.average,
-    display: (row) => `${row.average} ${getEvolution(row, 'average', true)}`,
+    direction: 'desc',
   },
   ...shownColumns.value,
 ]);
@@ -237,12 +251,6 @@ watch(
   margin: auto;
   padding-bottom: 30px;
 
-  &:deep(.table-evo-indicator) {
-    height: 15px;
-    width: 15px;
-    margin: 0;
-  }
-
   .data-selector {
     width: var(--width);
     max-width: var(--max-width);
@@ -254,27 +262,21 @@ watch(
     margin-bottom: 10px;
   }
 
-  &:deep(.vtl) {
-    width: 100%;
-  }
-
-  &:deep(.vtl-table) {
+  .country-table {
     width: fit-content !important;
     margin: auto;
 
-    th {
-      background: var(--dark-grey) !important;
+    &:deep(th) {
+      // background: var(--dark-grey) !important;
     }
 
-    .countries-row {
+    &:deep(tr) {
       &:nth-child(2n) {
-        background: #ececec;
+        background: #ececec !important;
       }
     }
-  }
 
-  &:deep(.vtl-tbody-td) {
-    & > div {
+    .data-cell {
       display: flex;
       align-items: center;
       justify-content: space-between;

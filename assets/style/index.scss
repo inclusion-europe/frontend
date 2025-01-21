@@ -2,6 +2,23 @@
 @use './post_page.scss';
 @use './indicators_page.scss';
 
+html {
+    line-height: 1.2;
+}
+
+h3, p {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+
+h2, h3 {
+    font-weight: bold;
+}
+
+a {
+    text-decoration: underline;
+}
+
 .section-title {
     color: var(--black);
     font-size: 38px;
