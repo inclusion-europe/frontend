@@ -146,9 +146,12 @@ onMounted(() => {
     });
 
     useSeoMeta({
-      description: post.value.excerpt,
-      image: post.value.picture?.picture,
-      title: `${post.value.title} | ${config.public.defaultTitle}`,
+      description: () => post.value.excerpt,
+      image: () => post.value.picture?.picture,
+      title: () => `${post.value.title} | ${config.public.defaultTitle}`,
+      ogDescription: () => post.value.excerpt,
+      ogImage: () => post.value.picture?.picture,
+      ogTitle: () => `${post.value.title} | ${config.public.defaultTitle}`,
     });
     const shouldShowE2R = route.query.e2r && post.value.content_e2r;
     if (post.value.default_type === 'e2r' || shouldShowE2R) {
