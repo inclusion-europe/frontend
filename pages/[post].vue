@@ -123,6 +123,12 @@ const headTags = computed(() => {
     return {
       title: `${post.value.title} | ${config.public.defaultTitle}`,
       meta: [
+        { property: 'description', content: post.value.excerpt },
+        { property: 'image', content: post.value.picture?.picture },
+        {
+          property: 'title',
+          content: `${post.value.title} | ${config.public.defaultTitle}`,
+        },
         { property: 'og:description', content: post.value.excerpt },
         { property: 'og:image', content: post.value.picture?.picture },
         {
