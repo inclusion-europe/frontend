@@ -48,18 +48,12 @@ useSeoMeta({
 });
 
 onServerPrefetch(() => {
-  // component is rendered as part of the initial request
-  // pre-fetch data on server as it is faster than on the client
-
   store.loadPosts();
 });
 
 onMounted(() => {
   if (!posts.value.length) {
-    // if data is null on mount, it means the component
-    // is dynamically rendered on the client. Perform a
-    // client-side fetch instead.
-
+    console.log('loading posts');
     store.loadPosts();
   }
 });
