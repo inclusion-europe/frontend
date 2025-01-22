@@ -120,6 +120,16 @@ const seoMeta = computed(() => {
   return {};
 });
 
+const headTags = computed(() => {
+  if (post.value) {
+    return {
+      title: `${post.value.title} | ${config.public.defaultTitle}`,
+    };
+  }
+
+  return {};
+});
+
 watch(post, (val) => {
   const shouldShowE2R = route.query.e2r && val.content_e2r;
   if (val.default_type === 'e2r' || shouldShowE2R) {
@@ -141,7 +151,8 @@ watch(post, (val) => {
 //   });
 // }
 
-useHead(seoMeta);
+useHead(headTags);
+useSeoMeta(seoMeta);
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
