@@ -103,6 +103,23 @@ const hasOtherContent = computed(() => {
   return !!post.value.content_e2r;
 });
 
+const seoMeta = computed(() => {
+  if (post.value) {
+    return {
+      description: post.value.excerpt,
+      image: post.value.picture?.picture,
+      title: `${post.value.title} | ${config.public.defaultTitle}`,
+      meta: {
+        ogDescription: post.value.excerpt,
+        ogImage: post.value.picture?.picture,
+        ogTitle: `${post.value.title} | ${config.public.defaultTitle}`,
+      },
+    };
+  }
+
+  return {};
+});
+
 watch(post, (val) => {
   const shouldShowE2R = route.query.e2r && val.content_e2r;
   if (val.default_type === 'e2r' || shouldShowE2R) {
@@ -118,20 +135,13 @@ watch(post, (val) => {
   }
 });
 
-if (post.value) {
-  useHead({
-    title: () => `${post.value.title} | ${config.public.defaultTitle}`,
-  });
+// if (post.value) {
+//   useHead({
+//     title: () => `${post.value.title} | ${config.public.defaultTitle}`,
+//   });
+// }
 
-  useSeoMeta({
-    description: () => post.value.excerpt,
-    image: () => post.value.picture?.picture,
-    title: () => `${post.value.title} | ${config.public.defaultTitle}`,
-    ogDescription: () => post.value.excerpt,
-    ogImage: () => post.value.picture?.picture,
-    ogTitle: () => `${post.value.title} | ${config.public.defaultTitle}`,
-  });
-}
+useHead(seoMeta);
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
