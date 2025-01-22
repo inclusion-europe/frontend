@@ -72,6 +72,17 @@ const articles = computed(() => {
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
 });
+
+useSeoMeta({
+  description:
+    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
+  image: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
+  title: config.public.defaultTitle,
+  ogDescription:
+    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
+  ogImage: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
+  ogTitle: config.public.defaultTitle,
+});
 </script>
 
 <style lang="scss" scoped>
