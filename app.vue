@@ -20,6 +20,8 @@ import { useMainStore } from '~/store';
 const config = useRuntimeConfig();
 const store = useMainStore();
 
+const posts = computed(() => store.getPosts);
+
 useHead({
   link: [
     {
@@ -45,7 +47,22 @@ useSeoMeta({
   ogTitle: config.public.defaultTitle,
 });
 
-store.loadPosts();
+onServerPrefetch(() => {
+  // component is rendered as part of the initial request
+  // pre-fetch data on server as it is faster than on the client
+
+  store.loadPosts();
+});
+
+onMounted(() => {
+  if (!posts.value.length) {
+    // if data is null on mount, it means the component
+    // is dynamically rendered on the client. Perform a
+    // client-side fetch instead.
+
+    store.loadPosts();
+  }
+});
 </script>
 <style src="@/assets/style/index.scss" lang="scss"></style>
 <style lang="scss" scoped>
