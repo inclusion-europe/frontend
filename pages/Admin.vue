@@ -16,13 +16,7 @@ const imAuthStateCookie = useCookie('im_auth_state');
 const pageReady = ref(false);
 
 onMounted(() => {
-  console.log({
-    imAuthToken,
-    imAuthStateCookie,
-    noauth: config.public.noauth,
-  });
   if (imAuthToken.value || config.public.noauth) {
-    console.log('is noauth');
     pageReady.value = true;
     navigateTo('/admin/posts');
     return;
@@ -53,7 +47,6 @@ onMounted(() => {
     }
   )
     .then((res) => {
-      console.log(res);
       if (!res.data || !res.data.access_token) {
         useNuxtApp().$toast.error('Invalid token response');
         navigateTo('/');
