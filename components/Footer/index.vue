@@ -76,9 +76,7 @@ const onAdminPage = computed(() => {
 });
 
 const goToAdmin = () => {
-  console.log({ imAuthToken, noAuth: config.public.noauth });
   if (imAuthToken.value || config.public.noauth) {
-    console.log('is noauth');
     navigateTo('/admin');
   } else {
     const scopes = ['openid', 'profile', 'email'];
