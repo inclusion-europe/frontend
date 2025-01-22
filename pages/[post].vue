@@ -104,18 +104,14 @@ const hasOtherContent = computed(() => {
 });
 
 const seoMeta = computed(() => {
-  if (post.value) {
-    return {
-      description: post.value.excerpt,
-      image: post.value.picture?.picture,
-      title: `${post.value.title} | ${config.public.defaultTitle}`,
-      ogDescription: post.value.excerpt,
-      ogImage: post.value.picture?.picture,
-      ogTitle: `${post.value.title} | ${config.public.defaultTitle}`,
-    };
-  }
-
-  return {};
+  return {
+    description: post.value?.excerpt,
+    image: post.value?.picture?.picture,
+    title: `${post.value?.title} | ${config.public.defaultTitle}`,
+    ogDescription: post.value?.excerpt,
+    ogImage: post.value.picture?.picture,
+    ogTitle: `${post.value?.title} | ${config.public.defaultTitle}`,
+  };
 });
 
 const headTags = computed(() => {
