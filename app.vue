@@ -4,6 +4,7 @@
     <div class="under_const">
       <h3>The website is still under development, more updates coming soon!</h3>
     </div>
+    <h3 v-if="hasSSRFetched">SSR</h3>
     <WebsiteHeader />
     <NuxtPage :page-key="(route) => route.fullPath" />
     <WebsiteFooter />
@@ -21,6 +22,7 @@ const config = useRuntimeConfig();
 const store = useMainStore();
 
 const posts = computed(() => store.getPosts);
+const hasSSRFetched = ref(false);
 
 useHead({
   link: [
@@ -49,6 +51,7 @@ useSeoMeta({
 
 onServerPrefetch(() => {
   console.log('loading posts server side');
+  hasSSRFetched.value = true;
   store.loadPosts();
 });
 
