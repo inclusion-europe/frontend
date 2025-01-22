@@ -118,20 +118,20 @@ const headTags = computed(() => {
   if (post.value) {
     return {
       title: `${post.value.title} | ${config.public.defaultTitle}`,
-      // meta: [
-      //   { property: 'description', content: post.value.excerpt },
-      //   { property: 'image', content: post.value.picture?.picture },
-      //   {
-      //     property: 'title',
-      //     content: `${post.value.title} | ${config.public.defaultTitle}`,
-      //   },
-      //   { property: 'og:description', content: post.value.excerpt },
-      //   { property: 'og:image', content: post.value.picture?.picture },
-      //   {
-      //     property: 'og:title',
-      //     content: `${post.value.title} | ${config.public.defaultTitle}`,
-      //   },
-      // ],
+      meta: [
+        { property: 'description', content: post.value.excerpt },
+        { property: 'image', content: post.value.picture?.picture },
+        {
+          property: 'title',
+          content: `${post.value.title} | ${config.public.defaultTitle}`,
+        },
+        { property: 'og:description', content: post.value.excerpt },
+        { property: 'og:image', content: post.value.picture?.picture },
+        {
+          property: 'og:title',
+          content: `${post.value.title} | ${config.public.defaultTitle}`,
+        },
+      ],
     };
   }
 
@@ -140,7 +140,7 @@ const headTags = computed(() => {
 
 watch(post, (val) => {
   useHead(headTags);
-  useSeoMeta(seoMeta);
+  // useSeoMeta(seoMeta);
   const shouldShowE2R = route.query.e2r && val.content_e2r;
   if (val.default_type === 'e2r' || shouldShowE2R) {
     router.replace({
@@ -162,7 +162,7 @@ watch(post, (val) => {
 // }
 
 useHead(headTags);
-useSeoMeta(seoMeta);
+// useSeoMeta(seoMeta);
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
