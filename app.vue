@@ -48,6 +48,7 @@ useSeoMeta({
 });
 
 onServerPrefetch(() => {
+  console.log('loading posts server side');
   store.loadPosts();
 });
 
