@@ -16,6 +16,11 @@ const imAuthStateCookie = useCookie('im_auth_state');
 const pageReady = ref(false);
 
 onMounted(() => {
+  console.log({
+    imAuthToken,
+    imAuthStateCookie,
+    noauth: config.public.noauth,
+  });
   if (imAuthToken || config.public.noauth) {
     pageReady.value = true;
     navigateTo('/admin/posts');
