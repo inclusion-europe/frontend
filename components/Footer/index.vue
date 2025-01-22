@@ -62,7 +62,7 @@ const clientId = config.public?.imClientId || false;
 const authServer = config.public?.imAuthServer || false;
 
 const hasAdmin = computed(() => {
-  if (imAuthToken) return true;
+  if (imAuthToken.value) return true;
   if (!authServer || !clientId) return false;
   return true;
 });
@@ -77,7 +77,7 @@ const onAdminPage = computed(() => {
 
 const goToAdmin = () => {
   console.log({ imAuthToken, noAuth: config.public.noauth });
-  if (imAuthToken || config.public.noauth) {
+  if (imAuthToken.value || config.public.noauth) {
     console.log('is noauth');
     navigateTo('/admin');
   } else {

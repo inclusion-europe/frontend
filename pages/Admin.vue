@@ -21,7 +21,7 @@ onMounted(() => {
     imAuthStateCookie,
     noauth: config.public.noauth,
   });
-  if (imAuthToken || config.public.noauth) {
+  if (imAuthToken.value || config.public.noauth) {
     console.log('is noauth');
     pageReady.value = true;
     navigateTo('/admin/posts');
@@ -34,8 +34,8 @@ onMounted(() => {
   if (
     !code ||
     !imAuthState ||
-    !imAuthStateCookie ||
-    imAuthState !== imAuthStateCookie
+    !imAuthStateCookie.value ||
+    imAuthState !== imAuthStateCookie.value
   ) {
     useNuxtApp().$toast.error('Invalid authentication');
     navigateTo('/');
