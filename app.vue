@@ -52,6 +52,11 @@ onServerPrefetch(() => {
 });
 
 onMounted(() => {
+  console.log({
+    isSSR:
+      import.meta.server ||
+      (import.meta.client && useNuxtApp().payload.serverRendered),
+  });
   if (!posts.value.length) {
     console.log('loading posts');
     store.loadPosts();
