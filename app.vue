@@ -5,7 +5,7 @@
       <h3>The website is still under development, more updates coming soon!</h3>
     </div>
     <WebsiteHeader />
-    <NuxtPage :key="$route.fullPath" />
+    <NuxtPage :page-key="(route) => route.fullPath" />
     <WebsiteFooter />
     <ScrollUp />
   </div>
@@ -32,6 +32,17 @@ useHead({
     },
   ],
   title: config.public.defaultTitle,
+});
+
+useSeoMeta({
+  description:
+    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
+  image: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
+  title: config.public.defaultTitle,
+  ogDescription:
+    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
+  ogImage: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
+  ogTitle: config.public.defaultTitle,
 });
 
 store.loadPosts();

@@ -30,7 +30,7 @@
       <Socials v-if="!onAdminPage" />
       <div class="footer-navigation">
         <!-- <a href="#">Sitemap</a> -->
-        <a v-if="hasAdmin" @click="goToAdmin" href="#">Admin</a>
+        <a v-if="hasAdmin" @click="goToAdmin">Admin</a>
       </div>
       <h4 v-if="!onAdminPage" class="footer-copyright">
         © {{ currentYear }} Inclusion Europe, made with ❤️ by
@@ -45,7 +45,6 @@ import Newsletter from '../Newsletter.vue';
 import IeButton from '@/elements/Button.vue';
 
 const config = useRuntimeConfig();
-const router = useRouter();
 const route = useRoute();
 
 const imAuthToken = useCookie('im_auth_token');
