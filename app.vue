@@ -54,15 +54,15 @@ onServerPrefetch(() => {
   store.loadPosts();
 });
 
-onMounted(() => {
-  if (!posts.value.length) {
-    // if data is null on mount, it means the component
-    // is dynamically rendered on the client. Perform a
-    // client-side fetch instead.
+// onMounted(() => {
+//   if (!posts.value.length) {
+//     // if data is null on mount, it means the component
+//     // is dynamically rendered on the client. Perform a
+//     // client-side fetch instead.
 
-    store.loadPosts();
-  }
-});
+//     store.loadPosts();
+//   }
+// });
 </script>
 <style src="@/assets/style/index.scss" lang="scss"></style>
 <style lang="scss" scoped>
