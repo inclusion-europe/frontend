@@ -139,6 +139,8 @@ const headTags = computed(() => {
 });
 
 watch(post, (val) => {
+  useHead(headTags);
+  useSeoMeta(seoMeta);
   const shouldShowE2R = route.query.e2r && val.content_e2r;
   if (val.default_type === 'e2r' || shouldShowE2R) {
     router.replace({
