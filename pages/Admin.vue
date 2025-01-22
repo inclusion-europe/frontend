@@ -22,6 +22,7 @@ onMounted(() => {
     noauth: config.public.noauth,
   });
   if (imAuthToken || config.public.noauth) {
+    console.log('is noauth');
     pageReady.value = true;
     navigateTo('/admin/posts');
     return;
