@@ -5,10 +5,7 @@
       <h3>The website is still under development, more updates coming soon!</h3>
     </div>
     <WebsiteHeader />
-    <div v-if="loading" class="loading">
-      <img src="/loading.gif" />
-    </div>
-    <NuxtPage v-if="!loading" :key="$route.fullPath" />
+    <NuxtPage :key="$route.fullPath" />
     <WebsiteFooter />
     <ScrollUp />
   </div>
@@ -48,13 +45,7 @@ useSeoMeta({
   ogTitle: config.public.defaultTitle,
 });
 
-const loading = ref(true);
-
-onMounted(() => {
-  store.loadPosts().then(() => {
-    loading.value = false;
-  });
-});
+store.loadPosts();
 </script>
 <style src="@/assets/style/index.scss" lang="scss"></style>
 <style lang="scss" scoped>

@@ -10,7 +10,7 @@
           blue
           boxed
           class="other_content-button"
-          :class="{ 'e2r-button': !shfowE2R }"
+          :class="{ 'e2r-button': !showE2R }"
           :e2r="!showE2R"
           @click="toggleContentType"
         >
@@ -80,11 +80,14 @@ const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
-const post = ref({
-  title: 'Test',
+const post = computed(() => {
+  return store.getPost(route.params.post);
 });
-const showE2R = ref(false);
-const loading = ref(true);
+
+const showE2R = computed(() => {
+  return route.query.e2r === '1';
+});
+const loading = computed(() => store.isLoading);
 
 const isIndicatorsPage = computed(() => {
   return route.path === '/indicators';
@@ -100,69 +103,39 @@ const hasOtherContent = computed(() => {
   return !!post.value.content_e2r;
 });
 
-useHead({
-  title: `${post.value.title} | ${config.public.defaultTitle}`,
+watch(post, (val) => {
+  const shouldShowE2R = route.query.e2r && val.content_e2r;
+  if (val.default_type === 'e2r' || shouldShowE2R) {
+    router.replace({
+      query: {
+        e2r: 1,
+      },
+    });
+  } else {
+    router.replace({
+      query: {},
+    });
+  }
 });
 
-useSeoMeta({
-  description: () => post.value.excerpt,
-  image: () => post.value.picture?.picture,
-  title: () => `${post.value.title} | ${config.public.defaultTitle}`,
-  ogDescription: () => post.value.excerpt,
-  ogImage: () => post.value.picture?.picture,
-  ogTitle: () => `${post.value.title} | ${config.public.defaultTitle}`,
-});
+if (post.value) {
+  useHead({
+    title: () => `${post.value.title} | ${config.public.defaultTitle}`,
+  });
 
-watch(
-  showE2R,
-  (val) => {
-    if (val) {
-      router.replace({
-        query: {
-          e2r: 1,
-        },
-      });
-    } else {
-      router.replace({
-        query: {},
-      });
-    }
-  },
-  { immediate: true }
-);
+  useSeoMeta({
+    description: () => post.value.excerpt,
+    image: () => post.value.picture?.picture,
+    title: () => `${post.value.title} | ${config.public.defaultTitle}`,
+    ogDescription: () => post.value.excerpt,
+    ogImage: () => post.value.picture?.picture,
+    ogTitle: () => `${post.value.title} | ${config.public.defaultTitle}`,
+  });
+}
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
 };
-
-onMounted(() => {
-  const posts = store.getPosts;
-  const workPost = posts.find(
-    (art) =>
-      art.url.toLowerCase() ===
-      `/${encodeURIComponent(route.params.post).toLowerCase()}`
-  );
-  if (workPost) {
-    workPost.content = unescape(workPost.content);
-    workPost.content_e2r =
-      typeof workPost.content_e2r === 'string'
-        ? JSON.parse(workPost.content_e2r)
-        : workPost.content_e2r;
-    workPost.tags =
-      typeof workPost.tags === 'string'
-        ? workPost.tags.split(',')
-        : workPost.tags;
-    post.value = workPost;
-
-    const shouldShowE2R = route.query.e2r && post.value.content_e2r;
-    if (post.value.default_type === 'e2r' || shouldShowE2R) {
-      showE2R.value = true;
-    }
-    loading.value = false;
-    // } else {
-    //     router.push('/');
-  }
-});
 </script>
 <style lang="scss" scoped>
 article {
