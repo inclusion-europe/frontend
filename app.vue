@@ -49,10 +49,10 @@ useSeoMeta({
   ogTitle: config.public.defaultTitle,
 });
 
-onServerPrefetch(() => {
+onServerPrefetch(async () => {
   console.log('loading posts server side');
+  await store.loadPosts();
   hasSSRFetched.value = true;
-  store.loadPosts();
 });
 
 onMounted(() => {
