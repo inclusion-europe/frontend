@@ -21,29 +21,30 @@ import E2R from './E2R';
 import Videos from './Videos';
 import Articles from './Articles';
 import Publications from './Publications';
+import { useMainStore } from '~/store';
 import useMyFetch from '~/composables/useMyFetch';
 
+const store = useMainStore();
 const config = useRuntimeConfig();
 
 const notLive = config.public.notlive;
 
 const loading = ref(true);
-const posts = ref([]);
+const posts = store.getPosts;
 
-onMounted(() => {
-  if (!notLive) {
-    useMyFetch('posts/published').then((res) => {
-      posts.value = res.map((post) => ({
-        ...post,
-        picture: JSON.parse(post.picture),
-      }));
+watch(
+  posts,
+  (val) => {
+    console.log(val);
+    if (val.length) {
       loading.value = false;
-    });
-  }
-});
+    }
+  },
+  { immediate: true }
+);
 
 const e2r_articles = computed(() => {
-  return posts.value
+  return posts
     .filter(
       (post) =>
         ['e2r_article'].includes(post.article_type) ||
@@ -57,7 +58,7 @@ const e2r_articles = computed(() => {
 });
 
 const highlights = computed(() => {
-  return posts.value
+  return posts
     .filter((post) => post.highlighted)
     .sort(
       (a, b) =>
@@ -67,7 +68,7 @@ const highlights = computed(() => {
 });
 
 const publications = computed(() => {
-  return posts.value
+  return posts
     .filter((post) => ['report'].includes(post.article_type))
     .sort(
       (a, b) =>
@@ -76,7 +77,7 @@ const publications = computed(() => {
 });
 
 const articles = computed(() => {
-  return posts.value
+  return posts
     .filter((post) => ['news', 'blogpost'].includes(post.article_type))
     .sort(
       (a, b) =>
