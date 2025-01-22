@@ -122,6 +122,14 @@ const headTags = computed(() => {
   if (post.value) {
     return {
       title: `${post.value.title} | ${config.public.defaultTitle}`,
+      meta: [
+        { property: 'og:description', content: post.value.excerpt },
+        { property: 'og:image', content: post.value.picture?.picture },
+        {
+          property: 'og:title',
+          content: `${post.value.title} | ${config.public.defaultTitle}`,
+        },
+      ],
     };
   }
 
@@ -150,7 +158,7 @@ watch(post, (val) => {
 // }
 
 useHead(headTags);
-useSeoMeta(seoMeta);
+// useSeoMeta(seoMeta);
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
