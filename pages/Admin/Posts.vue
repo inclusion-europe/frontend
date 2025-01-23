@@ -25,6 +25,7 @@
     >
       <UTable
         :rows="posts"
+        :sort="sort"
         :columns="columns"
         class="w-full"
         :ui="{
@@ -62,78 +63,24 @@
           </span>
         </template>
         <template #actions-data="{ row }">
-          <UButtonGroup>
+          <UButtonGroup size="xs">
             <template v-if="!isInArchive">
-              <UButton size="xs" boxed blue @click="editPost(row.idx)">
-                Edit
-              </UButton>
-              <UButton
-                size="xs"
-                boxed
-                color="ie-pink"
-                @click="archivePost(row.idx)"
-              >
+              <UButton size="xs" @click="editPost(row.idx)"> Edit </UButton>
+              <UButton size="xs" color="ie-pink" @click="archivePost(row.idx)">
                 Archive
               </UButton>
             </template>
-            <UButton size="xs" boxed blue @click="restorePost(row.idx)" v-else>
+            <UButton size="xs" @click="restorePost(row.idx)" v-else>
               Restore
             </UButton>
-            <UButton size="xs" boxed color="black" @click="deletePost(row.idx)">
+            <UButton size="xs" color="black" @click="deletePost(row.idx)">
               Delete
             </UButton>
           </UButtonGroup>
         </template>
       </UTable>
     </UCard>
-    <div class="posts-table" v-if="false">
-      <div class="header">Title</div>
-      <div class="header">Author</div>
-      <div class="header">Created</div>
-      <div class="header">Last modified</div>
-      <div class="header">Published?</div>
-      <div class="header" />
-      <div class="row-wrapper" v-for="post in posts" :key="`post_${post.idx}`">
-        <div class="post-title">
-          {{ post.title }}
-        </div>
-        <div class="post-author">
-          <template v-if="post.author">
-            {{ post.author.first_name }} {{ post.author.last_name }}
-          </template>
-          <template v-else> - </template>
-        </div>
-        <div class="post-date">
-          {{ new Date(post.created_at).toLocaleString() }}
-        </div>
-        <div class="post-date">
-          {{
-            post.modified_at !== post.created_at
-              ? new Date(post.modified_at).toLocaleString()
-              : '-'
-          }}
-        </div>
-        <div class="post-published">
-          {{ post.published ? '✅' : '❌' }}
-        </div>
-        <div class="post-actions">
-          <template v-if="!isInArchive">
-            <IeButton small boxed blue @click="editPost(post.idx)">
-              Edit
-            </IeButton>
-            <IeButton small boxed pink @click="archivePost(post.idx)">
-              Archive
-            </IeButton>
-          </template>
-          <IeButton small boxed blue @click="restorePost(post.idx)" v-else>
-            Restore
-          </IeButton>
-          <IeButton small boxed @click="deletePost(post.idx)">
-            Delete
-          </IeButton>
-        </div>
-      </div>
-    </div>
+
     <Modal
       title="Confirm Delete"
       :active="isDeleting > -1"
@@ -142,8 +89,12 @@
       <div class="confirm_modal">
         Are you sure you want to delete this post?
         <div class="confirm_modal-actions">
-          <IeButton small boxed pink @click="confirmDelete"> Yes </IeButton>
-          <IeButton small boxed @click="closeDeleteModal"> Cancel </IeButton>
+          <UButton size="sm" color="ie-pink" @click="confirmDelete">
+            Yes
+          </UButton>
+          <UButton size="sm" color="black" @click="closeDeleteModal">
+            Cancel
+          </UButton>
         </div>
       </div>
     </Modal>
@@ -152,8 +103,12 @@
       <div class="confirm_modal">
         Are you sure you want to archive this post?
         <div class="confirm_modal-actions">
-          <IeButton small boxed pink @click="confirmArchive"> Yes </IeButton>
-          <IeButton small boxed @click="closeArchiveModal"> Cancel </IeButton>
+          <UButton size="sm" color="ie-pink" @click="confirmArchive">
+            Yes
+          </UButton>
+          <UButton size="sm" color="black" @click="closeArchiveModal">
+            Cancel
+          </UButton>
         </div>
       </div>
     </Modal>
@@ -162,17 +117,18 @@
       <div class="confirm_modal">
         Are you sure you want to restore this post?
         <div class="confirm_modal-actions">
-          <IeButton small boxed blue @click="confirmRestore"> Yes </IeButton>
-          <IeButton small boxed @click="closeRestoreModal"> Cancel </IeButton>
+          <UButton size="sm" @click="confirmRestore"> Yes </UButton>
+          <UButton size="sm" color="black" @click="closeRestoreModal">
+            Cancel
+          </UButton>
         </div>
       </div>
     </Modal>
   </div>
 </template>
 <script setup>
-import IeButton from '~/elements/Button.vue';
-import Modal from '~/components/Modal.vue';
 import useMyFetch from '~/composables/useMyFetch';
+import Modal from '~/components/Modal.vue';
 
 const posts = ref([]);
 const users = ref([]);
@@ -184,6 +140,11 @@ const isInArchive = ref(false);
 const expand = ref({
   openedRows: [],
   row: {},
+});
+
+const sort = ref({
+  column: 'created_at',
+  direction: 'desc',
 });
 
 const columns = [
@@ -260,58 +221,65 @@ onMounted(() => {
   });
 });
 
-//     methods: {
-//         editPost(postId) {
-//             this.$router.push({
-//                 name: 'admin-post_edit',
-//                 query: {
-//                     postId,
-//                 },
-//             });
-//         },
-//         deletePost(postId) {
-//             this.isDeleting = postId;
-//         },
-//         confirmDelete() {
-//             this.$axios.delete(`post/${this.isDeleting}`).then(() => {
-//                 this.closeDeleteModal();
-//                 this.loadPosts();
-//             });
-//         },
-//         closeDeleteModal() {
-//             this.isDeleting = -1;
-//         },
-//         archivePost(postId) {
-//             this.isArchiving = postId;
-//         },
-//         confirmArchive() {
-//             this.$axios.patch(`archive/${this.isArchiving}`).then(() => {
-//                 this.closeArchiveModal();
-//                 this.loadPosts();
-//             });
-//         },
-//         closeArchiveModal() {
-//             this.isArchiving = -1;
-//         },
-//         restorePost(postId) {
-//             this.isRestoring = postId;
-//         },
-//         confirmRestore() {
-//             this.$axios.patch(`restore/${this.isRestoring}`).then(() => {
-//                 this.closeRestoreModal();
-//                 this.loadPosts();
-//             });
-//         },
-//         closeRestoreModal() {
-//             this.isRestoring = -1;
-//         },
-//         newPost() {
-//             this.$router.push({
-//                 name: 'admin-post_edit',
-//             });
-//         },
-//     },
-// };
+const newPost = () => {
+  navigateTo({
+    path: '/admin/editor',
+  });
+};
+
+const editPost = (postId) => {
+  navigateTo({
+    path: '/admin/editor',
+    query: {
+      postId,
+    },
+  });
+};
+
+const deletePost = (postId) => {
+  isDeleting.value = postId;
+};
+
+const confirmDelete = () => {
+  this.$axios.delete(`post/${this.isDeleting}`).then(() => {
+    this.closeDeleteModal();
+    this.loadPosts();
+  });
+};
+
+const closeDeleteModal = () => {
+  isDeleting.value = -1;
+};
+
+const archivePost = (postId) => {
+  this.isArchiving = postId;
+};
+
+const confirmArchive = () => {
+  this.$axios.patch(`archive/${this.isArchiving}`).then(() => {
+    this.closeArchiveModal();
+    this.loadPosts();
+  });
+};
+
+const closeArchiveModal = () => {
+  this.isArchiving = -1;
+};
+
+const restorePost = (postId) => {
+  this.isRestoring = postId;
+};
+
+const confirmRestore = () => {
+  this.$axios.patch(`restore/${this.isRestoring}`).then(() => {
+    this.closeRestoreModal();
+    this.loadPosts();
+  });
+};
+
+const closeRestoreModal = () => {
+  this.isRestoring = -1;
+};
 </script>
 <style lang="scss" scoped>
 .posts {

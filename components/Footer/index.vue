@@ -75,7 +75,7 @@ const onAdminPage = computed(() => {
   return route.name === 'admin';
 });
 
-const goToAdmin = () => {
+const goToAdmin = async () => {
   if (imAuthToken.value || config.public.noauth) {
     navigateTo('/admin');
   } else {
@@ -86,7 +86,9 @@ const goToAdmin = () => {
     const state = Math.round(Math.random() * 10e20).toString(16);
     const loginUrl = `${authServer}?response_type=code&client_id=${clientId}&redirect_uri=${redirect}&scope=${scope}&state=${state}`;
     imAuthState.value = state;
-    window.location.href = loginUrl;
+    await navigateTo(loginUrl, {
+      external: true,
+    });
   }
 };
 </script>

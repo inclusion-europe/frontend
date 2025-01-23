@@ -38,6 +38,7 @@ const pageLength = ref(9);
 
 const config = useRuntimeConfig();
 const route = useRoute();
+const router = useRouter();
 
 const props = defineProps({
   posts: {
@@ -50,7 +51,7 @@ const pageTitle = computed(() => {
   let returnee = (() => {
     switch (route.name) {
       case 'tag-tag':
-        return `Posts tagged "${route.params.tag}"`;
+        return `Posts tagged "${route.query.tag}"`;
       case 'type-type':
         return typeTitle.value;
       default:
@@ -66,7 +67,7 @@ const pageTitle = computed(() => {
 });
 
 const typeTitle = computed(() => {
-  switch (route.params.type) {
+  switch (route.query.type) {
     case 'articles':
       return 'Articles';
     case 'e2r':
@@ -96,14 +97,20 @@ const pagesAmount = computed(() => {
 const goToPage = (pageNr) => {
   router.replace({
     params: {
-      ...route.params,
+      ...route.query,
       pageNr,
     },
   });
 };
 
 onMounted(() => {
-  currentPage.value = +route.params.pageNr || 1;
+  currentPage.value = +route.query.pageNr || 1;
+
+  if (currentPage.value > pagesAmount || !currentPage.value) {
+    router.replace({
+      params: { ...route.query, pageNr: 1 },
+    });
+  }
 });
 
 useHead({

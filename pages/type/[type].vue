@@ -6,7 +6,6 @@ import PostList from '~/components/PostList.vue';
 import utils from '~/scripts/utils.js';
 import useMyFetch from '~/composables/useMyFetch';
 
-const router = useRouter();
 const route = useRoute();
 
 const posts = ref([]);
@@ -33,12 +32,6 @@ const getterRoute = computed(() => {
 const loadPosts = () => {
   useMyFetch(getterRoute.value).then((res) => {
     posts.value = utils.treatPosts(res);
-
-    if (currentPage > pagesAmount || !currentPage) {
-      router.replace({
-        params: { ...route.params, pageNr: 1 },
-      });
-    }
   });
 };
 

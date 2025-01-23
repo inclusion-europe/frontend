@@ -138,22 +138,26 @@ const headTags = computed(() => {
   return {};
 });
 
-watch(post, (val) => {
-  useHead(headTags);
-  useSeoMeta(seoMeta);
-  const shouldShowE2R = route.query.e2r && val.content_e2r;
-  if (val.default_type === 'e2r' || shouldShowE2R) {
-    router.replace({
-      query: {
-        e2r: 1,
-      },
-    });
-  } else {
-    router.replace({
-      query: {},
-    });
-  }
-});
+watch(
+  post,
+  (val) => {
+    useHead(headTags);
+    useSeoMeta(seoMeta);
+    const shouldShowE2R = route.query.e2r && val.content_e2r;
+    if (val.default_type === 'e2r' || shouldShowE2R) {
+      router.replace({
+        query: {
+          e2r: 1,
+        },
+      });
+    } else {
+      router.replace({
+        query: {},
+      });
+    }
+  },
+  { immediate: true }
+);
 
 // if (post.value) {
 //   useHead({

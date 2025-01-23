@@ -20,7 +20,7 @@ utils.uploadFile = (file) => {
   return useMyFetch('upload', {
     method: 'POST',
     body: formData,
-  }).then((res) => res.data);
+  }).then((res) => res);
 };
 
 utils.uniquesInArray = (arr) => {

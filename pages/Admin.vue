@@ -18,7 +18,10 @@ const pageReady = ref(false);
 onMounted(() => {
   if (imAuthToken.value || config.public.noauth) {
     pageReady.value = true;
-    navigateTo('/admin/posts');
+    if (route.name === 'Admin') {
+      navigateTo('/admin/posts');
+    }
+    // navigateTo('/admin/posts');
     return;
   }
 
@@ -56,7 +59,10 @@ onMounted(() => {
       imAuthToken.value = res.data.access_token;
 
       pageReady.value = true;
-      navigateTo('/admin/posts');
+
+      if (route.name === 'Admin') {
+        navigateTo('/admin/posts');
+      }
     })
     .catch(() => {
       useNuxtApp().$toast.error(
