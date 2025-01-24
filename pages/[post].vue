@@ -171,6 +171,15 @@ const preloadPost = async () => {
 
 onServerPrefetch(async () => {
   post.value = await preloadPost();
+
+  useSeoMeta({
+    description: post.value.excerpt,
+    image: post.value.picture?.picture,
+    title: `${post.value.title} | ${config.public.defaultTitle}`,
+    ogDescription: post.value.excerpt,
+    ogImage: post.value.picture?.picture,
+    ogTitle: `${post.value.title} | ${config.public.defaultTitle}`,
+  });
 });
 
 onMounted(() => {
@@ -185,8 +194,8 @@ onMounted(() => {
 //   });
 // }
 
-useHead(headTags);
-useSeoMeta(seoMeta);
+// useHead(headTags);
+// useSeoMeta(seoMeta);
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
