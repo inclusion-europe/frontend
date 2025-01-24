@@ -172,7 +172,7 @@ const preloadPost = async () => {
 onServerPrefetch(async () => {
   post.value = await preloadPost();
 
-  useSeoMeta({
+  await useSeoMeta({
     description: post.value.excerpt,
     image: post.value.picture?.picture,
     title: `${post.value.title} | ${config.public.defaultTitle}`,
