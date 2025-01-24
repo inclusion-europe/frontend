@@ -54,9 +54,9 @@ useSeoMeta({
   ogTitle: config.public.defaultTitle,
 });
 
-onServerPrefetch(async () => {
-  await store.loadPosts();
-});
+// onServerPrefetch(async () => {
+//   await store.loadPosts();
+// });
 
 onMounted(() => {
   if (!posts.value.length) {

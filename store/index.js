@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import useMyFetch from '~/composables/useMyFetch';
+import utils from '~/scripts/utils';
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -47,17 +48,7 @@ export const useMainStore = defineStore('main', {
     },
     loadPost(id) {
       return useMyFetch(`/posts/${id}`).then((res) => {
-        const post = res;
-        post.picture = JSON.parse(post.picture);
-        post.content = unescape(post.content);
-        post.content_e2r =
-          typeof post.content_e2r === 'string'
-            ? JSON.parse(post.content_e2r)
-            : post.content_e2r;
-        post.tags =
-          typeof post.tags === 'string' ? post.tags.split(',') : post.tags;
-
-        return post;
+        return utils.treatPost(res);
       });
     },
     loadPosts() {
