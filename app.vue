@@ -1,4 +1,3 @@
-<
 <template>
   <div class="website" v-if="isHydrated">
     <div class="under_const">
