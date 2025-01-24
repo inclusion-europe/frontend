@@ -180,20 +180,20 @@ const preloadPost = async () => {
   });
 };
 
-onServerPrefetch(async () => {
-  let fetched = await preloadPost();
+// onServerPrefetch(async () => {
+//   let fetched = await preloadPost();
 
-  // post.value = utils.treatPost(fetched);
+//   // post.value = utils.treatPost(fetched);
 
-  useSeoMeta({
-    description: fetched.excerpt,
-    image: fetched.picture?.picture,
-    title: `${fetched.title} | ${config.public.defaultTitle}`,
-    ogDescription: fetched.excerpt,
-    ogImage: fetched.picture?.picture,
-    ogTitle: `${fetched.title} | ${config.public.defaultTitle}`,
-  });
-});
+//   useSeoMeta({
+//     description: post.value.excerpt,
+//     image: post.value.picture?.picture,
+//     title: `${post.value.title} | ${config.public.defaultTitle}`,
+//     ogDescription: post.value.excerpt,
+//     ogImage: post.value.picture?.picture,
+//     ogTitle: `${post.value.title} | ${config.public.defaultTitle}`,
+//   });
+// });
 
 onMounted(() => {
   if (post.value?.url !== `/${route.params.post}`) {
@@ -213,8 +213,8 @@ onMounted(() => {
   isHydrated.value = true;
 });
 
-// useHead(headTags);
-// useSeoMeta(seoMeta);
+useHead(headTags);
+useSeoMeta(seoMeta);
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
