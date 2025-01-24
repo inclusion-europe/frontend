@@ -45,6 +45,21 @@ export const useMainStore = defineStore('main', {
     setLoading(loading) {
       this.loading = loading;
     },
+    loadPost(id) {
+      return useMyFetch(`/posts/${id}`).then((res) => {
+        const post = res;
+        post.picture = JSON.parse(post.picture);
+        post.content = unescape(post.content);
+        post.content_e2r =
+          typeof post.content_e2r === 'string'
+            ? JSON.parse(post.content_e2r)
+            : post.content_e2r;
+        post.tags =
+          typeof post.tags === 'string' ? post.tags.split(',') : post.tags;
+
+        return post;
+      });
+    },
     loadPosts() {
       return useMyFetch('/posts').then((res) => {
         const posts = res.map((post) => {

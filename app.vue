@@ -1,6 +1,6 @@
 <
 <template>
-  <div class="website">
+  <div class="website" v-if="isHydrated">
     <div class="under_const">
       <h3>The website is still under development, more updates coming soon!</h3>
     </div>
@@ -19,6 +19,8 @@ import { useMainStore } from '~/store';
 
 const config = useRuntimeConfig();
 const store = useMainStore();
+
+const isHydrated = ref(false);
 
 const posts = computed(() => store.getPosts);
 
@@ -47,14 +49,12 @@ useSeoMeta({
   ogTitle: config.public.defaultTitle,
 });
 
-onServerPrefetch(async () => {
-  await store.loadPosts();
-});
-
 onMounted(() => {
   if (!posts.value.length) {
     store.loadPosts();
   }
+
+  isHydrated.value = true;
 });
 </script>
 <style src="@/assets/style/index.scss" lang="scss"></style>
