@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!isHydrated || (loading && !notLive)" class="loading">
+    <div v-if="!isHydrated || (pending && !notLive)" class="loading">
       <img src="/loading.gif" />
     </div>
     <template v-else-if="!notLive">

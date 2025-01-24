@@ -74,26 +74,15 @@ import InclusionIndicatorsCountries from '~/elements/IndicatorsCountries.vue';
 import E2RContent from '~/elements/E2RContent.vue';
 import IeButton from '~/elements/Button.vue';
 import { useMainStore } from '~/store';
-import useMyFetch from '~/composables/useMyFetch';
-import utils from '~/scripts/utils';
 
 const config = useRuntimeConfig();
 const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
-// const post = computed(() => {
-//   return store.getPost(route.params.post);
-// });
-
-const { data: post } = await useAsyncData('asyncpost', () => {
-  return useMyFetch(`/postbyurl/${route.params.post}`, {
-    method: 'GET',
-  }).then((res) => {
-    return utils.treatPost(res);
-  });
+const post = computed(() => {
+  return store.getPost(route.params.post);
 });
-const isHydrated = ref(false);
 
 const showE2R = computed(() => {
   return route.query.e2r === '1';
@@ -104,14 +93,14 @@ const isIndicatorsPage = computed(() => {
   return route.path === '/indicators';
 });
 const isStaticPage = computed(() => {
-  return post.value?.article_type === 'static_page';
+  return post.value.article_type === 'static_page';
 });
 const hasOtherContent = computed(() => {
-  if (post.value?.default_type === 'e2r') {
-    return !!post.value?.content;
+  if (post.value.default_type === 'e2r') {
+    return !!post.value.content;
   }
 
-  return !!post.value?.content_e2r;
+  return !!post.value.content_e2r;
 });
 
 const seoMeta = computed(() => {
@@ -152,9 +141,6 @@ const headTags = computed(() => {
 watch(
   post,
   (val) => {
-    if (!val) {
-      return;
-    }
     useHead(headTags);
     useSeoMeta(seoMeta);
     const shouldShowE2R = route.query.e2r && val.content_e2r;
@@ -173,45 +159,11 @@ watch(
   { immediate: true }
 );
 
-const preloadPost = async () => {
-  post.value = await useMyFetch({
-    url: `/postbyurl/${route.params.post}`,
-    method: 'GET',
-  });
-};
-
-// onServerPrefetch(async () => {
-//   let fetched = await preloadPost();
-
-//   // post.value = utils.treatPost(fetched);
-
-//   useSeoMeta({
-//     description: post.value.excerpt,
-//     image: post.value.picture?.picture,
-//     title: `${post.value.title} | ${config.public.defaultTitle}`,
-//     ogDescription: post.value.excerpt,
-//     ogImage: post.value.picture?.picture,
-//     ogTitle: `${post.value.title} | ${config.public.defaultTitle}`,
-//   });
-// });
-
-onMounted(() => {
-  if (post.value?.url !== `/${route.params.post}`) {
-    post.value = store.getPost(route.params.post);
-  }
-
-  isHydrated.value = true;
-});
-
 // if (post.value) {
 //   useHead({
 //     title: () => `${post.value.title} | ${config.public.defaultTitle}`,
 //   });
 // }
-
-onMounted(() => {
-  isHydrated.value = true;
-});
 
 useHead(headTags);
 useSeoMeta(seoMeta);
