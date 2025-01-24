@@ -1,15 +1,21 @@
 <template>
-  <div class="website" v-if="isHydrated">
-    <div class="under_const">
-      <h3>The website is still under development, more updates coming soon!</h3>
+  <div class="website">
+    <div v-if="!isHydrated" class="loading homepage">
+      <img src="/loading.gif" />
     </div>
-    <WebsiteHeader />
-    <NuxtPage :page-key="(route) => route.fullPath" />
-    <WebsiteFooter />
-    <ScrollUp />
+    <template v-else>
+      <div class="under_const">
+        <h3>
+          The website is still under development, more updates coming soon!
+        </h3>
+      </div>
+      <WebsiteHeader v-if="isHydrated" />
+      <NuxtPage :page-key="(route) => route.fullPath" />
+      <WebsiteFooter />
+      <ScrollUp />
+    </template>
   </div>
 </template>
-
 <script setup>
 import WebsiteHeader from './components/Header';
 import WebsiteFooter from './components/Footer';
@@ -46,6 +52,10 @@ useSeoMeta({
     'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
   ogImage: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
   ogTitle: config.public.defaultTitle,
+});
+
+onServerPrefetch(async () => {
+  await store.loadPosts();
 });
 
 onMounted(() => {

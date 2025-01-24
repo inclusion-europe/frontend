@@ -19,6 +19,10 @@ html, body, #app {
     min-height: calc(100vh - 400px);
     align-items: center;
     justify-content: center;
+
+    &.homepage {
+        height: 100vh
+    }
 }
 
 .loading img {

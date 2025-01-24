@@ -74,6 +74,7 @@ import InclusionIndicatorsCountries from '~/elements/IndicatorsCountries.vue';
 import E2RContent from '~/elements/E2RContent.vue';
 import IeButton from '~/elements/Button.vue';
 import { useMainStore } from '~/store';
+import useMyFetch from '~/composables/useMyFetch';
 
 const config = useRuntimeConfig();
 const store = useMainStore();
@@ -158,6 +159,25 @@ watch(
   },
   { immediate: true }
 );
+
+const preloadPost = async () => {
+  if (post.value.url !== `/${route.params.post}`) {
+    post.value = await useMyFetch({
+      url: `/postbyurl/${route.params.post}`,
+      method: 'GET',
+    });
+  }
+};
+
+onServerPrefetch(async () => {
+  post.value = await preloadPost();
+});
+
+onMounted(() => {
+  if (post.value.url !== `/${route.params.post}`) {
+    post.value = store.getPost(route.params.post);
+  }
+});
 
 // if (post.value) {
 //   useHead({

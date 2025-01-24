@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="loading && !notLive" class="loading">
+    <div v-if="!isHydrated || (loading && !notLive)" class="loading">
       <img src="/loading.gif" />
     </div>
     <template v-else-if="!notLive">
@@ -27,6 +27,8 @@ const store = useMainStore();
 const config = useRuntimeConfig();
 
 const notLive = config.public.notlive;
+
+const isHydrated = ref(false);
 
 const loading = computed(() => store.isLoading);
 const posts = computed(() => store.getPosts);
@@ -71,6 +73,10 @@ const articles = computed(() => {
       (a, b) =>
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
+});
+
+onMounted(() => {
+  isHydrated.value = true;
 });
 
 useSeoMeta({
