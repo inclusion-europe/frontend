@@ -4,10 +4,7 @@
     <h1 class="section-title">
       {{ isEditing > -1 ? 'Editing post' : 'New post' }}
     </h1>
-    <form
-      class="new_post-form-- grid grid-cols-2 grid-rows-2 gap-4"
-      @submit="submitForm"
-    >
+    <form class="new_post-form-- grid grid-cols-2 gap-4" @submit="submitForm">
       <UFormGroup label="Post type">
         <USelect
           v-model="articleType"
@@ -51,27 +48,29 @@
         <UInput v-model="titleRef" size="md" class="grow" />
       </UFormGroup>
 
-      <UFormGroup label="Post-url" class="col-span-2">
-        <UInput
-          v-model="urlRef"
-          :placeholder="generatedUrl"
-          size="md"
-          class="grow"
-        />
-      </UFormGroup>
+      <div class="col-span-2 flex gap-4">
+        <UFormGroup label="Post-url" class="flex-grow">
+          <UInput
+            v-model="urlRef"
+            :placeholder="generatedUrl"
+            size="md"
+            class="grow"
+          />
+        </UFormGroup>
 
-      <UFormGroup label="Published">
-        <UToggle label="Published" v-model="isPublished" class="short" />
-      </UFormGroup>
+        <UFormGroup label="Published">
+          <UToggle v-model="isPublished" class="short" size="lg" />
+        </UFormGroup>
 
-      <UFormGroup label="Highlighted">
-        <UToggle
-          label="Highlighted"
-          v-model="isHighlighted"
-          class="short"
-          :disabled="!isPublished"
-        />
-      </UFormGroup>
+        <UFormGroup label="Highlighted">
+          <UToggle
+            v-model="isHighlighted"
+            class="short"
+            :disabled="!isPublished"
+            size="lg"
+          />
+        </UFormGroup>
+      </div>
 
       <UFormGroup label="Tags" class="col-span-2">
         <div class="tags">
@@ -195,32 +194,75 @@
       </UFormGroup>
 
       <template v-if="has_other_content">
-        <template v-if="content_type === 'e2r'">
-          <label for="content">Content</label>
-          <MdEditor v-model="contentRef" height="400px" />
-        </template>
+        <UFormGroup
+          label="Content"
+          v-if="content_type === 'e2r'"
+          class="col-span-2"
+        >
+          <template #label v-if="has_other_content">
+            Content
+            <UButton @click="toggleOtherContent" size="xs">
+              Remove plain text content
+            </UButton>
+          </template>
+          <MdEditor
+            v-model="contentRef"
+            height="400px"
+            :toolbars="[
+              'bold',
+              'italic',
+              '-',
+              'title',
+              'unorderedList',
+              'orderedList',
+              'table',
+              'link',
+              '-',
+              'image',
+              '=',
+              'preview',
+              'catalog',
+              'fullscreen',
+            ]"
+            @upload-image="uploadPicToText"
+            language="en-US"
+          />
+        </UFormGroup>
 
-        <template v-if="content_type === 'plain'">
-          <label for="e2rContent">E2R Content</label>
+        <UFormGroup
+          label="E2R Content"
+          v-if="content_type === 'plain'"
+          class="col-span-2"
+        >
+          <template #label v-if="has_other_content">
+            E2R Content
+            <UButton @click="toggleOtherContent" size="xs">
+              Remove easy-to-read content
+            </UButton>
+          </template>
           <E2REditor
             @update="updateE2R($event)"
             :content="e2rContent"
             :edit-on-init="startEditingE2R"
           />
-        </template>
+        </UFormGroup>
       </template>
 
       <div class="other_content_row col-span-2 flex flex-center">
-        <UButton @click="toggleOtherContent" size="xl">
+        <UButton
+          v-if="!has_other_content"
+          @click="toggleOtherContent"
+          size="xl"
+        >
           {{
-            `${has_other_content ? 'Remove' : 'Add'} ${
+            `Add ${
               content_type === 'e2r' ? 'plain text' : 'easy-to-read'
             } content`
           }}
         </UButton>
       </div>
 
-      <UButton class="submit_button col-span-2" type="submit" size="xl">
+      <UButton class="submit_button col-span-2" block type="submit" size="xl">
         Submit
       </UButton>
     </form>
@@ -601,11 +643,6 @@ const submitForm = (event) => {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .submit_button {
-    justify-self: center;
-    margin-top: 1rem;
   }
 }
 

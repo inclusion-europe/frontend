@@ -83,6 +83,10 @@ export default {
   border: 0;
   border-color: var(--black);
   width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
   &--active {
     border-color: var(--ie-blue);
