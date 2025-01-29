@@ -138,10 +138,11 @@
           name="uploaded_files"
           v-model="copied_id"
           class="short"
-          :disabled="!last_uploads.length"
+          :disabled="!availableFiles.length"
           placeholder="⬅️ Upload a file to activate"
-          :options="last_uploads"
-          display-attribute="originalFilename"
+          :options="availableFiles"
+          option-attribute="originalFilename"
+          value-attribute="index"
         />
         <!-- <option
             v-for="(file, i) in last_uploads"
@@ -176,7 +177,7 @@
             'catalog',
             'fullscreen',
           ]"
-          @upload-image="uploadPicToText"
+          @onUploadImg="uploadPicToText"
           language="en-US"
         />
       </UFormGroup>
@@ -224,7 +225,7 @@
               'catalog',
               'fullscreen',
             ]"
-            @upload-image="uploadPicToText"
+            @onUploadImg="uploadPicToText"
             language="en-US"
           />
         </UFormGroup>
@@ -272,7 +273,6 @@
 import Vue3TagsInput from 'vue3-tags-input';
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import { toast } from 'vue3-toastify';
 import E2REditor from '~/elements/E2REditor.vue';
 import IeButton from '@/elements/Button.vue';
 import FileUpload from '@/elements/FileUpload.vue';
@@ -355,6 +355,10 @@ const authors = computed(() => {
   return returnee;
 });
 
+const availableFiles = computed(() =>
+  last_uploads.value.map((i, idx) => ({ index: idx, ...i }))
+);
+
 watch(content_type, (val) => {
   if (val === 'e2r') {
     initE2R();
@@ -399,7 +403,6 @@ watch(isPublished, (val) => {
 });
 
 onMounted(() => {
-  console.log('mounting');
   loadUsers();
   loadTags();
   loadMenuItems();
@@ -503,30 +506,32 @@ const initE2R = () => {
   }
 };
 
-const uploadPicToText = (event, insertImage, file) => {
-  utils.uploadFile(file[0]).then((res) => {
-    insertImage({
-      url: res.file.filepath,
-      desc: 'alt-text',
-    });
-  });
+const uploadPicToText = async (files, callback) => {
+  const res = await Promise.all(files.map((file) => utils.uploadFile(file)));
+
+  callback(res.map((item) => item.file.filepath));
 };
 
-const uploadDocument = (files) => {
-  if (length === 0) return;
+const uploadDocument = async (files) => {
+  if (files.length === 0) return;
 
-  const promises = [];
-  for (let i = 0; i < files.length; i++) {
-    promises.push(utils.uploadFile(files[i]));
-  }
-  Promise.all(promises).then((res) => {
-    console.log(res);
-    last_uploads.value.push(...res.map((r) => r.file));
+  const res = await Promise.all(
+    Array.from(files).map((file) => utils.uploadFile(file))
+  );
+
+  res.map((item) => {
+    last_uploads.value.push(item.file);
   });
 };
 
 const copyFileUrl = (index) => {
-  window.navigator.clipboard.writeText(last_uploads.value[index].filepath);
+  window.navigator.clipboard
+    .writeText(
+      `[${availableFiles.value[index].originalFilename}](${availableFiles.value[index].filepath})`
+    )
+    .then(() => {
+      useNuxtApp().$toast('Link copied to clipboard');
+    });
 };
 
 const updatePicture = (file) => {
@@ -586,7 +591,9 @@ const submitForm = (event) => {
         this.$router.push({ name: 'admin-posts' });
       })
       .catch(() => {
-        toast('Error submitting post, please contact the developer.');
+        useNuxtApp().$toast(
+          'Error submitting post, please contact the developer.'
+        );
       });
   } else {
     this.$axios
@@ -595,7 +602,9 @@ const submitForm = (event) => {
         this.$router.push({ name: 'admin-posts' });
       })
       .catch(() => {
-        toast('Error submitting post, please contact the developer.');
+        useNuxtApp().$toast(
+          'Error submitting post, please contact the developer.'
+        );
       });
   }
 };

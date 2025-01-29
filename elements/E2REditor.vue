@@ -29,7 +29,6 @@
             ]"
             :preview="false"
             style="height: 300px"
-            @upload-image="uploadPicToText"
             language="en-US"
           />
         </template>
