@@ -132,6 +132,10 @@ const goToAdmin = async () => {
   &-navigation {
     display: flex;
     gap: 25px;
+
+    a {
+      cursor: pointer;
+    }
   }
 
   &-copyright {
@@ -171,11 +175,6 @@ const goToAdmin = async () => {
       grid-template: auto / repeat(3, auto);
       align-items: start;
       gap: 80px 135px;
-    }
-
-    &-navigation {
-      display: flex;
-      gap: 25px;
     }
 
     &-copyright {

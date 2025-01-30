@@ -144,13 +144,6 @@
           option-attribute="originalFilename"
           value-attribute="index"
         />
-        <!-- <option
-            v-for="(file, i) in last_uploads"
-            :key="`last_file_${i}`"
-            :value="i"
-          >
-            {{ file.originalFilename }}
-          </option> -->
       </UFormGroup>
 
       <UFormGroup
@@ -584,29 +577,22 @@ const submitForm = (event) => {
     highlighted: isHighlighted.value,
   };
 
+  let prom;
   if (isEditing.value > -1) {
-    this.$axios
-      .patch(`/post/${isEditing.value}`, body)
-      .then(() => {
-        this.$router.push({ name: 'admin-posts' });
-      })
-      .catch(() => {
-        useNuxtApp().$toast(
-          'Error submitting post, please contact the developer.'
-        );
-      });
+    prom = useMyFetch(`/post/${isEditing.value}`, { method: 'PATCH', body });
   } else {
-    this.$axios
-      .post('/post', body)
-      .then(() => {
-        this.$router.push({ name: 'admin-posts' });
-      })
-      .catch(() => {
-        useNuxtApp().$toast(
-          'Error submitting post, please contact the developer.'
-        );
-      });
+    prom = useMyFetch('/post', { method: 'POST', body });
   }
+
+  prom
+    .then(() => {
+      navigateTo('/admin/posts');
+    })
+    .catch(() => {
+      useNuxtApp().$toast(
+        'Error submitting post, please contact the developer.'
+      );
+    });
 };
 </script>
 <style lang="scss" scoped>

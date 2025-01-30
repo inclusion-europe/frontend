@@ -1,15 +1,9 @@
 <template>
   <div class="posts">
-    <h1 class="section-title">
+    <h1 class="section-title flex items-center justify-between">
       <span>{{ isInArchive ? 'Archive' : 'Posts' }}</span>
       <template v-if="!isInArchive">
-        <UButton boxed color="ie-pink" @click="newPost"> Add a post </UButton>
-        <UButton
-          v-if="!isInArchive"
-          variant="ghost"
-          color="black"
-          @click="showArchives"
-        >
+        <UButton v-if="!isInArchive" color="black" @click="showArchives">
           Archives
         </UButton>
       </template>
@@ -23,8 +17,23 @@
         },
       }"
     >
+      <template #header>
+        <div class="flex items-center justify-start gap-0">
+          <UInput
+            icon="i-heroicons-magnifying-glass-20-solid"
+            v-model="searchTerm"
+            placeholder="Search posts"
+          />
+          <UButton
+            icon="i-heroicons-x-mark-20-solid"
+            @click="clearSearch"
+            color="gray"
+            v-if="searchTerm !== ''"
+          />
+        </div>
+      </template>
       <UTable
-        :rows="posts"
+        :rows="filteredPosts"
         :sort="sort"
         :columns="columns"
         class="w-full"
@@ -32,6 +41,18 @@
           default: { checkbox: { color: 'gray' } },
         }"
       >
+        <template #actions-header v-if="!isInArchive">
+          <div class="flex items-center justify-center">
+            <UButton
+              boxed
+              color="ie-pink"
+              @click="newPost"
+              icon="i-heroicons-plus-20-solid"
+            >
+              Add a post
+            </UButton>
+          </div>
+        </template>
         <template #title-data="{ row }">
           <span class="post-title">{{ row.title }}</span>
         </template>
@@ -137,6 +158,8 @@ const isArchiving = ref(-1);
 const isRestoring = ref(-1);
 const isInArchive = ref(false);
 
+const searchTerm = ref('');
+
 const expand = ref({
   openedRows: [],
   row: {},
@@ -180,6 +203,16 @@ const columns = [
   },
 ];
 
+const filteredPosts = computed(() => {
+  if (!searchTerm.value) {
+    return posts.value;
+  }
+
+  return posts.value.filter((post) => {
+    return post.title.includes(searchTerm.value);
+  });
+});
+
 const loadUsers = () => {
   return useMyFetch('users').then((res) => {
     users.value = res;
@@ -221,6 +254,10 @@ onMounted(() => {
   });
 });
 
+const clearSearch = () => {
+  searchTerm.value = '';
+};
+
 const newPost = () => {
   navigateTo({
     path: '/admin/editor',
@@ -241,9 +278,9 @@ const deletePost = (postId) => {
 };
 
 const confirmDelete = () => {
-  this.$axios.delete(`post/${this.isDeleting}`).then(() => {
-    this.closeDeleteModal();
-    this.loadPosts();
+  useMyFetch(`post/${isDeleting.value}`, { method: 'DELETE' }).then(() => {
+    closeDeleteModal();
+    loadPosts();
   });
 };
 
@@ -252,33 +289,33 @@ const closeDeleteModal = () => {
 };
 
 const archivePost = (postId) => {
-  this.isArchiving = postId;
+  isArchiving.value = postId;
 };
 
 const confirmArchive = () => {
-  this.$axios.patch(`archive/${this.isArchiving}`).then(() => {
-    this.closeArchiveModal();
-    this.loadPosts();
+  useMyFetch(`archive/${isArchiving.value}`, { method: 'PATCH' }).then(() => {
+    closeArchiveModal();
+    loadPosts();
   });
 };
 
 const closeArchiveModal = () => {
-  this.isArchiving = -1;
+  isArchiving.value = -1;
 };
 
 const restorePost = (postId) => {
-  this.isRestoring = postId;
+  isRestoring.value = postId;
 };
 
 const confirmRestore = () => {
-  this.$axios.patch(`restore/${this.isRestoring}`).then(() => {
-    this.closeRestoreModal();
-    this.loadPosts();
+  useMyFetch(`restore/${isRestoring.value}`, { method: 'PATCH' }).then(() => {
+    closeRestoreModal();
+    loadPosts();
   });
 };
 
 const closeRestoreModal = () => {
-  this.isRestoring = -1;
+  isRestoring.value = -1;
 };
 </script>
 <style lang="scss" scoped>
