@@ -39,18 +39,14 @@ onMounted(() => {
     return;
   }
 
-  useMyFetch(
-    '/login',
-    { method: 'POST' },
-    {
-      params: {
-        callback: `${encodeURI(window.location.origin)}/admin`,
-        code,
-      },
-    }
-  )
+  useMyFetch('/login', {
+    method: 'POST',
+    params: {
+      callback: `${encodeURI(window.location.origin)}/admin`,
+      code,
+    },
+  })
     .then((res) => {
-      console.log({ res });
       if (!res.data || !res.data.access_token) {
         useNuxtApp().$toast.error('Invalid token response');
         navigateTo('/');
