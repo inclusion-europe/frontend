@@ -47,6 +47,7 @@ onMounted(() => {
     },
   })
     .then((res) => {
+      console.log({ res });
       if (!res.data || !res.data.access_token) {
         useNuxtApp().$toast.error('Invalid token response');
         navigateTo('/');
