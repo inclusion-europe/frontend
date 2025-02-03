@@ -55,7 +55,7 @@ const newsletterLink = computed(() => {
 });
 
 const redirect = computed(() => {
-  return `${encodeURI(config.app.baseURL)}/admin`;
+  return `${encodeURI(window.location.origin)}/admin`;
 });
 
 const clientId = config.public?.imClientId || false;
