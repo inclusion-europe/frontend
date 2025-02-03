@@ -18,25 +18,40 @@
       }"
     >
       <template #header>
-        <div class="flex items-center justify-start gap-0">
-          <UInput
-            icon="i-heroicons-magnifying-glass-20-solid"
-            v-model="searchTerm"
-            placeholder="Search posts"
-          />
-          <UButton
-            icon="i-heroicons-x-mark-20-solid"
-            @click="clearSearch"
-            color="gray"
-            v-if="searchTerm !== ''"
-          />
+        <div class="flex items-center justify-between">
+          <div class="flex items-center justify-start-gap-0">
+            <UInput
+              icon="i-heroicons-magnifying-glass-20-solid"
+              v-model="searchTerm"
+              placeholder="Search posts"
+            />
+            <UButton
+              icon="i-heroicons-x-mark-20-solid"
+              @click="clearSearch"
+              color="gray"
+              v-if="searchTerm !== ''"
+            />
+          </div>
+
+          <div class="flex items-center gap-4">
+            <h5 class="text-sm leading-5">Items per page:</h5>
+            <USelect
+              v-model="pageCount"
+              :options="[10, 25, 50, 100]"
+              class="w-24"
+            />
+          </div>
         </div>
       </template>
       <UTable
-        :rows="filteredPosts"
-        :sort="sort"
+        v-model:sort="sort"
+        :rows="displayedRows"
         :columns="columns"
+        :loading="status === 'pending'"
         class="w-full"
+        sort-asc-icon="i-heroicons-arrow-up"
+        sort-desc-icon="i-heroicons-arrow-down"
+        sort-mode="manual"
         :ui="{
           default: { checkbox: { color: 'gray' } },
         }"
@@ -59,7 +74,7 @@
         <template #author-data="{ row }">
           <span class="post-author">
             <template v-if="row.author">
-              {{ row.author.first_name }} {{ row.author.last_name }}
+              {{ findAuthor(row.author) }}
             </template>
             <template v-else> - </template>
           </span>
@@ -85,8 +100,16 @@
         </template>
         <template #actions-data="{ row }">
           <UButtonGroup size="xs">
+            <UButton
+              size="xs"
+              @click="previewPost(row.idx)"
+              color="ie-pink"
+              v-if="false"
+            >
+              Preview
+            </UButton>
             <template v-if="!isInArchive">
-              <UButton size="xs" @click="editPost(row.idx)"> Edit </UButton>
+              <UButton size="xs" @click="editPost(row.idx)">Edit</UButton>
               <UButton size="xs" color="ie-pink" @click="archivePost(row.idx)">
                 Archive
               </UButton>
@@ -100,6 +123,28 @@
           </UButtonGroup>
         </template>
       </UTable>
+
+      <template #footer>
+        <div class="flex flex-wrap justify-between items-center">
+          <div>
+            <span class="text-sm leading-5">
+              Showing
+              <span class="font-medium">{{ pageFrom }}</span>
+              to
+              <span class="font-medium">{{ pageTo }}</span>
+              of
+              <span class="font-medium">{{ data.count }}</span>
+              results
+            </span>
+          </div>
+
+          <UPagination
+            v-model="page"
+            :page-count="pageCount"
+            :total="data.count"
+          />
+        </div>
+      </template>
     </UCard>
 
     <Modal
@@ -151,19 +196,18 @@
 import useMyFetch from '~/composables/useMyFetch';
 import Modal from '~/components/Modal.vue';
 
-const posts = ref([]);
+// const posts = ref([]);
 const users = ref([]);
 const isDeleting = ref(-1);
+const isPreviewing = ref(-1);
 const isArchiving = ref(-1);
 const isRestoring = ref(-1);
 const isInArchive = ref(false);
 
 const searchTerm = ref('');
 
-const expand = ref({
-  openedRows: [],
-  row: {},
-});
+const page = ref(1);
+const pageCount = ref(10);
 
 const sort = ref({
   column: 'created_at',
@@ -203,14 +247,35 @@ const columns = [
   },
 ];
 
-const filteredPosts = computed(() => {
-  if (!searchTerm.value) {
-    return posts.value;
+const loadPosts = () => {
+  let query = {
+    sort: sort.value.column,
+    direction: sort.value.direction,
+    archive: isInArchive.value ? 1 : 0,
+    offset: (page.value - 1) * pageCount.value,
+    limit: pageCount.value,
+  };
+
+  if (searchTerm.value.length) {
+    query.search = searchTerm.value;
   }
 
-  return posts.value.filter((post) => {
-    return post.title.includes(searchTerm.value);
-  });
+  return useMyFetch('posts/admin', { query });
+};
+
+const { data, status } = await useLazyAsyncData('posts', loadPosts, {
+  default: () => [],
+  watch: [page, searchTerm, pageCount, sort],
+});
+
+const pageFrom = computed(() => (page.value - 1) * pageCount.value + 1);
+const pageTo = computed(() =>
+  Math.min(page.value * pageCount.value, data.value.count)
+);
+
+const displayedRows = computed(() => {
+  const workPosts = data.value.posts;
+  return workPosts;
 });
 
 const loadUsers = () => {
@@ -227,21 +292,12 @@ const hideArchives = () => {
   isInArchive.value = false;
 };
 
-const loadPosts = () => {
-  let route = 'posts';
-  if (isInArchive.value) route += '/archive';
-  else route += '/all';
-  useMyFetch(route).then((res) => {
-    const workPosts = res;
-    workPosts.forEach((a) => {
-      Object.assign(a, { author: findAuthor(a.author) });
-    });
-    posts.value = workPosts;
-  });
-};
-
 const findAuthor = (email) => {
-  return users.value.find((u) => u.email === email);
+  const author = users.value.find((u) => u.email === email);
+  if (!author) {
+    return email;
+  }
+  return author.first_name + ' ' + author.last_name;
 };
 
 watch(isInArchive, () => {
