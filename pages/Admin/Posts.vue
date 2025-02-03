@@ -265,7 +265,7 @@ const loadPosts = () => {
 
 const { data, status } = await useLazyAsyncData('posts', loadPosts, {
   default: () => [],
-  watch: [page, searchTerm, pageCount, sort],
+  watch: [page, searchTerm, pageCount, sort, isInArchive],
 });
 
 const reloadPosts = () => refreshNuxtData('posts');
