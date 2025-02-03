@@ -268,6 +268,8 @@ const { data, status } = await useLazyAsyncData('posts', loadPosts, {
   watch: [page, searchTerm, pageCount, sort],
 });
 
+const reloadPosts = () => refreshNuxtData('posts');
+
 const pageFrom = computed(() => (page.value - 1) * pageCount.value + 1);
 const pageTo = computed(() =>
   Math.min(page.value * pageCount.value, data.value.count)
@@ -300,14 +302,8 @@ const findAuthor = (email) => {
   return author.first_name + ' ' + author.last_name;
 };
 
-watch(isInArchive, () => {
-  loadPosts();
-});
-
 onMounted(() => {
-  loadUsers().then(() => {
-    loadPosts();
-  });
+  loadUsers();
 });
 
 const clearSearch = () => {
@@ -336,7 +332,7 @@ const deletePost = (postId) => {
 const confirmDelete = () => {
   useMyFetch(`post/${isDeleting.value}`, { method: 'DELETE' }).then(() => {
     closeDeleteModal();
-    loadPosts();
+    reloadPosts();
   });
 };
 
@@ -351,7 +347,7 @@ const archivePost = (postId) => {
 const confirmArchive = () => {
   useMyFetch(`archive/${isArchiving.value}`, { method: 'PATCH' }).then(() => {
     closeArchiveModal();
-    loadPosts();
+    reloadPosts();
   });
 };
 
@@ -366,7 +362,7 @@ const restorePost = (postId) => {
 const confirmRestore = () => {
   useMyFetch(`restore/${isRestoring.value}`, { method: 'PATCH' }).then(() => {
     closeRestoreModal();
-    loadPosts();
+    reloadPosts();
   });
 };
 
