@@ -47,14 +47,13 @@ onMounted(() => {
     },
   })
     .then((res) => {
-      console.log({ res });
-      if (!res.data || !res.data.access_token) {
+      if (!res || !res.access_token) {
         useNuxtApp().$toast.error('Invalid token response');
         navigateTo('/');
         return;
       }
 
-      imAuthToken.value = res.data.access_token;
+      imAuthToken.value = res.access_token;
 
       pageReady.value = true;
 
