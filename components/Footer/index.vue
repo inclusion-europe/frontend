@@ -84,7 +84,7 @@ const goToAdmin = async () => {
     const scope = scopes.join(' ');
 
     const state = Math.round(Math.random() * 10e20).toString(16);
-    const loginUrl = `${authServer}?response_type=code&client_id=${clientId}&redirect_uri=${redirect}&scope=${scope}&state=${state}`;
+    const loginUrl = `${authServer}?response_type=code&client_id=${clientId}&redirect_uri=${redirect.value}&scope=${scope}&state=${state}`;
     imAuthState.value = state;
     await navigateTo(loginUrl, {
       external: true,
