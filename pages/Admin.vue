@@ -50,6 +50,7 @@ onMounted(() => {
     }
   )
     .then((res) => {
+      console.log({ res });
       if (!res.data || !res.data.access_token) {
         useNuxtApp().$toast.error('Invalid token response');
         navigateTo('/');
@@ -64,7 +65,8 @@ onMounted(() => {
         navigateTo('/admin/posts');
       }
     })
-    .catch(() => {
+    .catch((e) => {
+      console.log(e);
       useNuxtApp().$toast.error(
         'Error loading the admin panel, please contact the developer.'
       );
