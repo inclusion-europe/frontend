@@ -43,11 +43,12 @@
       </section>
       <section>
         <h2 class="section-title section-title--blue">Staff</h2>
-        <div class="staff-grid">
+        <div class="staff-list">
           <StaffMember
             v-for="(member, i) in staffMembers"
             :key="`staff_member_${i}`"
             :member="member"
+            row
           />
         </div>
       </section>
@@ -65,6 +66,10 @@ const nonExecBoard = staff.filter(
 const staffMembers = staff.filter((member) => !member.inBoard);
 </script>
 <style lang="scss" scoped>
+section {
+  margin-top: 2rem;
+}
+
 .staff-grid {
   display: flex;
   flex-direction: row;
@@ -79,5 +84,6 @@ const staffMembers = staff.filter((member) => !member.inBoard);
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+  gap: 1rem;
 }
 </style>

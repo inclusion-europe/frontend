@@ -4,6 +4,7 @@
     :class="{
       'staff_member--big': props.big,
       'staff_member--no_pic': !props.member.image,
+      'staff_member--row': props.row,
     }"
   >
     <div class="staff_member__image" v-if="props.member.image">
@@ -16,18 +17,14 @@
       <!-- <h3>{{ props.member.name }}</h3> -->
       <!-- <p>{{ props.member.title }}</p> -->
       <p v-if="props.member.copy" v-html="props.member.copy" />
-    </div>
-    <div class="staff_member__links">
-      <a v-if="props.member.email" :href="`mailto:${props.member.email}`">
-        <i class="fa-solid fa-envelope"></i>
-        &nbsp;
-        <span>{{ props.member.email }}</span>
-      </a>
-      <a v-if="props.member.linkedin" :href="props.member.linkedin">
-        <i class="fa-brands fa-linkedin"></i>
-        &nbsp;
-        <span>Follow {{ props.member.name.split(' ')[0] }}</span>
-      </a>
+      <div class="staff_member__links">
+        <a v-if="props.member.email" :href="`mailto:${props.member.email}`">
+          <span>{{ props.member.email }}</span>
+        </a>
+        <a v-if="props.member.linkedin" :href="props.member.linkedin">
+          <span>Follow {{ props.member.name.split(' ')[0] }} on LinkedIn</span>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +32,7 @@
 const props = defineProps({
   member: Object,
   big: Boolean,
+  row: Boolean,
 });
 </script>
 <style lang="scss" scoped>
@@ -45,6 +43,22 @@ const props = defineProps({
 
   &--no_pic {
     display: block;
+    margin: 0;
+
+    * {
+      margin: 0;
+    }
+  }
+
+  &--row {
+    flex-direction: row;
+    align-items: start;
+    gap: 1rem;
+
+    .staff_member__image {
+      width: 200px;
+      flex-shrink: 0;
+    }
   }
 
   &__image {
@@ -73,6 +87,10 @@ const props = defineProps({
 @media screen and (min-width: 768px) {
   .staff_member {
     width: 22%;
+
+    &--row {
+      width: 100%;
+    }
 
     &--big {
       width: 30%;
