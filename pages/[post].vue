@@ -81,24 +81,24 @@ const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
-const { data: post, status } = await useAsyncData(() =>
-  store.loadPost(route.params.post)
-);
+// const { data: post, status } = await useAsyncData(() =>
+//   store.loadPost(route.params.post)
+// );
 
 const prefetchedPost = await store.loadPost(route.params.post);
 
 useServerSeoMeta({
-  description: prefetchedPost?.excerpt,
-  image: prefetchedPost?.picture?.picture,
-  title: `${prefetchedPost?.title} | ${config.public.defaultTitle}`,
-  ogDescription: prefetchedPost?.excerpt,
+  description: prefetchedPost.excerpt,
+  image: prefetchedPost.picture?.picture,
+  title: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
+  ogDescription: prefetchedPost.excerpt,
   ogImage: prefetchedPost.picture?.picture,
-  ogTitle: `${prefetchedPost?.title} | ${config.public.defaultTitle}`,
+  ogTitle: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
 });
 
-// const post = computed(() => {
-//   return store.getPost(route.params.post);
-// });
+const post = computed(() => {
+  return store.getPost(route.params.post);
+});
 
 const showE2R = computed(() => {
   return route.query.e2r === '1';
@@ -171,12 +171,12 @@ const headTags = computed(() => {
 //   prefetchedPost = await store.loadPost(route.params.post);
 
 //   useSeoMeta({
-//     description: prefetchedPost?.excerpt,
-//     image: prefetchedPost?.picture?.picture,
-//     title: `${prefetchedPost?.title} | ${config.public.defaultTitle}`,
-//     ogDescription: prefetchedPost?.excerpt,
+//     description: prefetchedPost.excerpt,
+//     image: prefetchedPost.picture?.picture,
+//     title: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
+//     ogDescription: prefetchedPost.excerpt,
 //     ogImage: prefetchedPost.picture?.picture,
-//     ogTitle: `${prefetchedPost?.title} | ${config.public.defaultTitle}`,
+//     ogTitle: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
 //   });
 // });
 
