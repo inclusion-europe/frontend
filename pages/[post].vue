@@ -83,9 +83,8 @@ const route = useRoute();
 
 const prefetchedPost = ref(null);
 
-const { data: post, status } = await useAsyncData(
-  () => store.loadPost(route.params.post),
-  prefetchedPost.value
+const { data: post, status } = await useAsyncData(() =>
+  store.loadPost(route.params.post)
 );
 
 // const post = computed(() => {
