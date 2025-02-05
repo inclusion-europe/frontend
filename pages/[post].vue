@@ -81,18 +81,8 @@ const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
-const { data: post, status } = await useAsyncData(
-  () => store.loadPost(route.params.post),
-  {
-    default: () => ({
-      title: 'Loading...',
-      content: '',
-      content_e2r: '',
-      picture: {},
-      tags: [],
-      default_type: null,
-    }),
-  }
+const { data: post, status } = await useAsyncData(() =>
+  store.loadPost(route.params.post)
 );
 
 // const post = computed(() => {
@@ -109,9 +99,15 @@ const isIndicatorsPage = computed(() => {
   return route.path === '/indicators';
 });
 const isStaticPage = computed(() => {
+  if (status === 'pending') {
+    return null;
+  }
   return post.value.article_type === 'static_page';
 });
 const hasOtherContent = computed(() => {
+  if (status === 'pending') {
+    return null;
+  }
   if (post.value.default_type === 'e2r') {
     return !!post.value.content;
   }
@@ -120,6 +116,9 @@ const hasOtherContent = computed(() => {
 });
 
 const seoMeta = computed(() => {
+  if (status === 'pending') {
+    return null;
+  }
   return {
     description: post.value?.excerpt,
     image: post.value?.picture?.picture,
@@ -131,6 +130,9 @@ const seoMeta = computed(() => {
 });
 
 const headTags = computed(() => {
+  if (status === 'pending') {
+    return null;
+  }
   if (post.value) {
     return {
       title: `${post.value.title} | ${config.public.defaultTitle}`,
@@ -152,6 +154,19 @@ const headTags = computed(() => {
   }
 
   return {};
+});
+
+onServerPrefetch(async () => {
+  const post = await store.loadPost(route.params.post);
+
+  useSeoMeta({
+    description: post.excerpt,
+    image: post.picture?.picture,
+    title: `${post.title} | ${config.public.defaultTitle}`,
+    ogDescription: post.excerpt,
+    ogImage: post.picture?.picture,
+    ogTitle: `${post.title} | ${config.public.defaultTitle}`,
+  });
 });
 
 watch(
