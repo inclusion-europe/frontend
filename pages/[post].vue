@@ -1,6 +1,6 @@
 <template>
   <div class="post_page" :class="{ indicators_page: isIndicatorsPage }">
-    <div v-if="loading" class="loading">
+    <div v-if="loading || status === 'pending'" class="loading">
       <img src="/loading.gif" />
     </div>
     <template v-else>
@@ -74,19 +74,35 @@ import InclusionIndicatorsCountries from '~/elements/IndicatorsCountries.vue';
 import E2RContent from '~/elements/E2RContent.vue';
 import IeButton from '~/elements/Button.vue';
 import { useMainStore } from '~/store';
+import utils from '~/scripts/utils';
 
 const config = useRuntimeConfig();
 const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
-const post = computed(() => {
-  return store.getPost(route.params.post);
-});
+const { data: post, status } = await useAsyncData(
+  () => store.loadPost(route.params.post),
+  {
+    default: () => ({
+      title: 'Loading...',
+      content: '',
+      content_e2r: '',
+      picture: {},
+      tags: [],
+      default_type: null,
+    }),
+  }
+);
+
+// const post = computed(() => {
+//   return store.getPost(route.params.post);
+// });
 
 const showE2R = computed(() => {
   return route.query.e2r === '1';
 });
+
 const loading = computed(() => store.isLoading);
 
 const isIndicatorsPage = computed(() => {
@@ -141,6 +157,9 @@ const headTags = computed(() => {
 watch(
   post,
   (val) => {
+    if (!post.value) {
+      return;
+    }
     useHead(headTags);
     useSeoMeta(seoMeta);
     const shouldShowE2R = route.query.e2r && val.content_e2r;

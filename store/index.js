@@ -46,8 +46,8 @@ export const useMainStore = defineStore('main', {
     setLoading(loading) {
       this.loading = loading;
     },
-    loadPost(id) {
-      return useMyFetch(`/posts/${id}`).then((res) => {
+    loadPost(post) {
+      return useMyFetch(`/post/${post}`).then((res) => {
         return utils.treatPost(res);
       });
     },
