@@ -153,7 +153,9 @@ const headTags = computed(() => {
 });
 
 onServerPrefetch(async () => {
-  const prefetchedPost = await store.loadPost(route.params.post);
+  const prefetchedPost = await useMyFetch(`/post/${post}`).then((res) => {
+    return utils.treatPost(res);
+  });
 
   useServerSeoMeta({
     description: prefetchedPost.excerpt,
