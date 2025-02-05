@@ -81,8 +81,11 @@ const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
-const { data: post, status } = await useAsyncData(() =>
-  store.loadPost(route.params.post)
+const prefetchedPost = ref(null);
+
+const { data: post, status } = await useAsyncData(
+  () => store.loadPost(route.params.post),
+  prefetchedPost.value
 );
 
 // const post = computed(() => {
@@ -157,15 +160,15 @@ const headTags = computed(() => {
 });
 
 onServerPrefetch(async () => {
-  const post = await store.loadPost(route.params.post);
+  prefetchedPost.value = await store.loadPost(route.params.post);
 
   useSeoMeta({
-    description: post.excerpt,
-    image: post.picture?.picture,
-    title: `${post.title} | ${config.public.defaultTitle}`,
-    ogDescription: post.excerpt,
-    ogImage: post.picture?.picture,
-    ogTitle: `${post.title} | ${config.public.defaultTitle}`,
+    description: prefetchedPost.value?.excerpt,
+    image: prefetchedPost.value?.picture?.picture,
+    title: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
+    ogDescription: prefetchedPost.value?.excerpt,
+    ogImage: prefetchedPost.value.picture?.picture,
+    ogTitle: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
   });
 });
 
@@ -176,7 +179,7 @@ watch(
       return;
     }
     useHead(headTags);
-    useSeoMeta(seoMeta);
+    // useSeoMeta(seoMeta);
     const shouldShowE2R = route.query.e2r && val.content_e2r;
     if (val.default_type === 'e2r' || shouldShowE2R) {
       router.replace({
@@ -200,7 +203,7 @@ watch(
 // }
 
 useHead(headTags);
-useSeoMeta(seoMeta);
+// useSeoMeta(seoMeta);
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
