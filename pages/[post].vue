@@ -167,7 +167,7 @@ onServerPrefetch(async () => {
   });
 });
 
-useServerSeoMeta(seoMeta);
+// useServerSeoMeta(seoMeta);
 
 watch(
   post,
