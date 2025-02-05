@@ -88,12 +88,12 @@ const { data: post, status } = await useAsyncData(() =>
 const prefetchedPost = await store.loadPost(route.params.post);
 
 useServerSeoMeta({
-  description: prefetchedPost.value?.excerpt,
-  image: prefetchedPost.value?.picture?.picture,
-  title: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
-  ogDescription: prefetchedPost.value?.excerpt,
-  ogImage: prefetchedPost.value.picture?.picture,
-  ogTitle: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
+  description: prefetchedPost?.excerpt,
+  image: prefetchedPost?.picture?.picture,
+  title: `${prefetchedPost?.title} | ${config.public.defaultTitle}`,
+  ogDescription: prefetchedPost?.excerpt,
+  ogImage: prefetchedPost.picture?.picture,
+  ogTitle: `${prefetchedPost?.title} | ${config.public.defaultTitle}`,
 });
 
 // const post = computed(() => {
@@ -168,15 +168,15 @@ const headTags = computed(() => {
 });
 
 // onServerPrefetch(async () => {
-//   prefetchedPost.value = await store.loadPost(route.params.post);
+//   prefetchedPost = await store.loadPost(route.params.post);
 
 //   useSeoMeta({
-//     description: prefetchedPost.value?.excerpt,
-//     image: prefetchedPost.value?.picture?.picture,
-//     title: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
-//     ogDescription: prefetchedPost.value?.excerpt,
-//     ogImage: prefetchedPost.value.picture?.picture,
-//     ogTitle: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
+//     description: prefetchedPost?.excerpt,
+//     image: prefetchedPost?.picture?.picture,
+//     title: `${prefetchedPost?.title} | ${config.public.defaultTitle}`,
+//     ogDescription: prefetchedPost?.excerpt,
+//     ogImage: prefetchedPost.picture?.picture,
+//     ogTitle: `${prefetchedPost?.title} | ${config.public.defaultTitle}`,
 //   });
 // });
 
