@@ -81,21 +81,6 @@ const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
-// const { data: post, status } = await useAsyncData(() =>
-//   store.loadPost(route.params.post)
-// );
-
-const prefetchedPost = await store.loadPost(route.params.post);
-
-useServerSeoMeta({
-  description: prefetchedPost.excerpt,
-  image: prefetchedPost.picture?.picture,
-  title: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
-  ogDescription: prefetchedPost.excerpt,
-  ogImage: prefetchedPost.picture?.picture,
-  ogTitle: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
-});
-
 const post = computed(() => {
   return store.getPost(route.params.post);
 });
@@ -167,18 +152,18 @@ const headTags = computed(() => {
   return {};
 });
 
-// onServerPrefetch(async () => {
-//   prefetchedPost = await store.loadPost(route.params.post);
+onServerPrefetch(async () => {
+  const prefetchedPost = await store.loadPost(route.params.post);
 
-//   useSeoMeta({
-//     description: prefetchedPost.excerpt,
-//     image: prefetchedPost.picture?.picture,
-//     title: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
-//     ogDescription: prefetchedPost.excerpt,
-//     ogImage: prefetchedPost.picture?.picture,
-//     ogTitle: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
-//   });
-// });
+  useServerSeoMeta({
+    description: prefetchedPost.excerpt,
+    image: prefetchedPost.picture?.picture,
+    title: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
+    ogDescription: prefetchedPost.excerpt,
+    ogImage: prefetchedPost.picture?.picture,
+    ogTitle: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
+  });
+});
 
 useServerSeoMeta(seoMeta);
 
