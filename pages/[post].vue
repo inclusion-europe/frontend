@@ -81,11 +81,20 @@ const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
-const prefetchedPost = ref(null);
-
 const { data: post, status } = await useAsyncData(() =>
   store.loadPost(route.params.post)
 );
+
+const prefetchedPost = await store.loadPost(route.params.post);
+
+useServerSeoMeta({
+  description: prefetchedpost.value?.excerpt,
+  image: prefetchedpost.value?.picture?.picture,
+  title: `${prefetchedpost.value?.title} | ${config.public.defaultTitle}`,
+  ogDescription: prefetchedpost.value?.excerpt,
+  ogImage: prefetchedpost.value.picture?.picture,
+  ogTitle: `${prefetchedpost.value?.title} | ${config.public.defaultTitle}`,
+});
 
 // const post = computed(() => {
 //   return store.getPost(route.params.post);
@@ -158,18 +167,20 @@ const headTags = computed(() => {
   return {};
 });
 
-onServerPrefetch(async () => {
-  prefetchedPost.value = await store.loadPost(route.params.post);
+// onServerPrefetch(async () => {
+//   prefetchedPost.value = await store.loadPost(route.params.post);
 
-  useSeoMeta({
-    description: prefetchedPost.value?.excerpt,
-    image: prefetchedPost.value?.picture?.picture,
-    title: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
-    ogDescription: prefetchedPost.value?.excerpt,
-    ogImage: prefetchedPost.value.picture?.picture,
-    ogTitle: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
-  });
-});
+//   useSeoMeta({
+//     description: prefetchedPost.value?.excerpt,
+//     image: prefetchedPost.value?.picture?.picture,
+//     title: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
+//     ogDescription: prefetchedPost.value?.excerpt,
+//     ogImage: prefetchedPost.value.picture?.picture,
+//     ogTitle: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
+//   });
+// });
+
+useServerSeoMeta(seoMeta);
 
 watch(
   post,
