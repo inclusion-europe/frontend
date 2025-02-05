@@ -88,12 +88,12 @@ const { data: post, status } = await useAsyncData(() =>
 const prefetchedPost = await store.loadPost(route.params.post);
 
 useServerSeoMeta({
-  description: prefetchedpost.value?.excerpt,
-  image: prefetchedpost.value?.picture?.picture,
-  title: `${prefetchedpost.value?.title} | ${config.public.defaultTitle}`,
-  ogDescription: prefetchedpost.value?.excerpt,
-  ogImage: prefetchedpost.value.picture?.picture,
-  ogTitle: `${prefetchedpost.value?.title} | ${config.public.defaultTitle}`,
+  description: prefetchedPost.value?.excerpt,
+  image: prefetchedPost.value?.picture?.picture,
+  title: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
+  ogDescription: prefetchedPost.value?.excerpt,
+  ogImage: prefetchedPost.value.picture?.picture,
+  ogTitle: `${prefetchedPost.value?.title} | ${config.public.defaultTitle}`,
 });
 
 // const post = computed(() => {
