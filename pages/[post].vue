@@ -158,12 +158,12 @@ onServerPrefetch(async () => {
   });
 
   useServerSeoMeta({
-    description: prefetchedPost.excerpt,
-    image: prefetchedPost.picture?.picture,
-    title: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
-    ogDescription: prefetchedPost.excerpt,
-    ogImage: prefetchedPost.picture?.picture,
-    ogTitle: `${prefetchedPost.title} | ${config.public.defaultTitle}`,
+    description: () => prefetchedPost.excerpt,
+    image: () => prefetchedPost.picture?.picture,
+    title: () => `${prefetchedPost.title} | ${config.public.defaultTitle}`,
+    ogDescription: () => prefetchedPost.excerpt,
+    ogImage: () => prefetchedPost.picture?.picture,
+    ogTitle: () => `${prefetchedPost.title} | ${config.public.defaultTitle}`,
   });
 });
 
