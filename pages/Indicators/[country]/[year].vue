@@ -251,7 +251,6 @@ const countryAverage = computed(() => {
 
 watch(
   selectedYear,
-  // eslint-disable-next-line func-names
   (val) => {
     useFetch(`/datasets/inclusion-indicators-${val}.json`).then((res) => {
       dataset.value = res.data.value;

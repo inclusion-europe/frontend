@@ -402,7 +402,6 @@ onMounted(() => {
   if (route.query.postId) {
     useMyFetch(`post/id/${route.query.postId}`).then((res) => {
       if (res.hasOwnProperty('idx')) {
-        /* eslint-disable camelcase */
         const {
           idx,
           title,

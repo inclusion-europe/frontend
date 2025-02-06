@@ -129,7 +129,6 @@ const indicatorEvolution = (
 
 watch(
   selectedYear,
-  // eslint-disable-next-line func-names
   (val) => {
     useFetch(`/datasets/inclusion-indicators-${val}.json`).then((res) => {
       countryData.value = res.data.value;
@@ -235,7 +234,6 @@ function initTable() {
 
 watch(
   isMobile,
-  // eslint-disable-next-line func-names
   (val) => {
     if (!val) {
       visibleColumns.value = initTable();

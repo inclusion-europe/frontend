@@ -14,7 +14,6 @@ export default {
   },
   mounted() {
     const ctx = document.getElementById('country-chart');
-    /* eslint-disable-next-line no-new */
     new Chart(ctx, this.chartData);
   },
 };
