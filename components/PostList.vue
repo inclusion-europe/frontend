@@ -60,21 +60,13 @@ const pageTitle = computed(() => {
 });
 
 useServerSeoMeta({
-  title: computed(() => {
-    `${pageTitle} | ${config.public.defaultTitle}`;
-  }),
-  ogTitle: computed(() => {
-    `${pageTitle} | ${config.public.defaultTitle}`;
-  }),
+  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
+  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
 });
 
 useSeoMeta({
-  title: computed(() => {
-    `${pageTitle} | ${config.public.defaultTitle}`;
-  }),
-  ogTitle: computed(() => {
-    `${pageTitle} | ${config.public.defaultTitle}`;
-  }),
+  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
+  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
 });
 
 const props = defineProps({
