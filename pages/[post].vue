@@ -167,7 +167,14 @@ onServerPrefetch(async () => {
   });
 });
 
-// useServerSeoMeta(seoMeta);
+useSeoMeta({
+  description: () => post.value?.excerpt,
+  image: () => post.value?.picture?.picture,
+  title: () => `${post.value?.title} | ${config.public.defaultTitle}`,
+  ogDescription: () => post.value?.excerpt,
+  ogImage: () => post.value.picture?.picture,
+  ogTitle: () => `${post.value?.title} | ${config.public.defaultTitle}`,
+});
 
 watch(
   post,
