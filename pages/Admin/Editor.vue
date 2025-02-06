@@ -401,7 +401,7 @@ onMounted(() => {
   loadMenuItems();
   if (route.query.postId) {
     useMyFetch(`post/id/${route.query.postId}`).then((res) => {
-      if (res.length) {
+      if (res.hasOwnProperty('idx')) {
         /* eslint-disable camelcase */
         const {
           idx,
@@ -419,7 +419,7 @@ onMounted(() => {
           article_type,
           published,
           highlighted,
-        } = res[0];
+        } = res;
 
         const parsedPicture = picture
           ? JSON.parse(picture)
