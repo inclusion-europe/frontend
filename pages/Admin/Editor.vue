@@ -400,7 +400,7 @@ onMounted(() => {
   loadTags();
   loadMenuItems();
   if (route.query.postId) {
-    useMyFetch(`/post/${route.query.postId}`).then((res) => {
+    useMyFetch(`admin/post/${route.query.postId}`).then((res) => {
       if (res.length) {
         /* eslint-disable camelcase */
         const {
@@ -465,7 +465,7 @@ const toggleOtherContent = () => {
 };
 
 const loadUsers = () => {
-  useMyFetch('users').then((res) => {
+  useMyFetch('admin/users').then((res) => {
     users.value = res;
   });
 };

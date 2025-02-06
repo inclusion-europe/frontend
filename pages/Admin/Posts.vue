@@ -281,7 +281,7 @@ const displayedRows = computed(() => {
 });
 
 const loadUsers = () => {
-  return useMyFetch('users').then((res) => {
+  return useMyFetch('admin/users').then((res) => {
     users.value = res;
   });
 };

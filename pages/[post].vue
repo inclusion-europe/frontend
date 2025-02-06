@@ -220,5 +220,13 @@ article {
       max-width: 60%;
     }
   }
+
+  &:deep(ul) {
+    list-style-type: disc;
+  }
+
+  &:deep(ol) {
+    list-style-type: decimal;
+  }
 }
 </style>
