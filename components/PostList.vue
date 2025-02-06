@@ -67,7 +67,9 @@ const pageTitle = computed(() => {
 });
 
 useServerSeoMeta({
-  title: `${pageTitle} | ${config.public.defaultTitle}`,
+  title: computed(() => {
+    `${pageTitle} | ${config.public.defaultTitle}`;
+  }),
 });
 
 const typeTitle = computed(() => {
