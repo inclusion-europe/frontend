@@ -63,10 +63,16 @@ useServerSeoMeta({
   title: computed(() => {
     `${pageTitle} | ${config.public.defaultTitle}`;
   }),
+  ogTitle: computed(() => {
+    `${pageTitle} | ${config.public.defaultTitle}`;
+  }),
 });
 
 useSeoMeta({
   title: computed(() => {
+    `${pageTitle} | ${config.public.defaultTitle}`;
+  }),
+  ogTitle: computed(() => {
     `${pageTitle} | ${config.public.defaultTitle}`;
   }),
 });
