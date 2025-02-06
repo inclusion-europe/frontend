@@ -40,13 +40,6 @@ const config = useRuntimeConfig();
 const route = useRoute();
 const router = useRouter();
 
-const props = defineProps({
-  posts: {
-    type: Array,
-    required: true,
-  },
-});
-
 const pageTitle = computed(() => {
   let returnee = (() => {
     switch (route.name) {
@@ -76,6 +69,13 @@ useSeoMeta({
   title: computed(() => {
     `${pageTitle} | ${config.public.defaultTitle}`;
   }),
+});
+
+const props = defineProps({
+  posts: {
+    type: Array,
+    required: true,
+  },
 });
 
 const typeTitle = computed(() => {
