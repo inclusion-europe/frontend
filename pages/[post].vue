@@ -158,22 +158,28 @@ onServerPrefetch(async () => {
   });
 
   useServerSeoMeta({
-    description: () => prefetchedPost.excerpt,
-    image: () => prefetchedPost.picture?.picture,
-    title: () => `${prefetchedPost.title} | ${config.public.defaultTitle}`,
-    ogDescription: () => prefetchedPost.excerpt,
-    ogImage: () => prefetchedPost.picture?.picture,
-    ogTitle: () => `${prefetchedPost.title} | ${config.public.defaultTitle}`,
+    description: computed(() => prefetchedPost.excerpt),
+    image: computed(() => prefetchedPost.picture?.picture),
+    title: computed(
+      () => `${prefetchedPost.title} | ${config.public.defaultTitle}`
+    ),
+    ogDescription: computed(() => prefetchedPost.excerpt),
+    ogImage: computed(() => prefetchedPost.picture?.picture),
+    ogTitle: computed(
+      () => `${prefetchedPost.title} | ${config.public.defaultTitle}`
+    ),
   });
 });
 
 useSeoMeta({
-  description: () => post.value?.excerpt,
-  image: () => post.value?.picture?.picture,
-  title: () => `${post.value?.title} | ${config.public.defaultTitle}`,
-  ogDescription: () => post.value?.excerpt,
-  ogImage: () => post.value.picture?.picture,
-  ogTitle: () => `${post.value?.title} | ${config.public.defaultTitle}`,
+  description: computed(() => post.value?.excerpt),
+  image: computed(() => post.value?.picture?.picture),
+  title: computed(() => `${post.value?.title} | ${config.public.defaultTitle}`),
+  ogDescription: computed(() => post.value?.excerpt),
+  ogImage: computed(() => post.value.picture?.picture),
+  ogTitle: computed(
+    () => `${post.value?.title} | ${config.public.defaultTitle}`
+  ),
 });
 
 watch(
