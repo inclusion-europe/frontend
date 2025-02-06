@@ -80,10 +80,7 @@ const getArticles = async () => {
   const promises = props.project.articles.map((article) =>
     useMyFetch(`/post/id/${article}`)
   );
-  const returned = await Promise.all(promises).then((res) => {
-    console.log(res);
-    return res;
-  });
+  const returned = await Promise.all(promises);
   articles.value = utils.treatPosts(returned);
 };
 
@@ -91,10 +88,7 @@ const getPublications = async () => {
   const promises = props.project.publications.map((article) =>
     useMyFetch(`/post/id/${article}`)
   );
-  const returned = await Promise.all(promises).then((res) => {
-    console.log(res);
-    return res;
-  });
+  const returned = await Promise.all(promises);
   publications.value = utils.treatPosts(returned);
 };
 </script>
