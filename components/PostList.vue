@@ -67,7 +67,7 @@ const pageTitle = computed(() => {
 });
 
 const typeTitle = computed(() => {
-  switch (route.query.type) {
+  switch (route.params.type) {
     case 'articles':
       return 'Articles';
     case 'e2r':
