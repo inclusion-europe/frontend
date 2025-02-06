@@ -48,10 +48,14 @@ useSeoMeta({
     'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
   image: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
   title: config.public.defaultTitle,
+  logo: '/logo.svg',
+  url: 'https://www.inclusion.eu',
   ogDescription:
     'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
   ogImage: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
   ogTitle: config.public.defaultTitle,
+  ogLogo: '/logo.svg',
+  ogUrl: 'https://www.inclusion.eu',
 });
 
 // onServerPrefetch(async () => {
