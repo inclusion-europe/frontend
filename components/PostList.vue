@@ -72,6 +72,12 @@ useServerSeoMeta({
   }),
 });
 
+useSeoMeta({
+  title: computed(() => {
+    `${pageTitle} | ${config.public.defaultTitle}`;
+  }),
+});
+
 const typeTitle = computed(() => {
   switch (route.params.type) {
     case 'articles':
