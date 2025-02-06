@@ -223,10 +223,12 @@ article {
 
   &:deep(ul) {
     list-style-type: disc;
+    margin-bottom: 1rem;
   }
 
   &:deep(ol) {
     list-style-type: decimal;
+    margin-bottom: 1rem;
   }
 }
 </style>

@@ -400,8 +400,8 @@ onMounted(() => {
   loadTags();
   loadMenuItems();
   if (route.query.postId) {
-    useMyFetch(`admin/post/${route.query.postId}`).then((res) => {
-      if (res.length) {
+    useMyFetch(`post/id/${route.query.postId}`).then((res) => {
+      if (res.hasOwnProperty('idx')) {
         /* eslint-disable camelcase */
         const {
           idx,
@@ -419,7 +419,7 @@ onMounted(() => {
           article_type,
           published,
           highlighted,
-        } = res[0];
+        } = res;
 
         const parsedPicture = picture
           ? JSON.parse(picture)
