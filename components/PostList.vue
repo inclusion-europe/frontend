@@ -40,13 +40,6 @@ const config = useRuntimeConfig();
 const route = useRoute();
 const router = useRouter();
 
-const props = defineProps({
-  posts: {
-    type: Array,
-    required: true,
-  },
-});
-
 const pageTitle = computed(() => {
   let returnee = (() => {
     switch (route.name) {
@@ -67,7 +60,20 @@ const pageTitle = computed(() => {
 });
 
 useServerSeoMeta({
-  title: `${pageTitle} | ${config.public.defaultTitle}`,
+  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
+  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
+});
+
+useSeoMeta({
+  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
+  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
+});
+
+const props = defineProps({
+  posts: {
+    type: Array,
+    required: true,
+  },
 });
 
 const typeTitle = computed(() => {
