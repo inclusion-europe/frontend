@@ -27,7 +27,7 @@
     {
         "name": "Guillaume Jacquinot",
         "title": "Secretary-General",
-        "copy": "<b>Guillaume Jacquinot</b> is a brother to his hister with intellectual disabilities. Guillaume was nominated to the Board by Inclusion Ireland.",
+        "copy": "<b>Guillaume Jacquinot</b> is a brother to his sister with intellectual disabilities. Guillaume was nominated to the Board by Inclusion Ireland.",
         "image": "guillaume-jacquinot.jpg",
         "inBoard": true,
         "executive": true
@@ -116,7 +116,7 @@
     {
         "name": "Helena Lambsdorff",
         "title": "Coordinator",
-        "copy": "<b>Helena Lambsdorff</b> is coordinator of the EEG. Previously, Helena worked as a Policy and Advocacy Intern at the Deutsche Stiftung Weltbevoelkerung (DSW).",
+        "copy": "<b>Helena Lambsdorff</b> is coordinator of the <a href=\"https://deinstitutionalisation.com/\" target=\"_blank\">EEG</a>. Helena also works as Policy and Advocacy Officer of Inclusion Europe.",
         "email": "coordinator@deinstitutionalisation.com",
         "image": "helena-lambsdorff.jpg"
     },
