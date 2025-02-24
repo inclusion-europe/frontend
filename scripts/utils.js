@@ -116,4 +116,7 @@ utils.indicatorEvolution = (
   return score - utils.averageFn(previousYearData, fields);
 };
 
+utils.formatDate = (unixTime) =>
+  new Intl.DateTimeFormat('fr').format(new Date(unixTime));
+
 export default utils;

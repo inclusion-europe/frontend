@@ -167,7 +167,7 @@ label {
     }
 }
 
-a {
+a:not([class*='bg-ie-']) {
     transition: .2s ease-out;
     color: var(--ie-pink);
     font-family: GilroySemiBold;
@@ -175,6 +175,10 @@ a {
     &:hover, &:focus {
         color: var(--ie-blue) !important;
     }
+}
+
+a[class*='bg-ie-'] {
+    text-decoration: none;
 }
 
 .v-md-editor {
