@@ -81,14 +81,14 @@
         </template>
         <template #created_at-data="{ row }">
           <span class="post-date">
-            {{ new Date(row.created_at).toLocaleString() }}
+            {{ utils.formatDate(row.created_at) }}
           </span>
         </template>
         <template #modified_at-data="{ row }">
           <span class="post-date">
             {{
               row.modified_at !== row.created_at
-                ? new Date(row.modified_at).toLocaleString()
+                ? utils.formatDate(row.modified_at)
                 : '-'
             }}
           </span>
@@ -96,18 +96,19 @@
         <template #published-data="{ row }">
           <span class="post-published">
             {{ row.published ? '✅' : '❌' }}
+            <UButton
+              size="xs"
+              :to="row.url"
+              target="_blank"
+              color="ie-pink"
+              v-if="row.published"
+            >
+              Preview
+            </UButton>
           </span>
         </template>
         <template #actions-data="{ row }">
           <UButtonGroup size="xs">
-            <UButton
-              size="xs"
-              @click="previewPost(row.idx)"
-              color="ie-pink"
-              v-if="false"
-            >
-              Preview
-            </UButton>
             <template v-if="!isInArchive">
               <UButton size="xs" @click="editPost(row.idx)">Edit</UButton>
               <UButton size="xs" color="ie-pink" @click="archivePost(row.idx)">
@@ -195,6 +196,7 @@
 <script setup>
 import useMyFetch from '~/composables/useMyFetch';
 import Modal from '~/components/Modal.vue';
+import utils from '~/scripts/utils';
 
 // const posts = ref([]);
 const users = ref([]);

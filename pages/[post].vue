@@ -32,6 +32,14 @@
             <h2 v-if="post.excerpt">
               {{ post.excerpt }}
             </h2>
+            <div class="header_info">
+              <span>
+                Published {{ utils.formatDate(post.created_at) }}
+                {{
+                  author ? `by ${author.first_name} ${author.last_name}` : ''
+                }}
+              </span>
+            </div>
           </div>
           <img
             v-if="post.picture?.picture && !isStaticPage"
@@ -85,6 +93,8 @@ const post = computed(() => {
   return store.getPost(route.params.post);
 });
 
+const author = ref(null);
+
 const showE2R = computed(() => {
   return route.query.e2r === '1';
 });
@@ -111,6 +121,19 @@ const hasOtherContent = computed(() => {
   return !!post.value.content_e2r;
 });
 
+const displayAuthor = computed(() => {
+  // const author = await useMyFetch(`/author/${post.value.author}`).then(
+  //   (res) => {
+  //     console.log({ author: res[0] });
+  //     return res[0]['first_name'];
+  //   }
+  // );
+
+  // console.log('test');
+
+  return post.value.author;
+});
+
 const seoMeta = computed(() => {
   if (status === 'pending') {
     return null;
@@ -120,7 +143,7 @@ const seoMeta = computed(() => {
     image: post.value?.picture?.picture,
     title: `${post.value?.title} | ${config.public.defaultTitle}`,
     ogDescription: post.value?.excerpt,
-    ogImage: post.value.picture?.picture,
+    ogImage: post.value?.picture?.picture,
     ogTitle: `${post.value?.title} | ${config.public.defaultTitle}`,
   };
 });
@@ -153,9 +176,11 @@ const headTags = computed(() => {
 });
 
 onServerPrefetch(async () => {
-  const prefetchedPost = await useMyFetch(`/post/${post}`).then((res) => {
-    return utils.treatPost(res);
-  });
+  const prefetchedPost = await useMyFetch(`/post/${route.params.post}`).then(
+    (res) => {
+      return utils.treatPost(res);
+    }
+  );
 
   useServerSeoMeta({
     description: computed(() => prefetchedPost.excerpt),
@@ -176,7 +201,7 @@ useSeoMeta({
   image: computed(() => post.value?.picture?.picture),
   title: computed(() => `${post.value?.title} | ${config.public.defaultTitle}`),
   ogDescription: computed(() => post.value?.excerpt),
-  ogImage: computed(() => post.value.picture?.picture),
+  ogImage: computed(() => post.value?.picture?.picture),
   ogTitle: computed(
     () => `${post.value?.title} | ${config.public.defaultTitle}`
   ),
@@ -184,10 +209,11 @@ useSeoMeta({
 
 watch(
   post,
-  (val) => {
+  async (val) => {
     if (!post.value) {
       return;
     }
+    author.value = (await useMyFetch(`/author/${post.value.author}`))[0];
     useHead(headTags);
     // useSeoMeta(seoMeta);
     const shouldShowE2R = route.query.e2r && val.content_e2r;
