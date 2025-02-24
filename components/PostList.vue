@@ -40,35 +40,6 @@ const config = useRuntimeConfig();
 const route = useRoute();
 const router = useRouter();
 
-const pageTitle = computed(() => {
-  let returnee = (() => {
-    switch (route.name) {
-      case 'tag-tag':
-        return `Posts tagged "${route.params.tag}"`;
-      case 'type-type':
-        return typeTitle.value;
-      default:
-        return 'Posts';
-    }
-  })();
-
-  if (pagesAmount > 1) {
-    returnee += ` - Page ${currentPage.value}`;
-  }
-
-  return returnee;
-});
-
-useServerSeoMeta({
-  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
-  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
-});
-
-useSeoMeta({
-  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
-  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
-});
-
 const props = defineProps({
   posts: {
     type: Array,
@@ -102,6 +73,35 @@ const currentPagePosts = computed(() => {
 
 const pagesAmount = computed(() => {
   return Math.ceil(props.posts.length / pageLength.value);
+});
+
+const pageTitle = computed(() => {
+  let returnee = (() => {
+    switch (route.name) {
+      case 'tag-tag':
+        return `Posts tagged "${route.params.tag}"`;
+      case 'type-type':
+        return typeTitle.value;
+      default:
+        return 'Posts';
+    }
+  })();
+
+  if (pagesAmount > 1) {
+    returnee += ` - Page ${currentPage.value}`;
+  }
+
+  return returnee;
+});
+
+useServerSeoMeta({
+  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
+  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
+});
+
+useSeoMeta({
+  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
+  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
 });
 
 const goToPage = (pageNr) => {
