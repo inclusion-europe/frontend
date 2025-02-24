@@ -87,7 +87,7 @@ const pageTitle = computed(() => {
     }
   })();
 
-  if (pagesAmount > 1) {
+  if (pagesAmount.value > 1) {
     returnee += ` - Page ${currentPage.value}`;
   }
 
@@ -106,7 +106,7 @@ useSeoMeta({
 
 const goToPage = (pageNr) => {
   router.replace({
-    params: {
+    query: {
       ...route.query,
       pageNr,
     },
@@ -138,6 +138,7 @@ useHead({
     color: #1e1e1e;
     font-size: 40px;
     font-family: GilroyBold;
+    margin-bottom: 30px;
   }
 
   .posts_page-list {
