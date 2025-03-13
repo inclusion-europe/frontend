@@ -47,29 +47,6 @@ const props = defineProps({
   },
 });
 
-const pageTitle = computed(() => {
-  let returnee = (() => {
-    switch (route.name) {
-      case 'tag-tag':
-        return `Posts tagged "${route.params.tag}"`;
-      case 'type-type':
-        return typeTitle.value;
-      default:
-        return 'Posts';
-    }
-  })();
-
-  if (pagesAmount > 1) {
-    returnee += ` - Page ${currentPage.value}`;
-  }
-
-  return returnee;
-});
-
-useServerSeoMeta({
-  title: `${pageTitle} | ${config.public.defaultTitle}`,
-});
-
 const typeTitle = computed(() => {
   switch (route.params.type) {
     case 'articles':
@@ -98,9 +75,38 @@ const pagesAmount = computed(() => {
   return Math.ceil(props.posts.length / pageLength.value);
 });
 
+const pageTitle = computed(() => {
+  let returnee = (() => {
+    switch (route.name) {
+      case 'tag-tag':
+        return `Posts tagged "${route.params.tag}"`;
+      case 'type-type':
+        return typeTitle.value;
+      default:
+        return 'Posts';
+    }
+  })();
+
+  if (pagesAmount.value > 1) {
+    returnee += ` - Page ${currentPage.value}`;
+  }
+
+  return returnee;
+});
+
+useServerSeoMeta({
+  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
+  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
+});
+
+useSeoMeta({
+  title: `${pageTitle.value} | ${config.public.defaultTitle}`,
+  ogTitle: `${pageTitle.value} | ${config.public.defaultTitle}`,
+});
+
 const goToPage = (pageNr) => {
   router.replace({
-    params: {
+    query: {
       ...route.query,
       pageNr,
     },
@@ -132,6 +138,7 @@ useHead({
     color: #1e1e1e;
     font-size: 40px;
     font-family: GilroyBold;
+    margin-bottom: 30px;
   }
 
   .posts_page-list {

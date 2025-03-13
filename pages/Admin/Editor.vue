@@ -99,6 +99,11 @@
       </UFormGroup>
 
       <UFormGroup label="Preview picture" class="col-span-2">
+        <template #hint>
+          <UButton @click="resetPicture" size="xs" v-if="pictureRef">
+            Remove picture
+          </UButton>
+        </template>
         <FileUpload :picture="pictureRef" @upload-picture="updatePicture" />
       </UFormGroup>
 
@@ -144,6 +149,18 @@
           option-attribute="originalFilename"
           value-attribute="index"
         />
+      </UFormGroup>
+
+      <UFormGroup label="Add youtube video" class="col-span-2">
+        <div class="col-span-2 flex gap-4">
+          <UInput
+            type="text"
+            v-model="videoLink"
+            placeholder="Paste youtube link here"
+            class="flex-grow"
+          />
+          <UButton @click="addYoutubeLink" size="xs"> Add </UButton>
+        </div>
       </UFormGroup>
 
       <UFormGroup
@@ -312,6 +329,7 @@ const tag = ref('');
 const isPublished = ref(false);
 const isHighlighted = ref(false);
 const last_uploads = ref([]);
+const videoLink = ref('');
 
 const isEditing = ref(-1);
 const startEditingE2R = ref(false);
@@ -543,6 +561,23 @@ const handleChangeTag = (input) => {
 const selectAutoTag = (selectedTag) => {
   tagsRef.value.push(selectedTag);
   tag.value = '';
+};
+
+const resetPicture = () => {
+  pictureRef.value = null;
+  picture_alt.value = '';
+};
+
+const addYoutubeLink = () => {
+  const videoKey = utils.youtubeParser(videoLink.value);
+
+  if (videoKey) {
+    contentRef.value += `\n\n<iframe width="640" height="360" src="https://www.youtube.com/embed/${videoKey}"></iframe>`;
+
+    videoLink.value = '';
+  } else {
+    useNuxtApp().$toast('Invalid youtube link');
+  }
 };
 
 const submitForm = (event) => {

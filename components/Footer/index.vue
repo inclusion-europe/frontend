@@ -31,11 +31,13 @@
       <div class="footer-navigation">
         <!-- <a href="#">Sitemap</a> -->
         <a v-if="hasAdmin" @click="goToAdmin">Admin</a>
+        <a @click="showSiteMap">{{ sitemapShown ? 'Hide ' : '' }}Sitemap</a>
       </div>
       <h4 v-if="!onAdminPage" class="footer-copyright">
         © {{ currentYear }} Inclusion Europe, made with ❤️ by
         <a href="//kyng.be">Kyng Studios</a>
       </h4>
+      <Sitemap :isShown="sitemapShown" />
     </div>
   </footer>
 </template>
@@ -43,9 +45,12 @@
 import Socials from './Socials.vue';
 import Newsletter from '../Newsletter.vue';
 import IeButton from '@/elements/Button.vue';
+import Sitemap from './Sitemap.vue';
 
 const config = useRuntimeConfig();
 const route = useRoute();
+
+const sitemapShown = ref(false);
 
 const imAuthToken = useCookie('im_auth_token');
 const imAuthState = useCookie('im_auth_state');
@@ -90,6 +95,13 @@ const goToAdmin = async () => {
       external: true,
     });
   }
+};
+
+const showSiteMap = () => {
+  sitemapShown.value = !sitemapShown.value;
+  setTimeout(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, 310); // 300ms is the transition time
 };
 </script>
 <style lang="scss" scoped>
@@ -158,7 +170,7 @@ const goToAdmin = async () => {
     h3 {
       font-family: GilroySemiBold;
       font-size: 20px;
-      font-weight: 600;
+      font-weight: 500;
       color: white;
     }
     width: 305px;
@@ -197,7 +209,7 @@ const goToAdmin = async () => {
       h3 {
         font-family: GilroySemiBold;
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 500;
         color: white;
       }
       width: 305px;

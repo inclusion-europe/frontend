@@ -74,7 +74,7 @@ const formAction = config.public.nwsltrFormAction;
     font-family: GilroySemiBold;
     font-size: 28px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
     margin-bottom: 18px;
   }
@@ -104,7 +104,7 @@ const formAction = config.public.nwsltrFormAction;
 
         b {
           font-family: GilroySemiBold;
-          font-weight: 600;
+          font-weight: 500;
         }
       }
     }

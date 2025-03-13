@@ -9,8 +9,8 @@
         />
       </NuxtLink>
       <template v-if="!notLive">
-        <Navigation v-if="!isMobile" :menu-items="menuItems" />
-        <MobileNav v-else :menu-items="menuItems" />
+        <Navigation v-if="!isMobile" />
+        <MobileNav v-else />
       </template>
     </div>
   </header>
@@ -19,7 +19,6 @@
 <script setup>
 import Navigation from './Navigation.vue';
 import MobileNav from './MobileNav.vue';
-import useMyFetch from '~/composables/useMyFetch';
 
 import { useWindowSize } from '@vueuse/core';
 
@@ -33,81 +32,7 @@ const notLive = config.public.notlive;
 const isMobile = computed(() => {
   return windowSize.width.value < 1024;
 });
-
-const loadMenu = async () => {
-  const res = await useMyFetch('menu/full');
-  const menu = res.sort((a, b) => a.position - b.position);
-  menu.forEach((item) => {
-    switch (item.id) {
-      case 1:
-        item.pages.push(
-          {
-            idx: 97,
-            menu_position: 97,
-            title: 'Board and Staff',
-            url: '/staff',
-          },
-          {
-            idx: 98,
-            menu_position: 98,
-            title: 'History',
-            url: '/history',
-          },
-          {
-            idx: 99,
-            menu_position: 99,
-            title: 'Projects',
-            url: '/projects',
-          }
-        );
-        break;
-      case 2:
-        item.pages.push({
-          idx: 99,
-          menu_position: 99,
-          title: 'Articles',
-          url: '/type/articles',
-        });
-        break;
-      case 5:
-        item.pages.push({
-          idx: 99,
-          menu_position: 99,
-          title: 'Easy-To-Read Articles',
-          url: '/type/e2r',
-        });
-        break;
-      default:
-    }
-  });
-  menuItems.value = menu;
-};
-
-onServerPrefetch(async () => {
-  await loadMenu();
-});
-
-onMounted(() => {
-  if (!menuItems.value.length) {
-    loadMenu();
-  }
-});
 </script>
-
-<!-- <script>
-
-export default {
-    beforeUnmount() {
-        window.removeEventListener('resize', this.onResize);
-    },
-    methods: {
-        onResize() {
-            this.windowWidth = window.innerWidth;
-        },
-    },
-};
-</script> -->
-
 <style lang="scss" scoped>
 .header {
   padding: 15px 0;
