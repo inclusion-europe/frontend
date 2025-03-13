@@ -28,6 +28,7 @@ const store = useMainStore();
 const isHydrated = ref(false);
 
 const posts = computed(() => store.getPosts);
+const menu = computed(() => store.getMenu);
 
 useHead({
   link: [
@@ -60,11 +61,16 @@ useSeoMeta({
 
 // onServerPrefetch(async () => {
 //   await store.loadPosts();
+//   await store.loadMenu();
 // });
 
 onMounted(() => {
   if (!posts.value.length) {
     store.loadPosts();
+  }
+
+  if (!menu.value.length) {
+    store.loadMenu();
   }
 
   isHydrated.value = true;

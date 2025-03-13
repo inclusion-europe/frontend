@@ -2,7 +2,7 @@
   <nav class="navbar">
     <router-link class="navbar-element" to="/" tabindex="0"> Home </router-link>
     <nav-dropdown
-      v-for="item in menuItems"
+      v-for="item in menu"
       :key="`menu_item_${item.id}`"
       :pages="item.pages"
     >
@@ -10,19 +10,12 @@
     </nav-dropdown>
   </nav>
 </template>
-<script>
+<script setup>
 import NavDropdown from './NavDropdown.vue';
+import { useMainStore } from '~/store';
 
-export default {
-  name: 'WebsiteNavigation',
-  components: { NavDropdown },
-  props: {
-    menuItems: {
-      type: Array,
-      required: true,
-    },
-  },
-};
+const store = useMainStore();
+const menu = computed(() => store.getMenu);
 </script>
 <style lang="scss" scoped>
 .navbar {

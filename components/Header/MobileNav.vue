@@ -21,7 +21,7 @@
         <a
           class="navbar-element"
           @click="toggleDropdown(item.id)"
-          v-for="item in menuItems"
+          v-for="item in menu"
           :key="`menu_item_${item.id}`"
         >
           <div class="mobile-navitem">
@@ -35,7 +35,7 @@
         </a>
       </div>
       <nav-dropdown
-        v-for="item in menuItems"
+        v-for="item in menu"
         :key="`menu_item_${item.id}_dropdown`"
         :pages="item.pages"
         :is-dropdown-shown="shownDropdown == item.id"
@@ -45,47 +45,44 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import NavDropdown from './MobileNavDropdown.vue';
+import { useMainStore } from '~/store';
 
-export default {
-  name: 'MobileNav',
-  components: {
-    NavDropdown,
-  },
-  data: () => ({
-    menuOpen: false,
-    shownDropdown: -1,
-  }),
-  props: {
-    menuItems: {
-      type: Array,
-      required: true,
-    },
-  },
-  watch: {
-    $route() {
-      this.menuOpen = false;
-      this.shownDropdown = -1;
-    },
-    menuOpen(val) {
-      if (!val) {
-        this.shownDropdown = -1;
-      }
-    },
-  },
-  methods: {
-    goHome() {
-      this.$router.push('/');
-      this.menuOpen = false;
-      this.shownDropdown = -1;
-    },
-    toggleDropdown(id) {
-      if (this.shownDropdown === id) this.shownDropdown = -1;
-      else this.shownDropdown = id;
-    },
-  },
+const router = useRouter();
+const route = useRoute();
+
+const store = useMainStore();
+const menu = computed(() => store.getMenu);
+
+const menuOpen = ref(false);
+const shownDropdown = ref(-1);
+
+const goHome = () => {
+  router.push('/');
+  menuOpen.value = false;
+  shownDropdown.value = -1;
 };
+
+const toggleDropdown = (id) => {
+  if (shownDropdown.value === id) shownDropdown.value = -1;
+  else shownDropdown.value = id;
+};
+
+watch(route, (val) => {
+  menuOpen.value = false;
+  setTimeout(() => {
+    shownDropdown.value = -1;
+  }, 210);
+});
+
+watch(menuOpen, (val) => {
+  if (!val) {
+    setTimeout(() => {
+      shownDropdown.value = -1;
+    }, 210);
+  }
+});
 </script>
 <style lang="scss" scoped>
 $interlines: 8px;

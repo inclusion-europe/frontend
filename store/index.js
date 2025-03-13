@@ -6,6 +6,7 @@ export const useMainStore = defineStore('main', {
   state: () => ({
     posts: [],
     loading: true,
+    menu: [],
   }),
   getters: {
     getPosts(state) {
@@ -38,6 +39,9 @@ export const useMainStore = defineStore('main', {
         }
       };
     },
+    getMenu(state) {
+      return state.menu;
+    },
   },
   actions: {
     setArticles(posts) {
@@ -45,6 +49,9 @@ export const useMainStore = defineStore('main', {
     },
     setLoading(loading) {
       this.loading = loading;
+    },
+    setMenu(menu) {
+      this.menu = menu;
     },
     loadPost(post) {
       return useMyFetch(`/post/slug/${post}`).then((res) => {
@@ -60,6 +67,55 @@ export const useMainStore = defineStore('main', {
         });
         this.setArticles(posts);
         this.setLoading(false);
+      });
+    },
+    loadMenu() {
+      return useMyFetch('menu/full').then((res) => {
+        const menu = res.sort((a, b) => a.position - b.position);
+        menu.forEach((item) => {
+          switch (item.id) {
+            case 1:
+              item.pages.push(
+                {
+                  idx: 97,
+                  menu_position: 97,
+                  title: 'Board and Staff',
+                  url: '/staff',
+                },
+                {
+                  idx: 98,
+                  menu_position: 98,
+                  title: 'History',
+                  url: '/history',
+                },
+                {
+                  idx: 99,
+                  menu_position: 99,
+                  title: 'Projects',
+                  url: '/projects',
+                }
+              );
+              break;
+            case 2:
+              item.pages.push({
+                idx: 99,
+                menu_position: 99,
+                title: 'Articles',
+                url: '/type/articles',
+              });
+              break;
+            case 5:
+              item.pages.push({
+                idx: 99,
+                menu_position: 99,
+                title: 'Easy-To-Read Articles',
+                url: '/type/e2r',
+              });
+              break;
+            default:
+          }
+        });
+        this.setMenu(menu);
       });
     },
   },
