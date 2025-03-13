@@ -202,7 +202,7 @@ $interlines: 8px;
     color: var(--black);
     font-size: 25px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
     cursor: pointer;
     overflow: visible;

@@ -540,7 +540,7 @@
 				"no_education_note": -1,
 				"larger_institutions": 0,
 				"larger_institutions_note": -1,
-				"smaller_institutions": 6000,
+				"smaller_institutions": 5000,
 				"smaller_institutions_note": -1,
 				"psychiatric_hospitals": 0,
 				"psychiatric_hospitals_note": -1,
@@ -590,7 +590,7 @@
 				}
 			],
 			"reported_numbers": {
-				"mainstream_education": 6000,
+				"mainstream_education": 5000,
 				"mainstream_education_note": -1,
 				"special_education": 3400,
 				"special_education_note": -1,
@@ -996,7 +996,7 @@
 				"mainstream_education_note": -1,
 				"special_education": 4000,
 				"special_education_note": 0,
-				"no_education": 600,
+				"no_education": 500,
 				"no_education_note": 0,
 				"larger_institutions": 5830,
 				"larger_institutions_note": -1,

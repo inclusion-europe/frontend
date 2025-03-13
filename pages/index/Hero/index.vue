@@ -67,7 +67,7 @@ const newsletterLink = config.public.nwsltrFormAction;
       &-subtitle {
         font-family: GilroySemiBold;
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 500;
       }
     }
 
@@ -75,7 +75,7 @@ const newsletterLink = config.public.nwsltrFormAction;
       h3 {
         font-family: GilroySemiBold;
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 500;
       }
       width: 305px;
     }

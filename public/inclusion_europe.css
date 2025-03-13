@@ -54,7 +54,7 @@
   
 @font-face {
   font-family: "GilroySemiBoldItalic";
-  font-family: 600;
+  font-family: 500;
   src: url('webFonts/GilroySemiBoldItalic/font.woff2') format('woff2'), url('webFonts/GilroySemiBoldItalic/font.woff') format('woff');
   font-style: italic;
 }
@@ -92,7 +92,7 @@
 }
 @font-face {
   font-family: "GilroySemiBold";
-  font-family: 600;
+  font-family: 500;
   src: url('webFonts/GilroySemiBold/font.woff2') format('woff2'), url('webFonts/GilroySemiBold/font.woff') format('woff');
 }
 @font-face {
