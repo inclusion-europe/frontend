@@ -1046,7 +1046,7 @@
 					"score": 5.1
 				},
 				"education": {
-					"copy": "Most children with intellectual disabilities go to special schools, few go to mainstream schools. There is no national strategy towards inclusive education.",
+					"copy": " Most children with intellectual disabilities go to mainstream schools, few go to special schools.",
 					"score": 4
 				},
 				"employment": {
@@ -1071,7 +1071,7 @@
 				}
 			],
 			"reported_numbers": {
-				"mainstream_education": 7000,
+				"mainstream_education": 18500,
 				"mainstream_education_note": -1,
 				"special_education": 9000,
 				"special_education_note": -1,
