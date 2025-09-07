@@ -34,6 +34,15 @@
           </div>
 
           <div class="flex items-center gap-4">
+            <USelectMenu
+              v-model="selectedColumns"
+              :options="columns.filter((col) => col.selectable)"
+              multiple
+              placeholder="Columns"
+            />
+          </div>
+
+          <div class="flex items-center gap-4">
             <h5 class="text-sm leading-5">Items per page:</h5>
             <USelect
               v-model="pageCount"
@@ -46,7 +55,7 @@
       <UTable
         v-model:sort="sort"
         :rows="displayedRows"
-        :columns="columns"
+        :columns="effectiveSelectedColumns"
         :loading="status === 'pending'"
         class="w-full"
         sort-asc-icon="i-heroicons-arrow-up"
@@ -91,6 +100,21 @@
                 ? utils.formatDate(row.modified_at)
                 : '-'
             }}
+          </span>
+        </template>
+        <template #content-data="{ row }">
+          <span class="post-content">
+            {{ row.content.length > 0 ? '✅' : '❌' }}
+          </span>
+        </template>
+        <template #content_e2r-data="{ row }">
+          <span class="post-content-e2r">
+            {{ row.content_e2r ? '✅' : '❌' }}
+          </span>
+        </template>
+        <template #default_type-data="{ row }">
+          <span class="post-default-type">
+            {{ row.default_type === 'e2r' ? 'E2R' : 'Plain text' }}
           </span>
         </template>
         <template #published-data="{ row }">
@@ -222,32 +246,69 @@ const columns = [
     label: 'Title',
     class: 'post-title',
     sortable: true,
+    selectable: false,
+    colIndex: 0,
   },
   {
     key: 'author',
     label: 'Author',
     sortable: true,
+    selectable: true,
+    colIndex: 1,
   },
   {
     key: 'created_at',
     label: 'Created',
     sortable: true,
+    selectable: true,
+    colIndex: 2,
   },
   {
     key: 'modified_at',
     label: 'Last modified',
     sortable: true,
+    selectable: true,
+    colIndex: 3,
+  },
+  {
+    key: 'content_e2r',
+    label: 'E2R?',
+    sortable: false,
+    selectable: true,
+    colIndex: 4,
+  },
+  {
+    key: 'content',
+    label: 'Plain text?',
+    sortable: false,
+    selectable: true,
+    colIndex: 5,
+  },
+  {
+    key: 'default_type',
+    label: 'Default content type',
+    sortable: true,
+    selectable: true,
+    colIndex: 6,
   },
   {
     key: 'published',
     label: 'Published?',
     sortable: true,
+    selectable: true,
+    colIndex: 7,
   },
+];
+
+const selectedColumns = ref([...columns]);
+
+const effectiveSelectedColumns = computed(() => [
+  ...selectedColumns.value.sort((a, b) => a.colIndex - b.colIndex),
   {
     key: 'actions',
     label: '',
   },
-];
+]);
 
 const loadPosts = () => {
   let query = {
