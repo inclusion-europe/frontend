@@ -4,11 +4,6 @@
       <img src="/loading.gif" />
     </div>
     <template v-else>
-      <div class="under_const">
-        <h3>
-          The website is still under development, more updates coming soon!
-        </h3>
-      </div>
       <WebsiteHeader v-if="isHydrated" />
       <NuxtPage :page-key="(route) => route.fullPath" />
       <WebsiteFooter />
