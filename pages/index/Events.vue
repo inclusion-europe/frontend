@@ -19,7 +19,7 @@
         />
       </div>
     </div>
-    <SeeAll v-if="posts.length > 6" href="/type/event" blue big>
+    <SeeAll v-if="posts.length > 6" href="/type/events" blue big>
       See all events
     </SeeAll>
   </section>
