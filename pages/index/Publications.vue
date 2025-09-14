@@ -1,26 +1,29 @@
 <template>
   <section class="publications-section">
-    <h2 class="section-title section-title--pink">Publications</h2>
+    <h2 class="section-title section-title--pink">Reports</h2>
     <div class="publications-section-publication_grid">
       <div class="publications-section-publication_grid-list">
-        <Preview :post="posts[0]" big no-picture />
-        <Preview v-if="posts.length > 1" :post="posts[1]" big no-picture />
+        <Preview
+          v-for="(publication, i) in posts.slice(0, 3)"
+          :key="`publications_publication_${i}`"
+          :post="publication"
+        />
       </div>
       <div
-        v-if="posts.length > 2"
+        v-if="posts.length > 3"
         class="publications-section-publication_grid-list"
       >
         <Preview
-          v-for="(publication, i) in posts.slice(2, 6)"
+          v-for="(publication, i) in posts.slice(3, 6)"
           :key="`publications_publication_${i}`"
           :post="publication"
           no-picture
         />
-        <SeeAll href="/type/publications" v-if="posts.length > 5" big>
-          See all publications
-        </SeeAll>
       </div>
     </div>
+    <SeeAll href="/type/publications" v-if="posts.length > 6" big>
+      See all publications
+    </SeeAll>
   </section>
 </template>
 <script>
