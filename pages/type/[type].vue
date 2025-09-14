@@ -22,6 +22,9 @@ const getterRoute = computed(() => {
     case 'publications':
       type = 'report';
       break;
+    case 'events':
+      type = 'event';
+      break;
     default:
       break;
   }

@@ -9,6 +9,7 @@
       <Videos v-if="false" />
       <Articles v-if="articles.length" :posts="articles" />
       <Publications v-if="publications.length" :posts="publications" />
+      <Events v-if="events.length" :posts="events" />
     </template>
     <h1 v-else class="maint">
       The website is currently under maintenance, check back soon!
@@ -22,6 +23,7 @@ import Videos from './Videos';
 import Articles from './Articles';
 import Publications from './Publications';
 import { useMainStore } from '~/store';
+import Events from './Events.vue';
 
 const store = useMainStore();
 const config = useRuntimeConfig();
@@ -69,6 +71,15 @@ const publications = computed(() => {
 const articles = computed(() => {
   return posts.value
     .filter((post) => ['news', 'blogpost'].includes(post.article_type))
+    .sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+});
+
+const events = computed(() => {
+  return posts.value
+    .filter((post) => ['event'].includes(post.article_type))
     .sort(
       (a, b) =>
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()

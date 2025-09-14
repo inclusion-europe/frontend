@@ -2,20 +2,26 @@
   <section class="easy_to_read-section">
     <h2 class="section-title section-title--blue">Easy-to-read</h2>
     <div class="easy_to_read-section-post_grid">
-      <Preview :post="posts[0]" big blue />
       <div class="easy_to_read-section-post_grid-list">
         <Preview
-          v-for="(post, i) in posts.slice(1, 5)"
+          v-for="(post, i) in posts.slice(0, 3)"
           :key="`e2r_post_${i}`"
           :post="post"
-          no-picture
           blue
         />
-        <SeeAll v-if="posts.length > 6" href="/type/e2r" blue big>
-          See all easy-to-read articles
-        </SeeAll>
+      </div>
+      <div class="easy_to_read-section-post_grid-list" v-if="posts.length > 3">
+        <Preview
+          v-for="(post, i) in posts.slice(3, 6)"
+          :key="`e2r_post_${i}`"
+          :post="post"
+          blue
+        />
       </div>
     </div>
+    <SeeAll v-if="posts.length > 6" href="/type/e2r" blue big>
+      See all easy-to-read articles
+    </SeeAll>
   </section>
 </template>
 <script>

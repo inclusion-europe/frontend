@@ -47,7 +47,7 @@ const props = defineProps({
   span {
     color: var(--ie-pink);
     font-family: GilroySemiBold;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 500;
     line-height: 12px;
   }
