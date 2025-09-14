@@ -1,13 +1,13 @@
 <template>
   <section class="articles-section">
-    <h2 class="section-title section-title--blue">Recent articles</h2>
+    <h2 class="section-title section-title--pink">News</h2>
     <div class="articles-section-article_grid">
       <div class="articles-section-article_grid-list">
         <Preview
           v-for="(article, i) in posts.slice(0, 3)"
           :key="`articles_article_${i}`"
           :post="article"
-          blue
+          pink
         />
       </div>
       <div class="articles-section-article_grid-list" v-if="posts.length > 3">
@@ -15,11 +15,11 @@
           v-for="(article, i) in posts.slice(3, 6)"
           :key="`articles_article_${i}`"
           :post="article"
-          blue
+          pink
         />
       </div>
     </div>
-    <SeeAll v-if="posts.length > 6" href="/type/articles" blue big>
+    <SeeAll v-if="posts.length > 6" href="/type/articles" pink big>
       See all articles
     </SeeAll>
   </section>

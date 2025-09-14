@@ -8,8 +8,8 @@
       <E2R v-if="e2r_articles.length" :posts="e2r_articles" />
       <Videos v-if="false" />
       <Articles v-if="articles.length" :posts="articles" />
-      <Publications v-if="publications.length" :posts="publications" />
       <Events v-if="events.length" :posts="events" />
+      <Publications v-if="publications.length" :posts="publications" />
     </template>
     <h1 v-else class="maint">
       The website is currently under maintenance, check back soon!
