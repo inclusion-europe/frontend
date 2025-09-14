@@ -7,6 +7,7 @@
           v-for="(publication, i) in posts.slice(0, 3)"
           :key="`publications_publication_${i}`"
           :post="publication"
+          pink
         />
       </div>
       <div
@@ -18,6 +19,7 @@
           :key="`publications_publication_${i}`"
           :post="publication"
           no-picture
+          pink
         />
       </div>
     </div>
