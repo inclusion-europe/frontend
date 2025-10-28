@@ -159,7 +159,7 @@
         img {
           width: 100%;
           border-radius: 9px;
-          aspect-ratio: 16 / 4;
+          aspect-ratio: 16 / 8;
           object-fit: cover;
         }
       }
@@ -185,6 +185,11 @@
 
 @media screen and (min-width: 1024px) {
   .post_page {
+    & > * {
+      margin-left: auto;
+      margin-right: auto;
+      width: 60%;
+    }
     article {
       header {
         flex-direction: row;

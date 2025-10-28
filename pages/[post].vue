@@ -254,10 +254,6 @@ article {
     margin-left: auto;
     margin-right: auto;
     border-radius: 9px;
-
-    @media screen and (min-width: 1024px) {
-      max-width: 60%;
-    }
   }
 
   &:deep(ul) {

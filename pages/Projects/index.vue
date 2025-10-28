@@ -22,6 +22,10 @@
           <IeButton type="link" href="/judy-project" boxed blue>
             JUDY Project
           </IeButton>
+          <IeButton type="link" href="/unity" boxed blue>Unity</IeButton>
+          <IeButton type="link" href="/self-determination-academy" boxed blue>
+            Self Determination Academy
+          </IeButton>
         </div>
       </section>
       <Project
