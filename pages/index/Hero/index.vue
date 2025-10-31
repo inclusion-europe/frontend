@@ -10,6 +10,7 @@
         />
       </section>
       <div class="newsletter-temp-block">
+        <h3>Support our work</h3>
         <IeButton type="link" href="/donate" boxed blue target="_blank">
           Donate here
         </IeButton>
@@ -52,8 +53,6 @@ const newsletterLink = config.public.nwsltrFormAction;
       &-title {
         width: 80%;
         max-width: 500px;
-        position: relative;
-        left: -5px;
       }
 
       &-subtitle {
@@ -84,7 +83,7 @@ const newsletterLink = config.public.nwsltrFormAction;
     align-items: start;
 
     &-static {
-      gap: 100px;
+      gap: 50px;
 
       &-title {
         width: 305px;
