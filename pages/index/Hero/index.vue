@@ -11,9 +11,7 @@
       </section>
       <div class="newsletter-temp-block">
         <h3>Support our work</h3>
-        <IeButton type="link" href="/donate" boxed blue target="_blank">
-          Donate here
-        </IeButton>
+        <IeButton type="link" href="/donate" boxed blue> Donate here </IeButton>
       </div>
     </div>
     <Currently v-if="false" />
