@@ -8,17 +8,10 @@
           alt="Ambitions. Rights. Belongings."
           class="hero-static-tagline-title"
         />
-        <h3 class="hero-static-tagline-subtitle">
-          20 million people<br />
-          with intellectual disabilities<br />
-          and their families in Europe.
-        </h3>
       </section>
-      <Newsletter v-if="false" />
-      <div v-else class="newsletter-temp-block">
-        <h3>Stay in touch with us</h3>
-        <IeButton type="link" :href="newsletterLink" boxed blue target="_blank">
-          Subscribe to our newsletters!
+      <div class="newsletter-temp-block">
+        <IeButton type="link" href="/donate" boxed blue target="_blank">
+          Donate here
         </IeButton>
       </div>
     </div>
@@ -27,7 +20,6 @@
 </template>
 <script setup>
 import IeButton from '@/elements/Button.vue';
-import Newsletter from '@/components/Newsletter.vue';
 import Currently from './Currently.vue';
 import Highlights from './Highlights.vue';
 
