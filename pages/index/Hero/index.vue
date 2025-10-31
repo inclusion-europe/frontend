@@ -9,7 +9,7 @@
           class="hero-static-tagline-title"
         />
       </section>
-      <div class="newsletter-temp-block">
+      <div class="donate-block">
         <h3>Support our work</h3>
         <IeButton type="link" href="/donate" boxed blue> Donate here </IeButton>
       </div>
@@ -22,16 +22,12 @@ import IeButton from '@/elements/Button.vue';
 import Currently from './Currently.vue';
 import Highlights from './Highlights.vue';
 
-const config = useRuntimeConfig();
-
 const props = defineProps({
   highlights: {
     type: Array,
     default: [],
   },
 });
-
-const newsletterLink = config.public.nwsltrFormAction;
 </script>
 <style lang="scss" scoped>
 .hero {
@@ -60,7 +56,7 @@ const newsletterLink = config.public.nwsltrFormAction;
       }
     }
 
-    .newsletter-temp-block {
+    .donate-block {
       h3 {
         font-family: GilroySemiBold;
         font-size: 20px;
