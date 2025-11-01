@@ -40,6 +40,7 @@
         :pages="item.pages"
         :is-dropdown-shown="shownDropdown == item.id"
         :item-name="item.name"
+        :parent-url="item.url"
         @showMainMenu="toggleDropdown(item.id)"
       />
     </div>

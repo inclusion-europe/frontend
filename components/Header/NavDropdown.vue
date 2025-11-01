@@ -1,6 +1,15 @@
 <template>
   <div class="navbar-element" tabindex="0">
-    <slot />
+    <router-link
+      tabindex="0"
+      :to="parentUrl"
+      v-if="parentUrl"
+      @click="(e) => e.target.blur()"
+      class="navbar-element parent_link-element"
+    >
+      <slot />
+    </router-link>
+    <slot v-else />
     <div class="navbar-element-dropdown">
       <router-link
         tabindex="0"
@@ -22,6 +31,10 @@ export default {
     pages: {
       type: Array,
       default: () => [],
+    },
+    parentUrl: {
+      type: String,
+      default: null,
     },
   },
 };

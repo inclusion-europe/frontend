@@ -5,6 +5,7 @@
       v-for="item in menu"
       :key="`menu_item_${item.id}`"
       :pages="item.pages"
+      :parent-url="item.url"
     >
       {{ item.name }}
     </nav-dropdown>
