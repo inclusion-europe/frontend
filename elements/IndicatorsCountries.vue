@@ -26,7 +26,7 @@
       </IeButton>
     </div>
     <UCard
-      class="w-full"
+      class="w-full table-card"
       :ui="{
         body: {
           padding: '',
@@ -251,7 +251,7 @@ watch(
 
   .data-selector {
     width: var(--width);
-    max-width: var(--max-width);
+    max-width: 100%;
     margin: auto;
     display: flex;
     gap: 10px;
@@ -260,7 +260,13 @@ watch(
     margin-bottom: 10px;
   }
 
+  .table-card {
+    width: fit-content;
+    margin: auto;
+  }
+
   .country-table {
+    max-width: 100%;
     width: fit-content !important;
     margin: auto;
 

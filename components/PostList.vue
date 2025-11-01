@@ -53,9 +53,9 @@ const typeTitle = computed(() => {
       return 'Articles';
     case 'e2r':
       return 'Easy-to-Read articles';
-    case 'event':
+    case 'events':
       return 'Events';
-    case 'report':
+    case 'reports':
       return 'Reports';
     case 'podcast':
       return 'Podcasts';

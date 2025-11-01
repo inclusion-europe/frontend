@@ -104,7 +104,7 @@
         </template>
         <template #content-data="{ row }">
           <span class="post-content">
-            {{ row.content.length > 0 ? '✅' : '❌' }}
+            {{ row.content?.length > 0 ? '✅' : '❌' }}
           </span>
         </template>
         <template #content_e2r-data="{ row }">

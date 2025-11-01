@@ -74,35 +74,93 @@ export const useMainStore = defineStore('main', {
         const menu = res.sort((a, b) => a.position - b.position);
         menu.forEach((item) => {
           switch (item.id) {
-            case 1:
+            case 8:
               item.pages.push(
                 {
+                  idx: 98,
+                  menu_position: 2,
+                  title: 'History',
+                  url: '/history',
+                },
+                {
                   idx: 97,
-                  menu_position: 97,
+                  menu_position: 5,
                   title: 'Board and Staff',
                   url: '/staff',
                 },
                 {
                   idx: 98,
-                  menu_position: 98,
-                  title: 'History',
-                  url: '/history',
+                  menu_position: 4,
+                  title: 'European Platform of Self-Advocates',
+                  url: '/european-platform-of-self-advocates',
+                }
+              );
+              break;
+            case 1:
+              item.pages.push(
+                {
+                  idx: 99,
+                  menu_position: 4,
+                  title: 'Attend an event',
+                  url: '/type/events',
                 },
                 {
                   idx: 99,
-                  menu_position: 99,
+                  menu_position: 5,
+                  title: 'Learn about inclusion',
+                  url: '/trainings',
+                }
+              );
+              break;
+            case 2:
+              item.pages.push(
+                {
+                  idx: 99,
+                  menu_position: 4,
+                  title: 'Reports',
+                  url: '/type/reports',
+                },
+                {
+                  idx: 99,
+                  menu_position: 5,
+                  title: 'Events',
+                  url: '/type/events',
+                },
+                {
+                  idx: 99,
+                  menu_position: 7,
                   title: 'Projects',
                   url: '/projects',
                 }
               );
               break;
-            case 2:
-              item.pages.push({
-                idx: 99,
-                menu_position: 99,
-                title: 'Articles',
-                url: '/type/articles',
-              });
+            case 4:
+              item.pages.push(
+                {
+                  idx: 99,
+                  menu_position: 3,
+                  title: 'Self-advocates',
+                  url: '/tag/self-advocacy',
+                },
+                {
+                  idx: 99,
+                  menu_position: 3,
+                  title: 'Family members',
+                  url: '/tag/family-members',
+                },
+                {
+                  idx: 99,
+                  menu_position: 3,
+                  title: 'News',
+                  url: '/type/articles',
+                },
+                {
+                  idx: 99,
+                  menu_position: 4,
+                  title: 'Easy-To-Read Articles',
+                  url: '/type/e2r',
+                }
+              );
               break;
             case 5:
               item.pages.push({
@@ -115,6 +173,11 @@ export const useMainStore = defineStore('main', {
             default:
           }
         });
+        for (const item in menu) {
+          menu[item].pages = menu[item].pages.sort(
+            (a, b) => a.menu_position - b.menu_position
+          );
+        }
         this.setMenu(menu);
       });
     },

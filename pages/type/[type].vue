@@ -19,7 +19,7 @@ const getterRoute = computed(() => {
     case 'articles':
       type = 'news,blogpost';
       break;
-    case 'publications':
+    case 'reports':
       type = 'report';
       break;
     case 'events':
