@@ -89,160 +89,112 @@ const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
+// Fetch post data server-side for SEO
+const { data: postData } = await useLazyFetch(`/post/${route.params.post}`, {
+  baseURL: config.public.backendUrl,
+  transform: (res) => utils.treatPost(res),
+  default: () => null,
+});
+
 const post = computed(() => {
-  return store.getPost(route.params.post);
+  return postData.value || store.getPost(route.params.post);
 });
 
 const author = ref(null);
-
-const showE2R = computed(() => {
-  return route.query.e2r === '1';
-});
-
+const showE2R = ref(route.query.e2r === '1');
 const loading = computed(() => store.isLoading);
 
 const isIndicatorsPage = computed(() => {
   return route.path === '/indicators';
 });
+
 const isStaticPage = computed(() => {
-  if (status === 'pending') {
-    return null;
-  }
-  return post.value.article_type === 'static_page';
+  return post.value?.article_type === 'static_page';
 });
+
 const hasOtherContent = computed(() => {
-  if (status === 'pending') {
-    return null;
-  }
+  if (!post.value) return false;
+
   if (post.value.default_type === 'e2r') {
     return !!post.value.content;
   }
-
   return !!post.value.content_e2r;
 });
 
 const displayAuthor = computed(() => {
-  // const author = await useMyFetch(`/author/${post.value.author}`).then(
-  //   (res) => {
-  //     console.log({ author: res[0] });
-  //     return res[0]['first_name'];
-  //   }
-  // );
-
-  // console.log('test');
-
-  return post.value.author;
+  return post.value?.author;
 });
 
-const seoMeta = computed(() => {
-  if (status === 'pending') {
-    return null;
-  }
-  return {
-    description: post.value?.excerpt,
-    image: post.value?.picture?.picture,
-    title: `${post.value?.title} | ${config.public.defaultTitle}`,
-    ogDescription: post.value?.excerpt,
-    ogImage: post.value?.picture?.picture,
-    ogTitle: `${post.value?.title} | ${config.public.defaultTitle}`,
-  };
-});
-
-const headTags = computed(() => {
-  if (status === 'pending') {
-    return null;
-  }
-  if (post.value) {
-    return {
-      title: `${post.value.title} | ${config.public.defaultTitle}`,
-      meta: [
-        { property: 'description', content: post.value.excerpt },
-        { property: 'image', content: post.value.picture?.picture },
-        {
-          property: 'title',
-          content: `${post.value.title} | ${config.public.defaultTitle}`,
-        },
-        { property: 'og:description', content: post.value.excerpt },
-        { property: 'og:image', content: post.value.picture?.picture },
-        {
-          property: 'og:title',
-          content: `${post.value.title} | ${config.public.defaultTitle}`,
-        },
-      ],
-    };
-  }
-
-  return {};
-});
-
-onServerPrefetch(async () => {
-  const prefetchedPost = await useMyFetch(`/post/${route.params.post}`).then(
-    (res) => {
-      return utils.treatPost(res);
-    }
-  );
-
-  useServerSeoMeta({
-    description: computed(() => prefetchedPost.excerpt),
-    image: computed(() => prefetchedPost.picture?.picture),
-    title: computed(
-      () => `${prefetchedPost.title} | ${config.public.defaultTitle}`
-    ),
-    ogDescription: computed(() => prefetchedPost.excerpt),
-    ogImage: computed(() => prefetchedPost.picture?.picture),
-    ogTitle: computed(
-      () => `${prefetchedPost.title} | ${config.public.defaultTitle}`
-    ),
-  });
-});
-
-useSeoMeta({
-  description: computed(() => post.value?.excerpt),
-  image: computed(() => post.value?.picture?.picture),
-  title: computed(() => `${post.value?.title} | ${config.public.defaultTitle}`),
-  ogDescription: computed(() => post.value?.excerpt),
-  ogImage: computed(() => post.value?.picture?.picture),
-  ogTitle: computed(
-    () => `${post.value?.title} | ${config.public.defaultTitle}`
-  ),
-});
-
-watch(
-  post,
-  async (val) => {
-    if (!post.value) {
-      return;
-    }
-    author.value = (await useMyFetch(`/author/${post.value.author}`))[0];
-    useHead(headTags);
-    // useSeoMeta(seoMeta);
-    const shouldShowE2R = route.query.e2r && val.content_e2r;
-    if (val.default_type === 'e2r' || shouldShowE2R) {
-      router.replace({
-        query: {
-          e2r: 1,
-        },
-      });
-    } else {
-      router.replace({
-        query: {},
-      });
-    }
-  },
-  { immediate: true }
+// Set up SEO meta tags with proper fallbacks
+const defaultTitle = config.public.defaultTitle;
+const pageTitle = computed(() =>
+  post.value?.title ? `${post.value.title} | ${defaultTitle}` : defaultTitle
 );
 
-// if (post.value) {
-//   useHead({
-//     title: () => `${post.value.title} | ${config.public.defaultTitle}`,
-//   });
-// }
+const pageDescription = computed(
+  () =>
+    post.value?.excerpt ||
+    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.'
+);
 
-useHead(headTags);
-// useSeoMeta(seoMeta);
+const pageImage = computed(
+  () =>
+    post.value?.picture?.picture ||
+    'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg'
+);
+
+const pageUrl = computed(() => `https://www.inclusion.eu${route.path}`);
+
+// Set SEO meta tags
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogImage: pageImage,
+  ogUrl: pageUrl,
+  ogType: 'article',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: pageImage,
+});
+
+// Load additional data on mount
+onMounted(async () => {
+  // Load post if not already available
+  if (!post.value && !store.isLoading) {
+    await store.loadPost(route.params.post);
+  }
+
+  // Load author data
+  if (post.value?.author) {
+    try {
+      const authorData = await useMyFetch(`/author/${post.value.author}`);
+      author.value = authorData[0];
+    } catch (error) {
+      console.warn('Failed to load author data:', error);
+    }
+  }
+
+  // Handle E2R content display
+  const shouldShowE2R = route.query.e2r && post.value?.content_e2r;
+  if (post.value?.default_type === 'e2r' || shouldShowE2R) {
+    showE2R.value = true;
+    if (!route.query.e2r) {
+      await router.replace({ query: { e2r: 1 } });
+    }
+  }
+});
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
+
+  if (showE2R.value) {
+    router.replace({ query: { e2r: 1 } });
+  } else {
+    router.replace({ query: {} });
+  }
 };
 </script>
 <style lang="scss" scoped>
