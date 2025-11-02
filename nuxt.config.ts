@@ -4,9 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
   nitro: {
-    prerender: {
-      routes: ['/']
-    }
+    preset: 'netlify'
   },
   modules: ['@pinia/nuxt', '@nuxt/ui'],
   vite: {
@@ -27,7 +25,9 @@ export default defineNuxtConfig({
       imAuthServer: '/authorize',
       noauth: 'false',
       notlive: 'false',
-      backendUrl: '/',
+      // Use environment variable or fallback based on environment
+      backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL || 
+                  (process.env.NODE_ENV === 'production' ? 'https://inclusion-backend.netlify.app' : '/'),
       indicatorsYears: '2023,2024',
       defaultTitle: 'Inclusion Europe',
       nwsltrFormAction: '/newsletter',

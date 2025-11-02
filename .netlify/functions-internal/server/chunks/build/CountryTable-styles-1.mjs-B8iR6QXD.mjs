@@ -1,0 +1,4 @@
+const CountryTable_vue_vue_type_style_index_0_scoped_0e366073_lang = ".reported_numbers[data-v-0e366073]{align-items:center;display:flex;flex-direction:column;gap:1rem}.reported_numbers-table[data-v-0e366073]{border-collapse:collapse;width:-moz-fit-content;width:fit-content}.reported_numbers-table td[data-v-0e366073],.reported_numbers-table th[data-v-0e366073]{border:1px solid #000;padding:.5rem .8rem}.reported_numbers-table th[data-v-0e366073]{font-family:GilroyBold}.reported_numbers-table .spacer-row[data-v-0e366073]{height:1.1rem}.reported_numbers-table .spacer-row td[data-v-0e366073]{border:none}.reported_numbers-notes[data-v-0e366073]{max-width:80%}.reported_numbers-notes p[data-v-0e366073]{margin:0 auto}";
+
+export { CountryTable_vue_vue_type_style_index_0_scoped_0e366073_lang as C };
+//# sourceMappingURL=CountryTable-styles-1.mjs-B8iR6QXD.mjs.map
