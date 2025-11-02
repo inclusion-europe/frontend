@@ -100,8 +100,6 @@ $interlines: 8px;
     cursor: pointer;
     display: inline-block;
     padding: 28px 20px;
-    position: relative;
-    right: -15px;
     user-select: none;
 
     .navicon {

@@ -80,6 +80,8 @@ const pageTitle = computed(() => {
     switch (route.name) {
       case 'tag-tag':
         return `Posts tagged "${route.params.tag}"`;
+      case 'search-search':
+        return `Search results for "${route.params.search}"`;
       case 'type-type':
         return typeTitle.value;
       default:
