@@ -36,7 +36,7 @@ const getterRoute = computed(() => {
 // Get human-readable type name
 const typeName = computed(() => {
   const { type } = route.params;
-  
+
   switch (type) {
     case 'articles':
       return 'Articles';
@@ -52,17 +52,16 @@ const typeName = computed(() => {
 });
 
 // Set up SEO meta tags
-const pageTitle = computed(() => 
-  `${typeName.value} | ${config.public.defaultTitle}`
+const pageTitle = computed(
+  () => `${typeName.value} | ${config.public.defaultTitle}`
 );
 
-const pageDescription = computed(() => 
-  `Browse ${typeName.value.toLowerCase()} on Inclusion Europe. Find content about intellectual disabilities and inclusion in Europe.`
+const pageDescription = computed(
+  () =>
+    `Browse ${typeName.value.toLowerCase()} on Inclusion Europe. Find content about intellectual disabilities and inclusion in Europe.`
 );
 
-const pageUrl = computed(() => 
-  `https://www.inclusion.eu${route.path}`
-);
+const pageUrl = computed(() => `https://www.inclusion.eu${route.path}`);
 
 // Set SEO meta tags
 useSeoMeta({

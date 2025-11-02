@@ -13,17 +13,17 @@ const posts = ref([]);
 const searchTerm = computed(() => route.params.search);
 
 // Set up SEO meta tags for search results
-const pageTitle = computed(() => 
-  `Search results for "${searchTerm.value}" | ${config.public.defaultTitle}`
+const pageTitle = computed(
+  () =>
+    `Search results for "${searchTerm.value}" | ${config.public.defaultTitle}`
 );
 
-const pageDescription = computed(() => 
-  `Search results for "${searchTerm.value}" on Inclusion Europe. Find articles, publications, and content about intellectual disabilities and inclusion.`
+const pageDescription = computed(
+  () =>
+    `Search results for "${searchTerm.value}" on Inclusion Europe. Find articles, publications, and content about intellectual disabilities and inclusion.`
 );
 
-const pageUrl = computed(() => 
-  `https://www.inclusion.eu${route.path}`
-);
+const pageUrl = computed(() => `https://www.inclusion.eu${route.path}`);
 
 // Set SEO meta tags
 useSeoMeta({
@@ -38,7 +38,7 @@ useSeoMeta({
   twitterTitle: pageTitle,
   twitterDescription: pageDescription,
   twitterImage: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
-  robots: 'noindex' // Prevent indexing search result pages
+  robots: 'noindex', // Prevent indexing search result pages
 });
 
 const loadPosts = async () => {

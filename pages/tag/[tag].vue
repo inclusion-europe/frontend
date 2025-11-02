@@ -14,17 +14,16 @@ const posts = ref([]);
 const tagName = computed(() => decodeURIComponent(route.params.tag));
 
 // Set up SEO meta tags
-const pageTitle = computed(() => 
-  `Posts tagged "${tagName.value}" | ${config.public.defaultTitle}`
+const pageTitle = computed(
+  () => `Posts tagged "${tagName.value}" | ${config.public.defaultTitle}`
 );
 
-const pageDescription = computed(() => 
-  `Articles and publications tagged with "${tagName.value}" on Inclusion Europe. Find content about intellectual disabilities and inclusion.`
+const pageDescription = computed(
+  () =>
+    `Articles and publications tagged with "${tagName.value}" on Inclusion Europe. Find content about intellectual disabilities and inclusion.`
 );
 
-const pageUrl = computed(() => 
-  `https://www.inclusion.eu${route.path}`
-);
+const pageUrl = computed(() => `https://www.inclusion.eu${route.path}`);
 
 // Set SEO meta tags
 useSeoMeta({
@@ -43,7 +42,7 @@ useSeoMeta({
 
 const loadPosts = async () => {
   const { tag } = route.params;
-  
+
   try {
     const res = await useMyFetch(`/posts/tag/${tag}`);
     posts.value = utils.treatPosts(res);

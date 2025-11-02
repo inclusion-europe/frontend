@@ -93,7 +93,7 @@ const route = useRoute();
 const { data: postData } = await useLazyFetch(`/post/${route.params.post}`, {
   baseURL: config.public.backendUrl,
   transform: (res) => utils.treatPost(res),
-  default: () => null
+  default: () => null,
 });
 
 const post = computed(() => {
@@ -114,7 +114,7 @@ const isStaticPage = computed(() => {
 
 const hasOtherContent = computed(() => {
   if (!post.value) return false;
-  
+
   if (post.value.default_type === 'e2r') {
     return !!post.value.content;
   }
@@ -127,23 +127,23 @@ const displayAuthor = computed(() => {
 
 // Set up SEO meta tags with proper fallbacks
 const defaultTitle = config.public.defaultTitle;
-const pageTitle = computed(() => 
-  post.value?.title 
-    ? `${post.value.title} | ${defaultTitle}`
-    : defaultTitle
+const pageTitle = computed(() =>
+  post.value?.title ? `${post.value.title} | ${defaultTitle}` : defaultTitle
 );
 
-const pageDescription = computed(() => 
-  post.value?.excerpt || 'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.'
+const pageDescription = computed(
+  () =>
+    post.value?.excerpt ||
+    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.'
 );
 
-const pageImage = computed(() => 
-  post.value?.picture?.picture || 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg'
+const pageImage = computed(
+  () =>
+    post.value?.picture?.picture ||
+    'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg'
 );
 
-const pageUrl = computed(() => 
-  `https://www.inclusion.eu${route.path}`
-);
+const pageUrl = computed(() => `https://www.inclusion.eu${route.path}`);
 
 // Set SEO meta tags
 useSeoMeta({
@@ -189,7 +189,7 @@ onMounted(async () => {
 
 const toggleContentType = () => {
   showE2R.value = !showE2R.value;
-  
+
   if (showE2R.value) {
     router.replace({ query: { e2r: 1 } });
   } else {
