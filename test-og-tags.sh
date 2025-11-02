@@ -3,7 +3,7 @@
 # Script to test OpenGraph meta tags on your Netlify site
 # Usage: ./test-og-tags.sh [your-netlify-url]
 
-SITE_URL=${1:-"https://deploy-preview-30.inclusion-dev.kyng.be/"}
+SITE_URL=${1:-"https://deploy-preview-30.inclusion-dev.kyng.be"}
 
 echo "🔍 Testing OpenGraph tags for Inclusion Europe site: $SITE_URL"
 echo "=================================================="

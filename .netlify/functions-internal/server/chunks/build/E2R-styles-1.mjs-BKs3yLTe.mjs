@@ -1,4 +1,0 @@
-const E2R_vue_vue_type_style_index_0_scoped_0e05526a_lang = ".easy_to_read-section-see_all[data-v-0e05526a]{align-items:flex-end;display:flex;gap:5px;text-decoration:none;width:-moz-fit-content;width:fit-content}.easy_to_read-section-see_all[data-v-0e05526a] *{transition:all .2s ease-out}.easy_to_read-section-see_all span[data-v-0e05526a]{color:var(--ie-blue);font-family:GilroySemiBold;font-size:20px;font-weight:500;line-height:12px}.easy_to_read-section-see_all svg[data-v-0e05526a]{height:10px;fill:var(--ie-blue)}.easy_to_read-section-see_all[data-v-0e05526a]:focus,.easy_to_read-section-see_all[data-v-0e05526a]:hover{text-decoration:underline}.easy_to_read-section-see_all[data-v-0e05526a]:focus *,.easy_to_read-section-see_all[data-v-0e05526a]:hover *{color:var(--ie-pink);fill:var(--ie-pink)}";
-
-export { E2R_vue_vue_type_style_index_0_scoped_0e05526a_lang as E };
-//# sourceMappingURL=E2R-styles-1.mjs-BKs3yLTe.mjs.map

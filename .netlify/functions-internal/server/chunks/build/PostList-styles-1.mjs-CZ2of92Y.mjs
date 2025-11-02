@@ -1,4 +1,0 @@
-const PostList_vue_vue_type_style_index_0_scoped_c2d56d8e_lang = ".posts_page[data-v-c2d56d8e]{margin:auto;max-width:var(--max-width);padding-bottom:30px;width:var(--width)}.posts_page .page_title[data-v-c2d56d8e]{color:#1e1e1e;font-family:GilroyBold;font-size:40px;margin-bottom:30px}.posts_page .posts_page-list[data-v-c2d56d8e]{display:flex;flex-direction:column;gap:30px}.posts_page .posts_page-pagination[data-v-c2d56d8e]{align-items:center;display:flex;flex-direction:row;gap:.4rem;justify-content:flex-end;margin-top:30px}@media screen and (min-width:1024px){.posts_page .posts_page-list[data-v-c2d56d8e]{align-items:start;display:grid;gap:44px 32px;grid-template-columns:1fr 1fr 1fr;justify-items:start}}";
-
-export { PostList_vue_vue_type_style_index_0_scoped_c2d56d8e_lang as P };
-//# sourceMappingURL=PostList-styles-1.mjs-CZ2of92Y.mjs.map

@@ -1,4 +1,0 @@
-const MobileNavDropdown_vue_vue_type_style_index_0_scoped_b9d79526_lang = ".navbar-element-dropdown[data-v-b9d79526]{align-items:flex-start;display:flex;flex-direction:column;left:120vw;position:absolute;top:4.8rem;transition:left .2s ease-out;width:var(--max-width)}.navbar-element-dropdown .mobile-navitem .chevron[data-v-b9d79526]{height:1rem;transform:rotate(90deg);transform-origin:center center}.navbar-element-dropdown .navbar-element[data-v-b9d79526]{white-space:wrap;width:auto}.navbar-element-dropdown>.navbar-element[data-v-b9d79526]:first-child{margin-top:6px}.navbar-element-dropdown.visible[data-v-b9d79526]{left:var(--left-limit)}.navbar-element-dropdown .back-item[data-v-b9d79526]{align-content:center;align-items:center;display:flex;gap:.3rem}";
-
-export { MobileNavDropdown_vue_vue_type_style_index_0_scoped_b9d79526_lang as M };
-//# sourceMappingURL=entry-styles-7.mjs-Bctj5WSW.mjs.map
