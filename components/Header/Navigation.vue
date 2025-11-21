@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <router-link class="navbar-element" to="/" tabindex="0"> Home </router-link>
+    <!-- <router-link class="navbar-element" to="/" tabindex="0"> Home </router-link> -->
     <nav-dropdown
       v-for="item in menu"
       :key="`menu_item_${item.id}`"

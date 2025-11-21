@@ -13,11 +13,11 @@
         />
       </router-link>
       <div class="menu-content" :class="{ hidden: shownDropdown !== -1 }">
-        <router-link class="navbar-element" to="/" @click="goHome">
+        <!-- <router-link class="navbar-element" to="/" @click="goHome">
           <div class="mobile-navitem">
             <span> Home </span>
           </div>
-        </router-link>
+        </router-link> -->
         <a
           class="navbar-element"
           @click="toggleDropdown(item.id)"
