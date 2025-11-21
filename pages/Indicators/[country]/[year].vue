@@ -4,9 +4,11 @@
       <img src="/loading.gif" />
     </div>
     <template v-else>
-      <ie-button @click="navigateTo('/indicators')" blue boxed small>
-        Back to the Inclusion Indicators page
-      </ie-button>
+      <div>
+        <ie-button @click="navigateTo('/indicators')" blue boxed small>
+          Back to the Inclusion Indicators page
+        </ie-button>
+      </div>
       <div class="year-selector" v-if="otherYears.length > 1">
         <IeButton
           v-for="(year, i) in otherYears"

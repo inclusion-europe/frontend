@@ -5,9 +5,11 @@
       v-for="item in menu"
       :key="`menu_item_${item.id}`"
       :pages="item.pages"
+      :parent-url="item.url"
     >
       {{ item.name }}
     </nav-dropdown>
+    <span class="spacer" />
   </nav>
 </template>
 <script setup>
@@ -20,7 +22,14 @@ const menu = computed(() => store.getMenu);
 <style lang="scss" scoped>
 .navbar {
   display: flex;
-  gap: 28px;
+  align-items: center;
+  gap: 24px;
+  justify-content: stretch;
+  flex-grow: 1;
+
+  .spacer {
+    flex-grow: 1;
+  }
 
   &:deep(.navbar-element) {
     font-family: GilroySemiBold;

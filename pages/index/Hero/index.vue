@@ -8,18 +8,10 @@
           alt="Ambitions. Rights. Belongings."
           class="hero-static-tagline-title"
         />
-        <h3 class="hero-static-tagline-subtitle">
-          20 million people<br />
-          with intellectual disabilities<br />
-          and their families in Europe.
-        </h3>
       </section>
-      <Newsletter v-if="false" />
-      <div v-else class="newsletter-temp-block">
-        <h3>Stay in touch with us</h3>
-        <IeButton type="link" :href="newsletterLink" boxed blue target="_blank">
-          Subscribe to our newsletters!
-        </IeButton>
+      <div class="donate-block">
+        <h3>Support our work</h3>
+        <IeButton type="link" href="/donate" boxed blue> Donate here </IeButton>
       </div>
     </div>
     <Currently v-if="false" />
@@ -27,11 +19,8 @@
 </template>
 <script setup>
 import IeButton from '@/elements/Button.vue';
-import Newsletter from '@/components/Newsletter.vue';
 import Currently from './Currently.vue';
 import Highlights from './Highlights.vue';
-
-const config = useRuntimeConfig();
 
 const props = defineProps({
   highlights: {
@@ -39,8 +28,6 @@ const props = defineProps({
     default: [],
   },
 });
-
-const newsletterLink = config.public.nwsltrFormAction;
 </script>
 <style lang="scss" scoped>
 .hero {
@@ -60,8 +47,6 @@ const newsletterLink = config.public.nwsltrFormAction;
       &-title {
         width: 80%;
         max-width: 500px;
-        position: relative;
-        left: -5px;
       }
 
       &-subtitle {
@@ -71,7 +56,7 @@ const newsletterLink = config.public.nwsltrFormAction;
       }
     }
 
-    .newsletter-temp-block {
+    .donate-block {
       h3 {
         font-family: GilroySemiBold;
         font-size: 20px;
@@ -92,7 +77,7 @@ const newsletterLink = config.public.nwsltrFormAction;
     align-items: start;
 
     &-static {
-      gap: 100px;
+      gap: 50px;
 
       &-title {
         width: 305px;

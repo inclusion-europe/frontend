@@ -23,8 +23,8 @@
         />
       </div>
     </div>
-    <SeeAll href="/type/publications" v-if="posts.length > 6" big>
-      See all publications
+    <SeeAll href="/type/reports" v-if="posts.length > 6" big>
+      See all reports
     </SeeAll>
   </section>
 </template>

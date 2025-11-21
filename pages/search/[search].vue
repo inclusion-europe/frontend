@@ -1,7 +1,6 @@
 <template>
   <PostList :posts="posts" />
 </template>
-
 <script setup>
 import PostList from '~/components/PostList.vue';
 import utils from '~/scripts/utils.js';
@@ -11,16 +10,17 @@ const route = useRoute();
 const config = useRuntimeConfig();
 
 const posts = ref([]);
-const tagName = computed(() => decodeURIComponent(route.params.tag));
+const searchTerm = computed(() => route.params.search);
 
-// Set up SEO meta tags
+// Set up SEO meta tags for search results
 const pageTitle = computed(
-  () => `Posts tagged "${tagName.value}" | ${config.public.defaultTitle}`
+  () =>
+    `Search results for "${searchTerm.value}" | ${config.public.defaultTitle}`
 );
 
 const pageDescription = computed(
   () =>
-    `Articles and publications tagged with "${tagName.value}" on Inclusion Europe. Find content about intellectual disabilities and inclusion.`
+    `Search results for "${searchTerm.value}" on Inclusion Europe. Find articles, publications, and content about intellectual disabilities and inclusion.`
 );
 
 const pageUrl = computed(() => `https://www.inclusion.eu${route.path}`);
@@ -38,16 +38,15 @@ useSeoMeta({
   twitterTitle: pageTitle,
   twitterDescription: pageDescription,
   twitterImage: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
+  robots: 'noindex', // Prevent indexing search result pages
 });
 
 const loadPosts = async () => {
-  const { tag } = route.params;
-
   try {
-    const res = await useMyFetch(`/posts/tag/${tag}`);
+    const res = await useMyFetch(`/posts/search/${route.params.search}`);
     posts.value = utils.treatPosts(res);
   } catch (error) {
-    console.error('Failed to load posts for tag:', error);
+    console.error('Failed to load search results:', error);
     posts.value = [];
   }
 };
@@ -55,6 +54,6 @@ const loadPosts = async () => {
 // Load posts server-side for better SEO
 await loadPosts();
 
-// Reload when tag changes
-watch(() => route.params.tag, loadPosts);
+// Reload when search term changes
+watch(() => route.params.search, loadPosts);
 </script>

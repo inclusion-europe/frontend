@@ -40,6 +40,7 @@
         :pages="item.pages"
         :is-dropdown-shown="shownDropdown == item.id"
         :item-name="item.name"
+        :parent-url="item.url"
         @showMainMenu="toggleDropdown(item.id)"
       />
     </div>
@@ -99,8 +100,6 @@ $interlines: 8px;
     cursor: pointer;
     display: inline-block;
     padding: 28px 20px;
-    position: relative;
-    right: -15px;
     user-select: none;
 
     .navicon {

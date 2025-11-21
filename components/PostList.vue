@@ -53,9 +53,9 @@ const typeTitle = computed(() => {
       return 'Articles';
     case 'e2r':
       return 'Easy-to-Read articles';
-    case 'event':
+    case 'events':
       return 'Events';
-    case 'report':
+    case 'reports':
       return 'Reports';
     case 'podcast':
       return 'Podcasts';
@@ -80,6 +80,8 @@ const pageTitle = computed(() => {
     switch (route.name) {
       case 'tag-tag':
         return `Posts tagged "${route.params.tag}"`;
+      case 'search-search':
+        return `Search results for "${route.params.search}"`;
       case 'type-type':
         return typeTitle.value;
       default:

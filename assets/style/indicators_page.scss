@@ -1,60 +1,60 @@
 .indicators_page {
-    article {
-        header {
-            width: var(--width);
-            max-width: var(--max-width);
-            margin: auto;
-        }
-        section {
-            width: var(--width);
-            max-width: var(--max-width);
-            margin: auto;
-
-            &.indicators-table {
-                margin-top: 2rem;
-                max-width: var(--max-width);
-                width: fit-content;
-
-                .countries-ranking {
-                    .fixed-first-column {
-                        .vtl-table {
-                            max-width: 100%;
-                        }
-                    }
-                }
-
-                h4 {
-                    width: var(--width);
-                    max-width: var(--max-width);
-                    color: #ed0f69;
-                    font-family: GilroySemiBold;
-                    font-size: 32px;
-                    margin: auto;
-                    margin-bottom: 12px;
-                }
-            }
-        }
+  article {
+    width: auto;
+    header {
+      width: var(--width);
+      max-width: 100%;
+      margin: auto;
     }
+    section {
+      width: var(--width);
+      max-width: 100%;
+      margin: auto;
+
+      &.indicators-table {
+        margin-top: 2rem;
+        max-width: 100%;
+        width: fit-content;
+
+        .countries-ranking {
+          .fixed-first-column {
+            .vtl-table {
+              max-width: 100%;
+            }
+          }
+        }
+
+        h4 {
+          width: var(--width);
+          max-width: 100%;
+          color: #ed0f69;
+          font-family: GilroySemiBold;
+          font-size: 32px;
+          margin: auto;
+          margin-bottom: 12px;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 1024px) {
+  .indicators_page {
+    max-width: 90vw;
 
-    .indicators_page {
-        max-width: 90vw;
-        
-        .indicators-table {
-            max-width: 90vw;
+    .indicators-table {
+      max-width: 90vw;
 
-                & > *:not(.countries-ranking) {
-                    width: var(--width);
-                    max-width: var(--max-width);
-                    margin-left: 0;
-                }
+      & > *:not(.countries-ranking) {
+        width: var(--width);
+        max-width: 100%;
+        margin-left: 0;
+      }
 
-            .countries-ranking {
-                position: relative;
-                left: calc((1128px - 100%) / 2);
-            }
-        }
+      // .countries-ranking {
+      //     position: relative;
+      //     left: calc((1128px - 100%) / 2);
+      // }
     }
+  }
 }

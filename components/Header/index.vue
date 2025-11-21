@@ -8,30 +8,36 @@
           alt="Inclusion Europe logo"
         />
       </NuxtLink>
-      <template v-if="!notLive">
-        <Navigation v-if="!isMobile" />
-        <MobileNav v-else />
+      <template v-if="!isMobile">
+        <Navigation v-if="!isSearchOpen && !isMobile" />
+        <Search @toggleSearch="toggleSearch" />
       </template>
+      <span v-else class="mobile-header-content">
+        <Search @toggleSearch="toggleSearch" />
+        <MobileNav />
+      </span>
     </div>
   </header>
 </template>
 
 <script setup>
+import Search from './Search';
 import Navigation from './Navigation.vue';
 import MobileNav from './MobileNav.vue';
 
 import { useWindowSize } from '@vueuse/core';
 
-const config = useRuntimeConfig();
+const isSearchOpen = ref(false);
 
 const windowSize = useWindowSize();
-const menuItems = ref([]);
-
-const notLive = config.public.notlive;
 
 const isMobile = computed(() => {
-  return windowSize.width.value < 1024;
+  return windowSize.width.value < 1200;
 });
+
+const toggleSearch = () => {
+  isSearchOpen.value = !isSearchOpen.value;
+};
 </script>
 <style lang="scss" scoped>
 .header {
@@ -49,23 +55,31 @@ const isMobile = computed(() => {
   width: 100%;
 
   &-content {
-    width: var(--width);
+    width: 100%;
     max-width: var(--max-width);
     margin: auto;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
   }
 
   &-logo {
-    height: 55px;
+    height: 45px;
     position: relative;
     top: 5px;
   }
 }
 
-@media screen and (min-width: 1024px) {
+.mobile-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+@media screen and (min-width: 1200px) {
   .header {
     height: 65px;
     margin-bottom: 55px;
