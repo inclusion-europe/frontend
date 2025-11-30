@@ -83,15 +83,20 @@
           :table-data="countryData.reported_numbers"
           :year="+selectedYear"
         />
+        <span>
+          <b>Disclaimer</b>: these are the reported or estimated numbers of the
+          country. In most cases, in reality, the numbers will be higher as the
+          data is underreported or missing entirely.
+        </span>
         <div class="additional_notes" v-if="countryData.additional_notes">
           <h4>Additional notes:</h4>
-          <p>{{ countryData.additional_notes }}</p>
+          <p v-html="countryData.additional_notes" />
         </div>
       </article>
       <div class="quote_sources" v-if="quoteSources.length">
         <p v-for="(src, i) in quoteSources" :key="'quotesource_' + i">
           <sup>{{ i + 1 }}</sup>
-          <span v-html="src" />
+          <a :href="src" v-html="src" target="_blank" />
         </p>
       </div>
     </template>
@@ -266,26 +271,28 @@ const indicatorScoreColour = (score) => {
   return utils.indicatorScoreColour(score);
 };
 
-const findOtherCountryIndicatorYears = () => {
-  const returnedYears = availableYears.filter(async (year) => {
-    await $fetch(`/datasets/inclusion-indicators-${year}.json`).then((res) => {
-      const yearlySet = res;
-      const dataForThatYear = yearlySet.data.find(
+const findOtherCountryIndicatorYears = async () => {
+  const results = await Promise.all(
+    availableYears.map(async (year) => {
+      const res = await $fetch(`/datasets/inclusion-indicators-${year}.json`);
+      const dataForThatYear = res.data.find(
         (datapoint) => datapoint.country === fullCountryName.value
       );
-      return dataForThatYear;
-    });
-  });
+      return dataForThatYear ? year : null;
+    })
+  );
 
-  return returnedYears;
+  const filtered = results.filter((year) => year !== null);
+  console.log({ results, filtered });
+  return filtered;
 };
 
-onMounted(() => {
+onMounted(async () => {
   if (!fullCountryName.value || !countryData.value) {
     router.push('/indicators');
   }
 
-  otherYears.value = findOtherCountryIndicatorYears();
+  otherYears.value = await findOtherCountryIndicatorYears();
 });
 </script>
 <style lang="scss" scoped>
