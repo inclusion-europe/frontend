@@ -60,34 +60,36 @@
             }}{{ '*'.repeat(tableData.psychiatric_hospitals_note + 1) }}
           </td>
         </tr>
-        <tr v-if="year > 2023">
-          <td>Living with family</td>
-          <td>
-            {{ tableData.living_with_family
-            }}{{ '*'.repeat(tableData.living_with_family_note + 1) }}
-          </td>
-        </tr>
-        <tr v-if="year > 2023">
-          <td>Living in their own home</td>
-          <td>
-            {{ tableData.living_in_own_place
-            }}{{ '*'.repeat(tableData.living_in_own_place_note + 1) }}
-          </td>
-        </tr>
-        <tr v-if="year > 2023">
-          <td>In foster care</td>
-          <td>
-            {{ tableData.in_foster_care
-            }}{{ '*'.repeat(tableData.in_foster_care_note + 1) }}
-          </td>
-        </tr>
-        <tr v-if="year > 2023">
-          <td>Homeless</td>
-          <td>
-            {{ tableData.homeless
-            }}{{ '*'.repeat(tableData.homeless_note + 1) }}
-          </td>
-        </tr>
+        <template v-if="year < 2025">
+          <tr v-if="year > 2023">
+            <td>Living with family</td>
+            <td>
+              {{ tableData.living_with_family
+              }}{{ '*'.repeat(tableData.living_with_family_note + 1) }}
+            </td>
+          </tr>
+          <tr v-if="year > 2023">
+            <td>Living in their own home</td>
+            <td>
+              {{ tableData.living_in_own_place
+              }}{{ '*'.repeat(tableData.living_in_own_place_note + 1) }}
+            </td>
+          </tr>
+          <tr v-if="year > 2023">
+            <td>In foster care</td>
+            <td>
+              {{ tableData.in_foster_care
+              }}{{ '*'.repeat(tableData.in_foster_care_note + 1) }}
+            </td>
+          </tr>
+          <tr v-if="year > 2023">
+            <td>Homeless</td>
+            <td>
+              {{ tableData.homeless
+              }}{{ '*'.repeat(tableData.homeless_note + 1) }}
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
     <div class="reported_numbers-notes">
