@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
   nitro: {
-    preset: 'netlify'
+    preset: 'vercel'
   },
   modules: ['@pinia/nuxt', '@nuxt/ui'],
   vite: {

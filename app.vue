@@ -54,10 +54,10 @@ useSeoMeta({
   ogUrl: 'https://www.inclusion.eu',
 });
 
-// onServerPrefetch(async () => {
-//   await store.loadPosts();
-//   await store.loadMenu();
-// });
+onServerPrefetch(async () => {
+  await store.loadPosts();
+  await store.loadMenu();
+});
 
 onMounted(() => {
   if (!posts.value.length) {

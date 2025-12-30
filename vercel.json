@@ -1,0 +1,17 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm ci",
+  "framework": "nuxtjs",
+  "nodeVersion": "20.x",
+  "env": {
+    "NUXT_PUBLIC_BACKEND_URL": "@nuxt_public_backend_url"
+  },
+  "routes": [
+    {
+      "src": "^/(?!_nuxt|assets|favicon|robots|sitemap).*",
+      "dest": "/",
+      "methods": ["GET", "HEAD"]
+    }
+  ]
+}
