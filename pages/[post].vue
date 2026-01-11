@@ -154,6 +154,10 @@ const generateSeo = (postData) => {
 
 const seoMeta = computed(() => generateSeo(post.value));
 
+useHead(() => ({
+  title: seoMeta.value.title,
+}));
+
 // Register reactive SEO metadata (accepts refs/computeds)
 useServerSeoMeta(() => ({
   ...seoMeta.value,
