@@ -154,9 +154,39 @@ const generateSeo = (postData) => {
 
 const seoMeta = computed(() => generateSeo(post.value));
 
-useHead(() => ({
-  title: seoMeta.value.title,
-}));
+useHead(() => {
+  const data = seoMeta.value;
+  return {
+    title: data.title,
+    meta: [
+      { key: 'description', name: 'description', content: data.description },
+      { key: 'og:title', property: 'og:title', content: data.ogTitle },
+      {
+        key: 'og:description',
+        property: 'og:description',
+        content: data.ogDescription,
+      },
+      { key: 'og:image', property: 'og:image', content: data.ogImage },
+      { key: 'og:url', property: 'og:url', content: data.ogUrl },
+      {
+        key: 'twitter:title',
+        name: 'twitter:title',
+        content: data.twitterTitle,
+      },
+      {
+        key: 'twitter:description',
+        name: 'twitter:description',
+        content: data.twitterDescription,
+      },
+      {
+        key: 'twitter:image',
+        name: 'twitter:image',
+        content: data.twitterImage,
+      },
+    ],
+    link: [{ key: 'canonical', rel: 'canonical', href: data.url }],
+  };
+});
 
 // Register reactive SEO metadata (accepts refs/computeds)
 useServerSeoMeta(() => ({
