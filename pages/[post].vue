@@ -89,17 +89,29 @@ const config = useRuntimeConfig();
 const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
+const slug = computed(() => route.params.post?.toString() || '');
 
 // Fetch post via Nuxt's useAsyncData (works for SSR and client navigation)
-const { data: fetchedPost, pending: fetchedPending } = useAsyncData(
+const {
+  data: fetchedPost,
+  pending: fetchedPending,
+} = await useAsyncData(
   `post-${route.params.post}`,
-  () =>
-    useMyFetch(`/post/slug/${route.params.post}?prefetch=1`).then((r) => {
-      if (!r) return null;
-      updateHeadMeta(r);
-      return utils.treatPost(r);
-    }),
-  { server: true }
+  async () => {
+    if (!slug.value) {
+      return null;
+    }
+    const response = await useMyFetch(`/post/slug/${slug.value}`, {
+      query: { prefetch: 1 },
+    });
+    return response ? utils.treatPost(response) : null;
+  },
+  {
+    server: true,
+    lazy: false,
+    default: () => null,
+    watch: [slug],
+  }
 );
 
 // Variables needed for meta tags
@@ -108,28 +120,10 @@ const defaultTitle = config.public.defaultTitle;
 // Define computed values for SEO early
 const post = computed(() => {
   if (fetchedPost?.value) return fetchedPost.value;
-  const storePost = store.getPost(route.params.post);
+  const storePost = store.getPost(slug.value);
   if (storePost) return storePost;
   return null;
 });
-
-const pageTitle = computed(() =>
-  post.value?.title ? `${post.value.title} | ${defaultTitle}` : defaultTitle
-);
-
-const pageDescription = computed(
-  () =>
-    post.value?.excerpt ||
-    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.'
-);
-
-const pageImage = computed(
-  () =>
-    post.value?.picture?.picture ||
-    'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg'
-);
-
-const pageUrl = computed(() => `https://www.inclusion.eu${route.path}`);
 
 const generateSeo = (postData) => {
   const title = postData?.title
@@ -158,56 +152,37 @@ const generateSeo = (postData) => {
   };
 };
 
-// Define updateHeadMeta function early so it can be used in onServerPrefetch
-const updateHeadMeta = (postData = null) => {
-  const postToUse = postData || post.value;
-
-  const data = generateSeo(postToUse);
-
-  useHead({
-    ...data,
-  });
-  useServerSeoMeta({
-    ...data,
-    ogType: 'article',
-    twitterCard: 'summary_large_image',
-  });
-  useSeoMeta({
-    ...data,
-    ogType: 'article',
-    twitterCard: 'summary_large_image',
-  });
-};
+const seoMeta = computed(() => generateSeo(post.value));
 
 // Register reactive SEO metadata (accepts refs/computeds)
 useServerSeoMeta({
-  title: pageTitle,
-  description: pageDescription,
-  image: pageImage,
-  url: pageUrl,
-  ogTitle: pageTitle,
-  ogDescription: pageDescription,
-  ogImage: pageImage,
-  ogUrl: pageUrl,
-  twitterTitle: pageTitle,
-  twitterDescription: pageDescription,
-  twitterImage: pageImage,
+  title: () => seoMeta.value.title,
+  description: () => seoMeta.value.description,
+  image: () => seoMeta.value.image,
+  url: () => seoMeta.value.url,
+  ogTitle: () => seoMeta.value.ogTitle,
+  ogDescription: () => seoMeta.value.ogDescription,
+  ogImage: () => seoMeta.value.ogImage,
+  ogUrl: () => seoMeta.value.ogUrl,
+  twitterTitle: () => seoMeta.value.twitterTitle,
+  twitterDescription: () => seoMeta.value.twitterDescription,
+  twitterImage: () => seoMeta.value.twitterImage,
   ogType: 'article',
   twitterCard: 'summary_large_image',
 });
 
 useSeoMeta({
-  title: pageTitle,
-  description: pageDescription,
-  image: pageImage,
-  url: pageUrl,
-  ogTitle: pageTitle,
-  ogDescription: pageDescription,
-  ogImage: pageImage,
-  ogUrl: pageUrl,
-  twitterTitle: pageTitle,
-  twitterDescription: pageDescription,
-  twitterImage: pageImage,
+  title: () => seoMeta.value.title,
+  description: () => seoMeta.value.description,
+  image: () => seoMeta.value.image,
+  url: () => seoMeta.value.url,
+  ogTitle: () => seoMeta.value.ogTitle,
+  ogDescription: () => seoMeta.value.ogDescription,
+  ogImage: () => seoMeta.value.ogImage,
+  ogUrl: () => seoMeta.value.ogUrl,
+  twitterTitle: () => seoMeta.value.twitterTitle,
+  twitterDescription: () => seoMeta.value.twitterDescription,
+  twitterImage: () => seoMeta.value.twitterImage,
   ogType: 'article',
   twitterCard: 'summary_large_image',
 });
@@ -246,7 +221,10 @@ const displayAuthor = computed(() => {
 onMounted(async () => {
   // Load post from store if not already available
   if (!post.value && !store.isLoading) {
-    await store.loadPost(route.params.post);
+    const loadedPost = await store.loadPost(route.params.post);
+    if (loadedPost) {
+      fetchedPost.value = loadedPost;
+    }
   }
 
   // Load author data
