@@ -133,6 +133,19 @@ const updateHeadMeta = () => {
   useHead({
     title: pageTitle.value,
   });
+  useServerSeoMeta({
+    title: pageTitle.value,
+    description: pageDescription.value,
+    ogTitle: pageTitle.value,
+    ogDescription: pageDescription.value,
+    ogImage: pageImage.value,
+    ogUrl: pageUrl.value,
+    ogType: 'article',
+    twitterCard: 'summary_large_image',
+    twitterTitle: pageTitle.value,
+    twitterDescription: pageDescription.value,
+    twitterImage: pageImage.value,
+  });
   useSeoMeta({
     title: pageTitle.value,
     description: pageDescription.value,
