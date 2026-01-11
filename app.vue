@@ -36,7 +36,10 @@ useHead({
       href: '/style.css',
     },
   ],
-  title: config.public.defaultTitle,
+  titleTemplate: (titleChunk) =>
+    titleChunk && titleChunk.length
+      ? titleChunk
+      : config.public.defaultTitle,
 });
 
 onServerPrefetch(async () => {
