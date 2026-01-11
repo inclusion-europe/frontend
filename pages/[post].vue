@@ -116,6 +116,10 @@ const {
 
 // Variables needed for meta tags
 const defaultTitle = config.public.defaultTitle;
+const siteUrl = 'https://www.inclusion.eu';
+const fallbackDescription =
+  'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
+const fallbackImage = 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg';
 
 // Define computed values for SEO early
 const post = computed(() => {
@@ -124,81 +128,63 @@ const post = computed(() => {
   if (storePost) return storePost;
   return null;
 });
-
-const generateSeo = (postData) => {
-  const title = postData?.title
-    ? `${postData.title} | ${defaultTitle}`
+const canonicalUrl = computed(() => `${siteUrl}${route.path}`);
+const pageTitle = computed(() => {
+  return post.value?.title
+    ? `${post.value.title} | ${defaultTitle}`
     : defaultTitle;
-  const description =
-    postData?.excerpt ||
-    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
-  const image =
-    postData?.picture?.picture ||
-    'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg';
-  const url = `https://www.inclusion.eu${route.path}`;
+});
+const pageDescription = computed(
+  () => post.value?.excerpt?.trim() || fallbackDescription
+);
+const socialImage = computed(
+  () => post.value?.picture?.picture || fallbackImage
+);
+const socialImageAlt = computed(() => {
+  if (post.value?.picture?.alt) {
+    return post.value.picture.alt;
+  }
+  if (post.value?.title) {
+    return `Picture for ${post.value.title}`;
+  }
+  return 'Illustration for Inclusion Europe article';
+});
+const publishedTime = computed(() => post.value?.created_at || null);
+const modifiedTime = computed(() => post.value?.modified_at || null);
 
-  return {
-    title,
-    description,
-    image,
-    url,
-    ogTitle: title,
-    ogDescription: description,
-    ogImage: image,
-    ogUrl: url,
-    twitterTitle: title,
-    twitterDescription: description,
-    twitterImage: image,
-  };
-};
-
-const seoMeta = computed(() => generateSeo(post.value));
-
-useHead(() => {
-  const data = seoMeta.value;
-  return {
-    title: data.title,
-    meta: [
-      { key: 'description', name: 'description', content: data.description },
-      { key: 'og:title', property: 'og:title', content: data.ogTitle },
-      {
-        key: 'og:description',
-        property: 'og:description',
-        content: data.ogDescription,
-      },
-      { key: 'og:image', property: 'og:image', content: data.ogImage },
-      { key: 'og:url', property: 'og:url', content: data.ogUrl },
-      {
-        key: 'twitter:title',
-        name: 'twitter:title',
-        content: data.twitterTitle,
-      },
-      {
-        key: 'twitter:description',
-        name: 'twitter:description',
-        content: data.twitterDescription,
-      },
-      {
-        key: 'twitter:image',
-        name: 'twitter:image',
-        content: data.twitterImage,
-      },
-    ],
-    link: [{ key: 'canonical', rel: 'canonical', href: data.url }],
-  };
+const buildSeoMeta = () => ({
+  title: pageTitle.value,
+  description: pageDescription.value,
+  ogTitle: pageTitle.value,
+  ogDescription: pageDescription.value,
+  ogImage: socialImage.value,
+  ogImageAlt: socialImageAlt.value,
+  ogUrl: canonicalUrl.value,
+  ogType: 'article',
+  articlePublishedTime: publishedTime.value,
+  articleModifiedTime: modifiedTime.value,
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle.value,
+  twitterDescription: pageDescription.value,
+  twitterImage: socialImage.value,
 });
 
-// Register reactive SEO metadata (accepts refs/computeds)
-useServerSeoMeta(() => ({
-  ...seoMeta.value,
-  ogType: 'article',
-  twitterCard: 'summary_large_image',
-}));
+useServerSeoMeta(buildSeoMeta);
+useSeoMeta(buildSeoMeta);
 
-useSeoMeta(() => ({
-  ...seoMeta.value,
-  ogType: 'article',
-  twitterCard: 'summary_large_image',
+useHead(() => ({
+  title: pageTitle.value,
+  link: [{ rel: 'canonical', href: canonicalUrl.value }],
+  meta: [
+    {
+      name: 'description',
+      content: pageDescription.value,
+    },
+    {
+      property: 'og:image:alt',
+      content: socialImageAlt.value,
+    },
+  ],
 }));
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
