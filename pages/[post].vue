@@ -155,37 +155,17 @@ const generateSeo = (postData) => {
 const seoMeta = computed(() => generateSeo(post.value));
 
 // Register reactive SEO metadata (accepts refs/computeds)
-useServerSeoMeta({
-  title: () => seoMeta.value.title,
-  description: () => seoMeta.value.description,
-  image: () => seoMeta.value.image,
-  url: () => seoMeta.value.url,
-  ogTitle: () => seoMeta.value.ogTitle,
-  ogDescription: () => seoMeta.value.ogDescription,
-  ogImage: () => seoMeta.value.ogImage,
-  ogUrl: () => seoMeta.value.ogUrl,
-  twitterTitle: () => seoMeta.value.twitterTitle,
-  twitterDescription: () => seoMeta.value.twitterDescription,
-  twitterImage: () => seoMeta.value.twitterImage,
+useServerSeoMeta(() => ({
+  ...seoMeta.value,
   ogType: 'article',
   twitterCard: 'summary_large_image',
-});
+}));
 
-useSeoMeta({
-  title: () => seoMeta.value.title,
-  description: () => seoMeta.value.description,
-  image: () => seoMeta.value.image,
-  url: () => seoMeta.value.url,
-  ogTitle: () => seoMeta.value.ogTitle,
-  ogDescription: () => seoMeta.value.ogDescription,
-  ogImage: () => seoMeta.value.ogImage,
-  ogUrl: () => seoMeta.value.ogUrl,
-  twitterTitle: () => seoMeta.value.twitterTitle,
-  twitterDescription: () => seoMeta.value.twitterDescription,
-  twitterImage: () => seoMeta.value.twitterImage,
+useSeoMeta(() => ({
+  ...seoMeta.value,
   ogType: 'article',
   twitterCard: 'summary_large_image',
-});
+}));
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
 // ensures server fetch during SSR and runs again on client navigation.
