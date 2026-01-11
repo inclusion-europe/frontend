@@ -39,33 +39,28 @@ useHead({
   title: config.public.defaultTitle,
 });
 
-useSeoMeta({
-  description:
-    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
-  image: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
-  title: config.public.defaultTitle,
-  logo: '/logo.svg',
-  url: 'https://www.inclusion.eu',
-  ogDescription:
-    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
-  ogImage: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
-  ogTitle: config.public.defaultTitle,
-  ogLogo: '/logo.svg',
-  ogUrl: 'https://www.inclusion.eu',
-});
-
 onServerPrefetch(async () => {
-  await store.loadPosts();
-  await store.loadMenu();
+  try {
+    if (!posts.value.length) {
+      await store.loadPosts();
+    }
+    if (!menu.value.length) {
+      await store.loadMenu();
+    }
+  } catch (error) {
+    console.error('Error prefetching data:', error);
+  }
 });
 
 onMounted(() => {
   if (!posts.value.length) {
-    store.loadPosts();
+    store
+      .loadPosts()
+      .catch((err) => console.error('Error loading posts:', err));
   }
 
   if (!menu.value.length) {
-    store.loadMenu();
+    store.loadMenu().catch((err) => console.error('Error loading menu:', err));
   }
 
   isHydrated.value = true;

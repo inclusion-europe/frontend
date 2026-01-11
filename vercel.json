@@ -5,7 +5,7 @@
   "framework": "nuxtjs",
   "routes": [
     {
-      "src": "^/(?!_nuxt|assets|favicon|robots|sitemap).*",
+      "src": "^/(?!_nuxt|assets|favicon|robots|sitemap|webFonts|inclusion_europe|style).*",
       "dest": "/",
       "methods": ["GET", "HEAD"]
     }

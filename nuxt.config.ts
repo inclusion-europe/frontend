@@ -36,6 +36,10 @@ export default defineNuxtConfig({
   // Essential for OpenGraph tags on dynamic pages
   app: {
     head: {
+      link: [
+        { rel: 'stylesheet', href: '/inclusion_europe.css' },
+        { rel: 'stylesheet', href: '/style.css' }
+      ],
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { property: 'og:type', content: 'website' },

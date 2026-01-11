@@ -1,9 +1,6 @@
 export default defineNuxtPlugin(() => {
-  // Set default meta tags on client
+  // Set default meta tags on server side
   useHead({
-    titleTemplate: (title) => {
-      return title ? title : useRuntimeConfig().public.defaultTitle;
-    },
     meta: [
       {
         name: 'description',
