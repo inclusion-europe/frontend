@@ -1,6 +1,6 @@
 <template>
   <div class="post_page" :class="{ indicators_page: isIndicatorsPage }">
-    <div v-if="loading || status === 'pending'" class="loading">
+    <div v-if="loading || fetchedPending" class="loading">
       <img src="/loading.gif" />
     </div>
     <template v-else>
@@ -90,23 +90,26 @@ const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
 
-// Post data ref
-const postData = ref(null);
+// Fetch post via Nuxt's useAsyncData (works for SSR and client navigation)
+const { data: fetchedPost, pending: fetchedPending } = useAsyncData(
+  `post-${route.params.post}`,
+  () =>
+    useMyFetch(`/post/slug/${route.params.post}?prefetch=1`).then((r) => {
+      if (!r) return null;
+      updateHeadMeta(r);
+      return utils.treatPost(r);
+    }),
+  { server: true }
+);
 
 // Variables needed for meta tags
 const defaultTitle = config.public.defaultTitle;
 
 // Define computed values for SEO early
 const post = computed(() => {
-  if (postData.value) {
-    return postData.value;
-  }
-
+  if (fetchedPost?.value) return fetchedPost.value;
   const storePost = store.getPost(route.params.post);
-  if (storePost) {
-    return storePost;
-  }
-
+  if (storePost) return storePost;
   return null;
 });
 
@@ -128,56 +131,93 @@ const pageImage = computed(
 
 const pageUrl = computed(() => `https://www.inclusion.eu${route.path}`);
 
+const generateSeo = (postData) => {
+  const title = postData?.title
+    ? `${postData.title} | ${defaultTitle}`
+    : defaultTitle;
+  const description =
+    postData?.excerpt ||
+    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
+  const image =
+    postData?.picture?.picture ||
+    'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg';
+  const url = `https://www.inclusion.eu${route.path}`;
+
+  return {
+    title,
+    description,
+    image,
+    url,
+    ogTitle: title,
+    ogDescription: description,
+    ogImage: image,
+    ogUrl: url,
+    twitterTitle: title,
+    twitterDescription: description,
+    twitterImage: image,
+  };
+};
+
 // Define updateHeadMeta function early so it can be used in onServerPrefetch
-const updateHeadMeta = () => {
+const updateHeadMeta = (postData = null) => {
+  const postToUse = postData || post.value;
+
+  const data = generateSeo(postToUse);
+
   useHead({
-    title: pageTitle.value,
+    ...data,
   });
   useServerSeoMeta({
-    title: pageTitle.value,
-    description: pageDescription.value,
-    ogTitle: pageTitle.value,
-    ogDescription: pageDescription.value,
-    ogImage: pageImage.value,
-    ogUrl: pageUrl.value,
+    ...data,
     ogType: 'article',
     twitterCard: 'summary_large_image',
-    twitterTitle: pageTitle.value,
-    twitterDescription: pageDescription.value,
-    twitterImage: pageImage.value,
   });
   useSeoMeta({
-    title: pageTitle.value,
-    description: pageDescription.value,
-    ogTitle: pageTitle.value,
-    ogDescription: pageDescription.value,
-    ogImage: pageImage.value,
-    ogUrl: pageUrl.value,
+    ...data,
     ogType: 'article',
     twitterCard: 'summary_large_image',
-    twitterTitle: pageTitle.value,
-    twitterDescription: pageDescription.value,
-    twitterImage: pageImage.value,
   });
 };
 
-// Fetch post data using onServerPrefetch for SSR
-onServerPrefetch(async () => {
-  try {
-    const data = await useMyFetch(`/post/slug/${route.params.post}`);
-    if (data) {
-      postData.value = utils.treatPost(data);
-      // Update head meta tags after fetching
-      updateHeadMeta();
-    }
-  } catch (e) {
-    console.error('API fetch failed:', e);
-  }
+// Register reactive SEO metadata (accepts refs/computeds)
+useServerSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  image: pageImage,
+  url: pageUrl,
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogImage: pageImage,
+  ogUrl: pageUrl,
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: pageImage,
+  ogType: 'article',
+  twitterCard: 'summary_large_image',
 });
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  image: pageImage,
+  url: pageUrl,
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogImage: pageImage,
+  ogUrl: pageUrl,
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: pageImage,
+  ogType: 'article',
+  twitterCard: 'summary_large_image',
+});
+
+// onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
+// ensures server fetch during SSR and runs again on client navigation.
 
 const author = ref(null);
 const showE2R = ref(route.query.e2r === '1');
-const loading = computed(() => store.isLoading);
+const loading = computed(() => store.isLoading || !!fetchedPending.value);
 
 const isIndicatorsPage = computed(() => {
   return route.path === '/indicators';
@@ -200,27 +240,7 @@ const displayAuthor = computed(() => {
   return post.value?.author;
 });
 
-// Watch for post data changes and update meta tags
-watch(
-  postData,
-  () => {
-    if (postData.value) {
-      updateHeadMeta();
-    }
-  },
-  { immediate: true }
-);
-
-// Ensure the `updateHeadMeta` function is called whenever the `post` data changes
-watch(
-  post,
-  (newPost) => {
-    if (newPost) {
-      updateHeadMeta();
-    }
-  },
-  { immediate: true }
-);
+// No imperative watches needed; `useSeoMeta` consumes the reactive `page*` values.
 
 // Load additional data on mount
 onMounted(async () => {
