@@ -11,6 +11,7 @@ export const createSeoSnapshot = ({
   path,
   description = fallbackDescription,
   image = fallbackImage,
+  normalize = false,
 }) => {
   if (!post) {
     return {
@@ -24,7 +25,7 @@ export const createSeoSnapshot = ({
     };
   }
 
-  const normalizedPost = utils.treatPost(post);
+  const normalizedPost = normalize ? utils.treatPost(post) : post;
   const title = normalizedPost.title
     ? `${normalizedPost.title} | ${defaultTitle}`
     : defaultTitle;

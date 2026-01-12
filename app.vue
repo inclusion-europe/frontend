@@ -66,7 +66,10 @@ const ensureServerSeoHead = async () => {
       const headPayload = buildSeoHeadPayload({
         post: response,
         defaultTitle: config.public.defaultTitle,
+        description: defaultDescription,
+        image: defaultImage,
         path: route.path,
+        normalize: true,
       });
       pageHeadState.value = headPayload;
       route.meta.pageHead = headPayload;

@@ -108,6 +108,7 @@ const commitSeoSnapshot = (rawPost) => {
     description: fallbackDescription,
     image: fallbackImage,
     path: route.path,
+    normalize: false,
   });
   pageHeadState.value = headPayload;
   if (route.meta) {
