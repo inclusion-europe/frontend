@@ -92,41 +92,41 @@ const visibleColumns = ref([]);
 
 const windowSize = useWindowSize();
 const selectedYear = ref(availableYears[availableYears.length - 1]);
-const requestUrl = useRequestURL();
 
 const previousYear = computed(() => {
   const prev = (Number(selectedYear.value) - 1).toString();
   return availableYears.includes(prev) ? prev : null;
 });
 
-const datasetUrlFor = (year) => {
-  if (!year) return null;
-  return new URL(
-    `/datasets/inclusion-indicators-${year}.json`,
-    requestUrl.origin
-  ).toString();
+const datasetPathFor = (year) =>
+  year ? `/datasets/inclusion-indicators-${year}.json` : null;
+
+const currentDatasetPath = computed(() => datasetPathFor(selectedYear.value));
+const previousDatasetPath = computed(() => datasetPathFor(previousYear.value));
+
+const fetchDataset = async (path) => {
+  if (!path) {
+    return { data: [], labels: {} };
+  }
+
+  return await $fetch(path);
 };
 
-const currentDatasetUrl = computed(() => datasetUrlFor(selectedYear.value));
-const previousDatasetUrl = computed(() => datasetUrlFor(previousYear.value));
-
-const { data: countryData } = await useFetch(currentDatasetUrl, {
-  default: () => ({ data: [], labels: {} }),
-  watch: [currentDatasetUrl],
-});
-
-const { data: prevYearData } = await useAsyncData(
-  'indicators-previous',
-  async () => {
-    if (!previousDatasetUrl.value) {
-      return { data: [], labels: {} };
-    }
-
-    return await $fetch(previousDatasetUrl.value);
-  },
+const { data: countryData } = await useAsyncData(
+  () => `indicators-current-${selectedYear.value}`,
+  () => fetchDataset(currentDatasetPath.value),
   {
     default: () => ({ data: [], labels: {} }),
-    watch: [previousDatasetUrl],
+    watch: [currentDatasetPath],
+  }
+);
+
+const { data: prevYearData } = await useAsyncData(
+  () => `indicators-previous-${previousYear.value ?? 'none'}`,
+  () => fetchDataset(previousDatasetPath.value),
+  {
+    default: () => ({ data: [], labels: {} }),
+    watch: [previousDatasetPath],
   }
 );
 const indicatorEvolution = (
