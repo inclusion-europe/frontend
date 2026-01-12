@@ -50,17 +50,27 @@ const headSource = computed(
   () => pageHeadState.value || route.meta?.pageHead || null
 );
 
-const waitForHeadPayload = async () => {
-  if (!route.meta?.requiresSeoHead) return;
-  if (headSource.value) return;
-  await new Promise((resolve) => {
+let pendingHeadPromise = null;
+
+const waitForHeadPayload = () => {
+  if (!route.meta?.requiresSeoHead) return Promise.resolve();
+  if (headSource.value) return Promise.resolve();
+  if (pendingHeadPromise) return pendingHeadPromise;
+  pendingHeadPromise = new Promise((resolve, reject) => {
     const stop = watch(headSource, (val) => {
       if (val) {
         stop();
+        pendingHeadPromise = null;
         resolve();
       }
     });
+    setTimeout(() => {
+      stop();
+      pendingHeadPromise = null;
+      reject(new Error('Timed out waiting for page head payload'));
+    }, 2000);
   });
+  return pendingHeadPromise;
 };
 
 const mergeEntries = (base = [], overrides = []) => {
@@ -160,12 +170,9 @@ useHead(() => {
   };
 });
 
-if (process.server) {
-  onServerPrefetch(waitForHeadPayload);
-}
-
 onServerPrefetch(async () => {
   try {
+    await waitForHeadPayload();
     if (!posts.value.length) {
       await store.loadPosts();
     }
