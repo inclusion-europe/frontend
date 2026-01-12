@@ -16,6 +16,8 @@ import WebsiteHeader from './components/Header';
 import WebsiteFooter from './components/Footer';
 import ScrollUp from './elements/ScrollUp.vue';
 import { useMainStore } from '~/store';
+import useMyFetch from '~/composables/useMyFetch';
+import { buildSeoHeadPayload } from '~/composables/useSeoHead';
 
 const config = useRuntimeConfig();
 const store = useMainStore();
@@ -50,27 +52,54 @@ const headSource = computed(
   () => pageHeadState.value || route.meta?.pageHead || null
 );
 
+const ensureServerSeoHead = async () => {
+  if (!process.server) return;
+  if (!route.meta?.requiresSeoHead) return;
+  if (headSource.value) return;
+  const slug = route.params.post?.toString();
+  if (!slug) return;
+  try {
+    const response = await useMyFetch(`/post/slug/${slug}`, {
+      query: { prefetch: 1 },
+    });
+    if (response) {
+      const headPayload = buildSeoHeadPayload({
+        post: response,
+        defaultTitle: config.public.defaultTitle,
+        path: route.path,
+      });
+      pageHeadState.value = headPayload;
+      route.meta.pageHead = headPayload;
+    }
+  } catch (error) {
+    console.error('Failed to prefetch SEO head:', error);
+  }
+};
+
 let pendingHeadPromise = null;
 
 const waitForHeadPayload = () => {
   if (!route.meta?.requiresSeoHead) return Promise.resolve();
   if (headSource.value) return Promise.resolve();
-  if (pendingHeadPromise) return pendingHeadPromise;
-  pendingHeadPromise = new Promise((resolve, reject) => {
-    const stop = watch(headSource, (val) => {
-      if (val) {
+  return ensureServerSeoHead().then(() => {
+    if (headSource.value) return;
+    if (pendingHeadPromise) return pendingHeadPromise;
+    pendingHeadPromise = new Promise((resolve, reject) => {
+      const stop = watch(headSource, (val) => {
+        if (val) {
+          stop();
+          pendingHeadPromise = null;
+          resolve();
+        }
+      });
+      setTimeout(() => {
         stop();
         pendingHeadPromise = null;
-        resolve();
-      }
+        reject(new Error('Timed out waiting for page head payload'));
+      }, 2000);
     });
-    setTimeout(() => {
-      stop();
-      pendingHeadPromise = null;
-      reject(new Error('Timed out waiting for page head payload'));
-    }, 2000);
+    return pendingHeadPromise;
   });
-  return pendingHeadPromise;
 };
 
 const mergeEntries = (base = [], overrides = []) => {

@@ -84,6 +84,7 @@ import IeButton from '~/elements/Button.vue';
 import { useMainStore } from '~/store';
 import utils from '~/scripts/utils';
 import useMyFetch from '~/composables/useMyFetch';
+import { buildSeoHeadPayload } from '~/composables/useSeoHead';
 
 const config = useRuntimeConfig();
 const store = useMainStore();
@@ -98,116 +99,16 @@ const siteUrl = 'https://www.inclusion.eu';
 const fallbackDescription =
   'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
 const fallbackImage = 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg';
-const buildSeoSnapshot = (rawPost) => {
-  const title = rawPost?.title
-    ? `${rawPost.title} | ${defaultTitle}`
-    : defaultTitle;
-  const description = rawPost?.excerpt?.trim() || fallbackDescription;
-  const socialImage = rawPost?.picture?.picture || fallbackImage;
-  let socialImageAlt = 'Illustration for Inclusion Europe article';
-  if (rawPost?.picture?.alt) {
-    socialImageAlt = rawPost.picture.alt;
-  } else if (rawPost?.title) {
-    socialImageAlt = `Picture for ${rawPost.title}`;
-  }
-
-  return {
-    title,
-    description,
-    socialImage,
-    socialImageAlt,
-    canonicalUrl: `${siteUrl}${route.path}`,
-    publishedTime: rawPost?.created_at || null,
-    modifiedTime: rawPost?.modified_at || null,
-  };
-};
-
-const snapshotToPageMeta = (snapshot) => ({
-  title: snapshot.title,
-  link: [
-    {
-      key: 'canonical',
-      rel: 'canonical',
-      href: snapshot.canonicalUrl,
-    },
-  ],
-  meta: [
-    {
-      key: 'description',
-      name: 'description',
-      content: snapshot.description,
-    },
-    {
-      key: 'og:title',
-      property: 'og:title',
-      content: snapshot.title,
-    },
-    {
-      key: 'og:description',
-      property: 'og:description',
-      content: snapshot.description,
-    },
-    {
-      key: 'og:image',
-      property: 'og:image',
-      content: snapshot.socialImage,
-    },
-    {
-      key: 'og:image:alt',
-      property: 'og:image:alt',
-      content: snapshot.socialImageAlt,
-    },
-    {
-      key: 'og:url',
-      property: 'og:url',
-      content: snapshot.canonicalUrl,
-    },
-    {
-      key: 'og:type',
-      property: 'og:type',
-      content: 'article',
-    },
-    snapshot.publishedTime
-      ? {
-          key: 'article:published_time',
-          property: 'article:published_time',
-          content: snapshot.publishedTime,
-        }
-      : null,
-    snapshot.modifiedTime
-      ? {
-          key: 'article:modified_time',
-          property: 'article:modified_time',
-          content: snapshot.modifiedTime,
-        }
-      : null,
-    {
-      key: 'twitter:card',
-      name: 'twitter:card',
-      content: 'summary_large_image',
-    },
-    {
-      key: 'twitter:title',
-      name: 'twitter:title',
-      content: snapshot.title,
-    },
-    {
-      key: 'twitter:description',
-      name: 'twitter:description',
-      content: snapshot.description,
-    },
-    {
-      key: 'twitter:image',
-      name: 'twitter:image',
-      content: snapshot.socialImage,
-    },
-  ].filter(Boolean),
-});
 
 const commitSeoSnapshot = (rawPost) => {
   if (!rawPost) return;
-  const snapshot = buildSeoSnapshot(rawPost);
-  const headPayload = snapshotToPageMeta(snapshot);
+  const headPayload = buildSeoHeadPayload({
+    post: rawPost,
+    defaultTitle,
+    description: fallbackDescription,
+    image: fallbackImage,
+    path: route.path,
+  });
   pageHeadState.value = headPayload;
   if (route.meta) {
     route.meta.pageHead = headPayload;
