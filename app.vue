@@ -19,27 +19,94 @@ import { useMainStore } from '~/store';
 
 const config = useRuntimeConfig();
 const store = useMainStore();
+const route = useRoute();
 
 const isHydrated = ref(false);
 
 const posts = computed(() => store.getPosts);
 const menu = computed(() => store.getMenu);
 
-useHead({
-  link: [
-    {
-      rel: 'stylesheet',
-      href: '/inclusion_europe.css',
-    },
-    {
-      rel: 'stylesheet',
-      href: '/style.css',
-    },
-  ],
-  titleTemplate: (titleChunk) =>
-    titleChunk && titleChunk.length
-      ? titleChunk
-      : config.public.defaultTitle,
+const siteUrl = 'https://www.inclusion.eu';
+const defaultDescription =
+  'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
+
+const globalStylesheets = [
+  {
+    key: 'global-inclusion-css',
+    rel: 'stylesheet',
+    href: '/inclusion_europe.css',
+  },
+  {
+    key: 'global-style-css',
+    rel: 'stylesheet',
+    href: '/style.css',
+  },
+];
+
+useHead(() => {
+  const pageHead = route.meta?.pageHead;
+  const fallbackHead = {
+    title: config.public.defaultTitle,
+    link: [
+      {
+        key: 'canonical',
+        rel: 'canonical',
+        href: `${siteUrl}${route.path}`,
+      },
+    ],
+    meta: [
+      {
+        key: 'description',
+        name: 'description',
+        content: defaultDescription,
+      },
+      {
+        key: 'og:title',
+        property: 'og:title',
+        content: config.public.defaultTitle,
+      },
+      {
+        key: 'og:description',
+        property: 'og:description',
+        content: defaultDescription,
+      },
+      {
+        key: 'og:url',
+        property: 'og:url',
+        content: `${siteUrl}${route.path}`,
+      },
+      {
+        key: 'og:type',
+        property: 'og:type',
+        content: 'website',
+      },
+      {
+        key: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+      {
+        key: 'twitter:title',
+        name: 'twitter:title',
+        content: config.public.defaultTitle,
+      },
+      {
+        key: 'twitter:description',
+        name: 'twitter:description',
+        content: defaultDescription,
+      },
+    ],
+  };
+
+  return {
+    title: pageHead?.title ?? fallbackHead.title,
+    titleTemplate: (titleChunk) =>
+      titleChunk && titleChunk.length
+        ? titleChunk
+        : config.public.defaultTitle,
+    link: [...globalStylesheets, ...(pageHead?.link ?? fallbackHead.link)],
+    meta: pageHead?.meta ?? fallbackHead.meta,
+  };
 });
 
 onServerPrefetch(async () => {

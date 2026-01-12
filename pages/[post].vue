@@ -260,11 +260,8 @@ const resolvedSeoSnapshot = computed(() => {
 
 const pageHead = computed(() => snapshotToPageMeta(resolvedSeoSnapshot.value));
 
-useHead(() => pageHead.value);
-
 definePageMeta(() => ({
-  key: slug.value || 'post-page',
-  head: pageHead.value,
+  pageHead: pageHead.value,
 }));
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above

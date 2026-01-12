@@ -27,6 +27,64 @@ import Events from './Events.vue';
 
 const store = useMainStore();
 const config = useRuntimeConfig();
+const siteUrl = 'https://www.inclusion.eu';
+const homepageDescription =
+  'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
+
+definePageMeta(() => ({
+  pageHead: {
+    title: config.public.defaultTitle,
+    link: [
+      {
+        key: 'canonical',
+        rel: 'canonical',
+        href: `${siteUrl}/`,
+      },
+    ],
+    meta: [
+      {
+        key: 'description',
+        name: 'description',
+        content: homepageDescription,
+      },
+      {
+        key: 'og:title',
+        property: 'og:title',
+        content: config.public.defaultTitle,
+      },
+      {
+        key: 'og:description',
+        property: 'og:description',
+        content: homepageDescription,
+      },
+      {
+        key: 'og:url',
+        property: 'og:url',
+        content: `${siteUrl}/`,
+      },
+      {
+        key: 'og:type',
+        property: 'og:type',
+        content: 'website',
+      },
+      {
+        key: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+      {
+        key: 'twitter:title',
+        name: 'twitter:title',
+        content: config.public.defaultTitle,
+      },
+      {
+        key: 'twitter:description',
+        name: 'twitter:description',
+        content: homepageDescription,
+      },
+    ],
+  },
+}));
 
 const notLive = config.public.notlive;
 
