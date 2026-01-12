@@ -29,6 +29,8 @@ const menu = computed(() => store.getMenu);
 const siteUrl = 'https://www.inclusion.eu';
 const defaultDescription =
   'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
+const defaultImage = 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg';
+const defaultImageAlt = 'Inclusion Europe members';
 
 const globalStylesheets = [
   {
@@ -42,6 +44,19 @@ const globalStylesheets = [
     href: '/style.css',
   },
 ];
+
+const mergeEntries = (base = [], overrides = []) => {
+  const keyed = new Map();
+  base.filter(Boolean).forEach((entry, index) => {
+    const key = entry.key ?? `base-${entry.rel || entry.name || entry.property || index}`;
+    keyed.set(key, entry);
+  });
+  (overrides || []).filter(Boolean).forEach((entry, index) => {
+    const key = entry.key ?? `override-${entry.rel || entry.name || entry.property || index}`;
+    keyed.set(key, entry);
+  });
+  return Array.from(keyed.values());
+};
 
 useHead(() => {
   const pageHead = route.meta?.pageHead;
@@ -81,6 +96,16 @@ useHead(() => {
         content: 'website',
       },
       {
+        key: 'og:image',
+        property: 'og:image',
+        content: defaultImage,
+      },
+      {
+        key: 'og:image:alt',
+        property: 'og:image:alt',
+        content: defaultImageAlt,
+      },
+      {
         key: 'twitter:card',
         name: 'twitter:card',
         content: 'summary_large_image',
@@ -95,8 +120,16 @@ useHead(() => {
         name: 'twitter:description',
         content: defaultDescription,
       },
+      {
+        key: 'twitter:image',
+        name: 'twitter:image',
+        content: defaultImage,
+      },
     ],
   };
+
+  const mergedLinks = mergeEntries(fallbackHead.link, pageHead?.link);
+  const mergedMeta = mergeEntries(fallbackHead.meta, pageHead?.meta);
 
   return {
     title: pageHead?.title ?? fallbackHead.title,
@@ -104,8 +137,8 @@ useHead(() => {
       titleChunk && titleChunk.length
         ? titleChunk
         : config.public.defaultTitle,
-    link: [...globalStylesheets, ...(pageHead?.link ?? fallbackHead.link)],
-    meta: pageHead?.meta ?? fallbackHead.meta,
+    link: [...globalStylesheets, ...mergedLinks],
+    meta: mergedMeta,
   };
 });
 

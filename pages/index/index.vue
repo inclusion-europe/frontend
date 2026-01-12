@@ -89,7 +89,7 @@ const homepageHead = computed(() => ({
   ],
 }));
 
-watchEffect(() => {
+watchSyncEffect(() => {
   route.meta.pageHead = homepageHead.value;
 });
 

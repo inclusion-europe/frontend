@@ -263,7 +263,7 @@ definePageMeta({
   title: 'Post',
 });
 
-watchEffect(() => {
+watchSyncEffect(() => {
   route.meta.pageHead = pageHead.value;
 });
 
