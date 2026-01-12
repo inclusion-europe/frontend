@@ -104,7 +104,32 @@ const {
     const response = await useMyFetch(`/post/slug/${slug.value}`, {
       query: { prefetch: 1 },
     });
-    return response ? utils.treatPost(response, true) : null;
+    if (response) {
+      useHead(() => ({
+        title: pageTitle.value,
+        meta: [
+          {
+            name: title,
+            value: 'Prefetched post successfully',
+          },
+        ],
+      }));
+
+      useServerSeoMeta({
+        title: 'Prefetched post successfully',
+        ogTitle: 'Prefetched post successfully',
+        twitterTitle: 'Prefetched post successfully',
+      })
+
+      useSeoMeta({
+        title: 'Prefetched post successfully',
+        ogTitle: 'Prefetched post successfully',
+        twitterTitle: 'Prefetched post successfully',
+      })
+
+      return utils.treatPost(response)
+    }
+      return null;
   },
   {
     server: true,
@@ -170,23 +195,23 @@ const buildSeoMeta = () => ({
   twitterImage: socialImage.value,
 });
 
-useServerSeoMeta(buildSeoMeta);
-useSeoMeta(buildSeoMeta);
+// useServerSeoMeta(buildSeoMeta);
+// useSeoMeta(buildSeoMeta);
 
-useHead(() => ({
-  title: pageTitle.value,
-  link: [{ rel: 'canonical', href: canonicalUrl.value }],
-  meta: [
-    {
-      name: 'description',
-      content: pageDescription.value,
-    },
-    {
-      property: 'og:image:alt',
-      content: socialImageAlt.value,
-    },
-  ],
-}));
+// useHead(() => ({
+//   title: pageTitle.value,
+//   link: [{ rel: 'canonical', href: canonicalUrl.value }],
+//   meta: [
+//     {
+//       name: 'description',
+//       content: pageDescription.value,
+//     },
+//     {
+//       property: 'og:image:alt',
+//       content: socialImageAlt.value,
+//     },
+//   ],
+// }));
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
 // ensures server fetch during SSR and runs again on client navigation.
