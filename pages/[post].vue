@@ -123,61 +123,80 @@ const buildSeoSnapshot = (rawPost) => {
 
 const snapshotToPageMeta = (snapshot) => ({
   title: snapshot.title,
-  link: [{ rel: 'canonical', href: snapshot.canonicalUrl }],
+  link: [
+    {
+      key: 'canonical',
+      rel: 'canonical',
+      href: snapshot.canonicalUrl,
+    },
+  ],
   meta: [
     {
+      key: 'description',
       name: 'description',
       content: snapshot.description,
     },
     {
+      key: 'og:title',
       property: 'og:title',
       content: snapshot.title,
     },
     {
+      key: 'og:description',
       property: 'og:description',
       content: snapshot.description,
     },
     {
+      key: 'og:image',
       property: 'og:image',
       content: snapshot.socialImage,
     },
     {
+      key: 'og:image:alt',
       property: 'og:image:alt',
       content: snapshot.socialImageAlt,
     },
     {
+      key: 'og:url',
       property: 'og:url',
       content: snapshot.canonicalUrl,
     },
     {
+      key: 'og:type',
       property: 'og:type',
       content: 'article',
     },
     snapshot.publishedTime
       ? {
+          key: 'article:published_time',
           property: 'article:published_time',
           content: snapshot.publishedTime,
         }
       : null,
     snapshot.modifiedTime
       ? {
+          key: 'article:modified_time',
           property: 'article:modified_time',
           content: snapshot.modifiedTime,
         }
       : null,
     {
+      key: 'twitter:card',
       name: 'twitter:card',
       content: 'summary_large_image',
     },
     {
+      key: 'twitter:title',
       name: 'twitter:title',
       content: snapshot.title,
     },
     {
+      key: 'twitter:description',
       name: 'twitter:description',
       content: snapshot.description,
     },
     {
+      key: 'twitter:image',
       name: 'twitter:image',
       content: snapshot.socialImage,
     },
@@ -239,11 +258,14 @@ const resolvedSeoSnapshot = computed(() => {
   return buildSeoSnapshot(post.value);
 });
 
-definePageMeta({
-  head() {
-    return snapshotToPageMeta(resolvedSeoSnapshot.value);
-  },
-});
+const pageHead = computed(() => snapshotToPageMeta(resolvedSeoSnapshot.value));
+
+useHead(() => pageHead.value);
+
+definePageMeta(() => ({
+  key: slug.value || 'post-page',
+  head: pageHead.value,
+}));
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
 // ensures server fetch during SSR and runs again on client navigation.
