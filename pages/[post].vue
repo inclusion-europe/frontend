@@ -97,8 +97,7 @@ const siteUrl = 'https://www.inclusion.eu';
 const fallbackDescription =
   'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
 const fallbackImage = 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg';
-
-const buildImmediateMetaSnapshot = (rawPost) => {
+const buildSeoSnapshot = (rawPost) => {
   const title = rawPost?.title
     ? `${rawPost.title} | ${defaultTitle}`
     : defaultTitle;
@@ -122,60 +121,39 @@ const buildImmediateMetaSnapshot = (rawPost) => {
   };
 };
 
-const ensureMetaTag = (attr, key, content) => {
-  if (!process.client || !content) return;
-  let targetMeta = Array.from(document.getElementsByTagName('meta')).find(
-    (node) => node.getAttribute(attr) === key
-  );
-  if (!targetMeta) {
-    targetMeta = document.createElement('meta');
-    targetMeta.setAttribute(attr, key);
-    document.head.appendChild(targetMeta);
-  }
-  targetMeta.setAttribute('content', content);
-};
+const snapshotToSeoMeta = (snapshot) => ({
+  title: snapshot.title,
+  description: snapshot.description,
+  ogTitle: snapshot.title,
+  ogDescription: snapshot.description,
+  ogImage: snapshot.socialImage,
+  ogImageAlt: snapshot.socialImageAlt,
+  ogUrl: snapshot.canonicalUrl,
+  ogType: 'article',
+  articlePublishedTime: snapshot.publishedTime || undefined,
+  articleModifiedTime: snapshot.modifiedTime || undefined,
+  twitterCard: 'summary_large_image',
+  twitterTitle: snapshot.title,
+  twitterDescription: snapshot.description,
+  twitterImage: snapshot.socialImage,
+});
 
-const updateDomMetaTags = (rawPost) => {
-  if (!process.client || !rawPost) return;
+const snapshotToHead = (snapshot) => ({
+  title: snapshot.title,
+  link: [{ rel: 'canonical', href: snapshot.canonicalUrl }],
+  meta: [
+    {
+      name: 'description',
+      content: snapshot.description,
+    },
+    {
+      property: 'og:image:alt',
+      content: snapshot.socialImageAlt,
+    },
+  ],
+});
 
-  const {
-    title,
-    description,
-    socialImage,
-    socialImageAlt,
-    canonicalUrl,
-    publishedTime,
-    modifiedTime,
-  } = buildImmediateMetaSnapshot(rawPost);
-
-  document.title = title;
-
-  ensureMetaTag('name', 'description', description);
-  ensureMetaTag('property', 'og:title', title);
-  ensureMetaTag('property', 'og:description', description);
-  ensureMetaTag('property', 'og:image', socialImage);
-  ensureMetaTag('property', 'og:image:alt', socialImageAlt);
-  ensureMetaTag('property', 'og:url', canonicalUrl);
-  ensureMetaTag('property', 'og:type', 'article');
-  if (publishedTime) {
-    ensureMetaTag('property', 'article:published_time', publishedTime);
-  }
-  if (modifiedTime) {
-    ensureMetaTag('property', 'article:modified_time', modifiedTime);
-  }
-  ensureMetaTag('name', 'twitter:card', 'summary_large_image');
-  ensureMetaTag('name', 'twitter:title', title);
-  ensureMetaTag('name', 'twitter:description', description);
-  ensureMetaTag('name', 'twitter:image', socialImage);
-
-  let canonicalLink = document.head.querySelector("link[rel='canonical']");
-  if (!canonicalLink) {
-    canonicalLink = document.createElement('link');
-    canonicalLink.setAttribute('rel', 'canonical');
-    document.head.appendChild(canonicalLink);
-  }
-  canonicalLink.setAttribute('href', canonicalUrl);
-};
+const seoSnapshot = ref(null);
 
 // Fetch post via Nuxt's useAsyncData (works for SSR and client navigation)
 const {
@@ -192,14 +170,11 @@ const {
     });
     if (response) {
       const hydratedPost = utils.treatPost(response);
-
-      if (process.client) {
-        updateDomMetaTags(hydratedPost);
-      }
+      seoSnapshot.value = buildSeoSnapshot(hydratedPost);
 
       return hydratedPost;
     }
-      return null;
+    return null;
   },
   {
     server: true,
@@ -216,65 +191,26 @@ const post = computed(() => {
   if (storePost) return storePost;
   return null;
 });
-
-const canonicalUrl = computed(() => `${siteUrl}${route.path}`);
-const pageTitle = computed(() => {
-  return post.value?.title
-    ? `${post.value.title} | ${defaultTitle}`
-    : defaultTitle;
-});
-const pageDescription = computed(
-  () => post.value?.excerpt?.trim() || fallbackDescription
+watch(
+  () => post.value,
+  (nextPost) => {
+    if (nextPost) {
+      seoSnapshot.value = buildSeoSnapshot(nextPost);
+    }
+  },
+  { immediate: true }
 );
-const socialImage = computed(
-  () => post.value?.picture?.picture || fallbackImage
-);
-const socialImageAlt = computed(() => {
-  if (post.value?.picture?.alt) {
-    return post.value.picture.alt;
-  }
-  if (post.value?.title) {
-    return `Picture for ${post.value.title}`;
-  }
-  return 'Illustration for Inclusion Europe article';
-});
-const publishedTime = computed(() => post.value?.created_at || null);
-const modifiedTime = computed(() => post.value?.modified_at || null);
 
-const buildSeoMeta = () => ({
-  title: pageTitle.value,
-  description: pageDescription.value,
-  ogTitle: pageTitle.value,
-  ogDescription: pageDescription.value,
-  ogImage: socialImage.value,
-  ogImageAlt: socialImageAlt.value,
-  ogUrl: canonicalUrl.value,
-  ogType: 'article',
-  articlePublishedTime: publishedTime.value,
-  articleModifiedTime: modifiedTime.value,
-  twitterCard: 'summary_large_image',
-  twitterTitle: pageTitle.value,
-  twitterDescription: pageDescription.value,
-  twitterImage: socialImage.value,
+const resolvedSeoSnapshot = computed(() => {
+  if (seoSnapshot.value) {
+    return seoSnapshot.value;
+  }
+  return buildSeoSnapshot(post.value);
 });
 
-useServerSeoMeta(buildSeoMeta);
-useSeoMeta(buildSeoMeta);
-
-useHead(() => ({
-  title: pageTitle.value,
-  link: [{ rel: 'canonical', href: canonicalUrl.value }],
-  meta: [
-    {
-      name: 'description',
-      content: pageDescription.value,
-    },
-    {
-      property: 'og:image:alt',
-      content: socialImageAlt.value,
-    },
-  ],
-}));
+useServerSeoMeta(() => snapshotToSeoMeta(resolvedSeoSnapshot.value));
+useSeoMeta(() => snapshotToSeoMeta(resolvedSeoSnapshot.value));
+useHead(() => snapshotToHead(resolvedSeoSnapshot.value));
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
 // ensures server fetch during SSR and runs again on client navigation.
@@ -303,8 +239,6 @@ const hasOtherContent = computed(() => {
 const displayAuthor = computed(() => {
   return post.value?.author;
 });
-
-// No imperative watches needed; `useSeoMeta` consumes the reactive `page*` values.
 
 // Load additional data on mount
 onMounted(async () => {
