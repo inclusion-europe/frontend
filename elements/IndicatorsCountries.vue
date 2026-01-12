@@ -92,43 +92,17 @@ const visibleColumns = ref([]);
 
 const windowSize = useWindowSize();
 const selectedYear = ref(availableYears[availableYears.length - 1]);
+const datasetCache = useState('indicator-datasets', () => ({}));
 
-const previousYear = computed(() => {
-  const prev = (Number(selectedYear.value) - 1).toString();
-  return availableYears.includes(prev) ? prev : null;
+const countryData = ref(emptyDataset());
+const prevYearData = ref(emptyDataset());
+
+await preloadDatasets();
+await updateDatasets(selectedYear.value);
+
+watch(selectedYear, (year) => {
+  updateDatasets(year);
 });
-
-const datasetPathFor = (year) =>
-  year ? `/datasets/inclusion-indicators-${year}.json` : null;
-
-const currentDatasetPath = computed(() => datasetPathFor(selectedYear.value));
-const previousDatasetPath = computed(() => datasetPathFor(previousYear.value));
-
-const fetchDataset = async (path) => {
-  if (!path) {
-    return { data: [], labels: {} };
-  }
-
-  return await $fetch(path);
-};
-
-const { data: countryData } = await useAsyncData(
-  () => `indicators-current-${selectedYear.value}`,
-  () => fetchDataset(currentDatasetPath.value),
-  {
-    default: () => ({ data: [], labels: {} }),
-    watch: [currentDatasetPath],
-  }
-);
-
-const { data: prevYearData } = await useAsyncData(
-  () => `indicators-previous-${previousYear.value ?? 'none'}`,
-  () => fetchDataset(previousDatasetPath.value),
-  {
-    default: () => ({ data: [], labels: {} }),
-    watch: [previousDatasetPath],
-  }
-);
 const indicatorEvolution = (
   country,
   score,
@@ -160,6 +134,79 @@ const indicatorEvolution = (
   return score - utils.averageFn(previousYearData, fields);
 };
 
+function emptyDataset() {
+  return { data: [], labels: {} };
+}
+
+function resolvePreviousYear(year) {
+  if (!year) return null;
+  const prev = (Number(year) - 1).toString();
+  return availableYears.includes(prev) ? prev : null;
+}
+
+function datasetPathFor(year) {
+  if (!year) return null;
+  return `/datasets/inclusion-indicators-${year}.json`;
+}
+
+async function preloadDatasets() {
+  if (!import.meta.server) return;
+
+  await Promise.all(
+    availableYears.map(async (year) => {
+      if (!datasetCache.value[year]) {
+        datasetCache.value[year] = await fetchDatasetForYear(year);
+      }
+    })
+  );
+}
+
+async function updateDatasets(year) {
+  countryData.value = await loadDataset(year);
+
+  const prevYear = resolvePreviousYear(year);
+  prevYearData.value = await loadDataset(prevYear);
+}
+
+async function loadDataset(year) {
+  if (!year) return emptyDataset();
+
+  if (datasetCache.value[year]) {
+    return datasetCache.value[year];
+  }
+
+  const data = await fetchDatasetForYear(year);
+  datasetCache.value[year] = data;
+  return data;
+}
+
+async function fetchDatasetForYear(year) {
+  const path = datasetPathFor(year);
+  if (!path) return emptyDataset();
+
+  try {
+    if (import.meta.server) {
+      const [{ readFile }, { join }] = await Promise.all([
+        import('node:fs/promises'),
+        import('node:path'),
+      ]);
+
+      const normalizedPath = path.replace(/^\//, '');
+      const filePath = join(process.cwd(), 'public', normalizedPath);
+      const fileContents = await readFile(filePath, 'utf-8');
+      return JSON.parse(fileContents);
+    }
+
+    return await $fetch(path);
+  } catch (error) {
+    console.error('[IndicatorsCountries] Failed to load dataset', {
+      year,
+      path,
+      error,
+    });
+    return emptyDataset();
+  }
+}
 
 function selectColumn(i) {
   const inArray = visibleColumns.value.indexOf(i);
