@@ -111,13 +111,12 @@ const currentDatasetUrl = computed(() => datasetUrlFor(selectedYear.value));
 const previousDatasetUrl = computed(() => datasetUrlFor(previousYear.value));
 
 const { data: countryData } = await useFetch(currentDatasetUrl, {
-  key: () => `indicators-current-${selectedYear.value}`,
   default: () => ({ data: [], labels: {} }),
   watch: [currentDatasetUrl],
 });
 
 const { data: prevYearData } = await useAsyncData(
-  () => `indicators-previous-${previousYear.value ?? 'none'}`,
+  'indicators-previous',
   async () => {
     if (!previousDatasetUrl.value) {
       return { data: [], labels: {} };
