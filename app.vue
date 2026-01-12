@@ -51,7 +51,6 @@ const headSource = computed(
 );
 
 const waitForHeadPayload = async () => {
-  if (!process.server) return;
   if (!route.meta?.requiresSeoHead) return;
   if (headSource.value) return;
   await new Promise((resolve) => {
@@ -63,8 +62,6 @@ const waitForHeadPayload = async () => {
     });
   });
 };
-
-await waitForHeadPayload();
 
 const mergeEntries = (base = [], overrides = []) => {
   const keyed = new Map();
@@ -162,6 +159,10 @@ useHead(() => {
     meta: mergedMeta,
   };
 });
+
+if (process.server) {
+  onServerPrefetch(waitForHeadPayload);
+}
 
 onServerPrefetch(async () => {
   try {
