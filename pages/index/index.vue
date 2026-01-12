@@ -27,6 +27,74 @@ import Events from './Events.vue';
 
 const store = useMainStore();
 const config = useRuntimeConfig();
+const route = useRoute();
+const pageHeadState = useState('page-head', () => null);
+const siteUrl = 'https://www.inclusion.eu';
+const homepageDescription =
+  'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
+
+definePageMeta({
+  title: 'Home',
+});
+
+const homepageHead = computed(() => ({
+  title: config.public.defaultTitle,
+  link: [
+    {
+      key: 'canonical',
+      rel: 'canonical',
+      href: `${siteUrl}/`,
+    },
+  ],
+  meta: [
+    {
+      key: 'description',
+      name: 'description',
+      content: homepageDescription,
+    },
+    {
+      key: 'og:title',
+      property: 'og:title',
+      content: config.public.defaultTitle,
+    },
+    {
+      key: 'og:description',
+      property: 'og:description',
+      content: homepageDescription,
+    },
+    {
+      key: 'og:url',
+      property: 'og:url',
+      content: `${siteUrl}/`,
+    },
+    {
+      key: 'og:type',
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      key: 'twitter:card',
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      key: 'twitter:title',
+      name: 'twitter:title',
+      content: config.public.defaultTitle,
+    },
+    {
+      key: 'twitter:description',
+      name: 'twitter:description',
+      content: homepageDescription,
+    },
+  ],
+}));
+
+watchSyncEffect(() => {
+  const headPayload = homepageHead.value;
+  pageHeadState.value = headPayload;
+  route.meta.pageHead = headPayload;
+});
 
 const notLive = config.public.notlive;
 
@@ -89,17 +157,6 @@ const events = computed(() => {
 onMounted(() => {
   isHydrated.value = true;
 });
-
-// useSeoMeta({
-//   description:
-//     'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
-//   image: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
-//   title: config.public.defaultTitle,
-//   ogDescription:
-//     'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
-//   ogImage: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
-//   ogTitle: config.public.defaultTitle,
-// });
 </script>
 
 <style lang="scss" scoped>

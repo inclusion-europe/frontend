@@ -16,56 +16,215 @@ import WebsiteHeader from './components/Header';
 import WebsiteFooter from './components/Footer';
 import ScrollUp from './elements/ScrollUp.vue';
 import { useMainStore } from '~/store';
+import useMyFetch from '~/composables/useMyFetch';
+import { buildSeoHeadPayload } from '~/composables/useSeoHead';
 
 const config = useRuntimeConfig();
 const store = useMainStore();
+const route = useRoute();
+const pageHeadState = useState('page-head', () => null);
 
 const isHydrated = ref(false);
 
 const posts = computed(() => store.getPosts);
 const menu = computed(() => store.getMenu);
 
-useHead({
-  link: [
-    {
-      rel: 'stylesheet',
-      href: '/inclusion_europe.css',
-    },
-    {
-      rel: 'stylesheet',
-      href: '/style.css',
-    },
-  ],
-  title: config.public.defaultTitle,
+const siteUrl = 'https://www.inclusion.eu';
+const defaultDescription =
+  'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
+const defaultImage = 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg';
+const defaultImageAlt = 'Inclusion Europe members';
+
+const globalStylesheets = [
+  {
+    key: 'global-inclusion-css',
+    rel: 'stylesheet',
+    href: '/inclusion_europe.css',
+  },
+  {
+    key: 'global-style-css',
+    rel: 'stylesheet',
+    href: '/style.css',
+  },
+];
+
+const headSource = computed(
+  () => pageHeadState.value || route.meta?.pageHead || null
+);
+
+const ensureServerSeoHead = async () => {
+  if (!process.server) return;
+  if (!route.meta?.requiresSeoHead) return;
+  if (headSource.value) return;
+  const slug = route.params.post?.toString();
+  if (!slug) return;
+  try {
+    const response = await useMyFetch(`/post/slug/${slug}`, {
+      query: { prefetch: 1 },
+    });
+    if (response) {
+      const headPayload = buildSeoHeadPayload({
+        post: response,
+        defaultTitle: config.public.defaultTitle,
+        description: defaultDescription,
+        image: defaultImage,
+        path: route.path,
+        normalize: true,
+      });
+      pageHeadState.value = headPayload;
+      route.meta.pageHead = headPayload;
+    }
+  } catch (error) {
+    console.error('Failed to prefetch SEO head:', error);
+  }
+};
+
+let pendingHeadPromise = null;
+
+const waitForHeadPayload = () => {
+  if (!route.meta?.requiresSeoHead) return Promise.resolve();
+  if (headSource.value) return Promise.resolve();
+  return ensureServerSeoHead().then(() => {
+    if (headSource.value) return;
+    if (pendingHeadPromise) return pendingHeadPromise;
+    pendingHeadPromise = new Promise((resolve, reject) => {
+      const stop = watch(headSource, (val) => {
+        if (val) {
+          stop();
+          pendingHeadPromise = null;
+          resolve();
+        }
+      });
+      setTimeout(() => {
+        stop();
+        pendingHeadPromise = null;
+        reject(new Error('Timed out waiting for page head payload'));
+      }, 2000);
+    });
+    return pendingHeadPromise;
+  });
+};
+
+const mergeEntries = (base = [], overrides = []) => {
+  const keyed = new Map();
+  base.filter(Boolean).forEach((entry, index) => {
+    const key = entry.key ?? `base-${entry.rel || entry.name || entry.property || index}`;
+    keyed.set(key, entry);
+  });
+  (overrides || []).filter(Boolean).forEach((entry, index) => {
+    const key = entry.key ?? `override-${entry.rel || entry.name || entry.property || index}`;
+    keyed.set(key, entry);
+  });
+  return Array.from(keyed.values());
+};
+
+useHead(() => {
+  const pageHead = headSource.value;
+  const fallbackHead = {
+    title: config.public.defaultTitle,
+    link: [
+      {
+        key: 'canonical',
+        rel: 'canonical',
+        href: `${siteUrl}${route.path}`,
+      },
+    ],
+    meta: [
+      {
+        key: 'description',
+        name: 'description',
+        content: defaultDescription,
+      },
+      {
+        key: 'og:title',
+        property: 'og:title',
+        content: config.public.defaultTitle,
+      },
+      {
+        key: 'og:description',
+        property: 'og:description',
+        content: defaultDescription,
+      },
+      {
+        key: 'og:url',
+        property: 'og:url',
+        content: `${siteUrl}${route.path}`,
+      },
+      {
+        key: 'og:type',
+        property: 'og:type',
+        content: 'website',
+      },
+      {
+        key: 'og:image',
+        property: 'og:image',
+        content: defaultImage,
+      },
+      {
+        key: 'og:image:alt',
+        property: 'og:image:alt',
+        content: defaultImageAlt,
+      },
+      {
+        key: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+      {
+        key: 'twitter:title',
+        name: 'twitter:title',
+        content: config.public.defaultTitle,
+      },
+      {
+        key: 'twitter:description',
+        name: 'twitter:description',
+        content: defaultDescription,
+      },
+      {
+        key: 'twitter:image',
+        name: 'twitter:image',
+        content: defaultImage,
+      },
+    ],
+  };
+
+  const mergedLinks = mergeEntries(fallbackHead.link, pageHead?.link);
+  const mergedMeta = mergeEntries(fallbackHead.meta, pageHead?.meta);
+
+  return {
+    title: pageHead?.title ?? fallbackHead.title,
+    titleTemplate: (titleChunk) =>
+      titleChunk && titleChunk.length
+        ? titleChunk
+        : config.public.defaultTitle,
+    link: [...globalStylesheets, ...mergedLinks],
+    meta: mergedMeta,
+  };
 });
 
-useSeoMeta({
-  description:
-    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
-  image: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
-  title: config.public.defaultTitle,
-  logo: '/logo.svg',
-  url: 'https://www.inclusion.eu',
-  ogDescription:
-    'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.',
-  ogImage: 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg',
-  ogTitle: config.public.defaultTitle,
-  ogLogo: '/logo.svg',
-  ogUrl: 'https://www.inclusion.eu',
+onServerPrefetch(async () => {
+  try {
+    await waitForHeadPayload();
+    if (!posts.value.length) {
+      await store.loadPosts();
+    }
+    if (!menu.value.length) {
+      await store.loadMenu();
+    }
+  } catch (error) {
+    console.error('Error prefetching data:', error);
+  }
 });
-
-// onServerPrefetch(async () => {
-//   await store.loadPosts();
-//   await store.loadMenu();
-// });
 
 onMounted(() => {
   if (!posts.value.length) {
-    store.loadPosts();
+    store
+      .loadPosts()
+      .catch((err) => console.error('Error loading posts:', err));
   }
 
   if (!menu.value.length) {
-    store.loadMenu();
+    store.loadMenu().catch((err) => console.error('Error loading menu:', err));
   }
 
   isHydrated.value = true;

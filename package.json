@@ -5,9 +5,9 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
