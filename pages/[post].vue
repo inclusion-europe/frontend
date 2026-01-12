@@ -239,7 +239,11 @@ const resolvedSeoSnapshot = computed(() => {
   return buildSeoSnapshot(post.value);
 });
 
-definePageMeta(() => snapshotToPageMeta(resolvedSeoSnapshot.value));
+definePageMeta({
+  head() {
+    return snapshotToPageMeta(resolvedSeoSnapshot.value);
+  },
+});
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
 // ensures server fetch during SSR and runs again on client navigation.
