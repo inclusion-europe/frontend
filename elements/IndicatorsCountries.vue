@@ -93,8 +93,35 @@ const visibleColumns = ref([]);
 const windowSize = useWindowSize();
 const selectedYear = ref(availableYears[availableYears.length - 1]);
 
-const countryData = ref({ data: [], labels: {} });
-const prevYearData = ref({ data: [], labels: {} });
+const previousYear = computed(() => {
+  const prev = (Number(selectedYear.value) - 1).toString();
+  return availableYears.includes(prev) ? prev : null;
+});
+
+const { data: countryData } = await useFetch(
+  () => `/datasets/inclusion-indicators-${selectedYear.value}.json`,
+  {
+    default: () => ({ data: [], labels: {} }),
+    watch: [selectedYear],
+  }
+);
+
+const { data: prevYearData } = await useAsyncData(
+  'indicators-previous-year',
+  async () => {
+    if (!previousYear.value) {
+      return { data: [], labels: {} };
+    }
+
+    return await $fetch(
+      `/datasets/inclusion-indicators-${previousYear.value}.json`
+    );
+  },
+  {
+    default: () => ({ data: [], labels: {} }),
+    watch: [previousYear],
+  }
+);
 
 const indicatorEvolution = (
   country,
@@ -127,25 +154,6 @@ const indicatorEvolution = (
   return score - utils.averageFn(previousYearData, fields);
 };
 
-watch(
-  selectedYear,
-  (val) => {
-    useFetch(`/datasets/inclusion-indicators-${val}.json`).then((res) => {
-      countryData.value = res.data.value;
-    });
-
-    if (availableYears.includes((+val - 1).toString())) {
-      useFetch(`/datasets/inclusion-indicators-${+val - 1}.json`).then(
-        (res) => {
-          prevYearData.value = res.data.value;
-        }
-      );
-    } else {
-      prevYearData.value = { data: [], labels: {} };
-    }
-  },
-  { immediate: true }
-);
 
 function selectColumn(i) {
   const inArray = visibleColumns.value.indexOf(i);
