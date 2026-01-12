@@ -121,24 +121,7 @@ const buildSeoSnapshot = (rawPost) => {
   };
 };
 
-const snapshotToSeoMeta = (snapshot) => ({
-  title: snapshot.title,
-  description: snapshot.description,
-  ogTitle: snapshot.title,
-  ogDescription: snapshot.description,
-  ogImage: snapshot.socialImage,
-  ogImageAlt: snapshot.socialImageAlt,
-  ogUrl: snapshot.canonicalUrl,
-  ogType: 'article',
-  articlePublishedTime: snapshot.publishedTime || undefined,
-  articleModifiedTime: snapshot.modifiedTime || undefined,
-  twitterCard: 'summary_large_image',
-  twitterTitle: snapshot.title,
-  twitterDescription: snapshot.description,
-  twitterImage: snapshot.socialImage,
-});
-
-const snapshotToHead = (snapshot) => ({
+const snapshotToPageMeta = (snapshot) => ({
   title: snapshot.title,
   link: [{ rel: 'canonical', href: snapshot.canonicalUrl }],
   meta: [
@@ -147,10 +130,58 @@ const snapshotToHead = (snapshot) => ({
       content: snapshot.description,
     },
     {
+      property: 'og:title',
+      content: snapshot.title,
+    },
+    {
+      property: 'og:description',
+      content: snapshot.description,
+    },
+    {
+      property: 'og:image',
+      content: snapshot.socialImage,
+    },
+    {
       property: 'og:image:alt',
       content: snapshot.socialImageAlt,
     },
-  ],
+    {
+      property: 'og:url',
+      content: snapshot.canonicalUrl,
+    },
+    {
+      property: 'og:type',
+      content: 'article',
+    },
+    snapshot.publishedTime
+      ? {
+          property: 'article:published_time',
+          content: snapshot.publishedTime,
+        }
+      : null,
+    snapshot.modifiedTime
+      ? {
+          property: 'article:modified_time',
+          content: snapshot.modifiedTime,
+        }
+      : null,
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: snapshot.title,
+    },
+    {
+      name: 'twitter:description',
+      content: snapshot.description,
+    },
+    {
+      name: 'twitter:image',
+      content: snapshot.socialImage,
+    },
+  ].filter(Boolean),
 });
 
 const seoSnapshot = ref(null);
@@ -208,9 +239,7 @@ const resolvedSeoSnapshot = computed(() => {
   return buildSeoSnapshot(post.value);
 });
 
-useServerSeoMeta(() => snapshotToSeoMeta(resolvedSeoSnapshot.value));
-useSeoMeta(() => snapshotToSeoMeta(resolvedSeoSnapshot.value));
-useHead(() => snapshotToHead(resolvedSeoSnapshot.value));
+definePageMeta(() => snapshotToPageMeta(resolvedSeoSnapshot.value));
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
 // ensures server fetch during SSR and runs again on client navigation.
