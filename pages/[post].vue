@@ -259,10 +259,13 @@ const resolvedSeoSnapshot = computed(() => {
 });
 
 const pageHead = computed(() => snapshotToPageMeta(resolvedSeoSnapshot.value));
+definePageMeta({
+  title: 'Post',
+});
 
-definePageMeta(() => ({
-  pageHead: pageHead.value,
-}));
+watchEffect(() => {
+  route.meta.pageHead = pageHead.value;
+});
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
 // ensures server fetch during SSR and runs again on client navigation.
