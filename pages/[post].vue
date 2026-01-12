@@ -261,6 +261,7 @@ watch(
 );
 definePageMeta({
   title: 'Post',
+  requiresSeoHead: true,
 });
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above

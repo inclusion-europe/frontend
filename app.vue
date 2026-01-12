@@ -46,6 +46,26 @@ const globalStylesheets = [
   },
 ];
 
+const headSource = computed(
+  () => pageHeadState.value || route.meta?.pageHead || null
+);
+
+const waitForHeadPayload = async () => {
+  if (!process.server) return;
+  if (!route.meta?.requiresSeoHead) return;
+  if (headSource.value) return;
+  await new Promise((resolve) => {
+    const stop = watch(headSource, (val) => {
+      if (val) {
+        stop();
+        resolve();
+      }
+    });
+  });
+};
+
+await waitForHeadPayload();
+
 const mergeEntries = (base = [], overrides = []) => {
   const keyed = new Map();
   base.filter(Boolean).forEach((entry, index) => {
@@ -60,7 +80,7 @@ const mergeEntries = (base = [], overrides = []) => {
 };
 
 useHead(() => {
-  const pageHead = pageHeadState.value || route.meta?.pageHead;
+  const pageHead = headSource.value;
   const fallbackHead = {
     title: config.public.defaultTitle,
     link: [
