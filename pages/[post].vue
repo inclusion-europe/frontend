@@ -104,7 +104,7 @@ const {
     const response = await useMyFetch(`/post/slug/${slug.value}`, {
       query: { prefetch: 1 },
     });
-    return response ? utils.treatPost(response) : null;
+    return response ? utils.treatPost(response, true) : null;
   },
   {
     server: true,
@@ -128,6 +128,7 @@ const post = computed(() => {
   if (storePost) return storePost;
   return null;
 });
+
 const canonicalUrl = computed(() => `${siteUrl}${route.path}`);
 const pageTitle = computed(() => {
   return post.value?.title
