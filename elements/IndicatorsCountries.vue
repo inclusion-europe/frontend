@@ -92,37 +92,44 @@ const visibleColumns = ref([]);
 
 const windowSize = useWindowSize();
 const selectedYear = ref(availableYears[availableYears.length - 1]);
+const requestUrl = useRequestURL();
 
 const previousYear = computed(() => {
   const prev = (Number(selectedYear.value) - 1).toString();
   return availableYears.includes(prev) ? prev : null;
 });
 
-const { data: countryData } = await useFetch(
-  () => `/datasets/inclusion-indicators-${selectedYear.value}.json`,
-  {
-    default: () => ({ data: [], labels: {} }),
-    watch: [selectedYear],
-  }
-);
+const datasetUrlFor = (year) => {
+  if (!year) return null;
+  return new URL(
+    `/datasets/inclusion-indicators-${year}.json`,
+    requestUrl.origin
+  ).toString();
+};
+
+const currentDatasetUrl = computed(() => datasetUrlFor(selectedYear.value));
+const previousDatasetUrl = computed(() => datasetUrlFor(previousYear.value));
+
+const { data: countryData } = await useFetch(currentDatasetUrl, {
+  key: () => `indicators-current-${selectedYear.value}`,
+  default: () => ({ data: [], labels: {} }),
+  watch: [currentDatasetUrl],
+});
 
 const { data: prevYearData } = await useAsyncData(
-  'indicators-previous-year',
+  () => `indicators-previous-${previousYear.value ?? 'none'}`,
   async () => {
-    if (!previousYear.value) {
+    if (!previousDatasetUrl.value) {
       return { data: [], labels: {} };
     }
 
-    return await $fetch(
-      `/datasets/inclusion-indicators-${previousYear.value}.json`
-    );
+    return await $fetch(previousDatasetUrl.value);
   },
   {
     default: () => ({ data: [], labels: {} }),
-    watch: [previousYear],
+    watch: [previousDatasetUrl],
   }
 );
-
 const indicatorEvolution = (
   country,
   score,
