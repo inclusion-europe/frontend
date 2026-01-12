@@ -20,6 +20,7 @@ import { useMainStore } from '~/store';
 const config = useRuntimeConfig();
 const store = useMainStore();
 const route = useRoute();
+const pageHeadState = useState('page-head', () => null);
 
 const isHydrated = ref(false);
 
@@ -59,7 +60,7 @@ const mergeEntries = (base = [], overrides = []) => {
 };
 
 useHead(() => {
-  const pageHead = route.meta?.pageHead;
+  const pageHead = pageHeadState.value || route.meta?.pageHead;
   const fallbackHead = {
     title: config.public.defaultTitle,
     link: [

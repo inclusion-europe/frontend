@@ -28,6 +28,7 @@ import Events from './Events.vue';
 const store = useMainStore();
 const config = useRuntimeConfig();
 const route = useRoute();
+const pageHeadState = useState('page-head', () => null);
 const siteUrl = 'https://www.inclusion.eu';
 const homepageDescription =
   'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
@@ -90,7 +91,9 @@ const homepageHead = computed(() => ({
 }));
 
 watchSyncEffect(() => {
-  route.meta.pageHead = homepageHead.value;
+  const headPayload = homepageHead.value;
+  pageHeadState.value = headPayload;
+  route.meta.pageHead = headPayload;
 });
 
 const notLive = config.public.notlive;

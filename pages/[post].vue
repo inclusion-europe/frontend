@@ -89,6 +89,7 @@ const config = useRuntimeConfig();
 const store = useMainStore();
 const router = useRouter();
 const route = useRoute();
+const pageHeadState = useState('page-head', () => null);
 const slug = computed(() => route.params.post?.toString() || '');
 
 // Variables needed for meta tags
@@ -206,8 +207,10 @@ const snapshotToPageMeta = (snapshot) => ({
 const commitSeoSnapshot = (rawPost) => {
   if (!rawPost) return;
   const snapshot = buildSeoSnapshot(rawPost);
+  const headPayload = snapshotToPageMeta(snapshot);
+  pageHeadState.value = headPayload;
   if (route.meta) {
-    route.meta.pageHead = snapshotToPageMeta(snapshot);
+    route.meta.pageHead = headPayload;
   }
 };
 
