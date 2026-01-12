@@ -91,6 +91,92 @@ const router = useRouter();
 const route = useRoute();
 const slug = computed(() => route.params.post?.toString() || '');
 
+// Variables needed for meta tags
+const defaultTitle = config.public.defaultTitle;
+const siteUrl = 'https://www.inclusion.eu';
+const fallbackDescription =
+  'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
+const fallbackImage = 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg';
+
+const buildImmediateMetaSnapshot = (rawPost) => {
+  const title = rawPost?.title
+    ? `${rawPost.title} | ${defaultTitle}`
+    : defaultTitle;
+  const description = rawPost?.excerpt?.trim() || fallbackDescription;
+  const socialImage = rawPost?.picture?.picture || fallbackImage;
+  let socialImageAlt = 'Illustration for Inclusion Europe article';
+  if (rawPost?.picture?.alt) {
+    socialImageAlt = rawPost.picture.alt;
+  } else if (rawPost?.title) {
+    socialImageAlt = `Picture for ${rawPost.title}`;
+  }
+
+  return {
+    title,
+    description,
+    socialImage,
+    socialImageAlt,
+    canonicalUrl: `${siteUrl}${route.path}`,
+    publishedTime: rawPost?.created_at || null,
+    modifiedTime: rawPost?.modified_at || null,
+  };
+};
+
+const ensureMetaTag = (attr, key, content) => {
+  if (!process.client || !content) return;
+  let targetMeta = Array.from(document.getElementsByTagName('meta')).find(
+    (node) => node.getAttribute(attr) === key
+  );
+  if (!targetMeta) {
+    targetMeta = document.createElement('meta');
+    targetMeta.setAttribute(attr, key);
+    document.head.appendChild(targetMeta);
+  }
+  targetMeta.setAttribute('content', content);
+};
+
+const updateDomMetaTags = (rawPost) => {
+  if (!process.client || !rawPost) return;
+
+  const {
+    title,
+    description,
+    socialImage,
+    socialImageAlt,
+    canonicalUrl,
+    publishedTime,
+    modifiedTime,
+  } = buildImmediateMetaSnapshot(rawPost);
+
+  document.title = title;
+
+  ensureMetaTag('name', 'description', description);
+  ensureMetaTag('property', 'og:title', title);
+  ensureMetaTag('property', 'og:description', description);
+  ensureMetaTag('property', 'og:image', socialImage);
+  ensureMetaTag('property', 'og:image:alt', socialImageAlt);
+  ensureMetaTag('property', 'og:url', canonicalUrl);
+  ensureMetaTag('property', 'og:type', 'article');
+  if (publishedTime) {
+    ensureMetaTag('property', 'article:published_time', publishedTime);
+  }
+  if (modifiedTime) {
+    ensureMetaTag('property', 'article:modified_time', modifiedTime);
+  }
+  ensureMetaTag('name', 'twitter:card', 'summary_large_image');
+  ensureMetaTag('name', 'twitter:title', title);
+  ensureMetaTag('name', 'twitter:description', description);
+  ensureMetaTag('name', 'twitter:image', socialImage);
+
+  let canonicalLink = document.head.querySelector("link[rel='canonical']");
+  if (!canonicalLink) {
+    canonicalLink = document.createElement('link');
+    canonicalLink.setAttribute('rel', 'canonical');
+    document.head.appendChild(canonicalLink);
+  }
+  canonicalLink.setAttribute('href', canonicalUrl);
+};
+
 // Fetch post via Nuxt's useAsyncData (works for SSR and client navigation)
 const {
   data: fetchedPost,
@@ -105,29 +191,13 @@ const {
       query: { prefetch: 1 },
     });
     if (response) {
-      useHead(() => ({
-        title: pageTitle.value,
-        meta: [
-          {
-            name: 'title',
-            content: 'Prefetched post successfully',
-          },
-        ],
-      }));
-      
-      useServerSeoMeta({
-        title: 'Prefetched post successfully',
-        ogTitle: 'Prefetched post successfully',
-        twitterTitle: 'Prefetched post successfully',
-      })
+      const hydratedPost = utils.treatPost(response);
 
-      useSeoMeta({
-        title: 'Prefetched post successfully',
-        ogTitle: 'Prefetched post successfully',
-        twitterTitle: 'Prefetched post successfully',
-      })
+      if (process.client) {
+        updateDomMetaTags(hydratedPost);
+      }
 
-      return utils.treatPost(response)
+      return hydratedPost;
     }
       return null;
   },
@@ -138,13 +208,6 @@ const {
     watch: [slug],
   }
 );
-
-// Variables needed for meta tags
-const defaultTitle = config.public.defaultTitle;
-const siteUrl = 'https://www.inclusion.eu';
-const fallbackDescription =
-  'Ambitions. Rights. Belonging. 20 million people with intellectual disabilities and their families in Europe.';
-const fallbackImage = 'https://str.inclusion.eu/5a26bd9ba60fa87b430d4df09.jpeg';
 
 // Define computed values for SEO early
 const post = computed(() => {
