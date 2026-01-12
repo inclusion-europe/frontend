@@ -203,7 +203,13 @@ const snapshotToPageMeta = (snapshot) => ({
   ].filter(Boolean),
 });
 
-const seoSnapshot = ref(null);
+const commitSeoSnapshot = (rawPost) => {
+  if (!rawPost) return;
+  const snapshot = buildSeoSnapshot(rawPost);
+  if (route.meta) {
+    route.meta.pageHead = snapshotToPageMeta(snapshot);
+  }
+};
 
 // Fetch post via Nuxt's useAsyncData (works for SSR and client navigation)
 const {
@@ -220,7 +226,7 @@ const {
     });
     if (response) {
       const hydratedPost = utils.treatPost(response);
-      seoSnapshot.value = buildSeoSnapshot(hydratedPost);
+      commitSeoSnapshot(hydratedPost);
 
       return hydratedPost;
     }
@@ -245,26 +251,13 @@ watch(
   () => post.value,
   (nextPost) => {
     if (nextPost) {
-      seoSnapshot.value = buildSeoSnapshot(nextPost);
+      commitSeoSnapshot(nextPost);
     }
   },
   { immediate: true }
 );
-
-const resolvedSeoSnapshot = computed(() => {
-  if (seoSnapshot.value) {
-    return seoSnapshot.value;
-  }
-  return buildSeoSnapshot(post.value);
-});
-
-const pageHead = computed(() => snapshotToPageMeta(resolvedSeoSnapshot.value));
 definePageMeta({
   title: 'Post',
-});
-
-watchSyncEffect(() => {
-  route.meta.pageHead = pageHead.value;
 });
 
 // onServerPrefetch was not reliably firing in some navigation modes; useAsyncData above
