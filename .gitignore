@@ -24,3 +24,6 @@ logs
 !.env.example
 .vercel
 .env*.local
+
+# Tmp files
+tmp
