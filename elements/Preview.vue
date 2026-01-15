@@ -221,7 +221,7 @@ export default {
 
     &--has_picture:not(.preview--big) {
       display: grid;
-      grid-template-columns: auto auto;
+      grid-template-columns: 205px auto;
 
       &.preview--full {
         grid-template-columns: 300px auto;
